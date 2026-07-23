@@ -15,6 +15,7 @@ export default function HomePage() {
   const { language, toggleLanguage, t } = useLanguage();
 
   const [stores, setStores] = useState<StoreDto[]>([]);
+  const [allMapStores, setAllMapStores] = useState<StoreDto[]>([]);
   const [categories, setCategories] = useState<CategorySummaryDto[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -27,21 +28,17 @@ export default function HomePage() {
   // Mobile View Tab State ('map' or 'list')
   const [mobileTab, setMobileTab] = useState<'map' | 'list'>('map');
 
-  // Pagination State
+  // Pagination & Infinite Scroll State
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(10);
+  const [pageSize] = useState<number>(10);
   const [pagination, setPagination] = useState<PaginationDto | null>(null);
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
 
   // Debounce search query and radius slider to prevent repetitive API calls
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
   const debouncedRadiusKm = useDebounce(radiusKm, 300);
 
   const { latitude, longitude, hasRealLocation } = activeLocation;
-
-  // Reset to page 1 whenever category, search, or radius filter changes
-  useEffect(() => {
-    setPageNumber(1);
-  }, [debouncedSearchQuery, selectedCategory, debouncedRadiusKm, isNearbyMode]);
 
   // Load Categories Summary
   const loadCategories = useCallback(async () => {
@@ -55,48 +52,100 @@ export default function HomePage() {
     loadCategories();
   }, [loadCategories]);
 
-  // Main Store Fetching Logic based on Location / Search / Category / Pagination
+  // Main Store Fetching Logic for Initial Load / Filter Change (Page 1 + All Map Pointers)
   const loadStores = useCallback(async () => {
     setIsLoading(true);
+    setPageNumber(1);
 
     try {
-      let res;
       if (debouncedSearchQuery.trim() !== '') {
-        res = await searchStores(
+        // Fetch All Matching Stores for Interactive Map Pins
+        const mapRes = await searchStores(
           debouncedSearchQuery,
           selectedCategory || undefined,
-          pageNumber,
+          1,
+          1000
+        );
+        if (mapRes.isSuccess && mapRes.data) {
+          setAllMapStores(mapRes.data);
+        }
+
+        // Fetch Page 1 for Left Side Infinite Scroll Drawer
+        const res = await searchStores(
+          debouncedSearchQuery,
+          selectedCategory || undefined,
+          1,
           pageSize
         );
+        if (res.isSuccess && res.data) {
+          setStores(res.data);
+          setPagination(res.pagination);
+          setApiError(null);
+        } else {
+          setStores([]);
+          setPagination(null);
+          setApiError(res.message || 'Failed to connect to YPS Store Finder API.');
+        }
       } else if (hasRealLocation || isNearbyMode) {
-        res = await fetchNearbyStores(
+        // Fetch All Nearby Stores within Radius for Interactive Map Pins
+        const mapRes = await fetchNearbyStores(
           latitude,
           longitude,
           debouncedRadiusKm,
           selectedCategory || undefined,
-          pageNumber,
-          pageSize
+          1,
+          1000
         );
-      } else {
-        res = await fetchStores(
-          selectedCategory || undefined,
-          pageNumber,
-          pageSize
-        );
-      }
+        if (mapRes.isSuccess && mapRes.data) {
+          setAllMapStores(mapRes.data);
+        }
 
-      if (res.isSuccess && res.data) {
-        setStores(res.data);
-        setPagination(res.pagination);
-        setApiError(null);
+        // Fetch Page 1 for Left Side Infinite Scroll Drawer
+        const res = await fetchNearbyStores(
+          latitude,
+          longitude,
+          debouncedRadiusKm,
+          selectedCategory || undefined,
+          1,
+          pageSize
+        );
+        if (res.isSuccess && res.data) {
+          setStores(res.data);
+          setPagination(res.pagination);
+          setApiError(null);
+        } else {
+          setStores([]);
+          setPagination(null);
+          setApiError(res.message || 'Failed to connect to YPS Store Finder API.');
+        }
       } else {
-        setStores([]);
-        setPagination(null);
-        setApiError(res.message || 'Failed to connect to YPS Store Finder API.');
+        // Fetch ALL Stores for Main Interactive Map (All Pointers)
+        const mapRes = await fetchStores(selectedCategory || undefined);
+        if (mapRes.isSuccess && mapRes.data) {
+          setAllMapStores(mapRes.data);
+        }
+
+        // Default Paginated Browsing for Infinite Scroll Drawer
+        const res = await searchStores(
+          '',
+          selectedCategory || undefined,
+          1,
+          pageSize
+        );
+        if (res.isSuccess && res.data) {
+          setStores(res.data);
+          setPagination(res.pagination);
+          setApiError(null);
+        } else {
+          setStores([]);
+          setPagination(null);
+          setApiError(res.message || 'Failed to connect to YPS Store Finder API.');
+        }
       }
     } catch (err: any) {
       console.error('Error loading stores:', err);
       setStores([]);
+      setAllMapStores([]);
       setPagination(null);
       setApiError(err?.message || 'Error loading stores from server.');
     } finally {
@@ -110,7 +159,73 @@ export default function HomePage() {
     latitude,
     longitude,
     debouncedRadiusKm,
+    pageSize,
+  ]);
+
+  // Infinite Scroll Handler to Load Next Page
+  const loadMoreStores = useCallback(async () => {
+    if (isLoadingMore || isLoading || !pagination?.hasNextPage) return;
+
+    const nextPage = pageNumber + 1;
+    setIsLoadingMore(true);
+
+    try {
+      if (debouncedSearchQuery.trim() !== '') {
+        const res = await searchStores(
+          debouncedSearchQuery,
+          selectedCategory || undefined,
+          nextPage,
+          pageSize
+        );
+        if (res.isSuccess && res.data) {
+          setStores((prev) => [...prev, ...res.data]);
+          setPagination(res.pagination);
+          setPageNumber(nextPage);
+        }
+      } else if (hasRealLocation || isNearbyMode) {
+        const res = await fetchNearbyStores(
+          latitude,
+          longitude,
+          debouncedRadiusKm,
+          selectedCategory || undefined,
+          nextPage,
+          pageSize
+        );
+        if (res.isSuccess && res.data) {
+          setStores((prev) => [...prev, ...res.data]);
+          setPagination(res.pagination);
+          setPageNumber(nextPage);
+        }
+      } else {
+        const res = await searchStores(
+          '',
+          selectedCategory || undefined,
+          nextPage,
+          pageSize
+        );
+        if (res.isSuccess && res.data) {
+          setStores((prev) => [...prev, ...res.data]);
+          setPagination(res.pagination);
+          setPageNumber(nextPage);
+        }
+      }
+    } catch (err) {
+      console.error('Error loading more stores:', err);
+    } finally {
+      setIsLoadingMore(false);
+    }
+  }, [
+    isLoadingMore,
+    isLoading,
+    pagination,
     pageNumber,
+    debouncedSearchQuery,
+    selectedCategory,
+    hasRealLocation,
+    isNearbyMode,
+    latitude,
+    longitude,
+    debouncedRadiusKm,
     pageSize,
   ]);
 
@@ -135,17 +250,14 @@ export default function HomePage() {
 
   const handleCategorySelect = (category: string | null) => {
     setSelectedCategory(category);
-    setPageNumber(1);
   };
 
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
-    setPageNumber(1);
   };
 
   const handleRadiusChange = (radius: number) => {
     setRadiusKm(radius);
-    setPageNumber(1);
   };
 
   const handleSelectStore = (store: StoreDto) => {
@@ -161,9 +273,11 @@ export default function HomePage() {
       {/* Top Mobile Header */}
       <div className="lg:hidden p-3 bg-[#1d5fa8] text-white flex items-center justify-between text-xs font-semibold shrink-0 gap-2 shadow-sm z-30">
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-[#ffd200] text-[#1a1c1e] font-extrabold flex items-center justify-center text-xs shadow-xs">
-            YPS
-          </div>
+          <img
+            src="/yps_logo.jpg"
+            alt="YPS Logo"
+            className="w-7 h-7 rounded-lg object-cover shadow-xs border border-white/20"
+          />
           <span className="truncate max-w-[150px] font-bold text-sm">{t('appTitle')}</span>
         </div>
 
@@ -215,13 +329,9 @@ export default function HomePage() {
             apiError={apiError}
             onRetry={handleRetry}
             pagination={pagination}
-            pageNumber={pageNumber}
-            onPageChange={setPageNumber}
-            pageSize={pageSize}
-            onPageSizeChange={(size) => {
-              setPageSize(size);
-              setPageNumber(1);
-            }}
+            isLoading={isLoading}
+            isLoadingMore={isLoadingMore}
+            onLoadMore={loadMoreStores}
           />
         </div>
 
@@ -232,7 +342,7 @@ export default function HomePage() {
           }`}
         >
           <MapView
-            stores={stores}
+            stores={allMapStores}
             userLocation={activeLocation}
             radiusKm={radiusKm}
             selectedStoreId={selectedStoreId}

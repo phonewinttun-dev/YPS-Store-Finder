@@ -23,12 +23,16 @@ namespace YpsStoreFinder.Domain.Features.Store
             _cache = cache;
         }
 
-        public async Task<PagedResult<StoreDto>> GetStoresAsync(string? category = null, int pageNumber = 1, int pageSize = 10)
+        // Returns ALL stores for the given category (cached in memory for optimal map rendering)
+        public async Task<Result<List<StoreDto>>> GetStoresAsync(string? category = null)
         {
             try
             {
-                pageNumber = pageNumber < 1 ? 1 : pageNumber;
-                pageSize = pageSize < 1 ? 10 : pageSize;
+                var cacheKey = $"stores_all_{category?.Trim().ToLower() ?? "all"}";
+                if (_cache.TryGetValue(cacheKey, out List<StoreDto>? cachedStores) && cachedStores != null)
+                {
+                    return Result<List<StoreDto>>.Success(cachedStores);
+                }
 
                 var query = _context.TblStores.AsNoTracking().AsQueryable();
 
@@ -38,23 +42,19 @@ namespace YpsStoreFinder.Domain.Features.Store
                     query = query.Where(s => s.Category.ToLower() == catLower);
                 }
 
-                var totalCount = await query.CountAsync();
-                var stores = await query
-                    .Skip((pageNumber - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToListAsync();
-
+                var stores = await query.ToListAsync();
                 var dtos = stores.Select(MapToDto).ToList();
-                var pagination = new Pagination(pageNumber, pageSize, totalCount);
 
-                return PagedResult<StoreDto>.Success(dtos, pagination);
+                _cache.Set(cacheKey, dtos, CacheDuration);
+                return Result<List<StoreDto>>.Success(dtos);
             }
             catch (Exception ex)
             {
-                return PagedResult<StoreDto>.Failure($"Failed to retrieve stores: {ex.Message}");
+                return Result<List<StoreDto>>.Failure($"Failed to retrieve stores: {ex.Message}");
             }
         }
 
+        // Paginated search method utilizing cached store data
         public async Task<PagedResult<StoreDto>> SearchStoresAsync(StoreSearchRequest request)
         {
             try
@@ -62,32 +62,31 @@ namespace YpsStoreFinder.Domain.Features.Store
                 var pageNumber = request.PageNumber < 1 ? 1 : request.PageNumber;
                 var pageSize = request.PageSize < 1 ? 10 : request.PageSize;
 
-                var query = _context.TblStores.AsNoTracking().AsQueryable();
-
-                if (!string.IsNullOrWhiteSpace(request.Category))
+                var storesResult = await GetStoresAsync(request.Category);
+                if (!storesResult.IsSuccess || storesResult.Data == null)
                 {
-                    var catLower = request.Category.Trim().ToLower();
-                    query = query.Where(s => s.Category.ToLower() == catLower);
+                    return PagedResult<StoreDto>.Failure(storesResult.Message);
                 }
 
+                var filtered = storesResult.Data;
                 if (!string.IsNullOrWhiteSpace(request.Query))
                 {
                     var term = request.Query.Trim().ToLower();
-                    query = query.Where(s => s.Name.ToLower().Contains(term) ||
-                                             (s.Address != null && s.Address.ToLower().Contains(term)) ||
-                                             (s.Description != null && s.Description.ToLower().Contains(term)));
+                    filtered = filtered
+                        .Where(s => s.Name.ToLower().Contains(term) ||
+                                    (s.Address != null && s.Address.ToLower().Contains(term)) ||
+                                    (s.Description != null && s.Description.ToLower().Contains(term)))
+                        .ToList();
                 }
 
-                var totalCount = await query.CountAsync();
-                var stores = await query
+                var totalCount = filtered.Count;
+                var pagedItems = filtered
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
-                    .ToListAsync();
+                    .ToList();
 
-                var dtos = stores.Select(MapToDto).ToList();
                 var pagination = new Pagination(pageNumber, pageSize, totalCount);
-
-                return PagedResult<StoreDto>.Success(dtos, pagination);
+                return PagedResult<StoreDto>.Success(pagedItems, pagination);
             }
             catch (Exception ex)
             {
@@ -151,6 +150,7 @@ namespace YpsStoreFinder.Domain.Features.Store
             }
         }
 
+        // Paginated geo-spatial nearby method utilizing cached store data
         public async Task<PagedResult<StoreDto>> GetNearbyStoresAsync(NearbyStoreRequest request)
         {
             try
@@ -158,17 +158,13 @@ namespace YpsStoreFinder.Domain.Features.Store
                 var pageNumber = request.PageNumber < 1 ? 1 : request.PageNumber;
                 var pageSize = request.PageSize < 1 ? 10 : request.PageSize;
 
-                var query = _context.TblStores.AsNoTracking().AsQueryable();
-
-                if (!string.IsNullOrWhiteSpace(request.Category))
+                var storesResult = await GetStoresAsync(request.Category);
+                if (!storesResult.IsSuccess || storesResult.Data == null)
                 {
-                    var catLower = request.Category.Trim().ToLower();
-                    query = query.Where(s => s.Category.ToLower() == catLower);
+                    return PagedResult<StoreDto>.Failure(storesResult.Message);
                 }
 
-                var allStores = await query.ToListAsync();
-
-                var nearbyStores = allStores
+                var nearbyStores = storesResult.Data
                     .Select(s => new StoreDto
                     {
                         Id = s.Id,
@@ -186,13 +182,13 @@ namespace YpsStoreFinder.Domain.Features.Store
                     .ToList();
 
                 var totalCount = nearbyStores.Count;
-                var pagedStores = nearbyStores
+                var pagedItems = nearbyStores
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
                     .ToList();
 
                 var pagination = new Pagination(pageNumber, pageSize, totalCount);
-                return PagedResult<StoreDto>.Success(pagedStores, pagination);
+                return PagedResult<StoreDto>.Success(pagedItems, pagination);
             }
             catch (Exception ex)
             {

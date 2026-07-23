@@ -2,16 +2,11 @@ import { ApiResult, PagedResultDto, StoreDto, CategorySummaryDto } from '../type
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5257';
 
-export async function fetchStores(
-  category?: string,
-  pageNumber = 1,
-  pageSize = 10
-): Promise<PagedResultDto<StoreDto>> {
+// Returns ALL stores (cached on backend) for complete map rendering
+export async function fetchStores(category?: string): Promise<ApiResult<StoreDto[]>> {
   try {
     const url = new URL(`${API_BASE_URL}/api/stores`);
     if (category) url.searchParams.append('category', category);
-    url.searchParams.append('pageNumber', pageNumber.toString());
-    url.searchParams.append('pageSize', pageSize.toString());
 
     const res = await fetch(url.toString(), { cache: 'no-store' });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
@@ -20,13 +15,13 @@ export async function fetchStores(
     return {
       isSuccess: false,
       message: err.message || 'Failed to fetch stores.',
-      data: [],
-      pagination: null,
+      data: null,
       isFailure: true,
     };
   }
 }
 
+// Paginated search results
 export async function searchStores(
   query?: string,
   category?: string,
@@ -69,6 +64,7 @@ export async function fetchCategoriesSummary(): Promise<ApiResult<CategorySummar
   }
 }
 
+// Paginated geo-spatial nearby results
 export async function fetchNearbyStores(
   latitude: number,
   longitude: number,

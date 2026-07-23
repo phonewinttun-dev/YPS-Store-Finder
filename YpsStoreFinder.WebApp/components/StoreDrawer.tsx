@@ -23,10 +23,9 @@ interface StoreDrawerProps {
   apiError?: string | null;
   onRetry?: () => void;
   pagination: PaginationDto | null;
-  pageNumber: number;
-  onPageChange: (page: number) => void;
-  pageSize: number;
-  onPageSizeChange: (size: number) => void;
+  isLoading: boolean;
+  isLoadingMore: boolean;
+  onLoadMore: () => void;
 }
 
 export default function StoreDrawer({
@@ -47,12 +46,24 @@ export default function StoreDrawer({
   apiError,
   onRetry,
   pagination,
-  pageNumber,
-  onPageChange,
-  pageSize,
-  onPageSizeChange,
+  isLoading,
+  isLoadingMore,
+  onLoadMore,
 }: StoreDrawerProps) {
   const { language, toggleLanguage, t, tCategory, tAddress } = useLanguage();
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const target = e.currentTarget;
+    const threshold = 180;
+    if (
+      target.scrollHeight - target.scrollTop - target.clientHeight <= threshold &&
+      pagination?.hasNextPage &&
+      !isLoadingMore &&
+      !isLoading
+    ) {
+      onLoadMore();
+    }
+  };
 
   return (
     <aside className="w-full lg:w-[420px] bg-white border-r border-[#e2e2e5] flex flex-col h-full shadow-lg shrink-0 overflow-hidden">
@@ -60,9 +71,11 @@ export default function StoreDrawer({
       <div className="p-4 sm:p-5 border-b border-[#e2e2e5] bg-gradient-to-br from-[#ffffff] to-[#ebf2f8]">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl bg-[#ffd200] flex items-center justify-center text-[#1a1c1e] shadow-sm font-bold text-lg">
-              YPS
-            </div>
+            <img
+              src="/yps_logo.jpg"
+              alt="YPS Logo"
+              className="w-10 h-10 rounded-xl object-cover shadow-sm border border-[#e2e2e5]"
+            />
             <div>
               <h1 className="font-bold text-base sm:text-lg text-[#1a1c1e] leading-tight">{t('appTitle')}</h1>
               <p className="text-xs text-gray-500 font-medium">{t('appSubtitle')}</p>
@@ -83,22 +96,8 @@ export default function StoreDrawer({
         {/* Search Bar & Store Counter */}
         <div className="flex items-center justify-between gap-2 mb-1">
           <span className="text-[11px] font-semibold font-mono-meta bg-[#e2e2e5] text-gray-700 px-2.5 py-1 rounded-full">
-            {pagination?.totalCount ?? stores.length} {(pagination?.totalCount ?? stores.length) === 1 ? t('store') : t('stores')}
+            {stores.length} / {pagination?.totalCount ?? stores.length} {t('stores')}
           </span>
-
-          {/* Page Size Selector */}
-          <div className="flex items-center gap-1 text-[11px] font-medium text-gray-600">
-            <span>Per Page:</span>
-            <select
-              value={pageSize}
-              onChange={(e) => onPageSizeChange(Number(e.target.value))}
-              className="bg-[#f9f9fc] border border-[#d1c6ab] text-xs font-bold text-[#1d5fa8] rounded px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-[#1d5fa8]"
-            >
-              <option value={10}>10</option>
-              <option value={20}>20</option>
-              <option value={50}>50</option>
-            </select>
-          </div>
         </div>
 
         <div className="relative mt-2">
@@ -218,8 +217,11 @@ export default function StoreDrawer({
         </div>
       </div>
 
-      {/* Store Cards List */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-[#f9f9fc]">
+      {/* Store Cards List (with Infinite Scroll onScroll handler) */}
+      <div
+        onScroll={handleScroll}
+        className="flex-1 overflow-y-auto p-4 space-y-3 bg-[#f9f9fc]"
+      >
         {apiError && (
           <div className="p-3.5 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 flex flex-col gap-2">
             <div className="flex items-center gap-2 font-semibold text-red-800">
@@ -239,7 +241,7 @@ export default function StoreDrawer({
           </div>
         )}
 
-        {stores.length === 0 ? (
+        {stores.length === 0 && !isLoading ? (
           <div className="py-12 text-center text-gray-500">
             <MapPin className="w-10 h-10 text-gray-300 mx-auto mb-2" />
             <p className="font-semibold text-sm">{t('noStoresFound')}</p>
@@ -301,43 +303,25 @@ export default function StoreDrawer({
             );
           })
         )}
-      </div>
 
-      {/* Pagination Bar Controls */}
-      {pagination && pagination.totalPages > 1 && (
-        <div className="p-3 bg-white border-t border-[#e2e2e5] flex items-center justify-between gap-2 text-xs shrink-0 shadow-sm">
-          <button
-            disabled={!pagination.hasPreviousPage}
-            onClick={() => onPageChange(pageNumber - 1)}
-            className="px-3 py-1.5 rounded-lg border border-[#e2e2e5] bg-[#f9f9fc] hover:bg-[#ebf2f8] disabled:opacity-40 disabled:cursor-not-allowed font-semibold text-gray-700 flex items-center gap-1 transition-all cursor-pointer"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            <span>{language === 'my' ? 'ရှေ့သို့' : 'Prev'}</span>
-          </button>
+        {/* Loading More Indicator (Infinite Scroll Spinner) */}
+        {isLoadingMore && (
+          <div className="p-3 bg-white border border-[#e2e2e5] rounded-xl flex items-center justify-center gap-2.5 text-xs font-semibold text-[#1d5fa8] shadow-xs animate-pulse">
+            <RefreshCw className="w-4 h-4 animate-spin text-[#1d5fa8]" />
+            <span>{t('loadingMore')}</span>
+          </div>
+        )}
 
-          <div className="flex flex-col items-center">
-            <span className="font-semibold text-[#1a1c1e]">
-              {language === 'my'
-                ? `စာမျက်နှာ ${pagination.pageNumber} / ${pagination.totalPages}`
-                : `Page ${pagination.pageNumber} of ${pagination.totalPages}`}
-            </span>
-            <span className="text-[10px] text-gray-500 font-mono-meta">
-              {language === 'my'
-                ? `စုစုပေါင်း ${pagination.totalCount} ဆိုင်`
-                : `Total ${pagination.totalCount} stores`}
+        {/* Caught Up / End of Feed Indicator */}
+        {pagination && !pagination.hasNextPage && stores.length > 0 && (
+          <div className="py-4 text-center">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#e2e2e5]/60 text-gray-600 text-xs font-medium font-mono-meta border border-[#d1c6ab]/40 shadow-2xs">
+              <span className="text-emerald-600 font-bold">✓</span> {t('caughtUp')}
             </span>
           </div>
-
-          <button
-            disabled={!pagination.hasNextPage}
-            onClick={() => onPageChange(pageNumber + 1)}
-            className="px-3 py-1.5 rounded-lg border border-[#e2e2e5] bg-[#f9f9fc] hover:bg-[#ebf2f8] disabled:opacity-40 disabled:cursor-not-allowed font-semibold text-gray-700 flex items-center gap-1 transition-all cursor-pointer"
-          >
-            <span>{language === 'my' ? 'နောက်သို့' : 'Next'}</span>
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
-      )}
+        )}
+      </div>
     </aside>
   );
 }
+

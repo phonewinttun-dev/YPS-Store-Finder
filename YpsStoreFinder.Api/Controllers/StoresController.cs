@@ -18,13 +18,15 @@ namespace YpsStoreFinder.Api.Controllers
             _storeService = storeService;
         }
 
+        // Returns ALL stores (cached in memory) for map rendering & initial display
         [HttpGet]
-        public async Task<IActionResult> GetStores([FromQuery] string? category = null, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetStores([FromQuery] string? category = null)
         {
-            var result = await _storeService.GetStoresAsync(category, pageNumber, pageSize);
+            var result = await _storeService.GetStoresAsync(category);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
+        // Paginated search results
         [HttpGet("search")]
         public async Task<IActionResult> SearchStores([FromQuery] StoreSearchRequest request)
         {
@@ -39,6 +41,7 @@ namespace YpsStoreFinder.Api.Controllers
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
+        // Paginated geo-spatial nearby results
         [HttpGet("nearby")]
         public async Task<IActionResult> GetNearbyStores([FromQuery] NearbyStoreRequest request)
         {

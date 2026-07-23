@@ -5,31 +5,29 @@ import '../models/store_model.dart';
 class ApiService {
   static const String baseUrl = 'http://10.0.2.2:5246'; // Android Emulator localhost fallback
 
-  Future<PagedResultModel<StoreModel>> getStores({
-    String? category,
-    int pageNumber = 1,
-    int pageSize = 10,
-  }) async {
-    final Map<String, String> queryParams = {
-      'pageNumber': pageNumber.toString(),
-      'pageSize': pageSize.toString(),
-    };
+  // Returns ALL stores (cached on backend) for complete map rendering
+  Future<ApiResultModel<List<StoreModel>>> getStores({String? category}) async {
+    final Map<String, String> queryParams = {};
     if (category != null && category.isNotEmpty) queryParams['category'] = category;
 
-    final uri = Uri.parse('$baseUrl/api/stores').replace(queryParameters: queryParams);
+    final uri = Uri.parse('$baseUrl/api/stores').replace(queryParameters: queryParams.isNotEmpty ? queryParams : null);
 
     try {
       final response = await http.get(uri);
       if (response.statusCode == 200) {
         final jsonMap = json.decode(response.body);
-        return PagedResultModel.fromJson(jsonMap, (item) => StoreModel.fromJson(item));
+        return ApiResultModel.fromJson(
+          jsonMap,
+          (data) => (data as List).map((item) => StoreModel.fromJson(item)).toList(),
+        );
       }
-      return PagedResultModel(isSuccess: false, message: 'Server returned HTTP ${response.statusCode}', data: []);
+      return ApiResultModel(isSuccess: false, message: 'Server returned HTTP ${response.statusCode}');
     } catch (e) {
-      return PagedResultModel(isSuccess: false, message: 'Network error: $e', data: []);
+      return ApiResultModel(isSuccess: false, message: 'Network error: $e');
     }
   }
 
+  // Paginated search results
   Future<PagedResultModel<StoreModel>> searchStores({
     String? query,
     String? category,
@@ -75,6 +73,7 @@ class ApiService {
     }
   }
 
+  // Paginated geo-spatial nearby results
   Future<PagedResultModel<StoreModel>> getNearbyStores({
     required double latitude,
     required double longitude,

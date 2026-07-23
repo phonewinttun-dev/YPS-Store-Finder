@@ -27,6 +27,8 @@
     "english": "English",
     "lat": "မြောက်လတ္တီတွဒ်",
     "lng": "အရှေ့လောင်ဂျီတွဒ်",
+    "loadingMore": "နောက်ထပ် ဆိုင်များ ယူနေသည်...",
+    "caughtUp": "စတိုးဆိုင်များ အားလုံး ပြသပြီးပါပြီ",
     "categories": {
       "YPS Service Kios": "YPS ဝန်ဆောင်မှု ကောင်တာများ",
       "YPS Agents": "YPS ကိုယ်စားလှယ်များ",
@@ -64,6 +66,8 @@
     "english": "English",
     "lat": "Lat",
     "lng": "Lng",
+    "loadingMore": "Loading more stores...",
+    "caughtUp": "You've reached the end of the list",
     "categories": {
       "YPS Service Kios": "YPS Service Kiosks",
       "YPS Agents": "YPS Agents",
