@@ -5,6 +5,10 @@ import '../models/store_model.dart';
 
 class ApiService {
   static String get baseUrl {
+    const envUrl = String.fromEnvironment('API_URL');
+    if (envUrl.isNotEmpty) {
+      return envUrl;
+    }
     if (kIsWeb) {
       return 'http://localhost:5257';
     }

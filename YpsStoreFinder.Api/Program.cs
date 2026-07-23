@@ -56,17 +56,14 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure HTTP request pipeline & Scalar OpenAPI UI
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.MapScalarApiReference(options =>
 {
-    app.UseSwagger();
-    app.MapScalarApiReference(options =>
-    {
-        options.WithTitle("YpsStoreFinder API Documentation")
-               .WithTheme(ScalarTheme.DeepSpace)
-               .WithOpenApiRoutePattern("/swagger/v1/swagger.json")
-               .WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Fetch);
-    });
-}
+    options.WithTitle("YpsStoreFinder API Documentation")
+           .WithTheme(ScalarTheme.DeepSpace)
+           .WithOpenApiRoutePattern("/swagger/v1/swagger.json")
+           .WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Fetch);
+});
 
 app.UseCors("AllowAll");
 app.UseRateLimiter();
