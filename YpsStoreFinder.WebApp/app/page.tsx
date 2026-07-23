@@ -59,24 +59,11 @@ export default function HomePage() {
 
     try {
       if (debouncedSearchQuery.trim() !== '') {
-        // Fetch All Matching Stores for Interactive Map Pins
-        const mapRes = await searchStores(
-          debouncedSearchQuery,
-          selectedCategory || undefined,
-          1,
-          1000
-        );
-        if (mapRes.isSuccess && mapRes.data) {
-          setAllMapStores(mapRes.data);
-        }
-
-        // Fetch Page 1 for Left Side Infinite Scroll Drawer
-        const res = await searchStores(
-          debouncedSearchQuery,
-          selectedCategory || undefined,
-          1,
-          pageSize
-        );
+        const [mapRes, res] = await Promise.all([
+          searchStores(debouncedSearchQuery, selectedCategory || undefined, 1, 1000),
+          searchStores(debouncedSearchQuery, selectedCategory || undefined, 1, pageSize)
+        ]);
+        if (mapRes.isSuccess && mapRes.data) setAllMapStores(mapRes.data);
         if (res.isSuccess && res.data) {
           setStores(res.data);
           setPagination(res.pagination);
@@ -87,28 +74,11 @@ export default function HomePage() {
           setApiError(res.message || 'Failed to connect to YPS Store Finder API.');
         }
       } else if (hasRealLocation || isNearbyMode) {
-        // Fetch All Nearby Stores within Radius for Interactive Map Pins
-        const mapRes = await fetchNearbyStores(
-          latitude,
-          longitude,
-          debouncedRadiusKm,
-          selectedCategory || undefined,
-          1,
-          1000
-        );
-        if (mapRes.isSuccess && mapRes.data) {
-          setAllMapStores(mapRes.data);
-        }
-
-        // Fetch Page 1 for Left Side Infinite Scroll Drawer
-        const res = await fetchNearbyStores(
-          latitude,
-          longitude,
-          debouncedRadiusKm,
-          selectedCategory || undefined,
-          1,
-          pageSize
-        );
+        const [mapRes, res] = await Promise.all([
+          fetchNearbyStores(latitude, longitude, debouncedRadiusKm, selectedCategory || undefined, 1, 1000),
+          fetchNearbyStores(latitude, longitude, debouncedRadiusKm, selectedCategory || undefined, 1, pageSize),
+        ]);
+        if (mapRes.isSuccess && mapRes.data) setAllMapStores(mapRes.data);
         if (res.isSuccess && res.data) {
           setStores(res.data);
           setPagination(res.pagination);
@@ -119,19 +89,11 @@ export default function HomePage() {
           setApiError(res.message || 'Failed to connect to YPS Store Finder API.');
         }
       } else {
-        // Fetch ALL Stores for Main Interactive Map (All Pointers)
-        const mapRes = await fetchStores(selectedCategory || undefined);
-        if (mapRes.isSuccess && mapRes.data) {
-          setAllMapStores(mapRes.data);
-        }
-
-        // Default Paginated Browsing for Infinite Scroll Drawer
-        const res = await searchStores(
-          '',
-          selectedCategory || undefined,
-          1,
-          pageSize
-        );
+        const [mapRes, res] = await Promise.all([
+          fetchStores(selectedCategory || undefined),
+          searchStores('', selectedCategory || undefined, 1, pageSize),
+        ]);
+        if (mapRes.isSuccess && mapRes.data) setAllMapStores(mapRes.data);
         if (res.isSuccess && res.data) {
           setStores(res.data);
           setPagination(res.pagination);

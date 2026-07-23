@@ -1,20 +1,27 @@
-import { ApiResult, PagedResultDto, StoreDto, CategorySummaryDto } from '../types/store';
+import {
+  ApiResult,
+  CategorySummaryDto,
+  PagedResultDto,
+  StoreDto,
+} from "../types/store";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5257';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // Returns ALL stores (cached on backend) for complete map rendering
-export async function fetchStores(category?: string): Promise<ApiResult<StoreDto[]>> {
+export async function fetchStores(
+  category?: string,
+): Promise<ApiResult<StoreDto[]>> {
   try {
     const url = new URL(`${API_BASE_URL}/api/stores`);
-    if (category) url.searchParams.append('category', category);
+    if (category) url.searchParams.append("category", category);
 
-    const res = await fetch(url.toString(), { cache: 'no-store' });
+    const res = await fetch(url.toString(), { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
   } catch (err: any) {
     return {
       isSuccess: false,
-      message: err.message || 'Failed to fetch stores.',
+      message: err.message || "Failed to fetch stores.",
       data: null,
       isFailure: true,
     };
@@ -26,22 +33,22 @@ export async function searchStores(
   query?: string,
   category?: string,
   pageNumber = 1,
-  pageSize = 10
+  pageSize = 10,
 ): Promise<PagedResultDto<StoreDto>> {
   try {
     const url = new URL(`${API_BASE_URL}/api/stores/search`);
-    if (query) url.searchParams.append('query', query);
-    if (category) url.searchParams.append('category', category);
-    url.searchParams.append('pageNumber', pageNumber.toString());
-    url.searchParams.append('pageSize', pageSize.toString());
+    if (query) url.searchParams.append("query", query);
+    if (category) url.searchParams.append("category", category);
+    url.searchParams.append("pageNumber", pageNumber.toString());
+    url.searchParams.append("pageSize", pageSize.toString());
 
-    const res = await fetch(url.toString(), { cache: 'no-store' });
+    const res = await fetch(url.toString(), { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
   } catch (err: any) {
     return {
       isSuccess: false,
-      message: err.message || 'Failed to search stores.',
+      message: err.message || "Failed to search stores.",
       data: [],
       pagination: null,
       isFailure: true,
@@ -49,15 +56,19 @@ export async function searchStores(
   }
 }
 
-export async function fetchCategoriesSummary(): Promise<ApiResult<CategorySummaryDto[]>> {
+export async function fetchCategoriesSummary(): Promise<
+  ApiResult<CategorySummaryDto[]>
+> {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/stores/categories`, { cache: 'no-store' });
+    const res = await fetch(`${API_BASE_URL}/api/stores/categories`, {
+      cache: "no-store",
+    });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
   } catch (err: any) {
     return {
       isSuccess: false,
-      message: err.message || 'Failed to fetch categories summary.',
+      message: err.message || "Failed to fetch categories summary.",
       data: null,
       isFailure: true,
     };
@@ -71,24 +82,24 @@ export async function fetchNearbyStores(
   radiusKm = 5.0,
   category?: string,
   pageNumber = 1,
-  pageSize = 10
+  pageSize = 10,
 ): Promise<PagedResultDto<StoreDto>> {
   try {
     const url = new URL(`${API_BASE_URL}/api/stores/nearby`);
-    url.searchParams.append('latitude', latitude.toString());
-    url.searchParams.append('longitude', longitude.toString());
-    url.searchParams.append('radiusKm', radiusKm.toString());
-    if (category) url.searchParams.append('category', category);
-    url.searchParams.append('pageNumber', pageNumber.toString());
-    url.searchParams.append('pageSize', pageSize.toString());
+    url.searchParams.append("latitude", latitude.toString());
+    url.searchParams.append("longitude", longitude.toString());
+    url.searchParams.append("radiusKm", radiusKm.toString());
+    if (category) url.searchParams.append("category", category);
+    url.searchParams.append("pageNumber", pageNumber.toString());
+    url.searchParams.append("pageSize", pageSize.toString());
 
-    const res = await fetch(url.toString(), { cache: 'no-store' });
+    const res = await fetch(url.toString(), { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
   } catch (err: any) {
     return {
       isSuccess: false,
-      message: err.message || 'Failed to fetch nearby stores.',
+      message: err.message || "Failed to fetch nearby stores.",
       data: [],
       pagination: null,
       isFailure: true,
@@ -98,13 +109,15 @@ export async function fetchNearbyStores(
 
 export async function fetchStoreById(id: number): Promise<ApiResult<StoreDto>> {
   try {
-    const res = await fetch(`${API_BASE_URL}/api/stores/${id}`, { cache: 'no-store' });
+    const res = await fetch(`${API_BASE_URL}/api/stores/${id}`, {
+      cache: "no-store",
+    });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
   } catch (err: any) {
     return {
       isSuccess: false,
-      message: err.message || 'Failed to fetch store details.',
+      message: err.message || "Failed to fetch store details.",
       data: null,
       isFailure: true,
     };
