@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,17 +9,15 @@ namespace YpsStoreFinder.Domain
 {
     public static class FeatureManager
     {
-        public static IServiceCollection AddDomain(this IServiceCollection services, IConfiguration configuration)
+        public static void AddDomain(this WebApplicationBuilder builder)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection") 
-                                   ?? "Data Source=yps_finder.db";
+            // Database
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") 
+                                   ?? "Data Source=yps_finder.db"));
 
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlite(connectionString));
-
-            services.AddScoped<IStoreService, StoreService>();
-
-            return services;
+            // Feature Services
+            builder.Services.AddScoped<IStoreService, StoreService>();
         }
     }
 }
