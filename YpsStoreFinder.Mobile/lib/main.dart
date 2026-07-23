@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'features/home/home_screen.dart';
+import 'services/translation_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await TranslationService().loadTranslations();
   runApp(const YpsStoreFinderApp());
 }
 

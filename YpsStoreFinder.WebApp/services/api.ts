@@ -1,6 +1,6 @@
 import { ApiResult, StoreDto, CategorySummaryDto } from '../types/store';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://localhost:7198';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5257';
 
 export async function fetchStores(category?: string): Promise<ApiResult<StoreDto[]>> {
   try {

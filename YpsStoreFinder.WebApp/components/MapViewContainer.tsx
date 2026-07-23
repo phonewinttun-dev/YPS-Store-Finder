@@ -6,6 +6,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { StoreDto } from '../types/store';
 import { Navigation, MapPin } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 interface MapViewContainerProps {
   stores: StoreDto[];
@@ -80,6 +81,7 @@ export default function MapViewContainer({
   selectedStoreId,
   onSelectStore,
 }: MapViewContainerProps) {
+  const { t, tCategory } = useLanguage();
   const [mapCenter, setMapCenter] = useState<[number, number]>([
     userLocation.latitude,
     userLocation.longitude,
@@ -120,8 +122,8 @@ export default function MapViewContainer({
             >
               <Popup>
                 <div className="p-1 font-work-sans text-xs">
-                  <span className="font-semibold text-[#1d5fa8] block">Your Current Location</span>
-                  <span className="text-gray-500 font-mono-meta">Device GPS Active</span>
+                  <span className="font-semibold text-[#1d5fa8] block">{t('deviceLocation')}</span>
+                  <span className="text-gray-500 font-mono-meta">{t('gpsActive')}</span>
                 </div>
               </Popup>
             </Marker>
@@ -154,11 +156,11 @@ export default function MapViewContainer({
               <div className="p-2 max-w-[240px] font-work-sans">
                 <div className="flex items-center justify-between gap-2 mb-1">
                   <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#ebf2f8] text-[#1d5fa8]">
-                    {store.category}
+                    {tCategory(store.category)}
                   </span>
                   {store.distanceKm !== null && (
                     <span className="text-xs font-semibold font-mono-meta text-[#725c00] bg-[#ffe07c] px-2 py-0.5 rounded">
-                      {store.distanceKm} km
+                      {store.distanceKm} {t('km')}
                     </span>
                   )}
                 </div>
@@ -179,7 +181,7 @@ export default function MapViewContainer({
                   className="w-full mt-2 py-1.5 px-3 bg-[#1d5fa8] hover:bg-[#00417e] text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-colors shadow-sm"
                 >
                   <Navigation className="w-3.5 h-3.5" />
-                  Get Directions
+                  {t('directions')}
                 </a>
               </div>
             </Popup>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { LanguageProvider } from '../context/LanguageContext';
 
 export const metadata: Metadata = {
   title: 'YPS Store Finder - Live Transit & Service Locator',
@@ -12,9 +13,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="my">
       <body className="antialiased font-sans bg-[#f9f9fc] text-[#1a1c1e] overflow-hidden">
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

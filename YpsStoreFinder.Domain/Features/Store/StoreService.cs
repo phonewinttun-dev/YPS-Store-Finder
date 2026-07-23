@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using YpsStoreFinder.Database;
 using YpsStoreFinder.Database.Models;
 using YpsStoreFinder.Domain.Features.Store.DTOs;
@@ -13,16 +14,25 @@ namespace YpsStoreFinder.Domain.Features.Store
     public class StoreService : IStoreService
     {
         private readonly AppDbContext _context;
+        private readonly IMemoryCache _cache;
+        private static readonly TimeSpan CacheDuration = TimeSpan.FromMinutes(10);
 
-        public StoreService(AppDbContext context)
+        public StoreService(AppDbContext context, IMemoryCache cache)
         {
             _context = context;
+            _cache = cache;
         }
 
         public async Task<Result<List<StoreDto>>> GetStoresAsync(string? category = null)
         {
             try
             {
+                var cacheKey = $"stores_all_{category?.Trim().ToLower() ?? "all"}";
+                if (_cache.TryGetValue(cacheKey, out List<StoreDto>? cachedStores) && cachedStores != null)
+                {
+                    return Result<List<StoreDto>>.Success(cachedStores);
+                }
+
                 var query = _context.TblStores.AsNoTracking().AsQueryable();
 
                 if (!string.IsNullOrWhiteSpace(category))
@@ -34,6 +44,7 @@ namespace YpsStoreFinder.Domain.Features.Store
                 var stores = await query.ToListAsync();
                 var dtos = stores.Select(MapToDto).ToList();
 
+                _cache.Set(cacheKey, dtos, CacheDuration);
                 return Result<List<StoreDto>>.Success(dtos);
             }
             catch (Exception ex)
@@ -46,31 +57,25 @@ namespace YpsStoreFinder.Domain.Features.Store
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(request.Query) && string.IsNullOrWhiteSpace(request.Category))
+                var storesResult = await GetStoresAsync(request.Category);
+                if (!storesResult.IsSuccess || storesResult.Data == null)
                 {
-                    return await GetStoresAsync();
+                    return storesResult;
                 }
 
-                var query = _context.TblStores.AsNoTracking().AsQueryable();
-
-                if (!string.IsNullOrWhiteSpace(request.Category))
+                if (string.IsNullOrWhiteSpace(request.Query))
                 {
-                    var catLower = request.Category.Trim().ToLower();
-                    query = query.Where(s => s.Category.ToLower() == catLower);
+                    return storesResult;
                 }
 
-                if (!string.IsNullOrWhiteSpace(request.Query))
-                {
-                    var term = request.Query.Trim().ToLower();
-                    query = query.Where(s => s.Name.ToLower().Contains(term) ||
-                                             (s.Address != null && s.Address.ToLower().Contains(term)) ||
-                                             (s.Description != null && s.Description.ToLower().Contains(term)));
-                }
+                var term = request.Query.Trim().ToLower();
+                var filtered = storesResult.Data
+                    .Where(s => s.Name.ToLower().Contains(term) ||
+                                (s.Address != null && s.Address.ToLower().Contains(term)) ||
+                                (s.Description != null && s.Description.ToLower().Contains(term)))
+                    .ToList();
 
-                var stores = await query.ToListAsync();
-                var dtos = stores.Select(MapToDto).ToList();
-
-                return Result<List<StoreDto>>.Success(dtos);
+                return Result<List<StoreDto>>.Success(filtered);
             }
             catch (Exception ex)
             {
@@ -82,13 +87,21 @@ namespace YpsStoreFinder.Domain.Features.Store
         {
             try
             {
+                var cacheKey = $"store_item_{id}";
+                if (_cache.TryGetValue(cacheKey, out StoreDto? cachedStore) && cachedStore != null)
+                {
+                    return Result<StoreDto>.Success(cachedStore);
+                }
+
                 var store = await _context.TblStores.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
                 if (store == null)
                 {
                     return Result<StoreDto>.Failure($"Store with ID {id} was not found.");
                 }
 
-                return Result<StoreDto>.Success(MapToDto(store));
+                var dto = MapToDto(store);
+                _cache.Set(cacheKey, dto, CacheDuration);
+                return Result<StoreDto>.Success(dto);
             }
             catch (Exception ex)
             {
@@ -100,6 +113,12 @@ namespace YpsStoreFinder.Domain.Features.Store
         {
             try
             {
+                const string cacheKey = "stores_categories_summary";
+                if (_cache.TryGetValue(cacheKey, out List<CategorySummaryDto>? cachedSummary) && cachedSummary != null)
+                {
+                    return Result<List<CategorySummaryDto>>.Success(cachedSummary);
+                }
+
                 var summary = await _context.TblStores
                     .AsNoTracking()
                     .GroupBy(s => s.Category)
@@ -111,6 +130,7 @@ namespace YpsStoreFinder.Domain.Features.Store
                     .OrderByDescending(c => c.Count)
                     .ToListAsync();
 
+                _cache.Set(cacheKey, summary, CacheDuration);
                 return Result<List<CategorySummaryDto>>.Success(summary);
             }
             catch (Exception ex)
@@ -123,22 +143,24 @@ namespace YpsStoreFinder.Domain.Features.Store
         {
             try
             {
-                var query = _context.TblStores.AsNoTracking().AsQueryable();
-
-                if (!string.IsNullOrWhiteSpace(request.Category))
+                var storesResult = await GetStoresAsync(request.Category);
+                if (!storesResult.IsSuccess || storesResult.Data == null)
                 {
-                    var catLower = request.Category.Trim().ToLower();
-                    query = query.Where(s => s.Category.ToLower() == catLower);
+                    return storesResult;
                 }
 
-                var allStores = await query.ToListAsync();
-
-                var nearbyStores = allStores
-                    .Select(s =>
+                var nearbyStores = storesResult.Data
+                    .Select(s => new StoreDto
                     {
-                        var dto = MapToDto(s);
-                        dto.DistanceKm = Math.Round(CalculateHaversineDistance(request.Latitude, request.Longitude, s.Latitude, s.Longitude), 2);
-                        return dto;
+                        Id = s.Id,
+                        Category = s.Category,
+                        Name = s.Name,
+                        Latitude = s.Latitude,
+                        Longitude = s.Longitude,
+                        Address = s.Address,
+                        Description = s.Description,
+                        RawAttributes = s.RawAttributes,
+                        DistanceKm = Math.Round(CalculateHaversineDistance(request.Latitude, request.Longitude, s.Latitude, s.Longitude), 2)
                     })
                     .Where(dto => dto.DistanceKm <= request.RadiusKm)
                     .OrderBy(dto => dto.DistanceKm)

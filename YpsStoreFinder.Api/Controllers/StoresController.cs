@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using YpsStoreFinder.Domain.Features.Store;
 using YpsStoreFinder.Domain.Features.Store.DTOs;
 
@@ -7,6 +8,7 @@ namespace YpsStoreFinder.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [EnableRateLimiting("ip-fixed-window")]
     public class StoresController : ControllerBase
     {
         private readonly IStoreService _storeService;

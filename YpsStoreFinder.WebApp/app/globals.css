@@ -90,11 +90,27 @@
 }
 
 .leaflet-popup-content-wrapper {
-  border-radius: 12px !important;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16) !important;
   padding: 4px !important;
 }
 
-.leaflet-popup-tip {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+.leaflet-popup-content {
+  margin: 12px 14px !important;
+  line-height: 1.5 !important;
+}
+
+/* Fix Leaflet popup links overriding text colors */
+.leaflet-popup-content a,
+.leaflet-popup-content a:link,
+.leaflet-popup-content a:visited {
+  color: #ffffff !important;
+  text-decoration: none !important;
+  opacity: 1 !important;
+}
+
+.leaflet-popup-content a:hover,
+.leaflet-popup-content a:active {
+  color: #ffffff !important;
+  opacity: 0.95 !important;
 }

@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import '../../models/store_model.dart';
 import '../../services/api_service.dart';
 import '../../services/location_service.dart';
+import '../../services/translation_service.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ApiService _apiService = ApiService();
   final LocationService _locationService = LocationService();
+  final TranslationService _trans = TranslationService();
   final MapController _mapController = MapController();
 
   List<StoreModel> _stores = [];
@@ -32,8 +34,21 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    _trans.addListener(_onTranslationChanged);
     _loadCategories();
     _loadStores();
+  }
+
+  @override
+  void dispose() {
+    _trans.removeListener(_onTranslationChanged);
+    super.dispose();
+  }
+
+  void _onTranslationChanged() {
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   Future<void> _loadCategories() async {
@@ -91,9 +106,9 @@ class _HomeScreenState extends State<HomeScreen> {
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Could not obtain device GPS position. Check location permissions.'),
-              backgroundColor: Color(0xFFBA1A1A),
+            SnackBar(
+              content: Text(_trans.t('gpsError')),
+              backgroundColor: const Color(0xFFBA1A1A),
             ),
           );
         }
@@ -109,25 +124,58 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
+        title: Row(
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 14,
               backgroundColor: Color(0xFFFFD200),
               child: Text('YPS', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 10)),
             ),
-            SizedBox(width: 8),
-            Text('YPS Store Finder', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                _trans.t('appTitle'),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
         ),
         backgroundColor: const Color(0xFF1D5FA8),
         foregroundColor: Colors.white,
         actions: [
+          // Easy-to-use Language Toggle Switcher Button
+          InkWell(
+            onTap: () {
+              _trans.toggleLanguage();
+            },
+            borderRadius: BorderRadius.circular(20),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              margin: const EdgeInsets.only(right: 4),
+              decoration: BoxDecoration(
+                color: const Color(0x33FFFFFF),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.white30),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.language, size: 14, color: Colors.white),
+                  const SizedBox(width: 4),
+                  Text(
+                    _trans.currentLanguage == 'my' ? 'မြန်မာ' : 'English',
+                    style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ),
           IconButton(
             icon: Icon(_isTracking ? Icons.my_location : Icons.location_searching,
                 color: _isTracking ? const Color(0xFFFFD200) : Colors.white),
             onPressed: _toggleLocationTracking,
-            tooltip: _isTracking ? 'GPS Active' : 'Turn On Location',
+            tooltip: _isTracking ? _trans.t('gpsActive') : _trans.t('locateMe'),
           ),
         ],
       ),
@@ -156,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 40,
                       child: Container(
                         decoration: BoxDecoration(
-                          color: const Color(0xFF1D5FA8).withOpacity(0.3),
+                          color: const Color(0x4D1D5FA8),
                           shape: BoxShape.circle,
                         ),
                         child: Center(
@@ -221,16 +269,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 6)],
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 14,
                       height: 14,
                       child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFF1D5FA8)),
                     ),
-                    SizedBox(width: 8),
-                    Text('Loading...', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                    const SizedBox(width: 8),
+                    Text(_trans.t('loading'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                   ],
                 ),
               ),
@@ -268,7 +316,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     // Search Field
                     TextField(
                       decoration: InputDecoration(
-                        hintText: 'Search stores or locations...',
+                        hintText: _trans.t('searchPlaceholder'),
                         prefixIcon: const Icon(Icons.search, color: Colors.grey),
                         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         filled: true,
@@ -296,7 +344,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           if (index == 0) {
                             final isSelected = _selectedCategory == null;
                             return ChoiceChip(
-                              label: const Text('All'),
+                              label: Text(_trans.t('allCategories')),
                               selected: isSelected,
                               selectedColor: const Color(0xFF1D5FA8),
                               labelStyle: TextStyle(
@@ -312,8 +360,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           }
                           final cat = _categories[index - 1];
                           final isSelected = _selectedCategory == cat.category;
+                          final translatedCategoryName = _trans.tCategory(cat.category);
                           return ChoiceChip(
-                            label: Text('${cat.category} (${cat.count})'),
+                            label: Text('$translatedCategoryName (${cat.count})'),
                             selected: isSelected,
                             selectedColor: const Color(0xFF1D5FA8),
                             labelStyle: TextStyle(
@@ -333,52 +382,70 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(height: 16),
 
                     // Store Cards List
-                    ..._stores.map((store) {
-                      final isSelected = _selectedStore?.id == store.id;
-                      return Card(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        elevation: isSelected ? 3 : 1,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          side: BorderSide(
-                            color: isSelected ? const Color(0xFF1D5FA8) : const Color(0xFFE2E2E5),
-                            width: isSelected ? 2 : 1,
+                    if (_stores.isEmpty)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 32),
+                        child: Center(
+                          child: Column(
+                            children: [
+                              const Icon(Icons.location_off_outlined, size: 48, color: Colors.grey),
+                              const SizedBox(height: 8),
+                              Text(
+                                _trans.t('noStoresFound'),
+                                style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
+                              ),
+                            ],
                           ),
                         ),
-                        child: ListTile(
-                          title: Text(
-                            store.name,
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                      )
+                    else
+                      ..._stores.map((store) {
+                        final isSelected = _selectedStore?.id == store.id;
+                        final translatedCat = _trans.tCategory(store.category);
+                        return Card(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          elevation: isSelected ? 3 : 1,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(
+                              color: isSelected ? const Color(0xFF1D5FA8) : const Color(0xFFE2E2E5),
+                              width: isSelected ? 2 : 1,
+                            ),
                           ),
-                          subtitle: Text(
-                            store.address ?? store.category,
-                            style: const TextStyle(fontSize: 12, color: Colors.grey),
-                          ),
-                          trailing: store.distanceKm != null
-                              ? Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFFFFE07C),
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  child: Text(
-                                    '${store.distanceKm} km',
-                                    style: const TextStyle(
-                                      fontFamily: 'monospace',
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 11,
-                                      color: Color(0xFF725C00),
+                          child: ListTile(
+                            title: Text(
+                              store.name,
+                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                            ),
+                            subtitle: Text(
+                              store.address ?? translatedCat,
+                              style: const TextStyle(fontSize: 12, color: Colors.grey),
+                            ),
+                            trailing: store.distanceKm != null
+                                ? Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFFFFE07C),
+                                      borderRadius: BorderRadius.circular(6),
                                     ),
-                                  ),
-                                )
-                              : null,
-                          onTap: () {
-                            setState(() => _selectedStore = store);
-                            _mapController.move(LatLng(store.latitude, store.longitude), 15);
-                          },
-                        ),
-                      );
-                    }).toList(),
+                                    child: Text(
+                                      '${store.distanceKm} ${_trans.t('km')}',
+                                      style: const TextStyle(
+                                        fontFamily: 'monospace',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 11,
+                                        color: Color(0xFF725C00),
+                                      ),
+                                    ),
+                                  )
+                                : null,
+                            onTap: () {
+                              setState(() => _selectedStore = store);
+                              _mapController.move(LatLng(store.latitude, store.longitude), 15);
+                            },
+                          ),
+                        );
+                      }).toList(),
                   ],
                 ),
               );

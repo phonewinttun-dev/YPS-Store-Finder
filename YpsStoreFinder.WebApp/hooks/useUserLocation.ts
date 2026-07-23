@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { UserLocationState } from '../types/store';
 
 // Default Fallback Coordinates (Yangon City Center / Sule Pagoda)
@@ -99,14 +99,19 @@ export function useUserLocation() {
     };
   }, []);
 
+  const activeLocation = useMemo(
+    () => ({
+      latitude: locationState.latitude ?? DEFAULT_YANGON_LOCATION.latitude,
+      longitude: locationState.longitude ?? DEFAULT_YANGON_LOCATION.longitude,
+      hasRealLocation: locationState.latitude !== null && locationState.longitude !== null,
+    }),
+    [locationState.latitude, locationState.longitude]
+  );
+
   return {
     locationState,
     startTracking,
     stopTracking,
-    activeLocation: {
-      latitude: locationState.latitude ?? DEFAULT_YANGON_LOCATION.latitude,
-      longitude: locationState.longitude ?? DEFAULT_YANGON_LOCATION.longitude,
-      hasRealLocation: locationState.latitude !== null && locationState.longitude !== null,
-    },
+    activeLocation,
   };
 }
