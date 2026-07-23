@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Work+Sans:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-work-sans: 'Work Sans', sans-serif;
+    --font-jetbrains: 'JetBrains Mono', monospace;
+
+    /* Design System Colors from DESIGN.md */
+    --surface: #f9f9fc;
+    --surface-container: #eeeef0;
+    --surface-container-high: #e8e8ea;
+    --surface-container-highest: #e2e2e5;
+    --on-surface: #1a1c1e;
+    --on-surface-variant: #4d4632;
+    --outline: #7f765f;
+    --outline-variant: #d1c6ab;
+
+    --ybs-yellow: #ffd200;
+    --ybs-yellow-dark: #725c00;
+    --transit-blue: #1d5fa8;
+    --transit-blue-dark: #00417e;
+    --transit-blue-light: #7ab0ff;
+    --cloud-blue: #ebf2f8;
+    
+    --error: #ba1a1a;
+  }
+
+  body {
+    font-family: var(--font-work-sans);
+    background-color: var(--surface);
+    color: var(--on-surface);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+}
+
+.font-mono-meta {
+  font-family: var(--font-jetbrains);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.user-pulse-marker {
+  width: 20px;
+  height: 20px;
+  background-color: #1d5fa8;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(29, 95, 168, 0.6);
+  position: relative;
+}
+
+.user-pulse-marker::after {
+  content: '';
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  left: -11px;
+  top: -11px;
+  border-radius: 50%;
+  background: rgba(29, 95, 168, 0.3);
+  animation: pulse-ring 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* Custom Leaflet overrides */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 12px !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+  padding: 4px !important;
+}
+
+.leaflet-popup-tip {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1) !important;
+}
