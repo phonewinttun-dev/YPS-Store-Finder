@@ -1,0 +1,6 @@
+@YpsStoreFinder.Api_HostAddress = http://localhost:5257
+
+GET {{YpsStoreFinder.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

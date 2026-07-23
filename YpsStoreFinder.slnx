@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/Solution Items/" />
+  <Project Path="YpsStoreFinder.Api/YpsStoreFinder.Api.csproj" />
+  <Project Path="YpsStoreFinder.Database/YpsStoreFinder.Database.csproj" />
+  <Project Path="YpsStoreFinder.Domain/YpsStoreFinder.Domain.csproj" />
+  <Project Path="YpsStoreFinder.Shared/YpsStoreFinder.Shared.csproj" />
+</Solution>

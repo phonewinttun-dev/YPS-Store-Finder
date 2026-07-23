@@ -1,0 +1,2408 @@
+{
+  "title": "YPS Stores Locations",
+  "description": "On 2023 Feb 27 , updated store lists",
+  "total_stores": 153,
+  "stores": [
+    {
+      "category": "YPS Service Kios",
+      "name": "Sule City Hall",
+      "latitude": 16.7759633,
+      "longitude": 96.1587317,
+      "address": null,
+      "description": "Sr.: 1<br>Lat: 16.7759633<br>Long: 96.1587317",
+      "attributes": {
+        "Sr.": "1.0",
+        "Lat": 16.7759633,
+        "Long": 96.1587317
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "Tha Khin Mya Pan Chan",
+      "latitude": 16.7806217,
+      "longitude": 96.1353017,
+      "address": null,
+      "description": "Sr.: 2<br>Lat: 16.7806217<br>Long: 96.1353017",
+      "attributes": {
+        "Sr.": "2.0",
+        "Lat": 16.7806217,
+        "Long": 96.1353017
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "Myanmar Plaza",
+      "latitude": 16.8276283,
+      "longitude": 96.1546083,
+      "address": null,
+      "description": "Sr.: 3<br>Lat: 16.8276283<br>Long: 96.1546083",
+      "attributes": {
+        "Sr.": "3.0",
+        "Lat": 16.8276283,
+        "Long": 96.1546083
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "Hleden Kios",
+      "latitude": 16.8279405,
+      "longitude": 96.1305082,
+      "address": null,
+      "description": "Sr.: 4<br>Lat: 16.8279405<br>Long: 96.1305082",
+      "attributes": {
+        "Sr.": "4.0",
+        "Lat": 16.8279405,
+        "Long": 96.1305082
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "Yuzana Plaza",
+      "latitude": 16.79444,
+      "longitude": 96.1757417,
+      "address": null,
+      "description": "Sr.: 5<br>Lat: 16.79444<br>Long: 96.1757417",
+      "attributes": {
+        "Sr.": "5.0",
+        "Lat": 16.79444,
+        "Long": 96.1757417
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "Pansodan ( MaharBandoola)",
+      "latitude": 16.7743576,
+      "longitude": 96.1615944,
+      "address": null,
+      "description": "Sr.: 6<br>Lat: 16.7743576<br>Long: 96.1615944",
+      "attributes": {
+        "Sr.": "6.0",
+        "Lat": 16.7743576,
+        "Long": 96.1615944
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "8 Mile",
+      "latitude": 16.8645127,
+      "longitude": 96.1409796,
+      "address": null,
+      "description": "Sr.: 7<br>Lat: 16.8645127<br>Long: 96.1409796",
+      "attributes": {
+        "Sr.": "7.0",
+        "Lat": 16.8645127,
+        "Long": 96.1409796
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "Thamine",
+      "latitude": 16.8634972,
+      "longitude": 96.1213585,
+      "address": null,
+      "description": "Sr.: 8<br>Lat: 16.8634972<br>Long: 96.1213585",
+      "attributes": {
+        "Sr.": "8.0",
+        "Lat": 16.8634972,
+        "Long": 96.1213585
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "AYA-X Counter (Bloom)",
+      "latitude": 16.8258055,
+      "longitude": 96.1310675,
+      "address": null,
+      "description": "Sr.: 9<br>Lat: 16.8258055<br>Long: 96.1310675",
+      "attributes": {
+        "Sr.": "9.0",
+        "Lat": 16.8258055,
+        "Long": 96.1310675
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "AYA-X Counter (Sanchaung)",
+      "latitude": 16.8020998,
+      "longitude": 96.1330547,
+      "address": null,
+      "description": "Sr.: 10<br>Lat: 16.8020998<br>Long: 96.1330547",
+      "attributes": {
+        "Sr.": "10.0",
+        "Lat": 16.8020998,
+        "Long": 96.1330547
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "AYA-X Counter (Junction Mawtin)",
+      "latitude": 16.7777622,
+      "longitude": 96.1363755,
+      "address": null,
+      "description": "Sr.: 11<br>Lat: 16.7777622<br>Long: 96.1363755",
+      "attributes": {
+        "Sr.": "11.0",
+        "Lat": 16.7777622,
+        "Long": 96.1363755
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "AYA-X Counter (Junction City)",
+      "latitude": 16.7784798,
+      "longitude": 96.147974,
+      "address": null,
+      "description": "Sr.: 12<br>Lat: 16.7784798<br>Long: 96.147974",
+      "attributes": {
+        "Sr.": "12.0",
+        "Lat": 16.7784798,
+        "Long": 96.147974
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "AYA-X Counter (Junction Square)",
+      "latitude": 16.817121,
+      "longitude": 96.1272447,
+      "address": null,
+      "description": "Sr.: 13<br>Lat: 16.817121<br>Long: 96.1272447",
+      "attributes": {
+        "Sr.": "13.0",
+        "Lat": 16.817121,
+        "Long": 96.1272447
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "AYA-X Counter (Terminal M)",
+      "latitude": 16.937125,
+      "longitude": 96.153786,
+      "address": null,
+      "description": "Sr.: 14<br>Lat: 16.937125<br>Long: 96.153786",
+      "attributes": {
+        "Sr.": "14.0",
+        "Lat": 16.937125,
+        "Long": 96.153786
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "AYA-X Counter (Pro1 Danyingone)",
+      "latitude": 16.9272609,
+      "longitude": 96.088273,
+      "address": null,
+      "description": "Sr.: 15<br>Lat: 16.9272609<br>Long: 96.088273",
+      "attributes": {
+        "Sr.": "15.0",
+        "Lat": 16.9272609,
+        "Long": 96.088273
+      }
+    },
+    {
+      "category": "YPS Service Kios",
+      "name": "MyayNiGone",
+      "latitude": 16.803684,
+      "longitude": 96.1379209,
+      "address": null,
+      "description": "Sr.: 16<br>Lat: 16.803684<br>Long: 96.1379209",
+      "attributes": {
+        "Sr.": "16.0",
+        "Lat": 16.803684,
+        "Long": 96.1379209
+      }
+    },
+    {
+      "category": "YPS Agents",
+      "name": "A Myin Thit Store",
+      "latitude": 17.0975928,
+      "longitude": 96.0376092,
+      "address": null,
+      "description": "WKT: 20039468<br>Sr.: 1<br>Lat: 17.0975928<br>Long: 96.0376092",
+      "attributes": {
+        "WKT": "20039468",
+        "Sr.": "1.0",
+        "Lat": 17.0975928,
+        "Long": 96.0376092
+      }
+    },
+    {
+      "category": "YPS Agents",
+      "name": "Site Pyo Yay",
+      "latitude": 16.8177521,
+      "longitude": 96.1334152,
+      "address": null,
+      "description": "WKT: 20039460<br>Sr.: 2<br>Lat: 16.8177521<br>Long: 96.1334152",
+      "attributes": {
+        "WKT": "20039460",
+        "Sr.": "2.0",
+        "Lat": 16.8177521,
+        "Long": 96.1334152
+      }
+    },
+    {
+      "category": "YPS Agents",
+      "name": "Nyein Chan Yay Store",
+      "latitude": 16.8429001,
+      "longitude": 96.2028809,
+      "address": null,
+      "description": "WKT: 20039476<br>Sr.: <br>Lat: 16.8429001<br>Long: 96.2028809",
+      "attributes": {
+        "WKT": "20039476",
+        "Sr.": null,
+        "Lat": 16.8429001,
+        "Long": 96.2028809
+      }
+    },
+    {
+      "category": "YPS Agents",
+      "name": "ThaMarDi Mini Mart",
+      "latitude": 16.8864888,
+      "longitude": 96.1082513,
+      "address": null,
+      "description": "WKT: 20039554<br>Sr.: <br>Lat: 16.8864888<br>Long: 96.1082513",
+      "attributes": {
+        "WKT": "20039554",
+        "Sr.": null,
+        "Lat": 16.8864888,
+        "Long": 96.1082513
+      }
+    },
+    {
+      "category": "YPS Agents",
+      "name": "U Moe Thet",
+      "latitude": 16.8601041,
+      "longitude": 96.178946,
+      "address": null,
+      "description": "WKT: 20039551<br>Sr.: <br>Lat: 16.8601041<br>Long: 96.178946",
+      "attributes": {
+        "WKT": "20039551",
+        "Sr.": null,
+        "Lat": 16.8601041,
+        "Long": 96.178946
+      }
+    },
+    {
+      "category": "Mingalar Cinemas",
+      "name": "Thamada",
+      "latitude": 16.78239387,
+      "longitude": 96.15883622,
+      "address": "Alan Pya Pagoda Rd, Near Sule Pagoda, Downtown.",
+      "description": "Sr.: 1<br>Lat: 16.78239387<br>Long: 96.15883622<br>id: 31000550<br>Address: Alan Pya Pagoda Rd, Near Sule Pagoda, Downtown.",
+      "attributes": {
+        "Sr.": "1.0",
+        "Lat": 16.78239387,
+        "Long": 96.15883622,
+        "id": "3.100055E7",
+        "Address": "Alan Pya Pagoda Rd, Near Sule Pagoda, Downtown."
+      }
+    },
+    {
+      "category": "Mingalar Cinemas",
+      "name": "Nay Pyi Taw",
+      "latitude": 16.7785467,
+      "longitude": 96.1592161,
+      "address": "Sule Pagoda Rd, Near Sule Pagoda, Downtown, Beside Shae Saung Cinema",
+      "description": "Sr.: 2<br>Lat: 16.7785467<br>Long: 96.1592161<br>id: 31000401<br>Address: Sule Pagoda Rd, Near Sule Pagoda, Downtown, Beside Shae Saung Cinema",
+      "attributes": {
+        "Sr.": "2.0",
+        "Lat": 16.7785467,
+        "Long": 96.1592161,
+        "id": "3.1000401E7",
+        "Address": "Sule Pagoda Rd, Near Sule Pagoda, Downtown, Beside Shae Saung Cinema"
+      }
+    },
+    {
+      "category": "Mingalar Cinemas",
+      "name": "Thwin",
+      "latitude": 16.7791376,
+      "longitude": 96.16104086,
+      "address": "Corner of 35th st and Bogyoke Rd, Sule.",
+      "description": "Sr.: 3<br>Lat: 16.7791376<br>Long: 96.16104086<br>id: 31000741<br>Address: Corner of 35th st and Bogyoke Rd, Sule.",
+      "attributes": {
+        "Sr.": "3.0",
+        "Lat": 16.7791376,
+        "Long": 96.16104086,
+        "id": "3.1000741E7",
+        "Address": "Corner of 35th st and Bogyoke Rd, Sule."
+      }
+    },
+    {
+      "category": "Mingalar Cinemas",
+      "name": "Mingalar Waziyar",
+      "latitude": 16.8748309,
+      "longitude": 96.0519834,
+      "address": "Near Mee Kwat Zay, Hlaing Thar Yar Tsp.",
+      "description": "Sr.: 4<br>Lat: 16.8748309<br>Long: 96.0519834<br>id: 31000062<br>Address: Near Mee Kwat Zay, Hlaing Thar Yar Tsp.",
+      "attributes": {
+        "Sr.": "4.0",
+        "Lat": 16.8748309,
+        "Long": 96.0519834,
+        "id": "3.1000062E7",
+        "Address": "Near Mee Kwat Zay, Hlaing Thar Yar Tsp."
+      }
+    },
+    {
+      "category": "Mingalar Cinemas",
+      "name": "Mingalar Cinema Dagon Center II",
+      "latitude": 16.80454017,
+      "longitude": 96.13744131,
+      "address": "Corner of Pyay Rd and Bagaya St, Sanchaung Tsp.",
+      "description": "Sr.: 5<br>Lat: 16.80454017<br>Long: 96.13744131<br>id: 31000077<br>Address: Corner of Pyay Rd and Bagaya St, Sanchaung Tsp.",
+      "attributes": {
+        "Sr.": "5.0",
+        "Lat": 16.80454017,
+        "Long": 96.13744131,
+        "id": "3.1000077E7",
+        "Address": "Corner of Pyay Rd and Bagaya St, Sanchaung Tsp."
+      }
+    },
+    {
+      "category": "Mingalar Cinemas",
+      "name": "Top Royal Cinema",
+      "latitude": 16.85731132,
+      "longitude": 96.12162029,
+      "address": "Parami Rd, Parami Sein Gay Har shopping mall",
+      "description": "Sr.: 6<br>Lat: 16.85731132<br>Long: 96.12162029<br>id: 31000053<br>Address: Parami Rd, Parami Sein Gay Har shopping mall",
+      "attributes": {
+        "Sr.": "6.0",
+        "Lat": 16.85731132,
+        "Long": 96.12162029,
+        "id": "3.1000053E7",
+        "Address": "Parami Rd, Parami Sein Gay Har shopping mall"
+      }
+    },
+    {
+      "category": "Mingalar Cinemas",
+      "name": "Mingalar Cineplex Gamonepwint Mall",
+      "latitude": 16.8329871,
+      "longitude": 96.1295532,
+      "address": "Insein Rd, Ga Mone Pwint Shopping mall, Near Hledan.",
+      "description": "Sr.: 7<br>Lat: 16.8329871<br>Long: 96.1295532<br>id: 20039572<br>Address: Insein Rd, Ga Mone Pwint Shopping mall, Near Hledan.",
+      "attributes": {
+        "Sr.": "7.0",
+        "Lat": 16.8329871,
+        "Long": 96.1295532,
+        "id": "2.0039572E7",
+        "Address": "Insein Rd, Ga Mone Pwint Shopping mall, Near Hledan."
+      }
+    },
+    {
+      "category": "Mingalar Cinemas",
+      "name": "Mingalar North Oakkalapa",
+      "latitude": 16.8936795,
+      "longitude": 96.1553079,
+      "address": "Thudhamma Rd, Near Northokkalapa Park.",
+      "description": "Sr.: 8<br>Lat: 16.8936795<br>Long: 96.1553079<br>id: 20039573<br>Address: Thudhamma Rd, Near Northokkalapa Park.",
+      "attributes": {
+        "Sr.": "8.0",
+        "Lat": 16.8936795,
+        "Long": 96.1553079,
+        "id": "2.0039573E7",
+        "Address": "Thudhamma Rd, Near Northokkalapa Park."
+      }
+    },
+    {
+      "category": "Mingalar Cinemas",
+      "name": "Mingalar Cinema Tarmwe",
+      "latitude": 16.7979182,
+      "longitude": 96.176377,
+      "address": "Banyardala Rd, Tarmwe Tsp.",
+      "description": "Sr.: 9<br>Lat: 16.7979182<br>Long: 96.176377<br>id: 20039574<br>Address: Banyardala Rd, Tarmwe Tsp.",
+      "attributes": {
+        "Sr.": "9.0",
+        "Lat": 16.7979182,
+        "Long": 96.176377,
+        "id": "2.0039574E7",
+        "Address": "Banyardala Rd, Tarmwe Tsp."
+      }
+    },
+    {
+      "category": "Mingalar Cinemas",
+      "name": "Mingalar Cinema South Dagon",
+      "latitude": 16.8481744,
+      "longitude": 96.2356662,
+      "address": "Myeik Rd, near 20 Market South Dagon.",
+      "description": "Sr.: 10<br>Lat: 16.8481744<br>Long: 96.2356662<br>id: 20039575<br>Address: Myeik Rd, near 20 Market South Dagon.",
+      "attributes": {
+        "Sr.": "10.0",
+        "Lat": 16.8481744,
+        "Long": 96.2356662,
+        "id": "2.0039575E7",
+        "Address": "Myeik Rd, near 20 Market South Dagon."
+      }
+    },
+    {
+      "category": "Mingalar Cinemas",
+      "name": "Mingalar Cinema Thanylin",
+      "latitude": 16.7427429,
+      "longitude": 96.2662228,
+      "address": "KyiteKoutPhayar Rd, Near Thanlyin City mart, Thanlyin Tsp.",
+      "description": "Sr.: 11<br>Lat: 16.7427429<br>Long: 96.2662228<br>id: 31000185<br>Address: KyiteKoutPhayar Rd, Near Thanlyin City mart, Thanlyin Tsp.",
+      "attributes": {
+        "Sr.": "11.0",
+        "Lat": 16.7427429,
+        "Long": 96.2662228,
+        "id": "3.1000185E7",
+        "Address": "KyiteKoutPhayar Rd, Near Thanlyin City mart, Thanlyin Tsp."
+      }
+    },
+    {
+      "category": "Mingalar Cinemas",
+      "name": "Mingalar Sein Gay Har HTY",
+      "latitude": 16.8609129,
+      "longitude": 96.0669652,
+      "address": "Sein Gay Har Hlaing Thar Yar Township",
+      "description": "Sr.: 12<br>Lat: 16.8609129<br>Long: 96.0669652<br>id: 20039568<br>Address: Sein Gay Har Hlaing Thar Yar Township",
+      "attributes": {
+        "Sr.": "12.0",
+        "Lat": 16.8609129,
+        "Long": 96.0669652,
+        "id": "2.0039568E7",
+        "Address": "Sein Gay Har Hlaing Thar Yar Township"
+      }
+    },
+    {
+      "category": "Mingalar Cinemas",
+      "name": "Mingalar (SPT)",
+      "latitude": 16.9785342,
+      "longitude": 96.0758642,
+      "address": "Shwe Pyi Thar",
+      "description": "Sr.: 13<br>Lat: 16.9785342<br>Long: 96.0758642<br>id: 31000836<br>Address: Shwe Pyi Thar",
+      "attributes": {
+        "Sr.": "13.0",
+        "Lat": 16.9785342,
+        "Long": 96.0758642,
+        "id": "3.1000836E7",
+        "Address": "Shwe Pyi Thar"
+      }
+    },
+    {
+      "category": "Mingalar Cinemas",
+      "name": "Mingalar Myayadanar Cineplex",
+      "latitude": 16.7920436,
+      "longitude": 96.201949,
+      "address": "Tharketa Yoke Shin Yone Bus stop . Corner of Zingama and Myin Thaw Tar.",
+      "description": "Sr.: <br>Lat: 16.7920436<br>Long: 96.201949<br>id: <br>Address: Tharketa Yoke Shin Yone Bus stop . Corner of Zingama and Myin Thaw Tar.",
+      "attributes": {
+        "Sr.": null,
+        "Lat": 16.7920436,
+        "Long": 96.201949,
+        "id": null,
+        "Address": "Tharketa Yoke Shin Yone Bus stop . Corner of Zingama and Myin Thaw Tar."
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S022POS1",
+      "latitude": 16.850148,
+      "longitude": 96.236976,
+      "address": "South Dagon Hlawgar and Myeik corner",
+      "description": "YPS: 31000075<br>ADRRESS: South Dagon Hlawgar and Myeik corner<br>Latt: 16.850148<br>Long: 96.236976",
+      "attributes": {
+        "YPS": "3.1000075E7",
+        "ADRRESS": "South Dagon Hlawgar and Myeik corner",
+        "Latt": 16.850148,
+        "Long": 96.236976
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "H001POS18",
+      "latitude": 16.8029399,
+      "longitude": 96.195669,
+      "address": "Capital Hyper Dawpon",
+      "description": "YPS: 31000563<br>ADRRESS: Capital Hyper Dawpon<br>Latt: 16.8029399<br>Long: 96.195669",
+      "attributes": {
+        "YPS": "3.1000563E7",
+        "ADRRESS": "Capital Hyper Dawpon",
+        "Latt": 16.8029399,
+        "Long": 96.195669
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S020POS1",
+      "latitude": 16.783158,
+      "longitude": 96.155725,
+      "address": "Btw Nawaday st and Youk st , Boyar Nyaung St.",
+      "description": "YPS: 31000331<br>ADRRESS: Btw Nawaday st and Youk st , Boyar Nyaung St.<br>Latt: 16.783158<br>Long: 96.155725",
+      "attributes": {
+        "YPS": "3.1000331E7",
+        "ADRRESS": "Btw Nawaday st and Youk st , Boyar Nyaung St.",
+        "Latt": 16.783158,
+        "Long": 96.155725
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S001POS1",
+      "latitude": 16.866763,
+      "longitude": 96.184625,
+      "address": "NO.(1,2) 33 QUARTER THIN WIN STREET & PIN LON ROAD",
+      "description": "YPS: 31000333<br>ADRRESS: NO.(1,2) 33 QUARTER THIN WIN STREET & PIN LON ROAD <br>Latt: 16.866763<br>Long: 96.184625",
+      "attributes": {
+        "YPS": "3.1000333E7",
+        "ADRRESS": "NO.(1,2) 33 QUARTER THIN WIN STREET & PIN LON ROAD",
+        "Latt": 16.866763,
+        "Long": 96.184625
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S002POS2",
+      "latitude": 16.920189,
+      "longitude": 96.162491,
+      "address": "NO.(561) CORNER OF THU DAMAR ST& SABEI 3 ST , NORTH OAKALAPA TOWNSHIP",
+      "description": "YPS: 31000622<br>ADRRESS: NO.(561) CORNER OF THU DAMAR ST& SABEI 3 ST , NORTH OAKALAPA TOWNSHIP<br>Latt: 16.920189<br>Long: 96.162491",
+      "attributes": {
+        "YPS": "3.1000622E7",
+        "ADRRESS": "NO.(561) CORNER OF THU DAMAR ST& SABEI 3 ST , NORTH OAKALAPA TOWNSHIP",
+        "Latt": 16.920189,
+        "Long": 96.162491
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S030POS2",
+      "latitude": 16.8641126,
+      "longitude": 96.0643673,
+      "address": "Kyan Sittar Street,Nawaday Shop House,6 Ward,Hlaing Thar Yar Township.",
+      "description": "YPS: 20039494<br>ADRRESS: Kyan Sittar Street,Nawaday Shop House,6 Ward,Hlaing Thar Yar Township.<br>Latt: 16.8641126<br>Long: 96.0643673",
+      "attributes": {
+        "YPS": "2.0039494E7",
+        "ADRRESS": "Kyan Sittar Street,Nawaday Shop House,6 Ward,Hlaing Thar Yar Township.",
+        "Latt": 16.8641126,
+        "Long": 96.0643673
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S010POS2",
+      "latitude": 16.90127,
+      "longitude": 96.0466734,
+      "address": "NO.(1094) B,20TH QUARTER ,CORNER OF A NAW YAHTAR AND WAI PONE LA STREET ,HLAING THAR YAR TOWN SHIP",
+      "description": "YPS: 31000916<br>ADRRESS: NO.(1094) B,20TH QUARTER ,CORNER OF A NAW YAHTAR AND WAI PONE LA STREET ,HLAING THAR YAR TOWN SHIP <br>Latt: 16.90127<br>Long: 96.0466734",
+      "attributes": {
+        "YPS": "3.1000916E7",
+        "ADRRESS": "NO.(1094) B,20TH QUARTER ,CORNER OF A NAW YAHTAR AND WAI PONE LA STREET ,HLAING THAR YAR TOWN SHIP",
+        "Latt": 16.90127,
+        "Long": 96.0466734
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S011POS2",
+      "latitude": 16.8765617,
+      "longitude": 96.1725946,
+      "address": "NO.(100) U WISAYA RD & SHWE THAYA PHI CORNER 41 QUARTER",
+      "description": "YPS: 31000957<br>ADRRESS: NO.(100) U WISAYA RD & SHWE THAYA PHI CORNER 41 QUARTER<br>Latt: 16.8765617<br>Long: 96.1725946",
+      "attributes": {
+        "YPS": "3.1000957E7",
+        "ADRRESS": "NO.(100) U WISAYA RD & SHWE THAYA PHI CORNER 41 QUARTER",
+        "Latt": 16.8765617,
+        "Long": 96.1725946
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S012POS1",
+      "latitude": 16.8260913,
+      "longitude": 96.2071422,
+      "address": "NO(7) CORNER OF  KA MAR KYI & THAN THU MAR STREET , NEW YANGON QUARTER  THINGAN KYUN TOWNSHIP",
+      "description": "YPS: 31000035<br>ADRRESS: NO(7) CORNER OF  KA MAR KYI & THAN THU MAR STREET , NEW YANGON QUARTER  THINGAN KYUN TOWNSHIP <br>Latt: 16.8260913<br>Long: 96.2071422",
+      "attributes": {
+        "YPS": "3.1000035E7",
+        "ADRRESS": "NO(7) CORNER OF  KA MAR KYI & THAN THU MAR STREET , NEW YANGON QUARTER  THINGAN KYUN TOWNSHIP",
+        "Latt": 16.8260913,
+        "Long": 96.2071422
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S013POS1",
+      "latitude": 16.8581793,
+      "longitude": 96.2348876,
+      "address": "NO.(1) MAUNG MA KAN ROAD & CORNER OF SI PIN ROAD , 19TH QUARTER , SOUTH DAGON TOWNSHIP",
+      "description": "YPS: 31000519<br>ADRRESS: NO.(1) MAUNG MA KAN ROAD & CORNER OF SI PIN ROAD , 19TH QUARTER , SOUTH DAGON TOWNSHIP<br>Latt: 16.8581793<br>Long: 96.2348876",
+      "attributes": {
+        "YPS": "3.1000519E7",
+        "ADRRESS": "NO.(1) MAUNG MA KAN ROAD & CORNER OF SI PIN ROAD , 19TH QUARTER , SOUTH DAGON TOWNSHIP",
+        "Latt": 16.8581793,
+        "Long": 96.2348876
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S014POS1",
+      "latitude": 16.9530992,
+      "longitude": 96.0819955,
+      "address": "NO.79 , WARD 12 , CORNER OF PALE ST & YADANAR THIRI ST , Shwe Pyi Thar Tsp",
+      "description": "YPS: 31000203<br>ADRRESS: NO.79 , WARD 12 , CORNER OF PALE ST & YADANAR THIRI ST , Shwe Pyi Thar Tsp<br>Latt: 16.9530992<br>Long: 96.0819955",
+      "attributes": {
+        "YPS": "3.1000203E7",
+        "ADRRESS": "NO.79 , WARD 12 , CORNER OF PALE ST & YADANAR THIRI ST , Shwe Pyi Thar Tsp",
+        "Latt": 16.9530992,
+        "Long": 96.0819955
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S021POS1",
+      "latitude": 16.7992672,
+      "longitude": 96.1304071,
+      "address": "NO.23 , BAHO ROAD, AUNG CHAN THAR WARD ,SANCHAUNG TSP , YGN",
+      "description": "YPS: 31000130<br>ADRRESS: NO.23 , BAHO ROAD, AUNG CHAN THAR WARD ,SANCHAUNG TSP , YGN<br>Latt: 16.7992672<br>Long: 96.1304071",
+      "attributes": {
+        "YPS": "3.100013E7",
+        "ADRRESS": "NO.23 , BAHO ROAD, AUNG CHAN THAR WARD ,SANCHAUNG TSP , YGN",
+        "Latt": 16.7992672,
+        "Long": 96.1304071
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S018POS2",
+      "latitude": 16.94642,
+      "longitude": 96.1022203,
+      "address": "NO.37, LOWER MINGALARDON -4TH MAIN ROAD-1 WARD SHWE PYI THAR TSP",
+      "description": "YPS: 31000763<br>ADRRESS: NO.37, LOWER MINGALARDON -4TH MAIN ROAD-1 WARD SHWE PYI THAR TSP<br>Latt: 16.9464200<br>Long: 96.1022203",
+      "attributes": {
+        "YPS": "3.1000763E7",
+        "ADRRESS": "NO.37, LOWER MINGALARDON -4TH MAIN ROAD-1 WARD SHWE PYI THAR TSP",
+        "Latt": 16.94642,
+        "Long": 96.1022203
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S019POS1",
+      "latitude": 16.904889,
+      "longitude": 96.164532,
+      "address": "No 701 Ka /Kha , Thudama Road, Za Quarter, North Okkalapa Tsp, Yangon",
+      "description": "YPS: 31000087<br>ADRRESS: No 701 Ka /Kha , Thudama Road, Za Quarter, North Okkalapa Tsp, Yangon<br>Latt: 16.904889<br>Long: 96.164532",
+      "attributes": {
+        "YPS": "3.1000087E7",
+        "ADRRESS": "No 701 Ka /Kha , Thudama Road, Za Quarter, North Okkalapa Tsp, Yangon",
+        "Latt": 16.904889,
+        "Long": 96.164532
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S023POS1",
+      "latitude": 16.8815263,
+      "longitude": 96.2019596,
+      "address": "PyiDaungSu Road, Swen Inn , North Dagon",
+      "description": "YPS: 31000761<br>ADRRESS: PyiDaungSu Road, Swen Inn , North Dagon<br>Latt: 16.8815263<br>Long: 96.2019596",
+      "attributes": {
+        "YPS": "3.1000761E7",
+        "ADRRESS": "PyiDaungSu Road, Swen Inn , North Dagon",
+        "Latt": 16.8815263,
+        "Long": 96.2019596
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S024POS1",
+      "latitude": 16.825573,
+      "longitude": 96.2628152,
+      "address": "Dagon Seikan",
+      "description": "YPS: 31000558<br>ADRRESS: Dagon Seikan<br>Latt: 16.8255730<br>Long: 96.2628152",
+      "attributes": {
+        "YPS": "3.1000558E7",
+        "ADRRESS": "Dagon Seikan",
+        "Latt": 16.825573,
+        "Long": 96.2628152
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S025POS2",
+      "latitude": 16.7775684,
+      "longitude": 96.1954622,
+      "address": "Yamonnar Rd, Tharketa",
+      "description": "YPS: 20039578<br>ADRRESS: Yamonnar Rd, Tharketa <br>Latt: 16.7775684<br>Long: 96.1954622",
+      "attributes": {
+        "YPS": "2.0039578E7",
+        "ADRRESS": "Yamonnar Rd, Tharketa",
+        "Latt": 16.7775684,
+        "Long": 96.1954622
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S040",
+      "latitude": 16.92688,
+      "longitude": 96.189193,
+      "address": "No-267, Nyaung Yan Road, Near Lashio St or Yangon St, Shwe Poukkan , North Okkalapa Townships. Near No-17 Bus Stop",
+      "description": "YPS: 31000542<br>ADRRESS: No-267, Nyaung Yan Road, Near Lashio St or Yangon St, Shwe Poukkan , North Okkalapa Townships. Near No-17 Bus Stop<br>Latt: 16.926880<br>Long: 96.189193",
+      "attributes": {
+        "YPS": "3.1000542E7",
+        "ADRRESS": "No-267, Nyaung Yan Road, Near Lashio St or Yangon St, Shwe Poukkan , North Okkalapa Townships. Near No-17 Bus Stop",
+        "Latt": 16.92688,
+        "Long": 96.189193
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S027POS1",
+      "latitude": 16.7841746749151,
+      "longitude": 96.1985106483019,
+      "address": "No (445), Myintawthar Road, (3/Man Pyay) Ward, Thaketa Township, Yangon.",
+      "description": "YPS: 20039566<br>ADRRESS: No (445), Myintawthar Road, (3/Man Pyay) Ward, Thaketa Township, Yangon.<br>Latt: 16.78417467491505<br>Long: 96.1985106483019",
+      "attributes": {
+        "YPS": "2.0039566E7",
+        "ADRRESS": "No (445), Myintawthar Road, (3/Man Pyay) Ward, Thaketa Township, Yangon.",
+        "Latt": 16.78417467491505,
+        "Long": 96.1985106483019
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S028POS1",
+      "latitude": 16.793529489445,
+      "longitude": 96.202032619727,
+      "address": "No(1594), Zingama Road, 1 Ward, Thaketa Township, Yangon.",
+      "description": "YPS: 31000705<br>ADRRESS: No(1594), Zingama Road, 1 Ward, Thaketa Township, Yangon.<br>Latt: 16.793529489445<br>Long: 96.202032619727",
+      "attributes": {
+        "YPS": "3.1000705E7",
+        "ADRRESS": "No(1594), Zingama Road, 1 Ward, Thaketa Township, Yangon.",
+        "Latt": 16.793529489445,
+        "Long": 96.202032619727
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S032POS1",
+      "latitude": 16.952017,
+      "longitude": 96.074388,
+      "address": "Bayint Naung Street, 11 Ward, Shwe Pyi Thar Township (near Padamyar Market, Htan 6 Pin Junction)",
+      "description": "YPS: <br>ADRRESS: Bayint Naung Street, 11 Ward, Shwe Pyi Thar Township (near Padamyar Market, Htan 6 Pin Junction)<br>Latt: 16.952017<br>Long: 96.074388",
+      "attributes": {
+        "YPS": null,
+        "ADRRESS": "Bayint Naung Street, 11 Ward, Shwe Pyi Thar Township (near Padamyar Market, Htan 6 Pin Junction)",
+        "Latt": 16.952017,
+        "Long": 96.074388
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S035POS1",
+      "latitude": 16.771418,
+      "longitude": 96.173429,
+      "address": "No.292,Merchant Road, Btw 53 st & 54 st, Botahtaung Township.",
+      "description": "YPS: 31000080<br>ADRRESS: No.292,Merchant Road, Btw 53 st & 54 st, Botahtaung Township.<br>Latt: 16.771418<br>Long: 96.173429",
+      "attributes": {
+        "YPS": "3.100008E7",
+        "ADRRESS": "No.292,Merchant Road, Btw 53 st & 54 st, Botahtaung Township.",
+        "Latt": 16.771418,
+        "Long": 96.173429
+      }
+    },
+    {
+      "category": "Capital HyperMarkets",
+      "name": "S033FPOS1",
+      "latitude": 17.1010506104517,
+      "longitude": 96.0428309194335,
+      "address": ": No.(383),Infront of Hmawbi Myoma Market,Pyay Road,3rd Ward,Hmawbi Township,Yangon",
+      "description": "YPS: 20039607<br>ADRRESS: : No.(383),Infront of Hmawbi Myoma Market,Pyay Road,3rd Ward,Hmawbi Township,Yangon<br>Latt: 17.10105061045172<br>Long: 96.0428309194335",
+      "attributes": {
+        "YPS": "2.0039607E7",
+        "ADRRESS": ": No.(383),Infront of Hmawbi Myoma Market,Pyay Road,3rd Ward,Hmawbi Township,Yangon",
+        "Latt": 17.10105061045172,
+        "Long": 96.0428309194335
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0481",
+      "latitude": 16.7819432,
+      "longitude": 96.15842842,
+      "address": "YMG Bub, Ah Lan Pya Pagoda Road, Yaw Min Gyi Quarter , Dagon Tsp.",
+      "description": "id_: 20039463<br>latitude: 16.7819432<br>longitude: 96.15842842<br>address: YMG Bub, Ah Lan Pya Pagoda Road, Yaw Min Gyi Quarter , Dagon Tsp.<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039463E7",
+        "latitude": 16.7819432,
+        "longitude": 96.15842842,
+        "address": "YMG Bub, Ah Lan Pya Pagoda Road, Yaw Min Gyi Quarter , Dagon Tsp.",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0013",
+      "latitude": 16.780199,
+      "longitude": 96.139882,
+      "address": "အမှတ်(၇၈၈) ၊ ဝါးတန်းလမ်းနှင့်ဖိုးရာဇာလမ်းကြား ၊ လမ်းမတော်မြို့နယ်။",
+      "description": "id_: 31000176<br>latitude: 16.780199<br>longitude: 96.139882<br>address: အမှတ်(၇၈၈) ၊ ဝါးတန်းလမ်းနှင့်ဖိုးရာဇာလမ်းကြား ၊ လမ်းမတော်မြို့နယ်။<br>Nearest_Bus_Stop: Bahosi<br>Bus_Num: 20, 56, 94, 98<br>Remark: Bahosi Hospital, Feel Restaurant",
+      "attributes": {
+        "id_": "3.1000176E7",
+        "latitude": 16.780199,
+        "longitude": 96.139882,
+        "address": "အမှတ်(၇၈၈) ၊ ဝါးတန်းလမ်းနှင့်ဖိုးရာဇာလမ်းကြား ၊ လမ်းမတော်မြို့နယ်။",
+        "Nearest_Bus_Stop": "Bahosi",
+        "Bus_Num": "20, 56, 94, 98",
+        "Remark": "Bahosi Hospital, Feel Restaurant"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0691",
+      "latitude": 16.8379343,
+      "longitude": 96.1237901,
+      "address": "No.008,InseinStreet,9ward,HlaingTownship,Yangon.",
+      "description": "id_: 20039480<br>latitude: 16.8379343<br>longitude: 96.1237901<br>address: No.008,InseinStreet,9ward,HlaingTownship,Yangon.<br>Nearest_Bus_Stop: ButarYone Lane<br>Bus_Num: 77, 65A & B, 21, 41, 61, 39, 78, 30, 90<br>Remark:",
+      "attributes": {
+        "id_": "2.003948E7",
+        "latitude": 16.8379343,
+        "longitude": 96.1237901,
+        "address": "No.008,InseinStreet,9ward,HlaingTownship,Yangon.",
+        "Nearest_Bus_Stop": "ButarYone Lane",
+        "Bus_Num": "77, 65A & B, 21, 41, 61, 39, 78, 30, 90",
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0023",
+      "latitude": 16.83343832,
+      "longitude": 96.19236968,
+      "address": "အမှတ်(32)-C1,ကျိုက္ကစံဘုရားလမ်း၊ဆ/က ရပ်ကွက်၊သင်္ဃန်းကျွန်းမြို့နယ်။",
+      "description": "id_: 20039579<br>latitude: 16.83343832<br>longitude: 96.19236968<br>address: အမှတ်(32)-C1,ကျိုက္ကစံဘုရားလမ်း၊ဆ/က ရပ်ကွက်၊သင်္ဃန်းကျွန်းမြို့နယ်။<br>Nearest_Bus_Stop: Phayar Lane<br>Bus_Num: 84, 46, 24A & B, 71, 7A & B, 92, 96, 18, 92<br>Remark: Thigangyun San Pya Hospital",
+      "attributes": {
+        "id_": "2.0039579E7",
+        "latitude": 16.83343832,
+        "longitude": 96.19236968,
+        "address": "အမှတ်(32)-C1,ကျိုက္ကစံဘုရားလမ်း၊ဆ/က ရပ်ကွက်၊သင်္ဃန်းကျွန်းမြို့နယ်။",
+        "Nearest_Bus_Stop": "Phayar Lane",
+        "Bus_Num": "84, 46, 24A & B, 71, 7A & B, 92, 96, 18, 92",
+        "Remark": "Thigangyun San Pya Hospital"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0028",
+      "latitude": 16.83906474,
+      "longitude": 96.16612628,
+      "address": "Kanbe Station Rd, Yangon, Myanmar (Burma)",
+      "description": "id_: 20039584<br>latitude: 16.83906474<br>longitude: 96.16612628<br>address: Kanbe Station Rd, Yangon, Myanmar (Burma)<br>Nearest_Bus_Stop: Moe Kaung<br>Bus_Num: 60, 83, 87, 38, 12, 29<br>Remark: Kan Bae Station",
+      "attributes": {
+        "id_": "2.0039584E7",
+        "latitude": 16.83906474,
+        "longitude": 96.16612628,
+        "address": "Kanbe Station Rd, Yangon, Myanmar (Burma)",
+        "Nearest_Bus_Stop": "Moe Kaung",
+        "Bus_Num": "60, 83, 87, 38, 12, 29",
+        "Remark": "Kan Bae Station"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0038F",
+      "latitude": 16.853987,
+      "longitude": 96.174024,
+      "address": "အမှတ် 590၊ သုမင်္ဂလာလမ်း၊ ၅ - ရပ်ကွက်၊ တောင်ဥက္ကလာပမြိ့နယ်။",
+      "description": "id_: 20039499<br>latitude: 16.853987<br>longitude: 96.174024<br>address: အမှတ် 590၊ သုမင်္ဂလာလမ်း၊ ၅ - ရပ်ကွက်၊ တောင်ဥက္ကလာပမြိ့နယ်။<br>Nearest_Bus_Stop: Ta Gaung<br>Bus_Num: 87, 96, 10, 32, 12<br>Remark: AYA Bank",
+      "attributes": {
+        "id_": "2.0039499E7",
+        "latitude": 16.853987,
+        "longitude": 96.174024,
+        "address": "အမှတ် 590၊ သုမင်္ဂလာလမ်း၊ ၅ - ရပ်ကွက်၊ တောင်ဥက္ကလာပမြိ့နယ်။",
+        "Nearest_Bus_Stop": "Ta Gaung",
+        "Bus_Num": "87, 96, 10, 32, 12",
+        "Remark": "AYA Bank"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0040F",
+      "latitude": 16.7864391,
+      "longitude": 96.1661278,
+      "address": "အမှတ်(၉၇)၊မြန်မာ့ဂုဏ်ရည်လမ်း၊ကန်တော်လေးတောင်ရပ်ကွက်၊ မင်္ဂလာတောင်ညွှန့်မြို့နယ်။",
+      "description": "id_: 20039513<br>latitude: 16.7864391<br>longitude: 96.1661278<br>address: အမှတ်(၉၇)၊မြန်မာ့ဂုဏ်ရည်လမ်း၊ကန်တော်လေးတောင်ရပ်ကွက်၊ မင်္ဂလာတောင်ညွှန့်မြို့နယ်။<br>Nearest_Bus_Stop: Sar Tike<br>Bus_Num: 7A & B, 64A & B, 20, 25, 43<br>Remark: AYA Bank & KBZ Bank",
+      "attributes": {
+        "id_": "2.0039513E7",
+        "latitude": 16.7864391,
+        "longitude": 96.1661278,
+        "address": "အမှတ်(၉၇)၊မြန်မာ့ဂုဏ်ရည်လမ်း၊ကန်တော်လေးတောင်ရပ်ကွက်၊ မင်္ဂလာတောင်ညွှန့်မြို့နယ်။",
+        "Nearest_Bus_Stop": "Sar Tike",
+        "Bus_Num": "7A & B, 64A & B, 20, 25, 43",
+        "Remark": "AYA Bank & KBZ Bank"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0526",
+      "latitude": 16.814036,
+      "longitude": 96.168959,
+      "address": "No.23/A,East Horse race road,Tarmwe Gyi(ka) ward,Tarmwe Tsp.",
+      "description": "id_: 20039583<br>latitude: 16.814036<br>longitude: 96.168959<br>address: No.23/A,East Horse race road,Tarmwe Gyi(ka) ward,Tarmwe Tsp.<br>Nearest_Bus_Stop: Bo Sein Man<br>Bus_Num: 76, 64A & B, 79, 43, 29, 24B, 86, 62, 80<br>Remark: Ocean (Tamwe)",
+      "attributes": {
+        "id_": "2.0039583E7",
+        "latitude": 16.814036,
+        "longitude": 96.168959,
+        "address": "No.23/A,East Horse race road,Tarmwe Gyi(ka) ward,Tarmwe Tsp.",
+        "Nearest_Bus_Stop": "Bo Sein Man",
+        "Bus_Num": "76, 64A & B, 79, 43, 29, 24B, 86, 62, 80",
+        "Remark": "Ocean (Tamwe)"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0045F",
+      "latitude": 16.80501064,
+      "longitude": 96.21450026,
+      "address": "အမှတ် (၆၉)၊ ဧရာဝဏ်လမ်း၊ (၇) အရှေ့ရပ်ကွက်၊ သာကေတ။",
+      "description": "id_: 20039562<br>latitude: 16.80501064<br>longitude: 96.21450026<br>address: အမှတ် (၆၉)၊ ဧရာဝဏ်လမ်း၊ (၇) အရှေ့ရပ်ကွက်၊ သာကေတ။<br>Nearest_Bus_Stop: 8 Gate<br>Bus_Num: 70, 80, 76, 95, 85, 89, 5, 34, 4, 8, 9, 33, 32<br>Remark: 8 Ward Bazaar",
+      "attributes": {
+        "id_": "2.0039562E7",
+        "latitude": 16.80501064,
+        "longitude": 96.21450026,
+        "address": "အမှတ် (၆၉)၊ ဧရာဝဏ်လမ်း၊ (၇) အရှေ့ရပ်ကွက်၊ သာကေတ။",
+        "Nearest_Bus_Stop": "8 Gate",
+        "Bus_Num": "70, 80, 76, 95, 85, 89, 5, 34, 4, 8, 9, 33, 32",
+        "Remark": "8 Ward Bazaar"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0065",
+      "latitude": 16.8284369,
+      "longitude": 96.1292791,
+      "address": "No. (29-A) \\ Zayar Thiri Steet\\ Kamaryut (1) Ward\\ Kamaryut Township.",
+      "description": "id_: 20039585<br>latitude: 16.8284369<br>longitude: 96.1292791<br>address: No. (29-A) \\ Zayar Thiri Steet\\ Kamaryut (1) Ward\\ Kamaryut Township.<br>Nearest_Bus_Stop: Hledan<br>Bus_Num: 77, 65A & B, 21, 41, 61, 39, 78, 30, 90<br>Remark: YKKO",
+      "attributes": {
+        "id_": "2.0039585E7",
+        "latitude": 16.8284369,
+        "longitude": 96.1292791,
+        "address": "No. (29-A) \\ Zayar Thiri Steet\\ Kamaryut (1) Ward\\ Kamaryut Township.",
+        "Nearest_Bus_Stop": "Hledan",
+        "Bus_Num": "77, 65A & B, 21, 41, 61, 39, 78, 30, 90",
+        "Remark": "YKKO"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0627F",
+      "latitude": 16.79405028013867,
+      "longitude": 96.12311913453989,
+      "address": ": No.488,Kan Nar Road,Thida Ward,Kyee Myintdaing Tsp,Ygn.",
+      "description": "id_: 20039481<br>latitude: 16.79405028013867<br>longitude: 96.12311913453989<br>address: : No.488,Kan Nar Road,Thida Ward,Kyee Myintdaing Tsp,Ygn.<br>Nearest_Bus_Stop: Asia world port<br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039481E7",
+        "latitude": 16.79405028013867,
+        "longitude": 96.12311913453989,
+        "address": ": No.488,Kan Nar Road,Thida Ward,Kyee Myintdaing Tsp,Ygn.",
+        "Nearest_Bus_Stop": "Asia world port",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0074F",
+      "latitude": 16.92097378,
+      "longitude": 96.09744463,
+      "address": "No. (110-B) , Below Mingalardone Road, Aung San Ward, Insein Township.",
+      "description": "id_: 20039487<br>latitude: 16.92097378<br>longitude: 96.09744463<br>address: No. (110-B) , Below Mingalardone Road, Aung San Ward, Insein Township.<br>Nearest_Bus_Stop: Aung Sann Zay<br>Bus_Num: 88, 77, 65A, 15BO & BB, 40, 94, 78, 15<br>Remark: Aung Sann Market",
+      "attributes": {
+        "id_": "2.0039487E7",
+        "latitude": 16.92097378,
+        "longitude": 96.09744463,
+        "address": "No. (110-B) , Below Mingalardone Road, Aung San Ward, Insein Township.",
+        "Nearest_Bus_Stop": "Aung Sann Zay",
+        "Bus_Num": "88, 77, 65A, 15BO & BB, 40, 94, 78, 15",
+        "Remark": "Aung Sann Market"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0636",
+      "latitude": 16.811393,
+      "longitude": 96.172168,
+      "address": ": No.118,tha mein bayan Rd, Nearly Ocean",
+      "description": "id_: 20039477<br>latitude: 16.811393<br>longitude: 96.172168<br>address: : No.118,tha mein bayan Rd, Nearly Ocean<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark: Tamwe A wine<br>",
+      "attributes": {
+        "id_": "2.0039477E7",
+        "latitude": 16.811393,
+        "longitude": 96.172168,
+        "address": ": No.118,tha mein bayan Rd, Nearly Ocean",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": "Tamwe A wine"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0086F",
+      "latitude": 16.801652,
+      "longitude": 96.153734,
+      "address": "အမှတ်(၈)၊ အခန်း(B1)၊ ရေတာရှည်လမ်းသစ်၊ ဗဟန်းမြိုနယ်။",
+      "description": "id_: 20039464<br>latitude: 16.801652<br>longitude: 96.153734<br>address: အမှတ်(၈)၊ အခန်း(B1)၊ ရေတာရှည်လမ်းသစ်၊ ဗဟန်းမြိုနယ်။<br>Nearest_Bus_Stop: Oak Lane<br>Bus_Num: <br>Remark: Myanmar Bishop Shopping Mall",
+      "attributes": {
+        "id_": "2.0039464E7",
+        "latitude": 16.801652,
+        "longitude": 96.153734,
+        "address": "အမှတ်(၈)၊ အခန်း(B1)၊ ရေတာရှည်လမ်းသစ်၊ ဗဟန်းမြိုနယ်။",
+        "Nearest_Bus_Stop": "Oak Lane",
+        "Bus_Num": null,
+        "Remark": "Myanmar Bishop Shopping Mall"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0092",
+      "latitude": 16.777134,
+      "longitude": 96.147961,
+      "address": "အမှတ်(၁၃၂) ၊ အခန်း(၅)၊ အနော်ရထာလမ်းမပေါ်၊ (၂)ရပ်ကွက်၊ လသာမြို့နယ်။ (China Town Hotel ဘေး)",
+      "description": "id_: 20039460<br>latitude: 16.777134<br>longitude: 96.147961<br>address: အမှတ်(၁၃၂) ၊ အခန်း(၅)၊ အနော်ရထာလမ်းမပေါ်၊ (၂)ရပ်ကွက်၊ လသာမြို့နယ်။ (China Town Hotel ဘေး)<br>Nearest_Bus_Stop: 15 Lane<br>Bus_Num: 37, 58, 78, 94<br>Remark: China Town Hotel",
+      "attributes": {
+        "id_": "2.003946E7",
+        "latitude": 16.777134,
+        "longitude": 96.147961,
+        "address": "အမှတ်(၁၃၂) ၊ အခန်း(၅)၊ အနော်ရထာလမ်းမပေါ်၊ (၂)ရပ်ကွက်၊ လသာမြို့နယ်။ (China Town Hotel ဘေး)",
+        "Nearest_Bus_Stop": "15 Lane",
+        "Bus_Num": "37, 58, 78, 94",
+        "Remark": "China Town Hotel"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0093F",
+      "latitude": 16.816381,
+      "longitude": 96.167479,
+      "address": "အမှတ်(၁၄၅)၊မြေညီထပ်၊အနောက်မြင်းပြိုင်ကွင်းလမ်း၊ကျိုက္ကဆံရပ်ကွက်၊ ဗဟန်မြို့နယ်၊",
+      "description": "id_: 20039492<br>latitude: 16.816381<br>longitude: 96.167479<br>address: အမှတ်(၁၄၅)၊မြေညီထပ်၊အနောက်မြင်းပြိုင်ကွင်းလမ်း၊ကျိုက္ကဆံရပ်ကွက်၊ ဗဟန်မြို့နယ်၊<br>Nearest_Bus_Stop: Min Lane<br>Bus_Num: 76, 64A & B, 71, 43, 29, 86, 12<br>Remark: U Chit Maung Housing",
+      "attributes": {
+        "id_": "2.0039492E7",
+        "latitude": 16.816381,
+        "longitude": 96.167479,
+        "address": "အမှတ်(၁၄၅)၊မြေညီထပ်၊အနောက်မြင်းပြိုင်ကွင်းလမ်း၊ကျိုက္ကဆံရပ်ကွက်၊ ဗဟန်မြို့နယ်၊",
+        "Nearest_Bus_Stop": "Min Lane",
+        "Bus_Num": "76, 64A & B, 71, 43, 29, 86, 12",
+        "Remark": "U Chit Maung Housing"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0600F",
+      "latitude": 16.8041343,
+      "longitude": 96.1773886,
+      "address": "Kyauk Myaung Store near",
+      "description": "id_: 20039565<br>latitude: 16.8041343<br>longitude: 96.1773886<br>address: Kyauk Myaung Store near<br><br>Nearest_Bus_Stop: <br>Bus_Num: Kyauk Myaung<br><br>Remark:",
+      "attributes": {
+        "id_": "2.0039565E7",
+        "latitude": 16.8041343,
+        "longitude": 96.1773886,
+        "address": "Kyauk Myaung Store near",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": "Kyauk Myaung",
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0100F",
+      "latitude": 16.9303279,
+      "longitude": 96.13789234,
+      "address": "No. (250), Khayaepin Road,   Mingalardon Township.",
+      "description": "id_: 20039512<br>latitude: 16.9303279<br>longitude: 96.13789234<br>address: No. (250), Khayaepin Road,   Mingalardon Township.<br>Nearest_Bus_Stop: Yar Thet Pan<br>Bus_Num: 93, 11, 66, 97, 18, 17, 91, 73, 42<br>Remark: Hospital, School, Mingalardon Market",
+      "attributes": {
+        "id_": "2.0039512E7",
+        "latitude": 16.9303279,
+        "longitude": 96.13789234,
+        "address": "No. (250), Khayaepin Road,   Mingalardon Township.",
+        "Nearest_Bus_Stop": "Yar Thet Pan",
+        "Bus_Num": "93, 11, 66, 97, 18, 17, 91, 73, 42",
+        "Remark": "Hospital, School, Mingalardon Market"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0102F",
+      "latitude": 16.779568,
+      "longitude": 96.17075,
+      "address": "အမှတ်(၂၁)၊ရေကျော်လမ်းမ၊ ရေကျော်ဈေးရှေ့၊(၉)ရပ်ကွက်၊ပုဇွန်တောင်မြို့နယ်။",
+      "description": "id_: 20039529<br>latitude: 16.779568<br>longitude: 96.17075<br>address: အမှတ်(၂၁)၊ရေကျော်လမ်းမ၊ ရေကျော်ဈေးရှေ့၊(၉)ရပ်ကွက်၊ပုဇွန်တောင်မြို့နယ်။<br>Nearest_Bus_Stop: Lane 50<br>Bus_Num: <br>Remark: City Mart ( Yae Kyaw Complex)",
+      "attributes": {
+        "id_": "2.0039529E7",
+        "latitude": 16.779568,
+        "longitude": 96.17075,
+        "address": "အမှတ်(၂၁)၊ရေကျော်လမ်းမ၊ ရေကျော်ဈေးရှေ့၊(၉)ရပ်ကွက်၊ပုဇွန်တောင်မြို့နယ်။",
+        "Nearest_Bus_Stop": "Lane 50",
+        "Bus_Num": null,
+        "Remark": "City Mart ( Yae Kyaw Complex)"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0485",
+      "latitude": 16.8601018,
+      "longitude": 96.112407,
+      "address": "No(570/571),Corner of 6th Street and Thamine Train Station. Road,(1)Ward,Mayangone Tsp,YGN.",
+      "description": "id_: 20039491<br>latitude: 16.8601018<br>longitude: 96.112407<br>address: No(570/571),Corner of 6th Street and Thamine Train Station. Road,(1)Ward,Mayangone Tsp,YGN.<br>Nearest_Bus_Stop: Pauk Taw Wa<br>Bus_Num: 99, 16B, 6A & B, 55, 22<br>Remark: Muditar Housing 2",
+      "attributes": {
+        "id_": "2.0039491E7",
+        "latitude": 16.8601018,
+        "longitude": 96.112407,
+        "address": "No(570/571),Corner of 6th Street and Thamine Train Station. Road,(1)Ward,Mayangone Tsp,YGN.",
+        "Nearest_Bus_Stop": "Pauk Taw Wa",
+        "Bus_Num": "99, 16B, 6A & B, 55, 22",
+        "Remark": "Muditar Housing 2"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0693",
+      "latitude": 16.856196,
+      "longitude": 96.1821764,
+      "address": "No. 53/A, Thanthumar Road, 7 Ward, South Oakkalapa Tsp.YGN",
+      "description": "id_: 20039470<br>latitude: 16.856196<br>longitude: 96.1821764<br>address: No. 53/A, Thanthumar Road, 7 Ward, South Oakkalapa Tsp.YGN<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.003947E7",
+        "latitude": 16.856196,
+        "longitude": 96.1821764,
+        "address": "No. 53/A, Thanthumar Road, 7 Ward, South Oakkalapa Tsp.YGN",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0107F",
+      "latitude": 16.794186,
+      "longitude": 96.175111,
+      "address": "အမှတ်-191 ၊ ဗညားဒလလမ်း၊ ယုဇနပလာဇာရှေ ့၊ တာမွေမြို ့နယ်",
+      "description": "id_: 20039548<br>latitude: 16.794186<br>longitude: 96.175111<br>address: အမှတ်-191 ၊ ဗညားဒလလမ်း၊ ယုဇနပလာဇာရှေ ့၊ တာမွေမြို ့နယ်<br>Nearest_Bus_Stop: Lan Kyae<br>Bus_Num: 65A, 26, 20, 85, 27, 7A & B, 95, 3A, 43, 64A & B, 65B, 97, 13, 72, 25<br>Remark: Yuzana Plaza",
+      "attributes": {
+        "id_": "2.0039548E7",
+        "latitude": 16.794186,
+        "longitude": 96.175111,
+        "address": "အမှတ်-191 ၊ ဗညားဒလလမ်း၊ ယုဇနပလာဇာရှေ ့၊ တာမွေမြို ့နယ်",
+        "Nearest_Bus_Stop": "Lan Kyae",
+        "Bus_Num": "65A, 26, 20, 85, 27, 7A & B, 95, 3A, 43, 64A & B, 65B, 97, 13, 72, 25",
+        "Remark": "Yuzana Plaza"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0658F",
+      "latitude": 16.8784230107198,
+      "longitude": 96.0670569602769,
+      "address": "Building No. 63, Room No.001, Bagan Street, Kyan Sit Min Housing Part (2), Hlaing Thar Yar Tsp. YGN",
+      "description": "id_: 20039577<br>latitude: 16.87842301071981<br><br>longitude: 96.0670569602769<br>address: Building No. 63, Room No.001, Bagan Street, Kyan Sit Min Housing Part (2), Hlaing Thar Yar Tsp. YGN<br>Nearest_Bus_Stop: 5 Htite<br><br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039577E7",
+        "latitude": 16.87842301071981,
+        "longitude": 96.0670569602769,
+        "address": "Building No. 63, Room No.001, Bagan Street, Kyan Sit Min Housing Part (2), Hlaing Thar Yar Tsp. YGN",
+        "Nearest_Bus_Stop": "5 Htite",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0560-A",
+      "latitude": 16.798762,
+      "longitude": 96.130656,
+      "address": "No.23 , Baho Rd, Aung Chan Thar Ward, Sanchaung Twsp.",
+      "description": "id_: 20039520<br>latitude: 16.798762<br>longitude: 96.130656<br>address: No.23 , Baho Rd, Aung Chan Thar Ward, Sanchaung Twsp.<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark: Asia Royal Hospital<br>",
+      "attributes": {
+        "id_": "2.003952E7",
+        "latitude": 16.798762,
+        "longitude": 96.130656,
+        "address": "No.23 , Baho Rd, Aung Chan Thar Ward, Sanchaung Twsp.",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": "Asia Royal Hospital"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0467F",
+      "latitude": 16.9267391,
+      "longitude": 96.1818879,
+      "address": "21 ward/Bagan Street/ Shwe Pauk Kan, North Okkalapa Township.",
+      "description": "id_: 20039537<br>latitude: 16.9267391<br>longitude: 96.1818879<br>address: 21 ward/Bagan Street/ Shwe Pauk Kan, North Okkalapa Township.<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039537E7",
+        "latitude": 16.9267391,
+        "longitude": 96.1818879,
+        "address": "21 ward/Bagan Street/ Shwe Pauk Kan, North Okkalapa Township.",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0128",
+      "latitude": 16.818831,
+      "longitude": 96.121955,
+      "address": "အမှတ်(၄၂၆)၊ကမ်းနားလမ်း၊သရက်တောတောင်ရပ်ကွက်၊ကြည်မြင်တိုင်မြို့နယ်။",
+      "description": "id_: 20039502<br>latitude: 16.818831<br>longitude: 96.121955<br>address: အမှတ်(၄၂၆)၊ကမ်းနားလမ်း၊သရက်တောတောင်ရပ်ကွက်၊ကြည်မြင်တိုင်မြို့နယ်။<br>Nearest_Bus_Stop: Away Pyae<br>Bus_Num: 40, 20, 85, 75, 30, 23, 14, 55, 19, 62<br>Remark: Grand Han Thar Hospital",
+      "attributes": {
+        "id_": "2.0039502E7",
+        "latitude": 16.818831,
+        "longitude": 96.121955,
+        "address": "အမှတ်(၄၂၆)၊ကမ်းနားလမ်း၊သရက်တောတောင်ရပ်ကွက်၊ကြည်မြင်တိုင်မြို့နယ်။",
+        "Nearest_Bus_Stop": "Away Pyae",
+        "Bus_Num": "40, 20, 85, 75, 30, 23, 14, 55, 19, 62",
+        "Remark": "Grand Han Thar Hospital"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0132",
+      "latitude": 16.803277,
+      "longitude": 96.134233,
+      "address": "အမှတ်(၈၂)/မင်္ဂလာလမ်းနှင့် ပဒုမ္မာလမ်းထောင့်/ စမ်းချောင်းမြို့",
+      "description": "id_: 31000717<br>latitude: 16.803277<br>longitude: 96.134233<br>address: အမှတ်(၈၂)/မင်္ဂလာလမ်းနှင့် ပဒုမ္မာလမ်းထောင့်/ စမ်းချောင်းမြို့<br>Nearest_Bus_Stop: Shwe Mann<br>Bus_Num: 11, 80, 59, 20, 85, 62, 75<br>Remark: Spirit Fanncy & Liquor Shop",
+      "attributes": {
+        "id_": "3.1000717E7",
+        "latitude": 16.803277,
+        "longitude": 96.134233,
+        "address": "အမှတ်(၈၂)/မင်္ဂလာလမ်းနှင့် ပဒုမ္မာလမ်းထောင့်/ စမ်းချောင်းမြို့",
+        "Nearest_Bus_Stop": "Shwe Mann",
+        "Bus_Num": "11, 80, 59, 20, 85, 62, 75",
+        "Remark": "Spirit Fanncy & Liquor Shop"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0148",
+      "latitude": 16.776372,
+      "longitude": 96.175075,
+      "address": "အမှတ် ၈၅/၊အနော်ရထာလမ်း၊၂ရပ်ကွက်၊ပုဇွန်တောင်မြို့နယ်။",
+      "description": "id_: 20039528<br>latitude: 16.776372<br>longitude: 96.175075<br>address: အမှတ် ၈၅/၊အနော်ရထာလမ်း၊၂ရပ်ကွက်၊ပုဇွန်တောင်မြို့နယ်။<br>Nearest_Bus_Stop: Ma Sa Lar<br>Bus_Num: 58, 4, 5<br>Remark: MCB Bank & AYA Bank",
+      "attributes": {
+        "id_": "2.0039528E7",
+        "latitude": 16.776372,
+        "longitude": 96.175075,
+        "address": "အမှတ် ၈၅/၊အနော်ရထာလမ်း၊၂ရပ်ကွက်၊ပုဇွန်တောင်မြို့နယ်။",
+        "Nearest_Bus_Stop": "Ma Sa Lar",
+        "Bus_Num": "58, 4, 5",
+        "Remark": "MCB Bank & AYA Bank"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0149",
+      "latitude": 16.776762,
+      "longitude": 96.154231,
+      "address": "အမှတ်၁၅၀။၂၆လမ်း၊၂ရပ်ကွက်၊ပန်းပဲတန်းမြို့နယ်။",
+      "description": "id_: 20039526<br>latitude: 16.776762<br>longitude: 96.154231<br>address: အမှတ်၁၅၀။၂၆လမ်း၊၂ရပ်ကွက်၊ပန်းပဲတန်းမြို့နယ်။<br>Nearest_Bus_Stop: Kone Zay Dan<br>Bus_Num: 37, 58, 78, 94<br>Remark: Theingyi Market",
+      "attributes": {
+        "id_": "2.0039526E7",
+        "latitude": 16.776762,
+        "longitude": 96.154231,
+        "address": "အမှတ်၁၅၀။၂၆လမ်း၊၂ရပ်ကွက်၊ပန်းပဲတန်းမြို့နယ်။",
+        "Nearest_Bus_Stop": "Kone Zay Dan",
+        "Bus_Num": "37, 58, 78, 94",
+        "Remark": "Theingyi Market"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0889",
+      "latitude": 16.84559,
+      "longitude": 96.201145,
+      "address": "No.25,Ground Floor,Than Thumar Road,Ngamoe Yeik Ward,Thingangyun Tsp,Yangon",
+      "description": "id_: 20039558<br>latitude: 16.84559<br>longitude: 96.201145<br>address: No.25,Ground Floor,Than Thumar Road,Ngamoe Yeik Ward,Thingangyun Tsp,Yangon<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039558E7",
+        "latitude": 16.84559,
+        "longitude": 96.201145,
+        "address": "No.25,Ground Floor,Than Thumar Road,Ngamoe Yeik Ward,Thingangyun Tsp,Yangon",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0708",
+      "latitude": 16.821886,
+      "longitude": 96.2040571,
+      "address": "Min Din Bustop, Thingyankyun township",
+      "description": "id_: 20039581<br>latitude: 16.821886<br>longitude: 96.2040571<br>address: Min Din Bustop, Thingyankyun township<br>Nearest_Bus_Stop: Min Din <br><br>Bus_Num: 63,59,25,110,97,75<br>Remark:",
+      "attributes": {
+        "id_": "2.0039581E7",
+        "latitude": 16.821886,
+        "longitude": 96.2040571,
+        "address": "Min Din Bustop, Thingyankyun township",
+        "Nearest_Bus_Stop": "Min Din",
+        "Bus_Num": "63,59,25,110,97,75",
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0177",
+      "latitude": 16.814306,
+      "longitude": 96.124555,
+      "address": "အမှတ်40/နတ်စင်လမ်း။ကြည့်မြင်တိုင်မြို့နယ်။",
+      "description": "id_: 20039501<br>latitude: 16.814306<br>longitude: 96.124555<br>address: အမှတ်40/နတ်စင်လမ်း။ကြည့်မြင်တိုင်မြို့နယ်။<br>Nearest_Bus_Stop: Nat Sin Lane<br>Bus_Num: 94, 98, 62, 11, 90, 22, 41, 14<br>Remark: Electric Bill Office",
+      "attributes": {
+        "id_": "2.0039501E7",
+        "latitude": 16.814306,
+        "longitude": 96.124555,
+        "address": "အမှတ်40/နတ်စင်လမ်း။ကြည့်မြင်တိုင်မြို့နယ်။",
+        "Nearest_Bus_Stop": "Nat Sin Lane",
+        "Bus_Num": "94, 98, 62, 11, 90, 22, 41, 14",
+        "Remark": "Electric Bill Office"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0570",
+      "latitude": 16.780088,
+      "longitude": 96.19117,
+      "address": "Yamone Nar Road, Yan Pyay street , Yan Pyay bus stop near Moe Ti Hospital.",
+      "description": "id_: 20039557<br>latitude: 16.780088<br>longitude: 96.19117<br>address: Yamone Nar Road, Yan Pyay street , Yan Pyay bus stop near Moe Ti Hospital.<br>Nearest_Bus_Stop: Yan Pyay<br>Bus_Num: <br>Remark: Moe Ti Hospital",
+      "attributes": {
+        "id_": "2.0039557E7",
+        "latitude": 16.780088,
+        "longitude": 96.19117,
+        "address": "Yamone Nar Road, Yan Pyay street , Yan Pyay bus stop near Moe Ti Hospital.",
+        "Nearest_Bus_Stop": "Yan Pyay",
+        "Bus_Num": null,
+        "Remark": "Moe Ti Hospital"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0389",
+      "latitude": 16.777328,
+      "longitude": 96.247503,
+      "address": "No(85),General Nay Win Street, middle Quarter, Thanlyin",
+      "description": "id_: 20039563<br>latitude: 16.777328<br>longitude: 96.247503<br>address: No(85),General Nay Win Street, middle Quarter, Thanlyin<br>Nearest_Bus_Stop: Myo Ma<br>Bus_Num: 32, 76<br>Remark:",
+      "attributes": {
+        "id_": "2.0039563E7",
+        "latitude": 16.777328,
+        "longitude": 96.247503,
+        "address": "No(85),General Nay Win Street, middle Quarter, Thanlyin",
+        "Nearest_Bus_Stop": "Myo Ma",
+        "Bus_Num": "32, 76",
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0789",
+      "latitude": 16.8016914909665,
+      "longitude": 96.132994232881,
+      "address": "No.50,Myint Mo street,San south ward,Sanchaung Tsp,Ygn",
+      "description": "id_: 20039531<br>latitude: 16.80169149096647<br>longitude: 96.13299423288098<br>address: No.50,Myint Mo street,San south ward,Sanchaung Tsp,Ygn<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039531E7",
+        "latitude": 16.80169149096647,
+        "longitude": 96.13299423288098,
+        "address": "No.50,Myint Mo street,San south ward,Sanchaung Tsp,Ygn",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0224",
+      "latitude": 16.8914951,
+      "longitude": 96.19679,
+      "address": "No. 101/1, Junction of 7-8, the corner of pyihtaing su Rd &Yarzardarit Rd, 38/ ward, North Dagon 516",
+      "description": "id_: 20039516<br>latitude: 16.8914951<br>longitude: 96.19679<br>address: No. 101/1, Junction of 7-8, the corner of pyihtaing su Rd &Yarzardarit Rd, 38/ ward, North Dagon 516<br><br>Nearest_Bus_Stop: Junction 78<br>Bus_Num: 87, 30, 62, 84, 29, 25<br>Remark: Terminal Petrol Station",
+      "attributes": {
+        "id_": "2.0039516E7",
+        "latitude": 16.8914951,
+        "longitude": 96.19679,
+        "address": "No. 101/1, Junction of 7-8, the corner of pyihtaing su Rd &Yarzardarit Rd, 38/ ward, North Dagon 516",
+        "Nearest_Bus_Stop": "Junction 78",
+        "Bus_Num": "87, 30, 62, 84, 29, 25",
+        "Remark": "Terminal Petrol Station"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0547",
+      "latitude": 16.7748206,
+      "longitude": 96.1426022,
+      "address": "No.833, Conner of 9th Street and Maharbandoola Road, 4 Ward, Lanmadaw Township",
+      "description": "id_: 20039596<br>latitude: 16.7748206<br>longitude: 96.1426022<br>address: No.833, Conner of 9th Street and Maharbandoola Road, 4 Ward, Lanmadaw Township<br>Nearest_Bus_Stop: Sar Tike <br>Bus_Num: 72, 80<br>Remark:",
+      "attributes": {
+        "id_": "2.0039596E7",
+        "latitude": 16.7748206,
+        "longitude": 96.1426022,
+        "address": "No.833, Conner of 9th Street and Maharbandoola Road, 4 Ward, Lanmadaw Township",
+        "Nearest_Bus_Stop": "Sar Tike",
+        "Bus_Num": "72, 80",
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0242",
+      "latitude": 17.09559886,
+      "longitude": 96.21674057,
+      "address": "No(86),Myot Ma Ward,Ygn-Mdy st,Hlegu Township.",
+      "description": "id_: 20039485<br>latitude: 17.09559886<br>longitude: 96.21674057<br>address: No(86),Myot Ma Ward,Ygn-Mdy st,Hlegu Township.<br>Nearest_Bus_Stop: Yeik Thar<br>Bus_Num: 44, 37<br>Remark:",
+      "attributes": {
+        "id_": "2.0039485E7",
+        "latitude": 17.09559886,
+        "longitude": 96.21674057,
+        "address": "No(86),Myot Ma Ward,Ygn-Mdy st,Hlegu Township.",
+        "Nearest_Bus_Stop": "Yeik Thar",
+        "Bus_Num": "44, 37",
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0257",
+      "latitude": 16.8760389,
+      "longitude": 96.1587051,
+      "address": "No. 857, the corner of Thuzi tar Rd and Thu ti kar -7 St(Yaway Twin Gone st),2-ward, North OkkalaTownship",
+      "description": "id_: 20039594<br>latitude: 16.8760389<br>longitude: 96.1587051<br>address: No. 857, the corner of Thuzi tar Rd and Thu ti kar -7 St(Yaway Twin Gone st),2-ward, North OkkalaTownship<br>Nearest_Bus_Stop: Kyaung Lane<br>Bus_Num: 19, 35, 32, 28<br>Remark:",
+      "attributes": {
+        "id_": "2.0039594E7",
+        "latitude": 16.8760389,
+        "longitude": 96.1587051,
+        "address": "No. 857, the corner of Thuzi tar Rd and Thu ti kar -7 St(Yaway Twin Gone st),2-ward, North OkkalaTownship",
+        "Nearest_Bus_Stop": "Kyaung Lane",
+        "Bus_Num": "19, 35, 32, 28",
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0275",
+      "latitude": 16.800616,
+      "longitude": 96.175481,
+      "address": "No-346\\Banyar Da la Rd\\Kyauck  htat Ward\\Tarmwe Tp.",
+      "description": "id_: 20039540<br>latitude: 16.800616<br>longitude: 96.175481<br>address: No-346\\Banyar Da la Rd\\Kyauck  htat Ward\\Tarmwe Tp.<br>Nearest_Bus_Stop: Thida<br>Bus_Num: 65A, 26, 20<br>Remark: CB Bank",
+      "attributes": {
+        "id_": "2.003954E7",
+        "latitude": 16.800616,
+        "longitude": 96.175481,
+        "address": "No-346\\Banyar Da la Rd\\Kyauck  htat Ward\\Tarmwe Tp.",
+        "Nearest_Bus_Stop": "Thida",
+        "Bus_Num": "65A, 26, 20",
+        "Remark": "CB Bank"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0772",
+      "latitude": 16.8237493,
+      "longitude": 96.2109922,
+      "address": "Room - 1, Corner of Kamarkyi Road and Nyaung Ai Street, 29 Ward, Thingunkyun Tsp. YGN",
+      "description": "id_: 20039595<br>latitude: 16.8237493<br>longitude: 96.2109922<br>address: Room - 1, Corner of Kamarkyi Road and Nyaung Ai Street, 29 Ward, Thingunkyun Tsp. YGN<br>Nearest_Bus_Stop: Thit Sat<br>Bus_Num: 63, 59, 81, 97, 96, 25, 42, 33<br>Remark: Dental College",
+      "attributes": {
+        "id_": "2.0039595E7",
+        "latitude": 16.8237493,
+        "longitude": 96.2109922,
+        "address": "Room - 1, Corner of Kamarkyi Road and Nyaung Ai Street, 29 Ward, Thingunkyun Tsp. YGN",
+        "Nearest_Bus_Stop": "Thit Sat",
+        "Bus_Num": "63, 59, 81, 97, 96, 25, 42, 33",
+        "Remark": "Dental College"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0279F",
+      "latitude": 16.83918348,
+      "longitude": 96.18971899,
+      "address": "အမှတ်439။A-1၊မာဃလမ်း။12ရပ်ကွက်။ပါရမီလမ်း။တောင်ဥက္ကလာ။",
+      "description": "id_: 20039524<br>latitude: 16.83918348<br>longitude: 96.18971899<br>address: အမှတ်439။A-1၊မာဃလမ်း။12ရပ်ကွက်။ပါရမီလမ်း။တောင်ဥက္ကလာ။<br>Nearest_Bus_Stop: Kyaikasan Pagoda<br>Bus_Num: 60, 27, 1, 60, 14, 63<br>Remark: Kyaikasan Pagoda",
+      "attributes": {
+        "id_": "2.0039524E7",
+        "latitude": 16.83918348,
+        "longitude": 96.18971899,
+        "address": "အမှတ်439။A-1၊မာဃလမ်း။12ရပ်ကွက်။ပါရမီလမ်း။တောင်ဥက္ကလာ။",
+        "Nearest_Bus_Stop": "Kyaikasan Pagoda",
+        "Bus_Num": "60, 27, 1, 60, 14, 63",
+        "Remark": "Kyaikasan Pagoda"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0281",
+      "latitude": 16.82792244,
+      "longitude": 96.18843555,
+      "address": "အမှတ်337-B။လေးထောင့်ကန်လမ်း။သံသုမာလမ်း။သင်္ကန်းကျွန်းမြို့နယ်။",
+      "description": "id_: 20039580<br>latitude: 16.82792244<br>longitude: 96.18843555<br>address: အမှတ်337-B။လေးထောင့်ကန်လမ်း။သံသုမာလမ်း။သင်္ကန်းကျွန်းမြို့နယ်။<br>Nearest_Bus_Stop: Za Wa Na<br>Bus_Num: 1, 10, 84, 92, 46, 71, 92, 7A, 3A, 96, 18, 32<br>Remark: Junction Za Wa Na",
+      "attributes": {
+        "id_": "2.003958E7",
+        "latitude": 16.82792244,
+        "longitude": 96.18843555,
+        "address": "အမှတ်337-B။လေးထောင့်ကန်လမ်း။သံသုမာလမ်း။သင်္ကန်းကျွန်းမြို့နယ်။",
+        "Nearest_Bus_Stop": "Za Wa Na",
+        "Bus_Num": "1, 10, 84, 92, 46, 71, 92, 7A, 3A, 96, 18, 32",
+        "Remark": "Junction Za Wa Na"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0301F",
+      "latitude": 16.8976623,
+      "longitude": 96.1858728,
+      "address": "အမှတ်27။လွုင်ကော်လမ်းနှင့်မဟာဗန္ဒုလလမ်းထောင့်။46ရပ်ကွက်။မြောက်ဒဂုံမြို့နယ်။",
+      "description": "id_: 20039472<br>latitude: 16.8976623<br>longitude: 96.1858728<br>address: အမှတ်27။လွုင်ကော်လမ်းနှင့်မဟာဗန္ဒုလလမ်းထောင့်။46ရပ်ကွက်။မြောက်ဒဂုံမြို့နယ်။<br>Nearest_Bus_Stop: Ba Htoo Zay<br>Bus_Num: 10, 87, 28, 2, 29,15<br>Remark: Bo Ba Htoo Housing",
+      "attributes": {
+        "id_": "2.0039472E7",
+        "latitude": 16.8976623,
+        "longitude": 96.1858728,
+        "address": "အမှတ်27။လွုင်ကော်လမ်းနှင့်မဟာဗန္ဒုလလမ်းထောင့်။46ရပ်ကွက်။မြောက်ဒဂုံမြို့နယ်။",
+        "Nearest_Bus_Stop": "Ba Htoo Zay",
+        "Bus_Num": "10, 87, 28, 2, 29,15",
+        "Remark": "Bo Ba Htoo Housing"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0882",
+      "latitude": 16.826583,
+      "longitude": 96.128,
+      "address": "No. (62), Ground Floor, Corner of Hledan Road and (50) Feet Street. (3) Ward, Kamaryut Tsp, Yangon.",
+      "description": "id_: 20039556<br>latitude: 16.826583<br>longitude: 96.128000<br>address: No. (62), Ground Floor, Corner of Hledan Road and (50) Feet Street. (3) Ward, Kamaryut Tsp, Yangon.<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039556E7",
+        "latitude": 16.826583,
+        "longitude": 96.128,
+        "address": "No. (62), Ground Floor, Corner of Hledan Road and (50) Feet Street. (3) Ward, Kamaryut Tsp, Yangon.",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0349",
+      "latitude": 16.806715,
+      "longitude": 96.179322,
+      "address": "အမှတ်18။အသောကလမ်း။တာမွေ။",
+      "description": "id_: 20039542<br>latitude: 16.806715<br>longitude: 96.179322<br>address: အမှတ်18။အသောကလမ်း။တာမွေ။<br>Nearest_Bus_Stop: Asoka<br>Bus_Num: 59, 76, 95, 86, 79, 75, 24B, 72, 25<br>Remark: Asoka Market",
+      "attributes": {
+        "id_": "2.0039542E7",
+        "latitude": 16.806715,
+        "longitude": 96.179322,
+        "address": "အမှတ်18။အသောကလမ်း။တာမွေ။",
+        "Nearest_Bus_Stop": "Asoka",
+        "Bus_Num": "59, 76, 95, 86, 79, 75, 24B, 72, 25",
+        "Remark": "Asoka Market"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0357",
+      "latitude": 16.89352169,
+      "longitude": 96.20913181,
+      "address": "အမှတ်159။ငထွေရူးလမ်း။8ရပ်ကွက်။အရှ့ဒဂုံ။",
+      "description": "id_: 31000681<br>latitude: 16.89352169<br>longitude: 96.20913181<br>address: အမှတ်159။ငထွေရူးလမ်း။8ရပ်ကွက်။အရှ့ဒဂုံ။<br>Nearest_Bus_Stop: Gate Haung<br>Bus_Num: 84<br>Remark: B.E.P.S (2)",
+      "attributes": {
+        "id_": "3.1000681E7",
+        "latitude": 16.89352169,
+        "longitude": 96.20913181,
+        "address": "အမှတ်159။ငထွေရူးလမ်း။8ရပ်ကွက်။အရှ့ဒဂုံ။",
+        "Nearest_Bus_Stop": "Gate Haung",
+        "Bus_Num": "84",
+        "Remark": "B.E.P.S (2)"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0369",
+      "latitude": 16.82013165,
+      "longitude": 96.1770251,
+      "address": "107 Lay Daungkan Rd, Yangon, Myanmar (Burma)",
+      "description": "id_: 20039593<br>latitude: 16.82013165<br>longitude: 96.1770251<br>address: 107 Lay Daungkan Rd, Yangon, Myanmar (Burma)<br>Nearest_Bus_Stop: Than Lane<br>Bus_Num: 3A, 7A & B, 18, 13, 24B, 62<br>Remark: Super One Shopping, ILBC",
+      "attributes": {
+        "id_": "2.0039593E7",
+        "latitude": 16.82013165,
+        "longitude": 96.1770251,
+        "address": "107 Lay Daungkan Rd, Yangon, Myanmar (Burma)",
+        "Nearest_Bus_Stop": "Than Lane",
+        "Bus_Num": "3A, 7A & B, 18, 13, 24B, 62",
+        "Remark": "Super One Shopping, ILBC"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0814",
+      "latitude": 16.861036,
+      "longitude": 96.122454,
+      "address": "Building (B),Room(A),Ground Floor,Yangon-Insein Road,(3)Ward, Mayangone Tsp,Yangon",
+      "description": "id_: 20039575<br>latitude: 16.861036<br>longitude: 96.122454<br>address: Building (B),Room(A),Ground Floor,Yangon-Insein Road,(3)Ward, Mayangone Tsp,Yangon<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039575E7",
+        "latitude": 16.861036,
+        "longitude": 96.122454,
+        "address": "Building (B),Room(A),Ground Floor,Yangon-Insein Road,(3)Ward, Mayangone Tsp,Yangon",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0363-A",
+      "latitude": 16.7791926,
+      "longitude": 96.1493916,
+      "address": "Yangon General Hospital (YGH)",
+      "description": "id_: 20039586<br>latitude: 16.7791926<br>longitude: 96.1493916<br>address: Yangon General Hospital (YGH)<br>Nearest_Bus_Stop: Say Yone Kyi <br>Bus_Num: 37,56,94,98,20<br>Remark:",
+      "attributes": {
+        "id_": "2.0039586E7",
+        "latitude": 16.7791926,
+        "longitude": 96.1493916,
+        "address": "Yangon General Hospital (YGH)",
+        "Nearest_Bus_Stop": "Say Yone Kyi",
+        "Bus_Num": "37,56,94,98,20",
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0489",
+      "latitude": 16.9010727,
+      "longitude": 96.1592521,
+      "address": "No (502), Maydharwi Road, (Sa lone)Ward, North Oakkalapa Tsp.",
+      "description": "id_: 20039510<br>latitude: 16.9010727<br>longitude: 96.1592521<br>address: No (502), Maydharwi Road, (Sa lone)Ward, North Oakkalapa Tsp.<br>Nearest_Bus_Stop: Thone lan Zone<br>Bus_Num: <br>Remark: Not sure location map",
+      "attributes": {
+        "id_": "2.003951E7",
+        "latitude": 16.9010727,
+        "longitude": 96.1592521,
+        "address": "No (502), Maydharwi Road, (Sa lone)Ward, North Oakkalapa Tsp.",
+        "Nearest_Bus_Stop": "Thone lan Zone",
+        "Bus_Num": null,
+        "Remark": "Not sure location map"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0403",
+      "latitude": 16.866256,
+      "longitude": 96.125725,
+      "address": "No.142, Kyike Wine Pagada Rd, Ye Yan Aung Ward, Mayangone Tsp.",
+      "description": "id_: 20039518<br>latitude: 16.866256<br>longitude: 96.125725<br>address: No.142, Kyike Wine Pagada Rd, Ye Yan Aung Ward, Mayangone Tsp.<br>Nearest_Bus_Stop: Ye Yan Aung Stop , Kyike Wine<br>Bus_Num: 15,88,16,77,30,83,19,79<br>Remark:",
+      "attributes": {
+        "id_": "2.0039518E7",
+        "latitude": 16.866256,
+        "longitude": 96.125725,
+        "address": "No.142, Kyike Wine Pagada Rd, Ye Yan Aung Ward, Mayangone Tsp.",
+        "Nearest_Bus_Stop": "Ye Yan Aung Stop , Kyike Wine",
+        "Bus_Num": "15,88,16,77,30,83,19,79",
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0429F",
+      "latitude": 16.8288082,
+      "longitude": 96.1246868,
+      "address": "အမှတ်(၅) ၊ မေသိင်္ခ လမ်း ( W Htan TaPin st) ၊ ၃ ရပ်ကွက် ကမာရွတ်မြို့နယ်။ ဗဟိုလမ်းအနီး",
+      "description": "id_: 20039474<br>latitude: 16.8288082<br>longitude: 96.1246868<br>address: အမှတ်(၅) ၊ မေသိင်္ခ လမ်း ( W Htan TaPin st) ၊ ၃ ရပ်ကွက် ကမာရွတ်မြို့နယ်။ ဗဟိုလမ်းအနီး<br>Nearest_Bus_Stop: BRB bus stop Baho street<br>Bus_Num: 22, 94, 11 <br>Remark: Hledan Junction / Baho Street",
+      "attributes": {
+        "id_": "2.0039474E7",
+        "latitude": 16.8288082,
+        "longitude": 96.1246868,
+        "address": "အမှတ်(၅) ၊ မေသိင်္ခ လမ်း ( W Htan TaPin st) ၊ ၃ ရပ်ကွက် ကမာရွတ်မြို့နယ်။ ဗဟိုလမ်းအနီး",
+        "Nearest_Bus_Stop": "BRB bus stop Baho street",
+        "Bus_Num": "22, 94, 11",
+        "Remark": "Hledan Junction / Baho Street"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0432",
+      "latitude": 16.7739415,
+      "longitude": 96.1697778,
+      "address": "Bo Myat Tun Tower, Mahar Bandoola Road, Botadaung Tsp.",
+      "description": "id_: 20039498<br>latitude: 16.7739415<br>longitude: 96.1697778<br>address: Bo Myat Tun Tower, Mahar Bandoola Road, Botadaung Tsp. <br>Nearest_Bus_Stop: 50st Bus stop<br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039498E7",
+        "latitude": 16.7739415,
+        "longitude": 96.1697778,
+        "address": "Bo Myat Tun Tower, Mahar Bandoola Road, Botadaung Tsp.",
+        "Nearest_Bus_Stop": "50st Bus stop",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0221F",
+      "latitude": 16.7741399,
+      "longitude": 96.1806536,
+      "address": "Corner of Upper Pazundaung Road & Yazadrit Street. Botadaung Township.",
+      "description": "id_: 20039531<br>latitude: 16.7741399<br>longitude: 96.1806536<br>address: Corner of Upper Pazundaung Road & Yazadrit Street. Botadaung Township.<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039531E7",
+        "latitude": 16.7741399,
+        "longitude": 96.1806536,
+        "address": "Corner of Upper Pazundaung Road & Yazadrit Street. Botadaung Township.",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0436",
+      "latitude": 16.774712,
+      "longitude": 96.145419,
+      "address": "No.781 Ground Floor(right side room) 6 ward ,Maharbandula Road,Lan Ma Daw Township.",
+      "description": "id_: 20039514<br>latitude: 16.774712<br>longitude: 96.145419<br>address: No.781 Ground Floor(right side room) 6 ward ,Maharbandula Road,Lan Ma Daw Township.<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039514E7",
+        "latitude": 16.774712,
+        "longitude": 96.145419,
+        "address": "No.781 Ground Floor(right side room) 6 ward ,Maharbandula Road,Lan Ma Daw Township.",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0829",
+      "latitude": 16.771576428835,
+      "longitude": 96.1644794987959,
+      "address": "No-(497/481), Room(1+2), Ground Floor, Cr of Merchant and Bo Aung Kyaw Road,(7)Ward, Botahtaung Tsp.",
+      "description": "id_: 20039534<br>latitude: 16.771576428834962<br>longitude: 96.16447949879587<br>address: No-(497/481), Room(1+2), Ground Floor, Cr of Merchant and Bo Aung Kyaw Road,(7)Ward, Botahtaung Tsp.<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039534E7",
+        "latitude": 16.771576428834962,
+        "longitude": 96.16447949879587,
+        "address": "No-(497/481), Room(1+2), Ground Floor, Cr of Merchant and Bo Aung Kyaw Road,(7)Ward, Botahtaung Tsp.",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0440F",
+      "latitude": 16.811752,
+      "longitude": 96.168037,
+      "address": "No 45 shwegondine road corner of bolayaung streest , bo sein mhan quarter .bahan",
+      "description": "id_: 20039484<br>latitude: 16.811752<br>longitude: 96.168037<br>address: No 45 shwegondine road corner of bolayaung streest , bo sein mhan quarter .bahan<br>Nearest_Bus_Stop: ShweGondine (Tarmwe Awine)<br>Bus_Num: 76, 64A & B, 79, 43, 29, 24B, 86, 62, 80<br>Remark: Tarmwe Ocean",
+      "attributes": {
+        "id_": "2.0039484E7",
+        "latitude": 16.811752,
+        "longitude": 96.168037,
+        "address": "No 45 shwegondine road corner of bolayaung streest , bo sein mhan quarter .bahan",
+        "Nearest_Bus_Stop": "ShweGondine (Tarmwe Awine)",
+        "Bus_Num": "76, 64A & B, 79, 43, 29, 24B, 86, 62, 80",
+        "Remark": "Tarmwe Ocean"
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0441F",
+      "latitude": 16.778664,
+      "longitude": 96.175258,
+      "address": "No.105 building,Nyaung tan housing, 5 ward, Pazuntaung township",
+      "description": "id_: 20039559<br>latitude: 16.778664<br>longitude: 96.175258<br>address: No.105 building,Nyaung tan housing, 5 ward, Pazuntaung township<br>Nearest_Bus_Stop: Pazundaung Market, Nyaungtan<br>Bus_Num: Nyaungtan bus stop<br>Remark:",
+      "attributes": {
+        "id_": "2.0039559E7",
+        "latitude": 16.778664,
+        "longitude": 96.175258,
+        "address": "No.105 building,Nyaung tan housing, 5 ward, Pazuntaung township",
+        "Nearest_Bus_Stop": "Pazundaung Market, Nyaungtan",
+        "Bus_Num": "Nyaungtan bus stop",
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0741",
+      "latitude": 16.823563,
+      "longitude": 96.131352,
+      "address": "No(507),PyayRoad,(8)Ward,KamaryutTownship,Yangon.",
+      "description": "id_: 20039553<br>latitude: 16.8235630<br>longitude: 96.1313520<br>address: No(507),PyayRoad,(8)Ward,KamaryutTownship,Yangon.<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039553E7",
+        "latitude": 16.823563,
+        "longitude": 96.131352,
+        "address": "No(507),PyayRoad,(8)Ward,KamaryutTownship,Yangon.",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0498",
+      "latitude": 16.7768625,
+      "longitude": 96.159753,
+      "address": "No (174),Anawrahta Road,14/2 Ward,Kyauktada Township,Yangon",
+      "description": "id_: 20039475<br>latitude: 16.7768625<br>longitude: 96.1597530<br>address: No (174),Anawrahta Road,14/2 Ward,Kyauktada Township,Yangon<br>Nearest_Bus_Stop: Sule , Bar lan<br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039475E7",
+        "latitude": 16.7768625,
+        "longitude": 96.159753,
+        "address": "No (174),Anawrahta Road,14/2 Ward,Kyauktada Township,Yangon",
+        "Nearest_Bus_Stop": "Sule , Bar lan",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0494",
+      "latitude": 16.8072962,
+      "longitude": 96.1762885,
+      "address": "No.282, Kyite Ka San Rd, Ma Hlwa Kone Htay Kywal Ward, Tamwe Tsp.",
+      "description": "id_: 20039505<br>latitude: 16.8072962<br>longitude: 96.1762885<br>address: No.282, Kyite Ka San Rd, Ma Hlwa Kone Htay Kywal Ward, Tamwe Tsp.<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039505E7",
+        "latitude": 16.8072962,
+        "longitude": 96.1762885,
+        "address": "No.282, Kyite Ka San Rd, Ma Hlwa Kone Htay Kywal Ward, Tamwe Tsp.",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0427F",
+      "latitude": 16.780068,
+      "longitude": 96.1744897,
+      "address": "No. 14, Ground Floor (Right), Upper Pazundaung Road Pazundaung Township  Yangon,Myanmar",
+      "description": "id_: 20039459<br>latitude: 16.7800680<br>longitude: 96.1744897<br>address: No. 14, Ground Floor (Right), Upper Pazundaung Road Pazundaung Township  Yangon,Myanmar <br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039459E7",
+        "latitude": 16.780068,
+        "longitude": 96.1744897,
+        "address": "No. 14, Ground Floor (Right), Upper Pazundaung Road Pazundaung Township  Yangon,Myanmar",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0022F",
+      "latitude": 16.7793066,
+      "longitude": 96.1401722,
+      "address": "No. (63-64), Bahosi Housing, (10) Ward, Lanmadaw Township.",
+      "description": "id_: 20039511<br>latitude: 16.7793066<br>longitude: 96.1401722<br>address: No. (63-64), Bahosi Housing, (10) Ward, Lanmadaw Township.<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039511E7",
+        "latitude": 16.7793066,
+        "longitude": 96.1401722,
+        "address": "No. (63-64), Bahosi Housing, (10) Ward, Lanmadaw Township.",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0621",
+      "latitude": 16.811093,
+      "longitude": 96.176295,
+      "address": "No363C+D, ကျိုက္ကဆံလမ်းမ, တာမွေမြို့နယ်",
+      "description": "id_: 20039541<br>latitude: 16.811093<br>longitude: 96.176295<br>address: No363C+D, ကျိုက္ကဆံလမ်းမ, တာမွေမြို့နယ်<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039541E7",
+        "latitude": 16.811093,
+        "longitude": 96.176295,
+        "address": "No363C+D, ကျိုက္ကဆံလမ်းမ, တာမွေမြို့နယ်",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0402F",
+      "latitude": 16.7904899,
+      "longitude": 96.1698271,
+      "address": "No,76/80 corner of Naung Yoe Street and Banyar Dala Road, Mingalar Taungnyunt Township.",
+      "description": "id_: 20039519<br>latitude: 16.7904899<br>longitude: 96.1698271<br>address: No,76/80 corner of Naung Yoe Street and Banyar Dala Road, Mingalar Taungnyunt Township.<br>Nearest_Bus_Stop: Masalar set (Mingalar Taung Nyunt)<br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039519E7",
+        "latitude": 16.7904899,
+        "longitude": 96.1698271,
+        "address": "No,76/80 corner of Naung Yoe Street and Banyar Dala Road, Mingalar Taungnyunt Township.",
+        "Nearest_Bus_Stop": "Masalar set (Mingalar Taung Nyunt)",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0037",
+      "latitude": 16.7749756,
+      "longitude": 96.1630629,
+      "address": "No. (182), Seik Kan Thar Street, Middle Block, Kyauktada Township.",
+      "description": "id_: 20039535<br>latitude: 16.7749756<br>longitude: 96.1630629<br>address: No. (182), Seik Kan Thar Street, Middle Block, Kyauktada Township.<br>Nearest_Bus_Stop: Pansodan (Bandoola) , ( Anawrahtar)<br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039535E7",
+        "latitude": 16.7749756,
+        "longitude": 96.1630629,
+        "address": "No. (182), Seik Kan Thar Street, Middle Block, Kyauktada Township.",
+        "Nearest_Bus_Stop": "Pansodan (Bandoola) , ( Anawrahtar)",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0722",
+      "latitude": 16.94559,
+      "longitude": 96.297564,
+      "address": "Thukha Dagon Housing,East Dagon,Yangon",
+      "description": "id_: 20039527<br>latitude: 16.945590<br>longitude: 96.297564<br>address: Thukha Dagon Housing,East Dagon,Yangon<br>Nearest_Bus_Stop: Thukha Dagon Housing<br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039527E7",
+        "latitude": 16.94559,
+        "longitude": 96.297564,
+        "address": "Thukha Dagon Housing,East Dagon,Yangon",
+        "Nearest_Bus_Stop": "Thukha Dagon Housing",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0471",
+      "latitude": 16.774063,
+      "longitude": 96.171316,
+      "address": "No.200,Maharbandoola Road,Pazuntaung Town ship,Yangon",
+      "description": "id_: 20039496<br>latitude: 16.774063<br>longitude: 96.171316<br>address: No.200,Maharbandoola Road,Pazuntaung Town ship,Yangon<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039496E7",
+        "latitude": 16.774063,
+        "longitude": 96.171316,
+        "address": "No.200,Maharbandoola Road,Pazuntaung Town ship,Yangon",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0497F",
+      "latitude": 16.8641677,
+      "longitude": 96.1970746,
+      "address": "No. 36 /A, Bayint Naung St, 31 Ward, North Dagon Tsp.",
+      "description": "id_: 20039560<br>latitude: 16.8641677<br>longitude: 96.1970746<br>address: No. 36 /A, Bayint Naung St, 31 Ward, North Dagon Tsp.<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.003956E7",
+        "latitude": 16.8641677,
+        "longitude": 96.1970746,
+        "address": "No. 36 /A, Bayint Naung St, 31 Ward, North Dagon Tsp.",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0355F",
+      "latitude": 16.8808918,
+      "longitude": 96.0994923,
+      "address": "No.304.Bayint Naung Road.(Ka/Kha) ward. Insein Township",
+      "description": "id_: 20039483<br>latitude: 16.8808918<br>longitude: 96.0994923<br>address: No.304.Bayint Naung Road.(Ka/Kha) ward. Insein Township<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039483E7",
+        "latitude": 16.8808918,
+        "longitude": 96.0994923,
+        "address": "No.304.Bayint Naung Road.(Ka/Kha) ward. Insein Township",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0520",
+      "latitude": 16.7716438,
+      "longitude": 96.1657893,
+      "address": "No 454 Merchant Road,middle block, Botahtaung township.",
+      "description": "id_: 20039515<br>latitude: 16.7716438<br>longitude: 96.1657893<br>address: No 454 Merchant Road,middle block, Botahtaung township. <br><br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039515E7",
+        "latitude": 16.7716438,
+        "longitude": 96.1657893,
+        "address": "No 454 Merchant Road,middle block, Botahtaung township.",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0535",
+      "latitude": 16.8119422,
+      "longitude": 96.1754369,
+      "address": "Corner Of 166th street and E Horse Race Course Road, Tamwe Gyi / Kha Ward, Tamwe Township, Yangon.",
+      "description": "id_: 31000496<br>latitude: 16.8119422<br>longitude: 96.1754369<br>address: Corner Of 166th street and E Horse Race Course Road, Tamwe Gyi / Kha Ward, Tamwe Township, Yangon.<br>Nearest_Bus_Stop: Tamwe<br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "3.1000496E7",
+        "latitude": 16.8119422,
+        "longitude": 96.1754369,
+        "address": "Corner Of 166th street and E Horse Race Course Road, Tamwe Gyi / Kha Ward, Tamwe Township, Yangon.",
+        "Nearest_Bus_Stop": "Tamwe",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0524",
+      "latitude": 16.777462,
+      "longitude": 96.144265,
+      "address": "Anawrahta Road, (5) Ward , Lanmadaw Tsp, YGN.",
+      "description": "id_: 31000892<br>latitude: 16.777462<br>longitude: 96.144265<br>address: Anawrahta Road, (5) Ward , Lanmadaw Tsp, YGN.<br>Nearest_Bus_Stop: Lanmadaw<br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "3.1000892E7",
+        "latitude": 16.777462,
+        "longitude": 96.144265,
+        "address": "Anawrahta Road, (5) Ward , Lanmadaw Tsp, YGN.",
+        "Nearest_Bus_Stop": "Lanmadaw",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0650",
+      "latitude": 16.769517,
+      "longitude": 96.1730535,
+      "address": "Corner of Strand road and 53 st",
+      "description": "id_: 31000487<br>latitude: 16.769517<br>longitude: 96.1730535<br>address: Corner of Strand road and 53 st<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "3.1000487E7",
+        "latitude": 16.769517,
+        "longitude": 96.1730535,
+        "address": "Corner of Strand road and 53 st",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0620",
+      "latitude": 16.771308,
+      "longitude": 96.160251,
+      "address": "Mahar Bandula Park Road ,lower block, Kyautada Tsp.",
+      "description": "id_: 31000072<br>latitude: 16.771308<br>longitude: 96.160251<br>address: Mahar Bandula Park Road ,lower block, Kyautada Tsp.<br>Nearest_Bus_Stop: Hlaing<br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "3.1000072E7",
+        "latitude": 16.771308,
+        "longitude": 96.160251,
+        "address": "Mahar Bandula Park Road ,lower block, Kyautada Tsp.",
+        "Nearest_Bus_Stop": "Hlaing",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0035F",
+      "latitude": 16.841244,
+      "longitude": 96.201634,
+      "address": "No. (538), Between Ngamoe Yaik (4) Street & Baho Street,\nWard (3), Thingangyun Township",
+      "description": "id_: 31000668<br>latitude: 16.841244<br>longitude: 96.201634<br>address: No. (538), Between Ngamoe Yaik (4) Street & Baho Street,<br>Ward (3), Thingangyun Township<br>Nearest_Bus_Stop: Kyauktada <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "3.1000668E7",
+        "latitude": 16.841244,
+        "longitude": 96.201634,
+        "address": "No. (538), Between Ngamoe Yaik (4) Street & Baho Street,\nWard (3), Thingangyun Township",
+        "Nearest_Bus_Stop": "Kyauktada",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0515F",
+      "latitude": 16.8243677,
+      "longitude": 96.12601117,
+      "address": "No.57, Mingalar St, 8 Ward, Kamaryut Township",
+      "description": "id_: 31000339<br>latitude: 16.8243677<br>longitude: 96.12601117<br>address: No.57, Mingalar St, 8 Ward, Kamaryut Township<br>Nearest_Bus_Stop: Kamaryut<br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "3.1000339E7",
+        "latitude": 16.8243677,
+        "longitude": 96.12601117,
+        "address": "No.57, Mingalar St, 8 Ward, Kamaryut Township",
+        "Nearest_Bus_Stop": "Kamaryut",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0463",
+      "latitude": 16.82979344,
+      "longitude": 96.18572958,
+      "address": "N0(652 A-1)+Pyi Thar Yar Street+16/4 Ward+Thingunkyun Tsp.",
+      "description": "id_: 31000071<br>latitude: 16.82979344<br>longitude: 96.18572958<br>address: N0(652 A-1)+Pyi Thar Yar Street+16/4 Ward+Thingunkyun Tsp.<br>Nearest_Bus_Stop: Thingan gyun<br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "3.1000071E7",
+        "latitude": 16.82979344,
+        "longitude": 96.18572958,
+        "address": "N0(652 A-1)+Pyi Thar Yar Street+16/4 Ward+Thingunkyun Tsp.",
+        "Nearest_Bus_Stop": "Thingan gyun",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0425",
+      "latitude": 16.79161531,
+      "longitude": 96.17460382,
+      "address": "No. 48+ 118th Street+ Ground Floor+ Mingalar Taung Nyunt Township+ Yangon.",
+      "description": "id_: 31000684<br>latitude: 16.79161531<br>longitude: 96.17460382<br>address: No. 48+ 118th Street+ Ground Floor+ Mingalar Taung Nyunt Township+ Yangon.<br>Nearest_Bus_Stop: Mingalar taung nyunt<br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "3.1000684E7",
+        "latitude": 16.79161531,
+        "longitude": 96.17460382,
+        "address": "No. 48+ 118th Street+ Ground Floor+ Mingalar Taung Nyunt Township+ Yangon.",
+        "Nearest_Bus_Stop": "Mingalar taung nyunt",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0466",
+      "latitude": 16.80632,
+      "longitude": 96.13252,
+      "address": "No.47/ Ground Floor/ Kyun Taw Street/ South Ward (Kyun Taw), San Chaung Township/ Yangon.",
+      "description": "id_: 20039567<br>latitude: 16.80632<br>longitude: 96.13252<br>address: No.47/ Ground Floor/ Kyun Taw Street/ South Ward (Kyun Taw), San Chaung Township/ Yangon.<br>Nearest_Bus_Stop: San chaung<br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039567E7",
+        "latitude": 16.80632,
+        "longitude": 96.13252,
+        "address": "No.47/ Ground Floor/ Kyun Taw Street/ South Ward (Kyun Taw), San Chaung Township/ Yangon.",
+        "Nearest_Bus_Stop": "San chaung",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0666",
+      "latitude": 16.8468110280085,
+      "longitude": 96.1256514894902,
+      "address": "No.12, Yangon United Sport Complex, Yangon-Insein Road, 12 ward, Hlaing Township, Yangon.",
+      "description": "id_: 20039465<br>latitude: 16.846811028008467<br>longitude: 96.12565148949021<br>address: No.12, Yangon United Sport Complex, Yangon-Insein Road, 12 ward, Hlaing Township, Yangon.<br>Nearest_Bus_Stop: Than Lan<br><br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039465E7",
+        "latitude": 16.846811028008467,
+        "longitude": 96.12565148949021,
+        "address": "No.12, Yangon United Sport Complex, Yangon-Insein Road, 12 ward, Hlaing Township, Yangon.",
+        "Nearest_Bus_Stop": "Than Lan",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0586",
+      "latitude": 16.9339279,
+      "longitude": 96.1028858,
+      "address": "Junction of Lower Mingalardon and Khayae Pin Rd. DaNyinGone",
+      "description": "id_: 31000715<br>latitude: 16.9339279<br>longitude: 96.1028858<br>address: Junction of Lower Mingalardon and Khayae Pin Rd. DaNyinGone<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "3.1000715E7",
+        "latitude": 16.9339279,
+        "longitude": 96.1028858,
+        "address": "Junction of Lower Mingalardon and Khayae Pin Rd. DaNyinGone",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0372-A",
+      "latitude": 16.8015545,
+      "longitude": 96.1397179,
+      "address": "People's Park , ပြည်သူ့ရင်ပြင်",
+      "description": "id_: 20039536<br>latitude: 16.8015545<br>longitude: 96.1397179<br>address: People's Park , ပြည်သူ့ရင်ပြင်<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039536E7",
+        "latitude": 16.8015545,
+        "longitude": 96.1397179,
+        "address": "People's Park , ပြည်သူ့ရင်ပြင်",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0773",
+      "latitude": 16.7989374,
+      "longitude": 96.175888,
+      "address": "No. (311/4), Corner of Banyardala Road and 145 Street, Ayoegone Ward, Tarmwe Tsp. YGN",
+      "description": "id_: 20039478<br>latitude: 16.7989374<br>longitude: 96.175888<br>address: No. (311/4), Corner of Banyardala Road and 145 Street, Ayoegone Ward, Tarmwe Tsp. YGN<br>Nearest_Bus_Stop: Worker Hospital<br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039478E7",
+        "latitude": 16.7989374,
+        "longitude": 96.175888,
+        "address": "No. (311/4), Corner of Banyardala Road and 145 Street, Ayoegone Ward, Tarmwe Tsp. YGN",
+        "Nearest_Bus_Stop": "Worker Hospital",
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0774",
+      "latitude": 16.9575670649399,
+      "longitude": 96.07657916,
+      "address": "No-(18), Bayint Naung Road, (5/5) Ward,  Shwe Pyi Thar Township, Yangon.",
+      "description": "id_: 20039533<br>latitude: 16.957567064939877<br>longitude: 96.07657916<br><br>address: No-(18), Bayint Naung Road, (5/5) Ward,  Shwe Pyi Thar Township, Yangon.<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039533E7",
+        "latitude": 16.957567064939877,
+        "longitude": 96.07657916,
+        "address": "No-(18), Bayint Naung Road, (5/5) Ward,  Shwe Pyi Thar Township, Yangon.",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0738",
+      "latitude": 16.8774771849961,
+      "longitude": 96.13773252,
+      "address": "No. (11/B) ၊ Pyay Road, (5) Ward,  Mayangone Township, Yangon.",
+      "description": "id_: 20039547<br>latitude: 16.87747718499609<br><br>longitude: 96.13773252<br><br>address: No. (11/B) ၊ Pyay Road, (5) Ward,  Mayangone Township, Yangon.<br><br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039547E7",
+        "latitude": 16.87747718499609,
+        "longitude": 96.13773252,
+        "address": "No. (11/B) ၊ Pyay Road, (5) Ward,  Mayangone Township, Yangon.",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0044F",
+      "latitude": 16.81214,
+      "longitude": 96.17165,
+      "address": "Corner of 164 st and East Race Course",
+      "description": "id_: 20039515<br>latitude: 16.81214<br>longitude: 96.17165<br>address: Corner of 164 st and East Race Course<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039515E7",
+        "latitude": 16.81214,
+        "longitude": 96.17165,
+        "address": "Corner of 164 st and East Race Course",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS_GNG_Stores",
+      "name": "G0480F",
+      "latitude": 16.79052,
+      "longitude": 96.12668,
+      "address": "Sin Min St , Alone township",
+      "description": "id_: 20039507<br>latitude: 16.79052<br>longitude: 96.12668<br>address: Sin Min St , Alone township<br>Nearest_Bus_Stop: <br>Bus_Num: <br>Remark:",
+      "attributes": {
+        "id_": "2.0039507E7",
+        "latitude": 16.79052,
+        "longitude": 96.12668,
+        "address": "Sin Min St , Alone township",
+        "Nearest_Bus_Stop": null,
+        "Bus_Num": null,
+        "Remark": null
+      }
+    },
+    {
+      "category": "YPS Bus Terminal",
+      "name": "YBS-61 WYTU",
+      "latitude": 16.8675451,
+      "longitude": 96.0114751,
+      "address": null,
+      "description": "Sr.: <br>Lat: 16.8675451<br>Long: 96.0114751",
+      "attributes": {
+        "Sr.": null,
+        "Lat": 16.8675451,
+        "Long": 96.0114751
+      }
+    },
+    {
+      "category": "YPS Bus Terminal",
+      "name": "KTB-35 Htauk Kyant",
+      "latitude": 17.0479836,
+      "longitude": 96.1506392,
+      "address": null,
+      "description": "Sr.: <br>Lat: 17.0479836<br>Long: 96.1506392",
+      "attributes": {
+        "Sr.": null,
+        "Lat": 17.0479836,
+        "Long": 96.1506392
+      }
+    },
+    {
+      "category": "YPS Bus Terminal",
+      "name": "GYCT-57 ThaKhinMya",
+      "latitude": 16.7798099,
+      "longitude": 96.1344672,
+      "address": null,
+      "description": "Sr.: <br>Lat: 16.7798099<br>Long: 96.1344672",
+      "attributes": {
+        "Sr.": null,
+        "Lat": 16.7798099,
+        "Long": 96.1344672
+      }
+    },
+    {
+      "category": "YPS Bus Terminal",
+      "name": "TL-81 Thukha Dagon",
+      "latitude": 16.9442779,
+      "longitude": 96.2944519,
+      "address": null,
+      "description": "Sr.: <br>Lat: 16.9442779<br>Long: 96.2944519",
+      "attributes": {
+        "Sr.": null,
+        "Lat": 16.9442779,
+        "Long": 96.2944519
+      }
+    },
+    {
+      "category": "YPS Bus Terminal",
+      "name": "Power11-21 WYU",
+      "latitude": 16.9474376,
+      "longitude": 96.0155622,
+      "address": null,
+      "description": "Sr.: <br>Lat: 16.9474376<br>Long: 96.0155622",
+      "attributes": {
+        "Sr.": null,
+        "Lat": 16.9474376,
+        "Long": 96.0155622
+      }
+    },
+    {
+      "category": "YPS Bus Terminal",
+      "name": "SPTT-65 ShwePyiThar",
+      "latitude": 16.9726221,
+      "longitude": 96.0722362,
+      "address": null,
+      "description": "Sr.: <br>Lat: 16.9726221<br>Long: 96.0722362",
+      "attributes": {
+        "Sr.": null,
+        "Lat": 16.9726221,
+        "Long": 96.0722362
+      }
+    }
+  ]
+}
