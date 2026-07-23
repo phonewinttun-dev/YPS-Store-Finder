@@ -793,7 +793,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                           );
-                        }).toList(),
+                        }),
 
                       // Loading More Indicator (Infinite Scroll Spinner)
                       if (_isLoadingMore) ...[

@@ -364,7 +364,20 @@ FodyWeavers.xsd
 
 DESIGN.md
 
-# Flutter & Dart
+# Next.js & WebApp
+.next/
+out/
+.env.local
+.env*.local
+
+# SQLite Local Database Files
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Flutter & Dart Mobile
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
@@ -372,4 +385,11 @@ DESIGN.md
 .pub/
 **/build/
 **/ephemeral/
+**/android/.gradle/
+**/android/local.properties
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Generated.xcconfig
+
 
