@@ -57,6 +57,7 @@ using (var scope = app.Services.CreateScope())
 
 // Configure HTTP request pipeline & Scalar OpenAPI UI
 app.UseSwagger();
+app.UseSwaggerUI();
 app.MapScalarApiReference(options =>
 {
     options.WithTitle("YpsStoreFinder API Documentation")
