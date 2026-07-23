@@ -363,3 +363,13 @@ MigrationBackup/
 FodyWeavers.xsd
 
 DESIGN.md
+
+# Flutter & Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+**/build/
+**/ephemeral/
+

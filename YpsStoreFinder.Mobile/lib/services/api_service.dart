@@ -1,9 +1,15 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../models/store_model.dart';
 
 class ApiService {
-  static const String baseUrl = 'http://10.0.2.2:5246'; // Android Emulator localhost fallback
+  static String get baseUrl {
+    if (kIsWeb) {
+      return 'http://localhost:5257';
+    }
+    return 'http://10.0.2.2:5257';
+  }
 
   // Returns ALL stores (cached on backend) for complete map rendering
   Future<ApiResultModel<List<StoreModel>>> getStores({String? category}) async {
