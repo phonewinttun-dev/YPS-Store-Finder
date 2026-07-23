@@ -5,28 +5,41 @@ import '../models/store_model.dart';
 class ApiService {
   static const String baseUrl = 'http://10.0.2.2:5246'; // Android Emulator localhost fallback
 
-  Future<ApiResultModel<List<StoreModel>>> getStores({String? category}) async {
-    final uri = Uri.parse('$baseUrl/api/stores').replace(
-      queryParameters: category != null && category.isNotEmpty ? {'category': category} : null,
-    );
+  Future<PagedResultModel<StoreModel>> getStores({
+    String? category,
+    int pageNumber = 1,
+    int pageSize = 10,
+  }) async {
+    final Map<String, String> queryParams = {
+      'pageNumber': pageNumber.toString(),
+      'pageSize': pageSize.toString(),
+    };
+    if (category != null && category.isNotEmpty) queryParams['category'] = category;
+
+    final uri = Uri.parse('$baseUrl/api/stores').replace(queryParameters: queryParams);
 
     try {
       final response = await http.get(uri);
       if (response.statusCode == 200) {
         final jsonMap = json.decode(response.body);
-        return ApiResultModel.fromJson(
-          jsonMap,
-          (data) => (data as List).map((item) => StoreModel.fromJson(item)).toList(),
-        );
+        return PagedResultModel.fromJson(jsonMap, (item) => StoreModel.fromJson(item));
       }
-      return ApiResultModel(isSuccess: false, message: 'Server returned HTTP ${response.statusCode}');
+      return PagedResultModel(isSuccess: false, message: 'Server returned HTTP ${response.statusCode}', data: []);
     } catch (e) {
-      return ApiResultModel(isSuccess: false, message: 'Network error: $e');
+      return PagedResultModel(isSuccess: false, message: 'Network error: $e', data: []);
     }
   }
 
-  Future<ApiResultModel<List<StoreModel>>> searchStores({String? query, String? category}) async {
-    final Map<String, String> queryParams = {};
+  Future<PagedResultModel<StoreModel>> searchStores({
+    String? query,
+    String? category,
+    int pageNumber = 1,
+    int pageSize = 10,
+  }) async {
+    final Map<String, String> queryParams = {
+      'pageNumber': pageNumber.toString(),
+      'pageSize': pageSize.toString(),
+    };
     if (query != null && query.isNotEmpty) queryParams['query'] = query;
     if (category != null && category.isNotEmpty) queryParams['category'] = category;
 
@@ -36,14 +49,11 @@ class ApiService {
       final response = await http.get(uri);
       if (response.statusCode == 200) {
         final jsonMap = json.decode(response.body);
-        return ApiResultModel.fromJson(
-          jsonMap,
-          (data) => (data as List).map((item) => StoreModel.fromJson(item)).toList(),
-        );
+        return PagedResultModel.fromJson(jsonMap, (item) => StoreModel.fromJson(item));
       }
-      return ApiResultModel(isSuccess: false, message: 'Server returned HTTP ${response.statusCode}');
+      return PagedResultModel(isSuccess: false, message: 'Server returned HTTP ${response.statusCode}', data: []);
     } catch (e) {
-      return ApiResultModel(isSuccess: false, message: 'Network error: $e');
+      return PagedResultModel(isSuccess: false, message: 'Network error: $e', data: []);
     }
   }
 
@@ -65,16 +75,20 @@ class ApiService {
     }
   }
 
-  Future<ApiResultModel<List<StoreModel>>> getNearbyStores({
+  Future<PagedResultModel<StoreModel>> getNearbyStores({
     required double latitude,
     required double longitude,
     double radiusKm = 5.0,
     String? category,
+    int pageNumber = 1,
+    int pageSize = 10,
   }) async {
     final Map<String, String> queryParams = {
       'latitude': latitude.toString(),
       'longitude': longitude.toString(),
       'radiusKm': radiusKm.toString(),
+      'pageNumber': pageNumber.toString(),
+      'pageSize': pageSize.toString(),
     };
     if (category != null && category.isNotEmpty) queryParams['category'] = category;
 
@@ -84,14 +98,11 @@ class ApiService {
       final response = await http.get(uri);
       if (response.statusCode == 200) {
         final jsonMap = json.decode(response.body);
-        return ApiResultModel.fromJson(
-          jsonMap,
-          (data) => (data as List).map((item) => StoreModel.fromJson(item)).toList(),
-        );
+        return PagedResultModel.fromJson(jsonMap, (item) => StoreModel.fromJson(item));
       }
-      return ApiResultModel(isSuccess: false, message: 'Server returned HTTP ${response.statusCode}');
+      return PagedResultModel(isSuccess: false, message: 'Server returned HTTP ${response.statusCode}', data: []);
     } catch (e) {
-      return ApiResultModel(isSuccess: false, message: 'Network error: $e');
+      return PagedResultModel(isSuccess: false, message: 'Network error: $e', data: []);
     }
   }
 }

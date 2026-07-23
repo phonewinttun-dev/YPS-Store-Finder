@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { StoreDto, CategorySummaryDto, UserLocationState } from '../types/store';
-import { Search, Navigation, Locate, MapPin, Compass, AlertCircle, X, RefreshCw, Globe } from 'lucide-react';
+import { StoreDto, CategorySummaryDto, UserLocationState, PaginationDto } from '../types/store';
+import { Search, Navigation, Locate, MapPin, Compass, AlertCircle, X, RefreshCw, Globe, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface StoreDrawerProps {
@@ -22,6 +22,11 @@ interface StoreDrawerProps {
   onToggleNearbyMode: () => void;
   apiError?: string | null;
   onRetry?: () => void;
+  pagination: PaginationDto | null;
+  pageNumber: number;
+  onPageChange: (page: number) => void;
+  pageSize: number;
+  onPageSizeChange: (size: number) => void;
 }
 
 export default function StoreDrawer({
@@ -41,8 +46,13 @@ export default function StoreDrawer({
   onToggleNearbyMode,
   apiError,
   onRetry,
+  pagination,
+  pageNumber,
+  onPageChange,
+  pageSize,
+  onPageSizeChange,
 }: StoreDrawerProps) {
-  const { language, toggleLanguage, t, tCategory } = useLanguage();
+  const { language, toggleLanguage, t, tCategory, tAddress } = useLanguage();
 
   return (
     <aside className="w-full lg:w-[420px] bg-white border-r border-[#e2e2e5] flex flex-col h-full shadow-lg shrink-0 overflow-hidden">
@@ -73,8 +83,22 @@ export default function StoreDrawer({
         {/* Search Bar & Store Counter */}
         <div className="flex items-center justify-between gap-2 mb-1">
           <span className="text-[11px] font-semibold font-mono-meta bg-[#e2e2e5] text-gray-700 px-2.5 py-1 rounded-full">
-            {stores.length} {stores.length === 1 ? t('store') : t('stores')}
+            {pagination?.totalCount ?? stores.length} {(pagination?.totalCount ?? stores.length) === 1 ? t('store') : t('stores')}
           </span>
+
+          {/* Page Size Selector */}
+          <div className="flex items-center gap-1 text-[11px] font-medium text-gray-600">
+            <span>Per Page:</span>
+            <select
+              value={pageSize}
+              onChange={(e) => onPageSizeChange(Number(e.target.value))}
+              className="bg-[#f9f9fc] border border-[#d1c6ab] text-xs font-bold text-[#1d5fa8] rounded px-1.5 py-0.5 focus:outline-none focus:ring-1 focus:ring-[#1d5fa8]"
+            >
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={50}>50</option>
+            </select>
+          </div>
         </div>
 
         <div className="relative mt-2">
@@ -251,9 +275,9 @@ export default function StoreDrawer({
                 </h3>
 
                 {store.address && (
-                  <p className="text-xs text-gray-600 leading-relaxed mb-3 flex items-start gap-1.5">
+                  <p className="text-xs text-gray-700 font-medium leading-relaxed mb-3 flex items-start gap-1.5">
                     <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0 mt-0.5" />
-                    <span>{store.address}</span>
+                    <span>{tAddress(store.address)}</span>
                   </p>
                 )}
 
@@ -278,6 +302,42 @@ export default function StoreDrawer({
           })
         )}
       </div>
+
+      {/* Pagination Bar Controls */}
+      {pagination && pagination.totalPages > 1 && (
+        <div className="p-3 bg-white border-t border-[#e2e2e5] flex items-center justify-between gap-2 text-xs shrink-0 shadow-sm">
+          <button
+            disabled={!pagination.hasPreviousPage}
+            onClick={() => onPageChange(pageNumber - 1)}
+            className="px-3 py-1.5 rounded-lg border border-[#e2e2e5] bg-[#f9f9fc] hover:bg-[#ebf2f8] disabled:opacity-40 disabled:cursor-not-allowed font-semibold text-gray-700 flex items-center gap-1 transition-all cursor-pointer"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            <span>{language === 'my' ? 'ရှေ့သို့' : 'Prev'}</span>
+          </button>
+
+          <div className="flex flex-col items-center">
+            <span className="font-semibold text-[#1a1c1e]">
+              {language === 'my'
+                ? `စာမျက်နှာ ${pagination.pageNumber} / ${pagination.totalPages}`
+                : `Page ${pagination.pageNumber} of ${pagination.totalPages}`}
+            </span>
+            <span className="text-[10px] text-gray-500 font-mono-meta">
+              {language === 'my'
+                ? `စုစုပေါင်း ${pagination.totalCount} ဆိုင်`
+                : `Total ${pagination.totalCount} stores`}
+            </span>
+          </div>
+
+          <button
+            disabled={!pagination.hasNextPage}
+            onClick={() => onPageChange(pageNumber + 1)}
+            className="px-3 py-1.5 rounded-lg border border-[#e2e2e5] bg-[#f9f9fc] hover:bg-[#ebf2f8] disabled:opacity-40 disabled:cursor-not-allowed font-semibold text-gray-700 flex items-center gap-1 transition-all cursor-pointer"
+          >
+            <span>{language === 'my' ? 'နောက်သို့' : 'Next'}</span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      )}
     </aside>
   );
 }

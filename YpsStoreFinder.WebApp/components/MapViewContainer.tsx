@@ -81,7 +81,7 @@ export default function MapViewContainer({
   selectedStoreId,
   onSelectStore,
 }: MapViewContainerProps) {
-  const { t, tCategory } = useLanguage();
+  const { t, tCategory, tAddress } = useLanguage();
   const [mapCenter, setMapCenter] = useState<[number, number]>([
     userLocation.latitude,
     userLocation.longitude,
@@ -123,7 +123,7 @@ export default function MapViewContainer({
               <Popup>
                 <div className="p-1 font-work-sans text-xs">
                   <span className="font-semibold text-[#1d5fa8] block">{t('deviceLocation')}</span>
-                  <span className="text-gray-500 font-mono-meta">{t('gpsActive')}</span>
+                  <span className="text-gray-600 font-mono-meta">{t('gpsActive')}</span>
                 </div>
               </Popup>
             </Marker>
@@ -153,8 +153,8 @@ export default function MapViewContainer({
             }}
           >
             <Popup>
-              <div className="p-2 max-w-[240px] font-work-sans">
-                <div className="flex items-center justify-between gap-2 mb-1">
+              <div className="p-2 max-w-[250px] font-work-sans">
+                <div className="flex items-center justify-between gap-2 mb-1.5">
                   <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#ebf2f8] text-[#1d5fa8]">
                     {tCategory(store.category)}
                   </span>
@@ -165,12 +165,12 @@ export default function MapViewContainer({
                   )}
                 </div>
 
-                <h4 className="font-bold text-sm text-[#1a1c1e] mb-1">{store.name}</h4>
+                <h4 className="font-bold text-sm text-[#1a1c1e] mb-1.5">{store.name}</h4>
 
                 {store.address && (
-                  <p className="text-xs text-gray-600 mb-2 leading-relaxed flex items-start gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0 mt-0.5" />
-                    <span>{store.address}</span>
+                  <p className="text-xs text-gray-700 font-medium mb-2.5 leading-relaxed flex items-start gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-gray-500 shrink-0 mt-0.5" />
+                    <span>{tAddress(store.address)}</span>
                   </p>
                 )}
 
@@ -178,10 +178,10 @@ export default function MapViewContainer({
                   href={`https://www.google.com/maps/dir/?api=1&destination=${store.latitude},${store.longitude}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full mt-2 py-1.5 px-3 bg-[#1d5fa8] hover:bg-[#00417e] text-white text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-colors shadow-sm"
+                  className="w-full mt-2 py-2 px-3 bg-[#1d5fa8] hover:bg-[#00417e] !text-white text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-colors shadow-sm cursor-pointer"
                 >
-                  <Navigation className="w-3.5 h-3.5" />
-                  {t('directions')}
+                  <Navigation className="w-3.5 h-3.5 !text-white" />
+                  <span className="!text-white font-bold">{t('directions')}</span>
                 </a>
               </div>
             </Popup>

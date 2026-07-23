@@ -6,7 +6,7 @@ import StoreDrawer from '../components/StoreDrawer';
 import { useUserLocation } from '../hooks/useUserLocation';
 import { useDebounce } from '../hooks/useDebounce';
 import { useLanguage } from '../context/LanguageContext';
-import { StoreDto, CategorySummaryDto } from '../types/store';
+import { StoreDto, CategorySummaryDto, PaginationDto } from '../types/store';
 import { fetchStores, searchStores, fetchNearbyStores, fetchCategoriesSummary } from '../services/api';
 import { Compass, RefreshCw, Globe } from 'lucide-react';
 
@@ -24,11 +24,21 @@ export default function HomePage() {
   const [isNearbyMode, setIsNearbyMode] = useState<boolean>(false);
   const [apiError, setApiError] = useState<string | null>(null);
 
+  // Pagination State
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [pagination, setPagination] = useState<PaginationDto | null>(null);
+
   // Debounce search query and radius slider to prevent repetitive API calls
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
   const debouncedRadiusKm = useDebounce(radiusKm, 300);
 
   const { latitude, longitude, hasRealLocation } = activeLocation;
+
+  // Reset to page 1 whenever category, search, or radius filter changes
+  useEffect(() => {
+    setPageNumber(1);
+  }, [debouncedSearchQuery, selectedCategory, debouncedRadiusKm, isNearbyMode]);
 
   // Load Categories Summary
   const loadCategories = useCallback(async () => {
@@ -42,40 +52,64 @@ export default function HomePage() {
     loadCategories();
   }, [loadCategories]);
 
-  // Main Store Fetching Logic based on Location / Search / Category
+  // Main Store Fetching Logic based on Location / Search / Category / Pagination
   const loadStores = useCallback(async () => {
     setIsLoading(true);
 
     try {
       let res;
       if (debouncedSearchQuery.trim() !== '') {
-        res = await searchStores(debouncedSearchQuery, selectedCategory || undefined);
+        res = await searchStores(
+          debouncedSearchQuery,
+          selectedCategory || undefined,
+          pageNumber,
+          pageSize
+        );
       } else if (hasRealLocation || isNearbyMode) {
         res = await fetchNearbyStores(
           latitude,
           longitude,
           debouncedRadiusKm,
-          selectedCategory || undefined
+          selectedCategory || undefined,
+          pageNumber,
+          pageSize
         );
       } else {
-        res = await fetchStores(selectedCategory || undefined);
+        res = await fetchStores(
+          selectedCategory || undefined,
+          pageNumber,
+          pageSize
+        );
       }
 
       if (res.isSuccess && res.data) {
         setStores(res.data);
+        setPagination(res.pagination);
         setApiError(null);
       } else {
         setStores([]);
+        setPagination(null);
         setApiError(res.message || 'Failed to connect to YPS Store Finder API.');
       }
     } catch (err: any) {
       console.error('Error loading stores:', err);
       setStores([]);
+      setPagination(null);
       setApiError(err?.message || 'Error loading stores from server.');
     } finally {
       setIsLoading(false);
     }
-  }, [debouncedSearchQuery, selectedCategory, hasRealLocation, isNearbyMode, latitude, longitude, debouncedRadiusKm]);
+  }, [
+    debouncedSearchQuery,
+    selectedCategory,
+    hasRealLocation,
+    isNearbyMode,
+    latitude,
+    longitude,
+    debouncedRadiusKm,
+    pageNumber,
+    pageSize,
+  ]);
 
   useEffect(() => {
     loadStores();
@@ -94,6 +128,21 @@ export default function HomePage() {
       startTracking();
       setIsNearbyMode(true);
     }
+  };
+
+  const handleCategorySelect = (category: string | null) => {
+    setSelectedCategory(category);
+    setPageNumber(1);
+  };
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+    setPageNumber(1);
+  };
+
+  const handleRadiusChange = (radius: number) => {
+    setRadiusKm(radius);
+    setPageNumber(1);
   };
 
   return (
@@ -134,11 +183,11 @@ export default function HomePage() {
         stores={stores}
         categories={categories}
         selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
+        onSelectCategory={handleCategorySelect}
         searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
+        onSearchChange={handleSearchChange}
         radiusKm={radiusKm}
-        onRadiusChange={setRadiusKm}
+        onRadiusChange={handleRadiusChange}
         locationState={locationState}
         onToggleLocation={handleToggleLocation}
         selectedStoreId={selectedStoreId}
@@ -147,6 +196,14 @@ export default function HomePage() {
         onToggleNearbyMode={() => setIsNearbyMode(!isNearbyMode)}
         apiError={apiError}
         onRetry={handleRetry}
+        pagination={pagination}
+        pageNumber={pageNumber}
+        onPageChange={setPageNumber}
+        pageSize={pageSize}
+        onPageSizeChange={(size) => {
+          setPageSize(size);
+          setPageNumber(1);
+        }}
       />
 
       {/* Main Map View Area */}

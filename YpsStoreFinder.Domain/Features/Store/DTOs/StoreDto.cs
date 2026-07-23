@@ -1,3 +1,5 @@
+using YpsStoreFinder.Shared;
+
 namespace YpsStoreFinder.Domain.Features.Store.DTOs
 {
     public class StoreDto
@@ -13,13 +15,13 @@ namespace YpsStoreFinder.Domain.Features.Store.DTOs
         public double? DistanceKm { get; set; }
     }
 
-    public class StoreSearchRequest
+    public class StoreSearchRequest : PaginationRequest
     {
         public string? Query { get; set; }
         public string? Category { get; set; }
     }
 
-    public class NearbyStoreRequest
+    public class NearbyStoreRequest : PaginationRequest
     {
         public double Latitude { get; set; }
         public double Longitude { get; set; }

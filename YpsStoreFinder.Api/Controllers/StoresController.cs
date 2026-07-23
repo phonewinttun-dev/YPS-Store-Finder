@@ -19,9 +19,9 @@ namespace YpsStoreFinder.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetStores([FromQuery] string? category = null)
+        public async Task<IActionResult> GetStores([FromQuery] string? category = null, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var result = await _storeService.GetStoresAsync(category);
+            var result = await _storeService.GetStoresAsync(category, pageNumber, pageSize);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 

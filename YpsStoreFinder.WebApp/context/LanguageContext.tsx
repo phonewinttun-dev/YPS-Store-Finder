@@ -120,7 +120,7 @@ const digitMap: Record<string, string> = {
 const defaultTranslations: Record<Language, TranslationData> = {
   my: {
     appTitle: "YPS စတိုးဆိုင်များ ရှာဖွေရန်",
-    appSubtitle: "ရန်ကုန် သွားလာရေးနှင့် ဝန်ဆောင်မှုနေရာများ",
+    appSubtitle: "YPS စတိုးဆိုင်များအား တစ်နေရာတည်းတွင် အလွယ်တကူ ရှာဖွေပါ",
     searchPlaceholder: "စတိုးဆိုင်၊ ဆိုင်ခွဲ သို့မဟုတ် လိပ်စာ ရှာဖွေပါ...",
     locateMe: "လက်ရှိနေရာ ရှာရန်",
     gpsActive: "GPS ဖွင့်ထားသည်",
@@ -157,7 +157,7 @@ const defaultTranslations: Record<Language, TranslationData> = {
   },
   en: {
     appTitle: "YPS Store Finder",
-    appSubtitle: "Yangon Transit & Service Locator",
+    appSubtitle: "Easily locate YPS stores",
     searchPlaceholder: "Search stores, kiosks, or addresses...",
     locateMe: "Locate Me",
     gpsActive: "GPS Active",

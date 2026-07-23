@@ -7,10 +7,10 @@ namespace YpsStoreFinder.Domain.Features.Store
 {
     public interface IStoreService
     {
-        Task<Result<List<StoreDto>>> GetStoresAsync(string? category = null);
-        Task<Result<List<StoreDto>>> SearchStoresAsync(StoreSearchRequest request);
+        Task<PagedResult<StoreDto>> GetStoresAsync(string? category = null, int pageNumber = 1, int pageSize = 10);
+        Task<PagedResult<StoreDto>> SearchStoresAsync(StoreSearchRequest request);
         Task<Result<List<CategorySummaryDto>>> GetCategoriesSummaryAsync();
-        Task<Result<List<StoreDto>>> GetNearbyStoresAsync(NearbyStoreRequest request);
+        Task<PagedResult<StoreDto>> GetNearbyStoresAsync(NearbyStoreRequest request);
         Task<Result<StoreDto>> GetStoreByIdAsync(int id);
     }
 }

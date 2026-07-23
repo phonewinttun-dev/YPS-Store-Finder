@@ -22,6 +22,23 @@ export interface ApiResult<T> {
   isFailure: boolean;
 }
 
+export interface PaginationDto {
+  pageNumber: number;
+  pageSize: number;
+  totalCount: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+
+export interface PagedResultDto<T> {
+  isSuccess: boolean;
+  message: string;
+  data: T[];
+  pagination: PaginationDto | null;
+  isFailure: boolean;
+}
+
 export interface UserLocationState {
   latitude: number | null;
   longitude: number | null;

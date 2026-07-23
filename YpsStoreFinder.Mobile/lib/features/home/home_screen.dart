@@ -26,6 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
   String _searchQuery = '';
   double _radiusKm = 5.0;
 
+  // Pagination State
+  int _pageNumber = 1;
+  int _pageSize = 10;
+  PaginationModel? _pagination;
+
   bool _isTracking = false;
   bool _isLoading = true;
   Position? _currentPosition;
@@ -63,27 +68,43 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _loadStores() async {
     setState(() => _isLoading = true);
 
-    ApiResultModel<List<StoreModel>> result;
+    PagedResultModel<StoreModel> result;
     if (_searchQuery.isNotEmpty) {
-      result = await _apiService.searchStores(query: _searchQuery, category: _selectedCategory);
+      result = await _apiService.searchStores(
+        query: _searchQuery,
+        category: _selectedCategory,
+        pageNumber: _pageNumber,
+        pageSize: _pageSize,
+      );
     } else if (_isTracking && _currentPosition != null) {
       result = await _apiService.getNearbyStores(
         latitude: _currentPosition!.latitude,
         longitude: _currentPosition!.longitude,
         radiusKm: _radiusKm,
         category: _selectedCategory,
+        pageNumber: _pageNumber,
+        pageSize: _pageSize,
       );
     } else {
-      result = await _apiService.getStores(category: _selectedCategory);
+      result = await _apiService.getStores(
+        category: _selectedCategory,
+        pageNumber: _pageNumber,
+        pageSize: _pageSize,
+      );
     }
 
-    if (result.isSuccess && result.data != null) {
+    if (result.isSuccess) {
       setState(() {
-        _stores = result.data!;
+        _stores = result.data;
+        _pagination = result.pagination;
         _isLoading = false;
       });
     } else {
-      setState(() => _isLoading = false);
+      setState(() {
+        _stores = [];
+        _pagination = null;
+        _isLoading = false;
+      });
     }
   }
 
@@ -92,6 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         _isTracking = false;
         _currentPosition = null;
+        _pageNumber = 1;
       });
       _loadStores();
     } else {
@@ -100,6 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _isTracking = true;
           _currentPosition = pos;
+          _pageNumber = 1;
         });
         _mapController.move(LatLng(pos.latitude, pos.longitude), 14.5);
         _loadStores();
@@ -203,8 +226,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       width: 40,
                       height: 40,
                       child: Container(
-                        decoration: BoxDecoration(
-                          color: const Color(0x4D1D5FA8),
+                        decoration: const BoxDecoration(
+                          color: Color(0x4D1D5FA8),
                           shape: BoxShape.circle,
                         ),
                         child: Center(
@@ -286,9 +309,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
           // Draggable Bottom Sheet for Search & Stores List
           DraggableScrollableSheet(
-            initialChildSize: 0.35,
+            initialChildSize: 0.38,
             minChildSize: 0.15,
-            maxChildSize: 0.85,
+            maxChildSize: 0.88,
             builder: (context, scrollController) {
               return Container(
                 decoration: const BoxDecoration(
@@ -328,6 +351,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       onChanged: (val) {
                         _searchQuery = val;
+                        _pageNumber = 1;
                         _loadStores();
                       },
                     ),
@@ -353,7 +377,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontSize: 12,
                               ),
                               onSelected: (_) {
-                                setState(() => _selectedCategory = null);
+                                setState(() {
+                                  _selectedCategory = null;
+                                  _pageNumber = 1;
+                                });
                                 _loadStores();
                               },
                             );
@@ -372,7 +399,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             backgroundColor: const Color(0xFFEBF2F8),
                             onSelected: (_) {
-                              setState(() => _selectedCategory = cat.category);
+                              setState(() {
+                                _selectedCategory = cat.category;
+                                _pageNumber = 1;
+                              });
                               _loadStores();
                             },
                           );
@@ -418,8 +448,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                             ),
                             subtitle: Text(
-                              store.address ?? translatedCat,
-                              style: const TextStyle(fontSize: 12, color: Colors.grey),
+                              _trans.tAddress(store.address).isNotEmpty ? _trans.tAddress(store.address) : translatedCat,
+                              style: const TextStyle(fontSize: 12, color: Color(0xFF374151), fontWeight: FontWeight.w500),
                             ),
                             trailing: store.distanceKm != null
                                 ? Container(
@@ -446,6 +476,72 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         );
                       }).toList(),
+
+                    // Pagination Bar Controls
+                    if (_pagination != null && _pagination!.totalPages > 1) ...[
+                      const SizedBox(height: 12),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF9F9FC),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: const Color(0xFFE2E2E5)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ElevatedButton.icon(
+                              onPressed: _pagination!.hasPreviousPage
+                                  ? () {
+                                      setState(() => _pageNumber--);
+                                      _loadStores();
+                                    }
+                                  : null,
+                              icon: const Icon(Icons.chevron_left, size: 18),
+                              label: Text(_trans.currentLanguage == 'my' ? 'ရှေ့သို့' : 'Prev'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: const Color(0xFF1D5FA8),
+                                elevation: 0,
+                                side: const BorderSide(color: Color(0xFFE2E2E5)),
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  _trans.currentLanguage == 'my'
+                                      ? 'စာမျက်နှာ ${_pagination!.pageNumber} / ${_pagination!.totalPages}'
+                                      : 'Page ${_pagination!.pageNumber} of ${_pagination!.totalPages}',
+                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Color(0xFF1A1C1E)),
+                                ),
+                                Text(
+                                  _trans.currentLanguage == 'my'
+                                      ? 'စုစုပေါင်း ${_pagination!.totalCount} ဆိုင်'
+                                      : 'Total ${_pagination!.totalCount} stores',
+                                  style: const TextStyle(fontSize: 10, color: Colors.grey, fontFamily: 'monospace'),
+                                ),
+                              ],
+                            ),
+                            ElevatedButton.icon(
+                              onPressed: _pagination!.hasNextPage
+                                  ? () {
+                                      setState(() => _pageNumber++);
+                                      _loadStores();
+                                    }
+                                  : null,
+                              icon: const Icon(Icons.chevron_right, size: 18),
+                              label: Text(_trans.currentLanguage == 'my' ? 'နောက်သို့' : 'Next'),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: const Color(0xFF1D5FA8),
+                                elevation: 0,
+                                side: const BorderSide(color: Color(0xFFE2E2E5)),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               );

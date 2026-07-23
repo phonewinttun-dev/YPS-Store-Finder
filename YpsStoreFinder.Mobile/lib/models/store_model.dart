@@ -53,6 +53,35 @@ class CategorySummaryModel {
   }
 }
 
+class PaginationModel {
+  final int pageNumber;
+  final int pageSize;
+  final int totalCount;
+  final int totalPages;
+  final bool hasPreviousPage;
+  final bool hasNextPage;
+
+  PaginationModel({
+    required this.pageNumber,
+    required this.pageSize,
+    required this.totalCount,
+    required this.totalPages,
+    required this.hasPreviousPage,
+    required this.hasNextPage,
+  });
+
+  factory PaginationModel.fromJson(Map<String, dynamic> json) {
+    return PaginationModel(
+      pageNumber: json['pageNumber'] ?? 1,
+      pageSize: json['pageSize'] ?? 10,
+      totalCount: json['totalCount'] ?? 0,
+      totalPages: json['totalPages'] ?? 0,
+      hasPreviousPage: json['hasPreviousPage'] ?? false,
+      hasNextPage: json['hasNextPage'] ?? false,
+    );
+  }
+}
+
 class ApiResultModel<T> {
   final bool isSuccess;
   final String message;
@@ -72,6 +101,36 @@ class ApiResultModel<T> {
       isSuccess: json['isSuccess'] ?? false,
       message: json['message'] ?? '',
       data: json['data'] != null ? fromDataJson(json['data']) : null,
+    );
+  }
+}
+
+class PagedResultModel<T> {
+  final bool isSuccess;
+  final String message;
+  final List<T> data;
+  final PaginationModel? pagination;
+
+  PagedResultModel({
+    required this.isSuccess,
+    required this.message,
+    required this.data,
+    this.pagination,
+  });
+
+  factory PagedResultModel.fromJson(
+    Map<String, dynamic> json,
+    T Function(dynamic itemJson) fromDataJson,
+  ) {
+    var list = <T>[];
+    if (json['data'] != null && json['data'] is List) {
+      list = (json['data'] as List).map((item) => fromDataJson(item)).toList();
+    }
+    return PagedResultModel<T>(
+      isSuccess: json['isSuccess'] ?? false,
+      message: json['message'] ?? '',
+      data: list,
+      pagination: json['pagination'] != null ? PaginationModel.fromJson(json['pagination']) : null,
     );
   }
 }
