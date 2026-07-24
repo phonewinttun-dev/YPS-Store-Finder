@@ -25,7 +25,8 @@ namespace YpsStoreFinder.Domain.Features.Store.DTOs
     {
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public double RadiusKm { get; set; } = 5.0;
+        public double MinRadiusKm { get; set; } = 0.3;
+        public double RadiusKm { get; set; } = 2.0;
         public string? Category { get; set; }
     }
 
