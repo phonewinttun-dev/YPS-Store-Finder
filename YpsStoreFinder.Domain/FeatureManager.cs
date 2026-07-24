@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using YpsStoreFinder.Database;
+using YpsStoreFinder.Domain.Features.Bus;
 using YpsStoreFinder.Domain.Features.Store;
 
 namespace YpsStoreFinder.Domain
@@ -18,6 +19,7 @@ namespace YpsStoreFinder.Domain
 
             // Feature Services
             builder.Services.AddScoped<IStoreService, StoreService>();
+            builder.Services.AddScoped<IBusService, BusService>();
         }
     }
 }
