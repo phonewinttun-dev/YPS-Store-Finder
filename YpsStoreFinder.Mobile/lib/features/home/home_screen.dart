@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<CategorySummaryModel> _categories = [];
   String? _selectedCategory;
   String _searchQuery = '';
-  double _radiusKm = 5.0;
+  double _radiusKm = 2.0;
 
   // Pagination & Infinite Scroll State
   int _pageNumber = 1;
@@ -201,15 +201,64 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Future<void> _toggleLocationTracking() async {
-    if (_isTracking) {
-      setState(() {
-        _isTracking = false;
-        _currentPosition = null;
-        _pageNumber = 1;
-      });
-      _loadStores();
-    } else {
+  IconData _getCategoryIconData(String category) {
+    final cat = category.toLowerCase();
+    if (cat.contains('kios') || cat.contains('top-up')) {
+      return Icons.credit_card;
+    } else if (cat.contains('bus') || cat.contains('terminal')) {
+      return Icons.directions_bus;
+    } else if (cat.contains('cinema')) {
+      return Icons.movie;
+    } else if (cat.contains('capital') || cat.contains('hyper') || cat.contains('market')) {
+      return Icons.shopping_cart;
+    } else if (cat.contains('agent')) {
+      return Icons.verified_user;
+    } else if (cat.contains('g&g') || cat.contains('store')) {
+      return Icons.storefront;
+    }
+    return Icons.location_on;
+  }
+
+  Future<void> _requestLocationWithPermissionDialog() async {
+    final shouldRequest = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Row(
+          children: [
+            const Icon(Icons.my_location, color: Color(0xFF1D5FA8)),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                _trans.t('locationPermissionTitle'),
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+        content: Text(
+          _trans.t('locationPermissionMsg'),
+          style: const TextStyle(fontSize: 13, height: 1.4),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: Text(_trans.t('cancel'), style: const TextStyle(color: Colors.grey)),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF1D5FA8),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            ),
+            child: Text(_trans.t('allowLocation')),
+          ),
+        ],
+      ),
+    );
+
+    if (shouldRequest == true) {
       final pos = await _locationService.getCurrentPosition();
       if (pos != null) {
         setState(() {
@@ -232,7 +281,67 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> _promptEnableGpsDialog() async {
+    final enable = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: Row(
+          children: [
+            const Icon(Icons.explore, color: Color(0xFF1D5FA8)),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                _trans.t('enableGpsTitle'),
+                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+        content: Text(
+          _trans.t('enableGpsMessage'),
+          style: const TextStyle(fontSize: 13, height: 1.4),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: Text(_trans.t('cancel'), style: const TextStyle(color: Colors.grey)),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF1D5FA8),
+              foregroundColor: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            ),
+            child: Text(_trans.t('enableGpsBtn')),
+          ),
+        ],
+      ),
+    );
+
+    if (enable == true) {
+      await _requestLocationWithPermissionDialog();
+    }
+  }
+
+  Future<void> _toggleLocationTracking() async {
+    if (_isTracking) {
+      setState(() {
+        _isTracking = false;
+        _currentPosition = null;
+        _pageNumber = 1;
+      });
+      _loadStores();
+    } else {
+      await _requestLocationWithPermissionDialog();
+    }
+  }
+
   Future<void> _openDirections(double lat, double lng) async {
+    if (!_isTracking || _currentPosition == null) {
+      await _promptEnableGpsDialog();
+    }
     final Uri url = Uri.parse('https://www.google.com/maps/dir/?api=1&destination=$lat,$lng');
     if (await canLaunchUrl(url)) {
       await launchUrl(url, mode: LaunchMode.externalApplication);
@@ -350,31 +459,49 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
 
+              // Polyline Direction Route Line between User Position and Selected Store
+              if (_currentPosition != null && _selectedStore != null)
+                PolylineLayer(
+                  polylines: [
+                    Polyline(
+                      points: [
+                        LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
+                        LatLng(_selectedStore!.latitude, _selectedStore!.longitude),
+                      ],
+                      color: const Color(0xFF1D5FA8),
+                      strokeWidth: 4.0,
+                    ),
+                  ],
+                ),
+
               // Store Markers (All Store Pointers)
               MarkerLayer(
                 markers: _allMapStores.map((store) {
                   final isSelected = _selectedStore?.id == store.id;
+                  final iconData = _getCategoryIconData(store.category);
                   return Marker(
                     point: LatLng(store.latitude, store.longitude),
-                    width: 36,
-                    height: 36,
+                    width: isSelected ? 40 : 34,
+                    height: isSelected ? 40 : 34,
                     child: GestureDetector(
                       onTap: () {
                         setState(() => _selectedStore = store);
-                        _mapController.move(LatLng(store.latitude, store.longitude), 15);
+                        _mapController.move(LatLng(store.latitude, store.longitude), 16.0);
                       },
                       child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 200),
+                        duration: const Duration(milliseconds: 250),
                         decoration: BoxDecoration(
                           color: isSelected ? const Color(0xFFFFD200) : const Color(0xFF1D5FA8),
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 2),
-                          boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 4)],
+                          border: Border.all(color: Colors.white, width: isSelected ? 3 : 2),
+                          boxShadow: isSelected
+                              ? [const BoxShadow(color: Color(0x99FFD200), blurRadius: 12, spreadRadius: 2)]
+                              : const [BoxShadow(color: Colors.black26, blurRadius: 4)],
                         ),
                         child: Icon(
-                          Icons.location_on,
-                          color: isSelected ? Colors.black : Colors.white,
-                          size: 20,
+                          iconData,
+                          color: isSelected ? const Color(0xFF1A1C1E) : Colors.white,
+                          size: isSelected ? 20 : 16,
                         ),
                       ),
                     ),
@@ -500,7 +627,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       // Device Location Tracker Card & Radius Slider
                       Container(
-                        padding: const EdgeInsets.all(12),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: const Color(0xFFF9F9FC),
                           borderRadius: BorderRadius.circular(12),
@@ -515,25 +642,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Row(
                                   children: [
                                     Container(
-                                      width: 32,
-                                      height: 32,
+                                      width: 28,
+                                      height: 28,
                                       decoration: BoxDecoration(
                                         color: _isTracking ? const Color(0xFF1D5FA8) : const Color(0xFFE8E8EA),
                                         shape: BoxShape.circle,
                                       ),
                                       child: Icon(
                                         Icons.my_location,
-                                        size: 18,
+                                        size: 15,
                                         color: _isTracking ? Colors.white : Colors.grey[700],
                                       ),
                                     ),
-                                    const SizedBox(width: 10),
+                                    const SizedBox(width: 8),
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           _trans.t('deviceLocation'),
-                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
                                         ),
                                         Text(
                                           _isTracking ? _trans.t('deviceLocationActive') : _trans.t('deviceLocationInactive'),
@@ -545,22 +672,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 ElevatedButton.icon(
                                   onPressed: _toggleLocationTracking,
-                                  icon: const Icon(Icons.explore, size: 14),
+                                  icon: const Icon(Icons.explore, size: 12),
                                   label: Text(_isTracking ? _trans.t('stopGps') : _trans.t('locateMe')),
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: _isTracking ? const Color(0xFFBA1A1A) : const Color(0xFFFFD200),
                                     foregroundColor: _isTracking ? Colors.white : const Color(0xFF1A1C1E),
-                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    minimumSize: Size.zero,
+                                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                     textStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 10),
-                            const Divider(height: 1),
                             const SizedBox(height: 8),
+                            const Divider(height: 1),
+                            const SizedBox(height: 6),
 
-                            // Search Radius Slider
+                            // Search Radius Slider (300 meters to 2 km)
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -569,20 +698,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Color(0xFF4B5563)),
                                 ),
                                 Text(
-                                  '${_radiusKm.round()} ${_trans.t('km')}',
-                                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF1D5FA8)),
+                                  _radiusKm < 1.0
+                                      ? '${(_radiusKm * 1000).round()} ${_trans.t('meters')}'
+                                      : '${_radiusKm.toStringAsFixed(1)} ${_trans.t('km')}',
+                                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF1D5FA8)),
                                 ),
                               ],
                             ),
                             SliderTheme(
                               data: SliderTheme.of(context).copyWith(
-                                trackHeight: 4,
-                                thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 7),
+                                trackHeight: 3,
+                                thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
                               ),
                               child: Slider(
                                 value: _radiusKm,
-                                min: 1.0,
-                                max: 20.0,
+                                min: 0.3,
+                                max: 2.0,
+                                divisions: 17,
                                 activeColor: const Color(0xFF1D5FA8),
                                 inactiveColor: const Color(0xFFE2E2E5),
                                 onChanged: (val) {
@@ -680,7 +812,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           return InkWell(
                             onTap: () {
                               setState(() => _selectedStore = store);
-                              _mapController.move(LatLng(store.latitude, store.longitude), 15);
+                              _mapController.move(LatLng(store.latitude, store.longitude), 16.0);
                             },
                             child: AnimatedContainer(
                               duration: const Duration(milliseconds: 200),
