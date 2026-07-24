@@ -6,6 +6,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using YpsStoreFinder.Database.Models;
 
 namespace YpsStoreFinder.Database
@@ -14,7 +16,29 @@ namespace YpsStoreFinder.Database
     {
         public static async Task SeedAsync(AppDbContext context)
         {
-            await context.Database.EnsureCreatedAsync();
+            try
+            {
+                var databaseCreator = context.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
+                if (databaseCreator != null)
+                {
+                    if (!await databaseCreator.ExistsAsync())
+                    {
+                        await databaseCreator.CreateAsync();
+                    }
+                    try
+                    {
+                        await databaseCreator.CreateTablesAsync();
+                    }
+                    catch
+                    {
+                        // Ignore if some tables already exist
+                    }
+                }
+            }
+            catch
+            {
+                await context.Database.EnsureCreatedAsync();
+            }
 
             await SeedStoresAsync(context);
             var ypsBusLineNumbers = await SeedYpsBusLinesAsync(context);
