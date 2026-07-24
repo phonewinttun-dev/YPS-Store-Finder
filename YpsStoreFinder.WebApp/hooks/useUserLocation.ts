@@ -32,7 +32,7 @@ export function useUserLocation() {
       setLocationState((prev) => ({
         ...prev,
         permissionState: 'unsupported',
-        error: 'Geolocation is not supported by your browser.',
+        error: 'locationUnsupported',
       }));
       return;
     }
@@ -51,19 +51,19 @@ export function useUserLocation() {
     };
 
     const handleError = (error: GeolocationPositionError) => {
-      let errorMsg = 'Failed to obtain device location.';
+      let errorMsg = 'locationDenied';
       let permState: UserLocationState['permissionState'] = 'denied';
 
       switch (error.code) {
         case error.PERMISSION_DENIED:
-          errorMsg = 'Location permission was denied. Turn on device location in browser settings.';
+          errorMsg = 'locationDenied';
           permState = 'denied';
           break;
         case error.POSITION_UNAVAILABLE:
-          errorMsg = 'Location information is currently unavailable.';
+          errorMsg = 'locationUnavailable';
           break;
         case error.TIMEOUT:
-          errorMsg = 'The request to get device location timed out.';
+          errorMsg = 'locationTimeout';
           break;
       }
 
