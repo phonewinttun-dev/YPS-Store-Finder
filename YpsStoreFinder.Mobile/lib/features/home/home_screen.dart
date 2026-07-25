@@ -4,9 +4,11 @@ import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../models/store_model.dart';
+import '../../models/bus_model.dart';
 import '../../services/api_service.dart';
 import '../../services/location_service.dart';
 import '../../services/translation_service.dart';
+import '../bus/ybs_bus_lines_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -27,6 +29,13 @@ class _HomeScreenState extends State<HomeScreen> {
   String? _selectedCategory;
   String _searchQuery = '';
   double _radiusKm = 2.0;
+
+  // Active Screen Tab (0: Stores Finder Map, 1: YBS Bus Lines)
+  int _activeNavIndex = 0;
+
+  // Store Nearby Bus Stops Expansion State
+  final Map<int, StoreNearbyBusStopsModel> _expandedBusInfo = {};
+  final Map<int, bool> _loadingBusInfo = {};
 
   // Pagination & Infinite Scroll State
   int _pageNumber = 1;
@@ -338,13 +347,33 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Future<void> _openDirections(double lat, double lng) async {
+  Future<void> _handleShowDirection(StoreModel store) async {
+    setState(() => _selectedStore = store);
+    _mapController.move(LatLng(store.latitude, store.longitude), 16.0);
+
     if (!_isTracking || _currentPosition == null) {
       await _promptEnableGpsDialog();
     }
-    final Uri url = Uri.parse('https://www.google.com/maps/dir/?api=1&destination=$lat,$lng');
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url, mode: LaunchMode.externalApplication);
+  }
+
+  Future<void> _handleToggleBusLines(StoreModel store) async {
+    if (_expandedBusInfo.containsKey(store.id)) {
+      setState(() {
+        _expandedBusInfo.remove(store.id);
+      });
+      return;
+    }
+
+    setState(() => _loadingBusInfo[store.id] = true);
+    try {
+      final res = await _apiService.getNearbyBusStopsForStore(store.id);
+      if (res.isSuccess && res.data != null) {
+        setState(() => _expandedBusInfo[store.id] = res.data!);
+      }
+    } catch (e) {
+      debugPrint('Error loading store bus lines: $e');
+    } finally {
+      setState(() => _loadingBusInfo[store.id] = false);
     }
   }
 
@@ -370,7 +399,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(width: 8),
             Expanded(
               child: Text(
-                _trans.t('appTitle'),
+                _activeNavIndex == 0 ? _trans.t('appTitle') : _trans.t('ybsBusLines'),
                 style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -380,7 +409,6 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: const Color(0xFF1D5FA8),
         foregroundColor: Colors.white,
         actions: [
-          // Easy-to-use Language Toggle Switcher Button
           InkWell(
             onTap: () {
               _trans.toggleLanguage();
@@ -415,581 +443,643 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      body: Stack(
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _activeNavIndex,
+        onTap: (index) {
+          setState(() => _activeNavIndex = index);
+        },
+        selectedItemColor: const Color(0xFF1D5FA8),
+        unselectedItemColor: Colors.grey,
+        items: [
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.map),
+            label: _trans.t('stores'),
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.directions_bus),
+            label: _trans.t('ybsBusLines'),
+          ),
+        ],
+      ),
+      body: IndexedStack(
+        index: _activeNavIndex,
         children: [
-          // Flutter Map View (Renders ALL Store Pointers)
-          FlutterMap(
-            mapController: _mapController,
-            options: MapOptions(
-              initialCenter: centerLatLng,
-              initialZoom: 13.5,
-            ),
+          // Index 0: Interactive Map & Stores List View
+          Stack(
             children: [
-              TileLayer(
-                urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                userAgentPackageName: 'com.yps.storefinder',
-              ),
+              FlutterMap(
+                mapController: _mapController,
+                options: MapOptions(
+                  initialCenter: centerLatLng,
+                  initialZoom: 13.5,
+                ),
+                children: [
+                  TileLayer(
+                    urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    userAgentPackageName: 'com.yps.storefinder',
+                  ),
 
-              // User Location Marker
-              if (_currentPosition != null)
-                MarkerLayer(
-                  markers: [
-                    Marker(
-                      point: LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
-                      width: 40,
-                      height: 40,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Color(0x4D1D5FA8),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
+                  if (_currentPosition != null)
+                    MarkerLayer(
+                      markers: [
+                        Marker(
+                          point: LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
+                          width: 40,
+                          height: 40,
                           child: Container(
-                            width: 18,
-                            height: 18,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF1D5FA8),
+                            decoration: const BoxDecoration(
+                              color: Color(0x4D1D5FA8),
                               shape: BoxShape.circle,
-                              border: Border.all(color: Colors.white, width: 2.5),
+                            ),
+                            child: Center(
+                              child: Container(
+                                width: 18,
+                                height: 18,
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF1D5FA8),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: Colors.white, width: 2.5),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-
-              // Polyline Direction Route Line between User Position and Selected Store
-              if (_currentPosition != null && _selectedStore != null)
-                PolylineLayer(
-                  polylines: [
-                    Polyline(
-                      points: [
-                        LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
-                        LatLng(_selectedStore!.latitude, _selectedStore!.longitude),
                       ],
-                      color: const Color(0xFF1D5FA8),
-                      strokeWidth: 4.0,
                     ),
-                  ],
+
+                  if (_currentPosition != null && _selectedStore != null)
+                    PolylineLayer(
+                      polylines: [
+                        Polyline(
+                          points: [
+                            LatLng(_currentPosition!.latitude, _currentPosition!.longitude),
+                            LatLng(_selectedStore!.latitude, _selectedStore!.longitude),
+                          ],
+                          color: const Color(0xFFBA1A1A),
+                          strokeWidth: 4.0,
+                        ),
+                      ],
+                    ),
+
+                  MarkerLayer(
+                    markers: _allMapStores.map((store) {
+                      final isSelected = _selectedStore?.id == store.id;
+                      final iconData = _getCategoryIconData(store.category);
+                      return Marker(
+                        point: LatLng(store.latitude, store.longitude),
+                        width: isSelected ? 40 : 34,
+                        height: isSelected ? 40 : 34,
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() => _selectedStore = store);
+                            _mapController.move(LatLng(store.latitude, store.longitude), 16.0);
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 250),
+                            decoration: BoxDecoration(
+                              color: isSelected ? const Color(0xFFFFD200) : const Color(0xFF1D5FA8),
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.white, width: isSelected ? 3 : 2),
+                              boxShadow: isSelected
+                                  ? [const BoxShadow(color: Color(0x99FFD200), blurRadius: 12, spreadRadius: 2)]
+                                  : const [BoxShadow(color: Colors.black26, blurRadius: 4)],
+                            ),
+                            child: Icon(
+                              iconData,
+                              color: isSelected ? const Color(0xFF1A1C1E) : Colors.white,
+                              size: isSelected ? 20 : 16,
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+
+              if (_isLoading)
+                Positioned(
+                  top: 16,
+                  right: 16,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 6)],
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(
+                          width: 14,
+                          height: 14,
+                          child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFF1D5FA8)),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(_trans.t('loading'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                      ],
+                    ),
+                  ),
                 ),
 
-              // Store Markers (All Store Pointers)
-              MarkerLayer(
-                markers: _allMapStores.map((store) {
-                  final isSelected = _selectedStore?.id == store.id;
-                  final iconData = _getCategoryIconData(store.category);
-                  return Marker(
-                    point: LatLng(store.latitude, store.longitude),
-                    width: isSelected ? 40 : 34,
-                    height: isSelected ? 40 : 34,
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() => _selectedStore = store);
-                        _mapController.move(LatLng(store.latitude, store.longitude), 16.0);
+              DraggableScrollableSheet(
+                initialChildSize: 0.38,
+                minChildSize: 0.15,
+                maxChildSize: 0.88,
+                builder: (context, scrollController) {
+                  final totalCount = _pagination?.totalCount ?? _stores.length;
+                  return Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                      boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)],
+                    ),
+                    child: NotificationListener<ScrollNotification>(
+                      onNotification: (scrollNotification) {
+                        if (scrollNotification.metrics.pixels >= scrollNotification.metrics.maxScrollExtent - 200) {
+                          if (!_isLoadingMore && !_isLoading && (_pagination?.hasNextPage ?? false)) {
+                            _loadMoreStores();
+                          }
+                        }
+                        return false;
                       },
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 250),
-                        decoration: BoxDecoration(
-                          color: isSelected ? const Color(0xFFFFD200) : const Color(0xFF1D5FA8),
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: isSelected ? 3 : 2),
-                          boxShadow: isSelected
-                              ? [const BoxShadow(color: Color(0x99FFD200), blurRadius: 12, spreadRadius: 2)]
-                              : const [BoxShadow(color: Colors.black26, blurRadius: 4)],
-                        ),
-                        child: Icon(
-                          iconData,
-                          color: isSelected ? const Color(0xFF1A1C1E) : Colors.white,
-                          size: isSelected ? 20 : 16,
-                        ),
+                      child: ListView(
+                        controller: scrollController,
+                        padding: const EdgeInsets.all(16),
+                        children: [
+                          Center(
+                            child: Container(
+                              width: 36,
+                              height: 4,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(2),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFE2E2E5),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Text(
+                                  '${_stores.length} / $totalCount ${_trans.t('stores')}',
+                                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF374151)),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+
+                          TextField(
+                            decoration: InputDecoration(
+                              hintText: _trans.t('searchPlaceholder'),
+                              prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                              suffixIcon: _searchQuery.isNotEmpty
+                                  ? IconButton(
+                                      icon: const Icon(Icons.clear, size: 18),
+                                      onPressed: () {
+                                        setState(() => _searchQuery = '');
+                                        _loadStores();
+                                      },
+                                    )
+                                  : null,
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                              filled: true,
+                              fillColor: const Color(0xFFF9F9FC),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(30),
+                                borderSide: const BorderSide(color: Color(0xFFD1C6AB)),
+                              ),
+                            ),
+                            onChanged: (val) {
+                              _searchQuery = val;
+                              _loadStores();
+                            },
+                          ),
+                          const SizedBox(height: 12),
+
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF9F9FC),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: const Color(0xFFE2E2E5)),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Container(
+                                          width: 28,
+                                          height: 28,
+                                          decoration: BoxDecoration(
+                                            color: _isTracking ? const Color(0xFF1D5FA8) : const Color(0xFFE8E8EA),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Icon(
+                                            Icons.my_location,
+                                            size: 15,
+                                            color: _isTracking ? Colors.white : Colors.grey[700],
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              _trans.t('deviceLocation'),
+                                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
+                                            ),
+                                            Text(
+                                              _isTracking ? _trans.t('deviceLocationActive') : _trans.t('deviceLocationInactive'),
+                                              style: const TextStyle(fontSize: 10, color: Colors.grey),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    ElevatedButton.icon(
+                                      onPressed: _toggleLocationTracking,
+                                      icon: const Icon(Icons.explore, size: 12),
+                                      label: Text(_isTracking ? _trans.t('stopGps') : _trans.t('locateMe')),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: _isTracking ? const Color(0xFFBA1A1A) : const Color(0xFFFFD200),
+                                        foregroundColor: _isTracking ? Colors.white : const Color(0xFF1A1C1E),
+                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                        minimumSize: Size.zero,
+                                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                        textStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
+                                const Divider(height: 1),
+                                const SizedBox(height: 6),
+
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      _trans.t('searchRadiusFilter'),
+                                      style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Color(0xFF4B5563)),
+                                    ),
+                                    Text(
+                                      _radiusKm < 1.0
+                                          ? '${(_radiusKm * 1000).round()} ${_trans.t('meters')}'
+                                          : '${_radiusKm.toStringAsFixed(1)} ${_trans.t('km')}',
+                                      style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF1D5FA8)),
+                                    ),
+                                  ],
+                                ),
+                                SliderTheme(
+                                  data: SliderTheme.of(context).copyWith(
+                                    trackHeight: 3,
+                                    thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
+                                  ),
+                                  child: Slider(
+                                    value: _radiusKm,
+                                    min: 0.3,
+                                    max: 2.0,
+                                    divisions: 17,
+                                    activeColor: const Color(0xFF1D5FA8),
+                                    inactiveColor: const Color(0xFFE2E2E5),
+                                    onChanged: (val) {
+                                      setState(() => _radiusKm = val);
+                                    },
+                                    onChangeEnd: (_) {
+                                      _loadStores();
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+
+                          SizedBox(
+                            height: 36,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: _categories.length + 1,
+                              separatorBuilder: (_, __) => const SizedBox(width: 8),
+                              itemBuilder: (context, index) {
+                                if (index == 0) {
+                                  final isSelected = _selectedCategory == null;
+                                  return ChoiceChip(
+                                    label: Text(_trans.t('allCategories')),
+                                    selected: isSelected,
+                                    selectedColor: const Color(0xFF1D5FA8),
+                                    labelStyle: TextStyle(
+                                      color: isSelected ? Colors.white : Colors.black87,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                    onSelected: (_) {
+                                      setState(() {
+                                        _selectedCategory = null;
+                                      });
+                                      _loadStores();
+                                    },
+                                  );
+                                }
+                                final cat = _categories[index - 1];
+                                final isSelected = _selectedCategory == cat.category;
+                                final translatedCategoryName = _trans.tCategory(cat.category);
+                                return ChoiceChip(
+                                  label: Text('$translatedCategoryName (${cat.count})'),
+                                  selected: isSelected,
+                                  selectedColor: const Color(0xFF1D5FA8),
+                                  labelStyle: TextStyle(
+                                    color: isSelected ? Colors.white : const Color(0xFF1D5FA8),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 12,
+                                  ),
+                                  backgroundColor: const Color(0xFFEBF2F8),
+                                  onSelected: (_) {
+                                    setState(() {
+                                      _selectedCategory = cat.category;
+                                    });
+                                    _loadStores();
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+
+                          if (_stores.isEmpty && !_isLoading)
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 32),
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    const Icon(Icons.location_off_outlined, size: 48, color: Colors.grey),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      _trans.t('noStoresFound'),
+                                      style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
+                                    ),
+                                    Text(
+                                      _trans.t('noStoresSub'),
+                                      style: const TextStyle(fontSize: 11, color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          else
+                            ..._stores.map((store) {
+                              final isSelected = _selectedStore?.id == store.id;
+                              final translatedCat = _trans.tCategory(store.category);
+                              final translatedAddr = _trans.tAddress(store.address);
+                              final busInfo = _expandedBusInfo[store.id];
+                              final isBusLoading = _loadingBusInfo[store.id] ?? false;
+
+                              return InkWell(
+                                onTap: () {
+                                  setState(() => _selectedStore = store);
+                                  _mapController.move(LatLng(store.latitude, store.longitude), 16.0);
+                                },
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 200),
+                                  margin: const EdgeInsets.only(bottom: 12),
+                                  padding: const EdgeInsets.all(14),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(14),
+                                    border: Border.all(
+                                      color: isSelected ? const Color(0xFF1D5FA8) : const Color(0xFFE2E2E5),
+                                      width: isSelected ? 2 : 1,
+                                    ),
+                                    boxShadow: isSelected
+                                        ? [const BoxShadow(color: Color(0x331D5FA8), blurRadius: 8, offset: Offset(0, 2))]
+                                        : [const BoxShadow(color: Colors.black12, blurRadius: 2, offset: Offset(0, 1))],
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xFFEBF2F8),
+                                              borderRadius: BorderRadius.circular(20),
+                                            ),
+                                            child: Text(
+                                              translatedCat,
+                                              style: const TextStyle(
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color(0xFF1D5FA8),
+                                              ),
+                                            ),
+                                          ),
+                                          if (store.distanceKm != null)
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xFFFFE07C),
+                                                borderRadius: BorderRadius.circular(6),
+                                              ),
+                                              child: Text(
+                                                '${store.distanceKm} ${_trans.t('kmAway')}',
+                                                style: const TextStyle(
+                                                  fontFamily: 'monospace',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 11,
+                                                  color: Color(0xFF725C00),
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 8),
+
+                                      Text(
+                                        store.name,
+                                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFF1A1C1E)),
+                                      ),
+                                      const SizedBox(height: 4),
+
+                                      if (translatedAddr.isNotEmpty)
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Icon(Icons.location_on_outlined, size: 14, color: Colors.grey),
+                                            const SizedBox(width: 4),
+                                            Expanded(
+                                              child: Text(
+                                                translatedAddr,
+                                                style: const TextStyle(fontSize: 12, color: Color(0xFF4B5563), height: 1.3),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      const SizedBox(height: 10),
+                                      const Divider(height: 1),
+                                      const SizedBox(height: 8),
+
+                                      // Dual Action Buttons: Show direction (လမ်းကြောင်းကြည့်ရန်) & Show Bus Lines (ရောက်နိုင်သော ယာဉ်လိုင်းများကြည့်ရန်)
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: ElevatedButton.icon(
+                                              onPressed: () => _handleShowDirection(store),
+                                              icon: const Icon(Icons.alt_route, size: 14),
+                                              label: Text(_trans.t('showDirection')),
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: const Color(0xFF1D5FA8),
+                                                foregroundColor: Colors.white,
+                                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                                textStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Expanded(
+                                            child: OutlinedButton.icon(
+                                              onPressed: () => _handleToggleBusLines(store),
+                                              icon: const Icon(Icons.directions_bus, size: 14),
+                                              label: Text(_trans.t('showBusLines')),
+                                              style: OutlinedButton.styleFrom(
+                                                foregroundColor: const Color(0xFF1D5FA8),
+                                                padding: const EdgeInsets.symmetric(vertical: 8),
+                                                textStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                                                side: const BorderSide(color: Color(0xFF1D5FA8)),
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+
+                                      if (isBusLoading)
+                                        const Padding(
+                                          padding: EdgeInsets.only(top: 8),
+                                          child: Center(
+                                            child: SizedBox(
+                                              width: 16,
+                                              height: 16,
+                                              child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFF1D5FA8)),
+                                            ),
+                                          ),
+                                        ),
+
+                                      if (busInfo != null) ...[
+                                        const SizedBox(height: 8),
+                                        Container(
+                                          padding: const EdgeInsets.all(8),
+                                          decoration: BoxDecoration(
+                                            color: const Color(0xFFF3F6FA),
+                                            borderRadius: BorderRadius.circular(8),
+                                            border: Border.all(color: const Color(0xFFD0D7DD)),
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                _trans.t('nearbyBusStops'),
+                                                style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF1D5FA8)),
+                                              ),
+                                              const SizedBox(height: 6),
+                                              ...busInfo.nearbyBusStops.map((stop) => Padding(
+                                                padding: const EdgeInsets.only(bottom: 4),
+                                                child: Text(
+                                                  '• ${stop.stopName}: YBS ${stop.servicingBusNumbers.join(', ')}',
+                                                  style: const TextStyle(fontSize: 11, color: Colors.black87),
+                                                ),
+                                              )),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
+
+                          if (_isLoadingMore) ...[
+                            const SizedBox(height: 12),
+                            Center(
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFF9F9FC),
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: const Color(0xFFE2E2E5)),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const SizedBox(
+                                      width: 14,
+                                      height: 14,
+                                      child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFF1D5FA8)),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      _trans.t('loadingMore'),
+                                      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF1D5FA8)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+
+                          if (_pagination != null && !_pagination!.hasNextPage && _stores.isNotEmpty) ...[
+                            const SizedBox(height: 16),
+                            Center(
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFFE2E2E5),
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Icon(Icons.check_circle_outline, size: 14, color: Color(0xFF1B5E20)),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      _trans.t('caughtUp'),
+                                      style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFF374151)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
                       ),
                     ),
                   );
-                }).toList(),
+                },
               ),
             ],
           ),
 
-          // Loading Overlay Indicator
-          if (_isLoading)
-            Positioned(
-              top: 16,
-              right: 16,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 6)],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(
-                      width: 14,
-                      height: 14,
-                      child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFF1D5FA8)),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(_trans.t('loading'), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
-                  ],
-                ),
-              ),
-            ),
-
-          // Draggable Bottom Sheet for Search & Stores List (Full Web Interface Parity)
-          DraggableScrollableSheet(
-            initialChildSize: 0.38,
-            minChildSize: 0.15,
-            maxChildSize: 0.88,
-            builder: (context, scrollController) {
-              final totalCount = _pagination?.totalCount ?? _stores.length;
-              return Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                  boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)],
-                ),
-                child: NotificationListener<ScrollNotification>(
-                  onNotification: (scrollNotification) {
-                    if (scrollNotification.metrics.pixels >= scrollNotification.metrics.maxScrollExtent - 200) {
-                      if (!_isLoadingMore && !_isLoading && (_pagination?.hasNextPage ?? false)) {
-                        _loadMoreStores();
-                      }
-                    }
-                    return false;
-                  },
-                  child: ListView(
-                    controller: scrollController,
-                    padding: const EdgeInsets.all(16),
-                    children: [
-                      // Handle Bar
-                      Center(
-                        child: Container(
-                          width: 36,
-                          height: 4,
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(2),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-
-                      // Counter Badge Row
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFE2E2E5),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Text(
-                              '${_stores.length} / $totalCount ${_trans.t('stores')}',
-                              style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF374151)),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-
-                      // Search Field
-                      TextField(
-                        decoration: InputDecoration(
-                          hintText: _trans.t('searchPlaceholder'),
-                          prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                          suffixIcon: _searchQuery.isNotEmpty
-                              ? IconButton(
-                                  icon: const Icon(Icons.clear, size: 18),
-                                  onPressed: () {
-                                    setState(() => _searchQuery = '');
-                                    _loadStores();
-                                  },
-                                )
-                              : null,
-                          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                          filled: true,
-                          fillColor: const Color(0xFFF9F9FC),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: const BorderSide(color: Color(0xFFD1C6AB)),
-                          ),
-                        ),
-                        onChanged: (val) {
-                          _searchQuery = val;
-                          _loadStores();
-                        },
-                      ),
-                      const SizedBox(height: 12),
-
-                      // Device Location Tracker Card & Radius Slider
-                      Container(
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFF9F9FC),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: const Color(0xFFE2E2E5)),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 28,
-                                      height: 28,
-                                      decoration: BoxDecoration(
-                                        color: _isTracking ? const Color(0xFF1D5FA8) : const Color(0xFFE8E8EA),
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Icon(
-                                        Icons.my_location,
-                                        size: 15,
-                                        color: _isTracking ? Colors.white : Colors.grey[700],
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          _trans.t('deviceLocation'),
-                                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
-                                        ),
-                                        Text(
-                                          _isTracking ? _trans.t('deviceLocationActive') : _trans.t('deviceLocationInactive'),
-                                          style: const TextStyle(fontSize: 10, color: Colors.grey),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                ElevatedButton.icon(
-                                  onPressed: _toggleLocationTracking,
-                                  icon: const Icon(Icons.explore, size: 12),
-                                  label: Text(_isTracking ? _trans.t('stopGps') : _trans.t('locateMe')),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: _isTracking ? const Color(0xFFBA1A1A) : const Color(0xFFFFD200),
-                                    foregroundColor: _isTracking ? Colors.white : const Color(0xFF1A1C1E),
-                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                    minimumSize: Size.zero,
-                                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                    textStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8),
-                            const Divider(height: 1),
-                            const SizedBox(height: 6),
-
-                            // Search Radius Slider (300 meters to 2 km)
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  _trans.t('searchRadiusFilter'),
-                                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Color(0xFF4B5563)),
-                                ),
-                                Text(
-                                  _radiusKm < 1.0
-                                      ? '${(_radiusKm * 1000).round()} ${_trans.t('meters')}'
-                                      : '${_radiusKm.toStringAsFixed(1)} ${_trans.t('km')}',
-                                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold, color: Color(0xFF1D5FA8)),
-                                ),
-                              ],
-                            ),
-                            SliderTheme(
-                              data: SliderTheme.of(context).copyWith(
-                                trackHeight: 3,
-                                thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
-                              ),
-                              child: Slider(
-                                value: _radiusKm,
-                                min: 0.3,
-                                max: 2.0,
-                                divisions: 17,
-                                activeColor: const Color(0xFF1D5FA8),
-                                inactiveColor: const Color(0xFFE2E2E5),
-                                onChanged: (val) {
-                                  setState(() => _radiusKm = val);
-                                },
-                                onChangeEnd: (_) {
-                                  _loadStores();
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-
-                      // Category Chips
-                      SizedBox(
-                        height: 36,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: _categories.length + 1,
-                          separatorBuilder: (_, __) => const SizedBox(width: 8),
-                          itemBuilder: (context, index) {
-                            if (index == 0) {
-                              final isSelected = _selectedCategory == null;
-                              return ChoiceChip(
-                                label: Text(_trans.t('allCategories')),
-                                selected: isSelected,
-                                selectedColor: const Color(0xFF1D5FA8),
-                                labelStyle: TextStyle(
-                                  color: isSelected ? Colors.white : Colors.black87,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                ),
-                                onSelected: (_) {
-                                  setState(() {
-                                    _selectedCategory = null;
-                                  });
-                                  _loadStores();
-                                },
-                              );
-                            }
-                            final cat = _categories[index - 1];
-                            final isSelected = _selectedCategory == cat.category;
-                            final translatedCategoryName = _trans.tCategory(cat.category);
-                            return ChoiceChip(
-                              label: Text('$translatedCategoryName (${cat.count})'),
-                              selected: isSelected,
-                              selectedColor: const Color(0xFF1D5FA8),
-                              labelStyle: TextStyle(
-                                color: isSelected ? Colors.white : const Color(0xFF1D5FA8),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 12,
-                              ),
-                              backgroundColor: const Color(0xFFEBF2F8),
-                              onSelected: (_) {
-                                setState(() {
-                                  _selectedCategory = cat.category;
-                                });
-                                _loadStores();
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-
-                      // Store Cards List (Rich Card Layout matching WebApp)
-                      if (_stores.isEmpty && !_isLoading)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 32),
-                          child: Center(
-                            child: Column(
-                              children: [
-                                const Icon(Icons.location_off_outlined, size: 48, color: Colors.grey),
-                                const SizedBox(height: 8),
-                                Text(
-                                  _trans.t('noStoresFound'),
-                                  style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
-                                ),
-                                Text(
-                                  _trans.t('noStoresSub'),
-                                  style: const TextStyle(fontSize: 11, color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      else
-                        ..._stores.map((store) {
-                          final isSelected = _selectedStore?.id == store.id;
-                          final translatedCat = _trans.tCategory(store.category);
-                          final translatedAddr = _trans.tAddress(store.address);
-
-                          return InkWell(
-                            onTap: () {
-                              setState(() => _selectedStore = store);
-                              _mapController.move(LatLng(store.latitude, store.longitude), 16.0);
-                            },
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 200),
-                              margin: const EdgeInsets.only(bottom: 12),
-                              padding: const EdgeInsets.all(14),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(14),
-                                border: Border.all(
-                                  color: isSelected ? const Color(0xFF1D5FA8) : const Color(0xFFE2E2E5),
-                                  width: isSelected ? 2 : 1,
-                                ),
-                                boxShadow: isSelected
-                                    ? [const BoxShadow(color: Color(0x331D5FA8), blurRadius: 8, offset: Offset(0, 2))]
-                                    : [const BoxShadow(color: Colors.black12, blurRadius: 2, offset: Offset(0, 1))],
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Top Category Pill & Distance Badge
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xFFEBF2F8),
-                                          borderRadius: BorderRadius.circular(20),
-                                        ),
-                                        child: Text(
-                                          translatedCat,
-                                          style: const TextStyle(
-                                            fontSize: 11,
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xFF1D5FA8),
-                                          ),
-                                        ),
-                                      ),
-                                      if (store.distanceKm != null)
-                                        Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xFFFFE07C),
-                                            borderRadius: BorderRadius.circular(6),
-                                          ),
-                                          child: Text(
-                                            '${store.distanceKm} ${_trans.t('kmAway')}',
-                                            style: const TextStyle(
-                                              fontFamily: 'monospace',
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 11,
-                                              color: Color(0xFF725C00),
-                                            ),
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 8),
-
-                                  // Store Name
-                                  Text(
-                                    store.name,
-                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFF1A1C1E)),
-                                  ),
-                                  const SizedBox(height: 4),
-
-                                  // Store Address
-                                  if (translatedAddr.isNotEmpty)
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        const Icon(Icons.location_on_outlined, size: 14, color: Colors.grey),
-                                        const SizedBox(width: 4),
-                                        Expanded(
-                                          child: Text(
-                                            translatedAddr,
-                                            style: const TextStyle(fontSize: 12, color: Color(0xFF4B5563), height: 1.3),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  const SizedBox(height: 10),
-                                  const Divider(height: 1),
-                                  const SizedBox(height: 8),
-
-                                  // Bottom Row: Coordinates & Directions Button
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Lat: ${store.latitude.toStringAsFixed(4)}, Lng: ${store.longitude.toStringAsFixed(4)}',
-                                        style: const TextStyle(fontSize: 10, color: Colors.grey, fontFamily: 'monospace'),
-                                      ),
-                                      ElevatedButton.icon(
-                                        onPressed: () => _openDirections(store.latitude, store.longitude),
-                                        icon: const Icon(Icons.near_me, size: 12),
-                                        label: Text(_trans.t('directions')),
-                                        style: ElevatedButton.styleFrom(
-                                          backgroundColor: const Color(0xFF1D5FA8),
-                                          foregroundColor: Colors.white,
-                                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                                          textStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                                          elevation: 0,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        }),
-
-                      // Loading More Indicator (Infinite Scroll Spinner)
-                      if (_isLoadingMore) ...[
-                        const SizedBox(height: 12),
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF9F9FC),
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: const Color(0xFFE2E2E5)),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const SizedBox(
-                                  width: 14,
-                                  height: 14,
-                                  child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFF1D5FA8)),
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  _trans.t('loadingMore'),
-                                  style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF1D5FA8)),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-
-                      // Caught Up / End of Feed Indicator
-                      if (_pagination != null && !_pagination!.hasNextPage && _stores.isNotEmpty) ...[
-                        const SizedBox(height: 16),
-                        Center(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFE2E2E5),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(Icons.check_circle_outline, size: 14, color: Color(0xFF1B5E20)),
-                                const SizedBox(width: 6),
-                                Text(
-                                  _trans.t('caughtUp'),
-                                  style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFF374151)),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-              );
-            },
-          ),
+          // Index 1: YBS Bus Lines View
+          const YbsBusLinesView(),
         ],
       ),
     );
   }
 }
-

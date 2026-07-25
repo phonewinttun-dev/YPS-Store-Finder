@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import '../models/store_model.dart';
+import '../models/bus_model.dart';
 
 class ApiService {
   static String get baseUrl {
@@ -116,4 +117,92 @@ class ApiService {
       return PagedResultModel(isSuccess: false, message: 'Network error: $e', data: []);
     }
   }
+
+  // YBS Bus Line endpoints
+  Future<PagedResultModel<BusLineModel>> getBusLines({
+    String? keyword,
+    int pageNumber = 1,
+    int pageSize = 20,
+  }) async {
+    final Map<String, String> queryParams = {
+      'pageNumber': pageNumber.toString(),
+      'pageSize': pageSize.toString(),
+    };
+    if (keyword != null && keyword.isNotEmpty) queryParams['keyword'] = keyword;
+
+    final uri = Uri.parse('$baseUrl/api/buses').replace(queryParameters: queryParams);
+
+    try {
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final jsonMap = json.decode(response.body);
+        return PagedResultModel.fromJson(jsonMap, (item) => BusLineModel.fromJson(item));
+      }
+      return PagedResultModel(isSuccess: false, message: 'Server returned HTTP ${response.statusCode}', data: []);
+    } catch (e) {
+      return PagedResultModel(isSuccess: false, message: 'Network error: $e', data: []);
+    }
+  }
+
+  Future<PagedResultModel<BusLineModel>> getYpsBusLines({
+    String? keyword,
+    int pageNumber = 1,
+    int pageSize = 20,
+  }) async {
+    final Map<String, String> queryParams = {
+      'pageNumber': pageNumber.toString(),
+      'pageSize': pageSize.toString(),
+    };
+    if (keyword != null && keyword.isNotEmpty) queryParams['keyword'] = keyword;
+
+    final uri = Uri.parse('$baseUrl/api/buses/yps-supported').replace(queryParameters: queryParams);
+
+    try {
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final jsonMap = json.decode(response.body);
+        return PagedResultModel.fromJson(jsonMap, (item) => BusLineModel.fromJson(item));
+      }
+      return PagedResultModel(isSuccess: false, message: 'Server returned HTTP ${response.statusCode}', data: []);
+    } catch (e) {
+      return PagedResultModel(isSuccess: false, message: 'Network error: $e', data: []);
+    }
+  }
+
+  Future<ApiResultModel<BusRouteDetailModel>> getBusRouteDetail(String busNumber) async {
+    final uri = Uri.parse('$baseUrl/api/buses/${Uri.encodeComponent(busNumber)}');
+
+    try {
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final jsonMap = json.decode(response.body);
+        return ApiResultModel.fromJson(
+          jsonMap,
+          (data) => BusRouteDetailModel.fromJson(data),
+        );
+      }
+      return ApiResultModel(isSuccess: false, message: 'Server returned HTTP ${response.statusCode}');
+    } catch (e) {
+      return ApiResultModel(isSuccess: false, message: 'Network error: $e');
+    }
+  }
+
+  Future<ApiResultModel<StoreNearbyBusStopsModel>> getNearbyBusStopsForStore(int storeId) async {
+    final uri = Uri.parse('$baseUrl/api/buses/nearby-store/$storeId');
+
+    try {
+      final response = await http.get(uri);
+      if (response.statusCode == 200) {
+        final jsonMap = json.decode(response.body);
+        return ApiResultModel.fromJson(
+          jsonMap,
+          (data) => StoreNearbyBusStopsModel.fromJson(data),
+        );
+      }
+      return ApiResultModel(isSuccess: false, message: 'Server returned HTTP ${response.statusCode}');
+    } catch (e) {
+      return ApiResultModel(isSuccess: false, message: 'Network error: $e');
+    }
+  }
 }
+
