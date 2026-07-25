@@ -21,6 +21,7 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [radiusKm, setRadiusKm] = useState<number>(2.0);
   const [selectedStoreId, setSelectedStoreId] = useState<number | null>(null);
+  const [activeDirectionStoreId, setActiveDirectionStoreId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isNearbyMode, setIsNearbyMode] = useState<boolean>(false);
   const [apiError, setApiError] = useState<string | null>(null);
@@ -35,7 +36,7 @@ export default function HomePage() {
   const [pagination, setPagination] = useState<PaginationDto | null>(null);
   const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
 
-  // Debounce search query and radius slider to prevent repetitive API calls
+  // Debounce search query and radius slider
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
   const debouncedRadiusKm = useDebounce(radiusKm, 300);
 
@@ -53,7 +54,7 @@ export default function HomePage() {
     loadCategories();
   }, [loadCategories]);
 
-  // Main Store Fetching Logic for Initial Load / Filter Change (Page 1 + All Map Pointers)
+  // Main Store Fetching Logic
   const loadStores = useCallback(async () => {
     setIsLoading(true);
     setPageNumber(1);
@@ -125,7 +126,6 @@ export default function HomePage() {
     pageSize,
   ]);
 
-  // Infinite Scroll Handler to Load Next Page
   const loadMoreStores = useCallback(async () => {
     if (isLoadingMore || isLoading || !pagination?.hasNextPage) return;
 
@@ -226,7 +226,19 @@ export default function HomePage() {
 
   const handleSelectStore = (store: StoreDto) => {
     setSelectedStoreId(store.id);
-    // On mobile, switch to map view when store selected from list
+    if (window.innerWidth < 1024) {
+      setMobileTab('map');
+    }
+  };
+
+  const handleShowDirection = (store: StoreDto) => {
+    setSelectedStoreId(store.id);
+    setActiveDirectionStoreId(store.id);
+
+    if (!hasRealLocation) {
+      setShowGpsModal(true);
+    }
+
     if (window.innerWidth < 1024) {
       setMobileTab('map');
     }
@@ -246,7 +258,6 @@ export default function HomePage() {
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Language Switcher Button for Mobile */}
           <button
             onClick={toggleLanguage}
             className="px-2.5 py-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white font-medium text-xs flex items-center gap-1.5 transition-all cursor-pointer"
@@ -267,9 +278,8 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Main Content Area - Split Desktop / Toggle Mobile */}
+      {/* Main Content Area */}
       <div className="flex-1 flex flex-col lg:flex-row h-full overflow-hidden relative">
-        {/* Side Store Drawer (Shown always on Desktop, or when Mobile Tab is 'list') */}
         <div
           className={`w-full lg:w-[420px] h-full ${
             mobileTab === 'list' ? 'block' : 'hidden lg:block'
@@ -296,10 +306,10 @@ export default function HomePage() {
             isLoading={isLoading}
             isLoadingMore={isLoadingMore}
             onLoadMore={loadMoreStores}
+            onShowDirection={handleShowDirection}
           />
         </div>
 
-        {/* Main Map View Area (Shown always on Desktop, or when Mobile Tab is 'map') */}
         <section
           className={`flex-1 h-full relative ${
             mobileTab === 'map' ? 'block' : 'hidden lg:block'
@@ -312,9 +322,9 @@ export default function HomePage() {
             selectedStoreId={selectedStoreId}
             onSelectStore={(store) => setSelectedStoreId(store.id)}
             onRequestEnableGps={() => setShowGpsModal(true)}
+            activeDirectionStoreId={activeDirectionStoreId}
           />
 
-          {/* Loading Overlay */}
           {isLoading && (
             <div className="absolute top-4 right-4 z-[500] bg-white/90 backdrop-blur-md px-3.5 py-2 rounded-full shadow-lg border border-[#e2e2e5] flex items-center gap-2 text-xs font-medium text-[#1d5fa8]">
               <RefreshCw className="w-4 h-4 animate-spin" />

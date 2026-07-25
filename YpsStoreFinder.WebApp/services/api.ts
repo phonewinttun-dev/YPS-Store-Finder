@@ -4,6 +4,11 @@ import {
   PagedResultDto,
   StoreDto,
 } from "../types/store";
+import {
+  BusLineDto,
+  BusRouteDetailDto,
+  StoreNearbyBusStopsDto,
+} from "../types/bus";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
@@ -127,3 +132,94 @@ export async function fetchStoreById(id: number): Promise<ApiResult<StoreDto>> {
     };
   }
 }
+
+// YBS Bus Line API endpoints
+export async function fetchBusLines(
+  keyword?: string,
+  pageNumber = 1,
+  pageSize = 20,
+): Promise<PagedResultDto<BusLineDto>> {
+  try {
+    const url = new URL(`${API_BASE_URL}/api/buses`);
+    if (keyword) url.searchParams.append("keyword", keyword);
+    url.searchParams.append("pageNumber", pageNumber.toString());
+    url.searchParams.append("pageSize", pageSize.toString());
+
+    const res = await fetch(url.toString(), { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return await res.json();
+  } catch (err: any) {
+    return {
+      isSuccess: false,
+      message: err.message || "Failed to fetch bus lines.",
+      data: [],
+      pagination: null,
+      isFailure: true,
+    };
+  }
+}
+
+export async function fetchYpsBusLines(
+  keyword?: string,
+  pageNumber = 1,
+  pageSize = 20,
+): Promise<PagedResultDto<BusLineDto>> {
+  try {
+    const url = new URL(`${API_BASE_URL}/api/buses/yps-supported`);
+    if (keyword) url.searchParams.append("keyword", keyword);
+    url.searchParams.append("pageNumber", pageNumber.toString());
+    url.searchParams.append("pageSize", pageSize.toString());
+
+    const res = await fetch(url.toString(), { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return await res.json();
+  } catch (err: any) {
+    return {
+      isSuccess: false,
+      message: err.message || "Failed to fetch YPS bus lines.",
+      data: [],
+      pagination: null,
+      isFailure: true,
+    };
+  }
+}
+
+export async function fetchBusRouteDetail(
+  busNumber: string,
+): Promise<ApiResult<BusRouteDetailDto>> {
+  try {
+    const res = await fetch(
+      `${API_BASE_URL}/api/buses/${encodeURIComponent(busNumber)}`,
+      { cache: "no-store" },
+    );
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return await res.json();
+  } catch (err: any) {
+    return {
+      isSuccess: false,
+      message: err.message || "Failed to fetch bus route detail.",
+      data: null,
+      isFailure: true,
+    };
+  }
+}
+
+export async function fetchNearbyBusStopsForStore(
+  storeId: number,
+): Promise<ApiResult<StoreNearbyBusStopsDto>> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/buses/nearby-store/${storeId}`, {
+      cache: "no-store",
+    });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return await res.json();
+  } catch (err: any) {
+    return {
+      isSuccess: false,
+      message: err.message || "Failed to fetch nearby bus stops.",
+      data: null,
+      isFailure: true,
+    };
+  }
+}
+
