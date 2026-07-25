@@ -87,7 +87,8 @@ class ApiService {
   Future<PagedResultModel<StoreModel>> getNearbyStores({
     required double latitude,
     required double longitude,
-    double radiusKm = 5.0,
+    double radiusKm = 2.0,
+    double minRadiusKm = 0.3,
     String? category,
     int pageNumber = 1,
     int pageSize = 10,
@@ -96,6 +97,7 @@ class ApiService {
       'latitude': latitude.toString(),
       'longitude': longitude.toString(),
       'radiusKm': radiusKm.toString(),
+      'minRadiusKm': minRadiusKm.toString(),
       'pageNumber': pageNumber.toString(),
       'pageSize': pageSize.toString(),
     };

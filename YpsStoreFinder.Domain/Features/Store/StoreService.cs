@@ -177,7 +177,7 @@ namespace YpsStoreFinder.Domain.Features.Store
                         RawAttributes = s.RawAttributes,
                         DistanceKm = Math.Round(CalculateHaversineDistance(request.Latitude, request.Longitude, s.Latitude, s.Longitude), 2)
                     })
-                    .Where(dto => dto.DistanceKm <= request.RadiusKm)
+                    .Where(dto => dto.DistanceKm >= request.MinRadiusKm && dto.DistanceKm <= request.RadiusKm)
                     .OrderBy(dto => dto.DistanceKm)
                     .ToList();
 

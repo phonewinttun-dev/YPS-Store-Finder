@@ -121,24 +121,24 @@ export default function StoreDrawer({
       </div>
 
       {/* Device Location Tracker Card */}
-      <div className="p-4 bg-[#f9f9fc] border-b border-[#e2e2e5]">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${
-              locationState.isTracking ? 'bg-[#1d5fa8] text-white shadow-md' : 'bg-[#e8e8ea] text-gray-600'
+      <div className="p-3.5 bg-[#f9f9fc] border-b border-[#e2e2e5]">
+        <div className="flex items-center justify-between gap-2.5">
+          <div className="flex items-center gap-2.5">
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
+              locationState.isTracking ? 'bg-[#1d5fa8] text-white shadow-xs' : 'bg-[#e8e8ea] text-gray-600'
             }`}>
-              <Locate className={`w-5 h-5 ${locationState.isTracking ? 'animate-pulse' : ''}`} />
+              <Locate className={`w-3.5 h-3.5 ${locationState.isTracking ? 'animate-pulse' : ''}`} />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <span className="font-semibold text-xs text-[#1a1c1e]">{t('deviceLocation')}</span>
+              <div className="flex items-center gap-1.5">
+                <span className="font-semibold text-[11px] text-[#1a1c1e]">{t('deviceLocation')}</span>
                 {locationState.isTracking && (
-                  <span className="text-[10px] font-bold font-mono-meta text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded">
+                  <span className="text-[9px] font-bold font-mono-meta text-emerald-700 bg-emerald-100 px-1 py-0.2 rounded">
                     {t('gpsActive')}
                   </span>
                 )}
               </div>
-              <p className="text-[11px] text-gray-500">
+              <p className="text-[10px] text-gray-500">
                 {locationState.isTracking
                   ? t('deviceLocationActive')
                   : t('deviceLocationInactive')}
@@ -148,36 +148,38 @@ export default function StoreDrawer({
 
           <button
             onClick={onToggleLocation}
-            className={`px-3.5 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm ${
+            className={`px-2.5 py-1 rounded-md text-[11px] font-semibold flex items-center gap-1 transition-all shadow-2xs ${
               locationState.isTracking
                 ? 'bg-[#ba1a1a] hover:bg-[#93000a] text-white'
                 : 'bg-[#ffd200] hover:bg-[#ffe07c] text-[#1a1c1e]'
             }`}
           >
-            <Compass className="w-3.5 h-3.5" />
+            <Compass className="w-3 h-3" />
             {locationState.isTracking ? t('stopGps') : t('locateMe')}
           </button>
         </div>
 
         {/* Location Error Warning */}
         {locationState.error && (
-          <div className="mt-3 p-2.5 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2 text-xs text-red-700">
-            <AlertCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
-            <span>{locationState.error}</span>
+          <div className="mt-2.5 p-2 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2 text-xs text-red-700">
+            <AlertCircle className="w-3.5 h-3.5 text-red-500 shrink-0 mt-0.5" />
+            <span>{t(locationState.error)}</span>
           </div>
         )}
 
-        {/* Radius Filter Slider */}
-        <div className="mt-4 pt-3 border-t border-[#e2e2e5]">
-          <div className="flex justify-between items-center text-xs mb-1.5">
-            <span className="font-medium text-gray-600">{t('searchRadiusFilter')}</span>
-            <span className="font-bold font-mono-meta text-[#1d5fa8]">{radiusKm} {t('km')}</span>
+        {/* Radius Filter Slider (300 meters to 2 km) */}
+        <div className="mt-3 pt-2.5 border-t border-[#e2e2e5]">
+          <div className="flex justify-between items-center text-xs mb-1">
+            <span className="font-medium text-gray-600 text-[11px]">{t('searchRadiusFilter')}</span>
+            <span className="font-bold font-mono-meta text-[#1d5fa8] text-xs">
+              {radiusKm < 1 ? `${Math.round(radiusKm * 1000)} ${t('meters')}` : `${radiusKm} ${t('km')}`}
+            </span>
           </div>
           <input
             type="range"
-            min="1"
-            max="20"
-            step="1"
+            min="0.3"
+            max="2.0"
+            step="0.1"
             value={radiusKm}
             onChange={(e) => onRadiusChange(Number(e.target.value))}
             className="w-full h-1.5 bg-[#e2e2e5] rounded-lg appearance-none cursor-pointer accent-[#1d5fa8]"

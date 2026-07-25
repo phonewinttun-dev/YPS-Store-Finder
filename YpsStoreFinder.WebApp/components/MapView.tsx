@@ -9,6 +9,7 @@ interface MapViewProps {
   radiusKm: number;
   selectedStoreId: number | null;
   onSelectStore: (store: StoreDto) => void;
+  onRequestEnableGps?: () => void;
 }
 
 const DynamicMapViewContainer = dynamic(

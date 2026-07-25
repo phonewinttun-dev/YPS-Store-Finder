@@ -5,9 +5,11 @@ import {
   StoreDto,
 } from "../types/store";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "http://localhost:5257" ||
+  "https://localhost:7261";
 
-// Returns ALL stores (cached on backend) for complete map rendering
 export async function fetchStores(
   category?: string,
 ): Promise<ApiResult<StoreDto[]>> {
@@ -79,7 +81,8 @@ export async function fetchCategoriesSummary(): Promise<
 export async function fetchNearbyStores(
   latitude: number,
   longitude: number,
-  radiusKm = 5.0,
+  radiusKm = 2.0,
+  minRadiusKm = 0.3,
   category?: string,
   pageNumber = 1,
   pageSize = 10,
@@ -89,6 +92,7 @@ export async function fetchNearbyStores(
     url.searchParams.append("latitude", latitude.toString());
     url.searchParams.append("longitude", longitude.toString());
     url.searchParams.append("radiusKm", radiusKm.toString());
+    url.searchParams.append("minRadiusKm", minRadiusKm.toString());
     if (category) url.searchParams.append("category", category);
     url.searchParams.append("pageNumber", pageNumber.toString());
     url.searchParams.append("pageSize", pageSize.toString());

@@ -19,11 +19,12 @@ export default function HomePage() {
   const [categories, setCategories] = useState<CategorySummaryDto[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [radiusKm, setRadiusKm] = useState<number>(5);
+  const [radiusKm, setRadiusKm] = useState<number>(2.0);
   const [selectedStoreId, setSelectedStoreId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isNearbyMode, setIsNearbyMode] = useState<boolean>(false);
   const [apiError, setApiError] = useState<string | null>(null);
+  const [showGpsModal, setShowGpsModal] = useState<boolean>(false);
 
   // Mobile View Tab State ('map' or 'list')
   const [mobileTab, setMobileTab] = useState<'map' | 'list'>('map');
@@ -75,8 +76,8 @@ export default function HomePage() {
         }
       } else if (hasRealLocation || isNearbyMode) {
         const [mapRes, res] = await Promise.all([
-          fetchNearbyStores(latitude, longitude, debouncedRadiusKm, selectedCategory || undefined, 1, 1000),
-          fetchNearbyStores(latitude, longitude, debouncedRadiusKm, selectedCategory || undefined, 1, pageSize),
+          fetchNearbyStores(latitude, longitude, debouncedRadiusKm, 0.3, selectedCategory || undefined, 1, 1000),
+          fetchNearbyStores(latitude, longitude, debouncedRadiusKm, 0.3, selectedCategory || undefined, 1, pageSize),
         ]);
         if (mapRes.isSuccess && mapRes.data) setAllMapStores(mapRes.data);
         if (res.isSuccess && res.data) {
@@ -149,6 +150,7 @@ export default function HomePage() {
           latitude,
           longitude,
           debouncedRadiusKm,
+          0.3,
           selectedCategory || undefined,
           nextPage,
           pageSize
@@ -309,6 +311,7 @@ export default function HomePage() {
             radiusKm={radiusKm}
             selectedStoreId={selectedStoreId}
             onSelectStore={(store) => setSelectedStoreId(store.id)}
+            onRequestEnableGps={() => setShowGpsModal(true)}
           />
 
           {/* Loading Overlay */}
@@ -320,6 +323,40 @@ export default function HomePage() {
           )}
         </section>
       </div>
+
+      {/* Enable GPS Modal Dialog Prompt */}
+      {showGpsModal && (
+        <div className="fixed inset-0 z-[2000] bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-[#e2e2e5] animate-in fade-in zoom-in duration-200">
+            <div className="w-12 h-12 rounded-full bg-[#1d5fa8]/10 text-[#1d5fa8] flex items-center justify-center mb-4 mx-auto">
+              <Compass className="w-6 h-6 animate-pulse" />
+            </div>
+            <h3 className="text-base font-bold text-center text-[#1a1c1e] mb-2">
+              {t('enableGpsTitle')}
+            </h3>
+            <p className="text-xs text-center text-gray-600 mb-6 leading-relaxed">
+              {t('enableGpsMessage')}
+            </p>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowGpsModal(false)}
+                className="flex-1 py-2.5 px-4 rounded-xl border border-gray-300 text-gray-700 text-xs font-semibold hover:bg-gray-50 transition-colors cursor-pointer"
+              >
+                {t('cancel')}
+              </button>
+              <button
+                onClick={() => {
+                  setShowGpsModal(false);
+                  handleToggleLocation();
+                }}
+                className="flex-1 py-2.5 px-4 rounded-xl bg-[#1d5fa8] hover:bg-[#00417e] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+              >
+                {t('enableGpsBtn')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Floating Bottom Mobile Action Toggle Bar */}
       <div className="lg:hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-[1000] bg-white/95 backdrop-blur-md p-1.5 rounded-full shadow-2xl border border-[#d1c6ab] flex items-center gap-1">
@@ -344,10 +381,7 @@ export default function HomePage() {
           }`}
         >
           <List className="w-4 h-4" />
-          <span>{language === 'my' ? 'ဆိုင်များ' : 'Stores List'}</span>
-          <span className="text-[10px] font-mono-meta bg-[#ffd200] text-[#1a1c1e] px-1.5 py-0.2 rounded-full font-extrabold">
-            {pagination?.totalCount ?? stores.length}
-          </span>
+          <span>{language === 'my' ? 'ဆိုင်များ' : 'Stores'}</span>
         </button>
       </div>
     </main>
