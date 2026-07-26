@@ -33,19 +33,19 @@ class BusLineModel {
 class BusStopModel {
   final String stopName;
   final String? roadTownship;
-  final int sequenceOrder;
+  final int stopOrder;
 
   BusStopModel({
     required this.stopName,
     this.roadTownship,
-    required this.sequenceOrder,
+    required this.stopOrder,
   });
 
   factory BusStopModel.fromJson(Map<String, dynamic> json) {
     return BusStopModel(
-      stopName: json['stopName'] ?? '',
-      roadTownship: json['roadTownship'],
-      sequenceOrder: json['sequenceOrder'] ?? 0,
+      stopName: json['stopName'] ?? json['StopName'] ?? json['stop_name'] ?? '',
+      roadTownship: json['roadTownship'] ?? json['RoadTownship'],
+      stopOrder: json['stopOrder'] ?? json['StopOrder'] ?? json['sequenceOrder'] ?? json['stop_order'] ?? 0,
     );
   }
 }
@@ -70,18 +70,23 @@ class BusRouteDetailModel {
   });
 
   factory BusRouteDetailModel.fromJson(Map<String, dynamic> json) {
+    var outList = (json['outboundStops'] as List?)
+            ?.map((e) => BusStopModel.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        [];
+    var retList = (json['returnStops'] as List?)
+            ?.map((e) => BusStopModel.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        [];
+
     return BusRouteDetailModel(
       busNumber: json['busNumber'] ?? '',
       routeId: json['routeId'] ?? '',
       isYpsSupported: json['isYpsSupported'] ?? false,
       outboundTitle: json['outboundTitle'],
-      outboundStops: (json['outboundStops'] as List? ?? [])
-          .map((item) => BusStopModel.fromJson(item))
-          .toList(),
+      outboundStops: outList,
       returnTitle: json['returnTitle'],
-      returnStops: (json['returnStops'] as List? ?? [])
-          .map((item) => BusStopModel.fromJson(item))
-          .toList(),
+      returnStops: retList,
     );
   }
 }
@@ -103,12 +108,8 @@ class NearbyBusStopItemModel {
     return NearbyBusStopItemModel(
       stopName: json['stopName'] ?? '',
       roadTownship: json['roadTownship'],
-      servicingBusNumbers: (json['servicingBusNumbers'] as List? ?? [])
-          .map((e) => e.toString())
-          .toList(),
-      ypsSupportedBusNumbers: (json['ypsSupportedBusNumbers'] as List? ?? [])
-          .map((e) => e.toString())
-          .toList(),
+      servicingBusNumbers: (json['servicingBusNumbers'] as List?)?.map((e) => e.toString()).toList() ?? [],
+      ypsSupportedBusNumbers: (json['ypsSupportedBusNumbers'] as List?)?.map((e) => e.toString()).toList() ?? [],
     );
   }
 }
@@ -127,13 +128,15 @@ class StoreNearbyBusStopsModel {
   });
 
   factory StoreNearbyBusStopsModel.fromJson(Map<String, dynamic> json) {
+    var list = (json['nearbyBusStops'] as List?)
+            ?.map((e) => NearbyBusStopItemModel.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        [];
     return StoreNearbyBusStopsModel(
       storeId: json['storeId'] ?? 0,
       storeName: json['storeName'] ?? '',
       township: json['township'],
-      nearbyBusStops: (json['nearbyBusStops'] as List? ?? [])
-          .map((item) => NearbyBusStopItemModel.fromJson(item))
-          .toList(),
+      nearbyBusStops: list,
     );
   }
 }

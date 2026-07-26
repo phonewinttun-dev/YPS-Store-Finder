@@ -74,17 +74,17 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
 
   return (
     <div className="flex flex-col h-full bg-[#f9f9fc] border-r border-[#e2e2e5] shadow-lg">
-      {/* Header Banner */}
-      <div className="p-4 sm:p-5 border-b border-[#e2e2e5] bg-gradient-to-br from-[#ffffff] to-[#ebf2f8]">
+      {/* YPS Gold Header Banner */}
+      <div className="p-4 sm:p-5 border-b border-[#d1c6ab] bg-gradient-to-br from-[#ffffff] via-[#fff9e6] to-[#ffe07c]/30">
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 rounded-xl bg-[#1d5fa8] text-white flex items-center justify-center shadow-md">
+          <div className="w-10 h-10 rounded-xl bg-[#ffd200] text-[#1a1c1e] flex items-center justify-center shadow-md border border-[#e5bc00]">
             <Bus className="w-6 h-6" />
           </div>
           <div>
             <h2 className="font-bold text-base sm:text-lg text-[#1a1c1e] leading-tight">
               {t('ybsBusLines')}
             </h2>
-            <p className="text-xs text-gray-500 font-medium">
+            <p className="text-xs text-gray-600 font-medium">
               {language === 'my' ? 'YBS ဘတ်စ်ကား လိုင်းများနှင့် မှတ်တိုင်များ' : 'Yangon Bus Service (YBS) Routes'}
             </p>
           </div>
@@ -100,7 +100,7 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={language === 'my' ? 'YBS ယာဉ်လိုင်းနံပါတ် သို့မဟုတ် လမ်းကြောင်း ရှာရန်...' : 'Search bus line number or route...'}
-                className="w-full h-11 pl-11 pr-9 rounded-full bg-[#f9f9fc] border border-[#d1c6ab] text-xs text-[#1a1c1e] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#1d5fa8] shadow-sm transition-all"
+                className="w-full h-11 pl-11 pr-9 rounded-full bg-white border border-[#d1c6ab] text-xs text-[#1a1c1e] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#725c00] shadow-sm transition-all"
               />
               {searchQuery && (
                 <button
@@ -116,10 +116,10 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setFilterYpsOnly(false)}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                   !filterYpsOnly
-                    ? 'bg-[#1d5fa8] text-white shadow-sm'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-[#725c00] text-white shadow-sm'
+                    : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'
                 }`}
               >
                 {t('allBusLines')}
@@ -127,10 +127,10 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
 
               <button
                 onClick={() => setFilterYpsOnly(true)}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                   filterYpsOnly
-                    ? 'bg-emerald-600 text-white shadow-sm'
-                    : 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100'
+                    ? 'bg-[#ffd200] text-[#1a1c1e] border border-[#e5bc00] shadow-sm'
+                    : 'bg-[#fff9e6] text-[#725c00] border border-[#ffe07c] hover:bg-[#ffe07c]/50'
                 }`}
               >
                 <CreditCard className="w-3.5 h-3.5" />
@@ -143,7 +143,7 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
         {selectedBusNumber && (
           <button
             onClick={handleBackToList}
-            className="mt-1 px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="mt-1 px-3 py-1.5 rounded-lg bg-white hover:bg-gray-100 border border-[#d1c6ab] text-gray-800 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
           >
             <ChevronRight className="w-4 h-4 rotate-180" />
             <span>{language === 'my' ? 'ယာဉ်လိုင်းများ စာရင်းသို့ ပြန်သွားရန်' : 'Back to Bus Lines List'}</span>
@@ -156,7 +156,7 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
         {selectedBusNumber ? (
           /* Route Detail View */
           isLoadingRoute ? (
-            <div className="py-12 flex flex-col items-center justify-center text-[#1d5fa8]">
+            <div className="py-12 flex flex-col items-center justify-center text-[#725c00]">
               <RefreshCw className="w-8 h-8 animate-spin mb-2" />
               <span className="text-xs font-semibold">
                 {language === 'my' ? 'လမ်းကြောင်း အချက်အလက်များ ယူနေသည်...' : 'Loading route details...'}
@@ -167,12 +167,12 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
               {/* Bus Line Title Banner */}
               <div className="p-4 bg-white border border-[#e2e2e5] rounded-2xl shadow-sm">
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="text-base font-extrabold text-[#1d5fa8] bg-[#ebf2f8] px-3 py-1 rounded-xl">
+                  <span className="text-base font-extrabold text-[#1a1c1e] bg-[#ffd200] px-3.5 py-1 rounded-xl border border-[#e5bc00]">
                     YBS {routeDetail.busNumber}
                   </span>
                   {routeDetail.isYpsSupported && (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#725c00] bg-[#fff9e6] px-2.5 py-1 rounded-full border border-[#ffe07c]">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#725c00]" />
                       {t('ypsCardAccepted')}
                     </span>
                   )}
@@ -184,7 +184,7 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
                     onClick={() => setActiveRouteTab('outbound')}
                     className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                       activeRouteTab === 'outbound'
-                        ? 'bg-[#1d5fa8] text-white shadow-sm'
+                        ? 'bg-[#725c00] text-white shadow-sm'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                   >
@@ -194,7 +194,7 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
                     onClick={() => setActiveRouteTab('return')}
                     className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                       activeRouteTab === 'return'
-                        ? 'bg-[#1d5fa8] text-white shadow-sm'
+                        ? 'bg-[#725c00] text-white shadow-sm'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                   >
@@ -203,10 +203,10 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
                 </div>
               </div>
 
-              {/* Stops List */}
+              {/* Stops List without # symbol */}
               <div className="bg-white border border-[#e2e2e5] rounded-2xl p-4 shadow-sm">
-                <h4 className="text-xs font-bold text-gray-500 mb-3 uppercase tracking-wider flex items-center gap-1.5">
-                  <ArrowLeftRight className="w-4 h-4 text-[#1d5fa8]" />
+                <h4 className="text-xs font-bold text-gray-600 mb-3 uppercase tracking-wider flex items-center gap-1.5">
+                  <ArrowLeftRight className="w-4 h-4 text-[#725c00]" />
                   <span>
                     {activeRouteTab === 'outbound'
                       ? routeDetail.outboundTitle || t('outboundRoute')
@@ -214,23 +214,26 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
                   </span>
                 </h4>
 
-                <div className="relative pl-6 space-y-4 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#d0d7dd]">
+                <div className="relative pl-6 space-y-4 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#ffe07c]">
                   {(activeRouteTab === 'outbound' ? routeDetail.outboundStops : routeDetail.returnStops).map(
-                    (stop, idx) => (
-                      <div key={idx} className="relative flex items-start justify-between gap-2">
-                        {/* Stop Dot Node */}
-                        <div className="absolute -left-[23px] top-1 w-3.5 h-3.5 rounded-full bg-white border-2 border-[#1d5fa8] shadow-xs" />
-                        <div>
-                          <p className="text-xs font-bold text-[#1a1c1e]">{stop.stopName}</p>
-                          {stop.roadTownship && (
-                            <p className="text-[11px] text-gray-500 font-medium">{stop.roadTownship}</p>
-                          )}
+                    (stop, idx) => {
+                      const orderNum = stop.stopOrder || stop.sequenceOrder || (idx + 1);
+                      return (
+                        <div key={idx} className="relative flex items-start justify-between gap-2">
+                          <div className="absolute -left-[23px] top-1 w-3.5 h-3.5 rounded-full bg-white border-2 border-[#725c00] shadow-xs" />
+                          <div>
+                            <p className="text-xs font-bold text-[#1a1c1e]">{stop.stopName || `Stop ${orderNum}`}</p>
+                            {stop.roadTownship && (
+                              <p className="text-[11px] text-gray-500 font-medium">{stop.roadTownship}</p>
+                            )}
+                          </div>
+                          {/* Clean stop order number without # sign */}
+                          <span className="text-[10px] font-mono-meta bg-[#fff9e6] text-[#725c00] px-2 py-0.5 rounded-md border border-[#ffe07c] font-bold">
+                            {orderNum}
+                          </span>
                         </div>
-                        <span className="text-[10px] font-mono-meta bg-gray-100 text-gray-600 px-2 py-0.5 rounded-md">
-                          #{stop.sequenceOrder}
-                        </span>
-                      </div>
-                    )
+                      );
+                    }
                   )}
                 </div>
               </div>
@@ -242,7 +245,7 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
           )
         ) : /* Bus Lines List View */
         isLoading ? (
-          <div className="py-12 flex flex-col items-center justify-center text-[#1d5fa8]">
+          <div className="py-12 flex flex-col items-center justify-center text-[#725c00]">
             <RefreshCw className="w-7 h-7 animate-spin mb-2" />
             <span className="text-xs font-semibold">
               {language === 'my' ? 'YBS ယာဉ်လိုင်းများ ရှာဖွေနေသည်...' : 'Fetching YBS bus lines...'}
@@ -260,22 +263,22 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
             <div
               key={bus.busNumber}
               onClick={() => handleSelectBusLine(bus.busNumber)}
-              className="p-4 rounded-xl border border-[#e2e2e5] bg-white hover:border-[#1d5fa8] hover:shadow-md transition-all cursor-pointer group"
+              className="p-4 rounded-xl border border-[#e2e2e5] bg-white hover:border-[#ffd200] hover:shadow-md transition-all cursor-pointer group"
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-extrabold text-[#1d5fa8] bg-[#ebf2f8] px-3 py-1 rounded-lg group-hover:bg-[#1d5fa8] group-hover:text-white transition-colors">
+                  <span className="text-sm font-extrabold text-[#1a1c1e] bg-[#ffd200] px-3 py-1 rounded-lg border border-[#e5bc00]">
                     YBS {bus.busNumber}
                   </span>
                   {bus.isYpsSupported && (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                      <CreditCard className="w-3 h-3 text-emerald-600" />
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#725c00] bg-[#fff9e6] px-2 py-0.5 rounded-md border border-[#ffe07c]">
+                      <CreditCard className="w-3 h-3 text-[#725c00]" />
                       {t('ypsCardAccepted')}
                     </span>
                   )}
                 </div>
 
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#1d5fa8] transition-colors" />
+                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#725c00] transition-colors" />
               </div>
 
               {bus.outboundTitle && (

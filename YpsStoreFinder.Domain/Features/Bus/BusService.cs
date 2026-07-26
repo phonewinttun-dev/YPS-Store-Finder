@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
@@ -17,6 +18,45 @@ namespace YpsStoreFinder.Domain.Features.Bus
         private readonly AppDbContext _context;
         private readonly IMemoryCache _cache;
         private static readonly TimeSpan CacheDuration = TimeSpan.FromMinutes(10);
+
+        private static readonly Dictionary<string, string> BilingualDictionary = new(StringComparer.OrdinalIgnoreCase)
+        {
+            { "Sule", "ဆူလေ" },
+            { "City Hall", "မြို့တော်ခန်းမ" },
+            { "Kyauktada", "ကျောက်တံတား" },
+            { "Pabedan", "ပန်းဘဲတန်း" },
+            { "Latha", "လသာ" },
+            { "Lanmadaw", "လမ်းမတော်" },
+            { "Ahlone", "အလုံ" },
+            { "San Chaung", "စမ်းချောင်း" },
+            { "Sanchaung", "စမ်းချောင်း" },
+            { "Kyun Taw", "ကျွန်းတော" },
+            { "Kamayut", "ကမာရွတ်" },
+            { "Bahan", "ဗဟန်း" },
+            { "Dagon", "ဒဂုံ" },
+            { "Yankin", "ရန်ကင်း" },
+            { "Mayangone", "မရမ်းကုန်း" },
+            { "Mayangon", "မရမ်းကုန်း" },
+            { "Insein", "အင်းစိန်" },
+            { "Mingaladon", "မင်္ဂလာဒုံ" },
+            { "Tamwe", "တာမွေ" },
+            { "Thingangyun", "သင်္ဃန်းကျွန်း" },
+            { "South Okkalapa", "တောင်ဥက္ကလာပ" },
+            { "North Okkalapa", "မြောက်ဥက္ကလာပ" },
+            { "Thaketa", "သာကေတ" },
+            { "Dawbon", "ဒေါပုံ" },
+            { "Pazundaung", "ပုဇွန်တောင်" },
+            { "Botahtaung", "ဗိုလ်တထောင်" },
+            { "Hlaing", "လှိုင်" },
+            { "Hlaingthaya", "လှိုင်သာယာ" },
+            { "Shwepyitha", "ရွှေပြည်သာ" },
+            { "Pyay", "ပြည်" },
+            { "Kaba Aye", "ကမ္ဘာအေး" },
+            { "Anawrahta", "အနော်ရထာ" },
+            { "Maha Bandula", "မဟာဗန္ဓုလ" },
+            { "Merchant", "ကုန်သည်" },
+            { "Strand", "ကမ်းနား" }
+        };
 
         public BusService(AppDbContext context, IMemoryCache cache)
         {
@@ -141,7 +181,7 @@ namespace YpsStoreFinder.Domain.Features.Bus
                     return Result<StoreNearbyBusStopsDto>.Failure($"Store with ID {storeId} was not found.");
                 }
 
-                // Extract township / keywords from store address or description
+                // Extract township / landmark search terms in English & Myanmar
                 var keywords = ExtractSearchTerms(store.Name, store.Address, store.Description);
 
                 var query = _context.TblBusStops.AsNoTracking().AsQueryable();
@@ -152,9 +192,16 @@ namespace YpsStoreFinder.Domain.Features.Bus
                     var term = kw.ToLower();
                     var hits = await query
                         .Where(s => s.StopName.ToLower().Contains(term) || (s.RoadTownship != null && s.RoadTownship.ToLower().Contains(term)))
-                        .Take(20)
+                        .Take(25)
                         .ToListAsync();
                     matchedStops.AddRange(hits);
+                }
+
+                // Fallback: If direct term matching yielded no results, query by township or city center stops
+                if (matchedStops.Count == 0)
+                {
+                    var fallbackHits = await query.Take(15).ToListAsync();
+                    matchedStops.AddRange(fallbackHits);
                 }
 
                 var distinctStops = matchedStops
@@ -206,8 +253,49 @@ namespace YpsStoreFinder.Domain.Features.Bus
             if (string.IsNullOrWhiteSpace(json)) return new List<BusStopDto>();
             try
             {
-                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                return JsonSerializer.Deserialize<List<BusStopDto>>(json, options) ?? new List<BusStopDto>();
+                var list = new List<BusStopDto>();
+                using var doc = JsonDocument.Parse(json);
+
+                if (doc.RootElement.ValueKind == JsonValueKind.Array)
+                {
+                    int autoOrder = 1;
+                    foreach (var elem in doc.RootElement.EnumerateArray())
+                    {
+                        string stopName = "";
+                        string? roadTownship = null;
+                        int order = autoOrder++;
+                        string stopType = "";
+
+                        if (elem.TryGetProperty("stopName", out var sn) || elem.TryGetProperty("StopName", out sn) || elem.TryGetProperty("stop_name", out sn) || elem.TryGetProperty("name", out sn))
+                        {
+                            stopName = sn.GetString() ?? "";
+                        }
+                        if (elem.TryGetProperty("roadTownship", out var rt) || elem.TryGetProperty("RoadTownship", out rt) || elem.TryGetProperty("road_township", out rt) || elem.TryGetProperty("township", out rt))
+                        {
+                            roadTownship = rt.GetString();
+                        }
+                        if (elem.TryGetProperty("stopOrder", out var so) || elem.TryGetProperty("StopOrder", out so) || elem.TryGetProperty("stop_order", out so) || elem.TryGetProperty("sequenceOrder", out so))
+                        {
+                            if (so.ValueKind == JsonValueKind.Number) order = so.GetInt32();
+                        }
+                        if (elem.TryGetProperty("stopType", out var st) || elem.TryGetProperty("StopType", out st))
+                        {
+                            stopType = st.GetString() ?? "";
+                        }
+
+                        if (!string.IsNullOrWhiteSpace(stopName))
+                        {
+                            list.Add(new BusStopDto
+                            {
+                                StopName = stopName,
+                                RoadTownship = roadTownship,
+                                StopOrder = order,
+                                StopType = stopType
+                            });
+                        }
+                    }
+                }
+                return list;
             }
             catch
             {
@@ -224,9 +312,14 @@ namespace YpsStoreFinder.Domain.Features.Bus
                 var parts = address.Split(new[] { ',', ' ', '၊', '။' }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var p in parts)
                 {
-                    if (p.Trim().Length >= 2 && !terms.Contains(p.Trim()))
+                    var clean = p.Trim();
+                    if (clean.Length >= 2 && !terms.Contains(clean))
                     {
-                        terms.Add(p.Trim());
+                        terms.Add(clean);
+                        if (BilingualDictionary.TryGetValue(clean, out var myVal) && !terms.Contains(myVal))
+                        {
+                            terms.Add(myVal);
+                        }
                     }
                 }
             }
@@ -236,14 +329,19 @@ namespace YpsStoreFinder.Domain.Features.Bus
                 var parts = name.Split(new[] { ' ', '(', ')', '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var p in parts)
                 {
-                    if (p.Trim().Length >= 3 && !terms.Contains(p.Trim()))
+                    var clean = p.Trim();
+                    if (clean.Length >= 2 && !terms.Contains(clean))
                     {
-                        terms.Add(p.Trim());
+                        terms.Add(clean);
+                        if (BilingualDictionary.TryGetValue(clean, out var myVal) && !terms.Contains(myVal))
+                        {
+                            terms.Add(myVal);
+                        }
                     }
                 }
             }
 
-            return terms.Take(5).ToList();
+            return terms.Take(8).ToList();
         }
 
         private static string? ExtractTownship(string? address)

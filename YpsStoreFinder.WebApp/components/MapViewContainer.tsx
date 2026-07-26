@@ -18,17 +18,16 @@ interface MapViewContainerProps {
   activeDirectionStoreId?: number | null;
 }
 
-// Custom Leaflet User Location Pulse Icon
+// Custom Leaflet User Location Pulse Icon with YPS Gold Theme
 const createUserMarkerIcon = () => {
   return L.divIcon({
     className: 'custom-user-marker',
-    html: `<div class="user-pulse-marker"></div>`,
+    html: `<div class="user-pulse-marker" style="background-color: #725c00; box-shadow: 0 0 0 8px rgba(255, 210, 0, 0.4);"></div>`,
     iconSize: [20, 20],
     iconAnchor: [10, 10],
   });
 };
 
-// Vector SVG Category Icons (No Emojis)
 const getCategorySvgIcon = (category: string) => {
   const cat = category.toLowerCase();
   if (cat.includes('kios') || cat.includes('top-up')) {
@@ -50,12 +49,12 @@ const getCategorySvgIcon = (category: string) => {
 const createStoreMarkerIcon = (category: string, isSelected: boolean) => {
   const iconSvg = getCategorySvgIcon(category);
 
-  const bgColor = isSelected ? '#ffd200' : '#1d5fa8';
+  const bgColor = isSelected ? '#ffd200' : '#725c00';
   const iconColor = isSelected ? '#1a1c1e' : '#ffffff';
-  const border = isSelected ? '3px solid #ffffff' : '2px solid #ffffff';
+  const border = isSelected ? '3px solid #1a1c1e' : '2px solid #ffffff';
   const scale = isSelected ? 'scale(1.35)' : 'scale(1)';
   const boxShadow = isSelected
-    ? '0 0 16px rgba(255, 210, 0, 0.9), 0 4px 12px rgba(0,0,0,0.3)'
+    ? '0 0 16px rgba(255, 210, 0, 0.9), 0 4px 12px rgba(0,0,0,0.4)'
     : '0 3px 8px rgba(0,0,0,0.25)';
 
   return L.divIcon({
@@ -133,7 +132,7 @@ export default function MapViewContainer({
 
         <MapRecenter center={mapCenter} zoom={targetZoom} selectedStoreId={activeStoreId} />
 
-        {/* Direction Path Route Line between User's Location and Selected Store */}
+        {/* Direction Path Route Line in YPS Gold Accent */}
         {selectedStore && (
           <Polyline
             positions={[
@@ -158,7 +157,7 @@ export default function MapViewContainer({
             >
               <Popup>
                 <div className="p-1 font-work-sans text-xs">
-                  <span className="font-semibold text-[#1d5fa8] block">{t('deviceLocation')}</span>
+                  <span className="font-bold text-[#725c00] block">{t('deviceLocation')}</span>
                   <span className="text-gray-600 font-mono-meta">{t('gpsActive')}</span>
                 </div>
               </Popup>
@@ -168,9 +167,9 @@ export default function MapViewContainer({
               center={[userLocation.latitude, userLocation.longitude]}
               radius={radiusKm * 1000}
               pathOptions={{
-                color: '#1d5fa8',
-                fillColor: '#7ab0ff',
-                fillOpacity: 0.12,
+                color: '#725c00',
+                fillColor: '#ffd200',
+                fillOpacity: 0.15,
                 weight: 1.5,
                 dashArray: '6, 6',
               }}
@@ -193,11 +192,11 @@ export default function MapViewContainer({
               <Popup>
                 <div className="p-2 max-w-[250px] font-work-sans">
                   <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-[#ebf2f8] text-[#1d5fa8]">
+                    <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#fff9e6] text-[#725c00] border border-[#ffe07c]">
                       {tCategory(store.category)}
                     </span>
                     {store.distanceKm !== null && (
-                      <span className="text-xs font-semibold font-mono-meta text-[#725c00] bg-[#ffe07c] px-2 py-0.5 rounded">
+                      <span className="text-xs font-bold font-mono-meta text-[#725c00] bg-[#ffd200] px-2 py-0.5 rounded border border-[#e5bc00]">
                         {store.distanceKm} {t('km')}
                       </span>
                     )}
@@ -216,7 +215,7 @@ export default function MapViewContainer({
                     href={`https://www.google.com/maps/dir/?api=1&destination=${store.latitude},${store.longitude}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full mt-2 py-2 px-3 bg-[#1d5fa8] hover:bg-[#00417e] !text-white text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-colors shadow-sm cursor-pointer"
+                    className="w-full mt-2 py-2 px-3 bg-[#725c00] hover:bg-[#564500] !text-white text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-colors shadow-sm cursor-pointer"
                   >
                     <Navigation className="w-3.5 h-3.5 !text-white" />
                     <span className="!text-white font-bold">{t('directions')}</span>

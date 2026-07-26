@@ -11,7 +11,8 @@ export interface BusLineDto {
 export interface BusStopDto {
   stopName: string;
   roadTownship: string | null;
-  sequenceOrder: number;
+  stopOrder?: number;
+  sequenceOrder?: number;
   latitude?: number | null;
   longitude?: number | null;
 }
