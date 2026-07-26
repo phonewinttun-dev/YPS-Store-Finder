@@ -21,6 +21,7 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # Default ASP.NET Core URL binding for Render / Cloud Containers
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
 ENV ASPNETCORE_URLS=http://+:8080
 EXPOSE 8080
 
