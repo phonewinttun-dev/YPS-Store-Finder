@@ -10,6 +10,7 @@ interface MapViewProps {
   selectedStoreId: number | null;
   onSelectStore: (store: StoreDto) => void;
   onRequestEnableGps?: () => void;
+  activeDirectionStoreId?: number | null;
 }
 
 const DynamicMapViewContainer = dynamic(
