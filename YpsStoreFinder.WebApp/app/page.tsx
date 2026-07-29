@@ -214,9 +214,14 @@ export default function HomePage() {
       setIsNearbyMode(false);
       setIsShowAllStoresMode(true);
     } else {
+      setSelectedStoreId(null);
+      setActiveDirectionStoreId(null);
       startTracking();
       setIsNearbyMode(true);
       setIsShowAllStoresMode(false); // Default to automatic 2km nearby stores
+      if (window.innerWidth < 1024) {
+        setMobileTab('map');
+      }
     }
   };
 
