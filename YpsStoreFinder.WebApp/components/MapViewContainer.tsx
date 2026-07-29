@@ -88,18 +88,40 @@ const createStoreMarkerIcon = (category: string, isSelected: boolean) => {
   });
 };
 
-function MapRecenter({ center, zoom, selectedStoreId }: { center: [number, number]; zoom?: number; selectedStoreId: number | null }) {
+function MapRecenter({
+  center,
+  zoom,
+  selectedStoreId,
+  hasRealLocation,
+}: {
+  center: [number, number];
+  zoom?: number;
+  selectedStoreId: number | null;
+  hasRealLocation: boolean;
+}) {
   const map = useMap();
   const prevStoreIdRef = useRef<number | null>(null);
+  const prevGpsStateRef = useRef<boolean>(false);
+  const prevCenterRef = useRef<[number, number]>(center);
 
   useEffect(() => {
-    if (selectedStoreId !== prevStoreIdRef.current) {
+    const isStoreChanged = selectedStoreId !== prevStoreIdRef.current;
+    const isGpsTurnedOn = hasRealLocation && !prevGpsStateRef.current;
+    const isCenterChanged =
+      hasRealLocation &&
+      (Math.abs(prevCenterRef.current[0] - center[0]) > 0.0001 ||
+        Math.abs(prevCenterRef.current[1] - center[1]) > 0.0001);
+
+    if (isStoreChanged || isGpsTurnedOn || isCenterChanged) {
       prevStoreIdRef.current = selectedStoreId;
+      prevGpsStateRef.current = hasRealLocation;
+      prevCenterRef.current = center;
+
       if (center && center[0] !== 0 && center[1] !== 0) {
-        map.setView(center, zoom || 15);
+        map.flyTo(center, zoom || 15, { duration: 1.2 });
       }
     }
-  }, [center, zoom, map, selectedStoreId]);
+  }, [center, zoom, map, selectedStoreId, hasRealLocation]);
   return null;
 }
 
@@ -242,7 +264,12 @@ export default function MapViewContainer({
           url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
         />
 
-        <MapRecenter center={mapCenter} zoom={targetZoom} selectedStoreId={activeStoreId} />
+        <MapRecenter
+          center={mapCenter}
+          zoom={targetZoom}
+          selectedStoreId={activeStoreId}
+          hasRealLocation={userLocation.hasRealLocation}
+        />
 
         {/* In-App Route Line directly on Leaflet Map */}
         {selectedStore && (
