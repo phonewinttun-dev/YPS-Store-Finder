@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup, Circle, Polyline, useMap } from
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { StoreDto } from '../types/store';
-import { Navigation, MapPin, Route, Bus } from 'lucide-react';
+import { Navigation, MapPin, Route, Bus, X, Clock } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 
 interface MapViewContainerProps {
@@ -14,9 +14,17 @@ interface MapViewContainerProps {
   radiusKm: number;
   selectedStoreId: number | null;
   onSelectStore: (store: StoreDto) => void;
+  onShowDirection?: (store: StoreDto) => void;
+  onCloseDirection?: () => void;
   onRequestEnableGps?: () => void;
   activeDirectionStoreId?: number | null;
 }
+
+// Yangon Region Geographic Bounding Box Limits
+const YANGON_BOUNDS = L.latLngBounds(
+  [16.30, 95.80], // South-West
+  [17.50, 96.70]  // North-East
+);
 
 // Custom Leaflet User Location Pulse Icon with YPS Gold Theme
 const createUserMarkerIcon = () => {
@@ -101,10 +109,16 @@ export default function MapViewContainer({
   radiusKm,
   selectedStoreId,
   onSelectStore,
+  onShowDirection,
+  onCloseDirection,
   onRequestEnableGps,
   activeDirectionStoreId,
 }: MapViewContainerProps) {
-  const { t, tCategory, tAddress } = useLanguage();
+  const { t, tCategory, tAddress, language } = useLanguage();
+
+  const [routeCoordinates, setRouteCoordinates] = useState<[number, number][]>([]);
+  const [routeInfo, setRouteInfo] = useState<{ distanceKm: number; durationMin: number } | null>(null);
+  const [isLoadingRoute, setIsLoadingRoute] = useState<boolean>(false);
 
   const activeStoreId = activeDirectionStoreId || selectedStoreId;
   const selectedStore = activeStoreId
@@ -117,13 +131,111 @@ export default function MapViewContainer({
 
   const targetZoom = selectedStore ? 16 : 14;
 
+  // Fetch In-App Road Route Geometry from OSRM when activeDirectionStoreId or selectedStore changes
+  useEffect(() => {
+    if (!selectedStore || !userLocation.latitude || !userLocation.longitude) {
+      setRouteCoordinates([]);
+      setRouteInfo(null);
+      return;
+    }
+
+    const fetchOsrmRoute = async () => {
+      setIsLoadingRoute(true);
+      try {
+        const url = `https://router.project-osrm.org/route/v1/driving/${userLocation.longitude},${userLocation.latitude};${selectedStore.longitude},${selectedStore.latitude}?overview=full&geometries=geojson`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('OSRM router service error');
+        const data = await res.json();
+        if (data.routes && data.routes.length > 0) {
+          const route = data.routes[0];
+          const coords: [number, number][] = route.geometry.coordinates.map(
+            (coord: [number, number]) => [coord[1], coord[0]]
+          );
+          setRouteCoordinates(coords);
+          setRouteInfo({
+            distanceKm: Number((route.distance / 1000).toFixed(2)),
+            durationMin: Math.max(1, Math.round(route.duration / 60)),
+          });
+        } else {
+          // Fallback to straight line if no route returned
+          setRouteCoordinates([
+            [userLocation.latitude, userLocation.longitude],
+            [selectedStore.latitude, selectedStore.longitude],
+          ]);
+          setRouteInfo(null);
+        }
+      } catch (err) {
+        console.warn('In-app routing fetch failed, falling back to straight polyline:', err);
+        setRouteCoordinates([
+          [userLocation.latitude, userLocation.longitude],
+          [selectedStore.latitude, selectedStore.longitude],
+        ]);
+        setRouteInfo(null);
+      } finally {
+        setIsLoadingRoute(false);
+      }
+    };
+
+    fetchOsrmRoute();
+  }, [selectedStore, userLocation.latitude, userLocation.longitude]);
+
   return (
     <div className="relative w-full h-full min-h-[500px]">
+      {/* In-App Route Information Header Overlay */}
+      {selectedStore && (
+        <div className="absolute top-4 left-4 right-4 sm:left-6 sm:right-auto z-[600] bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-xl border border-[#ffe07c] max-w-sm flex items-center justify-between gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#ffd200] text-[#1a1c1e] flex items-center justify-center font-bold shrink-0 border border-[#e5bc00] shadow-xs">
+              <Route className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="font-bold text-xs sm:text-sm text-[#1a1c1e] truncate max-w-[180px]">
+                {selectedStore.name}
+              </h4>
+              <div className="flex items-center gap-2 mt-0.5 text-[11px] font-semibold text-gray-600 font-mono-meta">
+                {isLoadingRoute ? (
+                  <span className="text-[#725c00] animate-pulse">
+                    {language === 'my' ? 'လမ်းကြောင်း တွက်ချက်နေသည်...' : 'Calculating route...'}
+                  </span>
+                ) : routeInfo ? (
+                  <>
+                    <span className="text-[#725c00] font-bold">{routeInfo.distanceKm} km</span>
+                    <span>•</span>
+                    <span className="flex items-center gap-1 text-gray-700">
+                      <Clock className="w-3 h-3 text-[#725c00]" />
+                      ~{routeInfo.durationMin} {language === 'my' ? 'မိနစ်' : 'mins'}
+                    </span>
+                  </>
+                ) : selectedStore.distanceKm !== null ? (
+                  <span className="text-[#725c00] font-bold">{selectedStore.distanceKm} km</span>
+                ) : (
+                  <span>{tCategory(selectedStore.category)}</span>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <button
+            onClick={() => {
+              if (onCloseDirection) onCloseDirection();
+              else onSelectStore(selectedStore);
+            }}
+            className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center transition-colors shrink-0 cursor-pointer"
+            title="Close Route Direction"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
       <MapContainer
         center={mapCenter}
         zoom={targetZoom}
+        minZoom={10}
+        maxBounds={YANGON_BOUNDS}
+        maxBoundsViscosity={1.0}
         scrollWheelZoom={true}
-        className="w-full h-full rounded-2xl overflow-hidden shadow-inner"
+        className="w-full h-full rounded-2xl overflow-hidden shadow-inner z-10"
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -132,18 +244,22 @@ export default function MapViewContainer({
 
         <MapRecenter center={mapCenter} zoom={targetZoom} selectedStoreId={activeStoreId} />
 
-        {/* Direction Path Route Line in YPS Gold Accent */}
+        {/* In-App Route Line directly on Leaflet Map */}
         {selectedStore && (
           <Polyline
-            positions={[
-              [userLocation.latitude, userLocation.longitude],
-              [selectedStore.latitude, selectedStore.longitude],
-            ]}
+            positions={
+              routeCoordinates.length > 0
+                ? routeCoordinates
+                : [
+                    [userLocation.latitude, userLocation.longitude],
+                    [selectedStore.latitude, selectedStore.longitude],
+                  ]
+            }
             pathOptions={{
               color: '#ba1a1a',
               weight: 5,
-              dashArray: '10, 10',
               opacity: 0.9,
+              dashArray: routeCoordinates.length > 0 ? undefined : '10, 10',
             }}
           />
         )}
@@ -211,15 +327,21 @@ export default function MapViewContainer({
                     </p>
                   )}
 
-                  <a
-                    href={`https://www.google.com/maps/dir/?api=1&destination=${store.latitude},${store.longitude}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full mt-2 py-2 px-3 bg-[#725c00] hover:bg-[#564500] !text-white text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-colors shadow-sm cursor-pointer"
+                  {/* In-App Route Direction Trigger Button */}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (onShowDirection) {
+                        onShowDirection(store);
+                      } else {
+                        onSelectStore(store);
+                      }
+                    }}
+                    className="w-full mt-2 py-2 px-3 bg-[#725c00] hover:bg-[#564500] text-white text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-colors shadow-sm cursor-pointer"
                   >
-                    <Navigation className="w-3.5 h-3.5 !text-white" />
-                    <span className="!text-white font-bold">{t('directions')}</span>
-                  </a>
+                    <Route className="w-3.5 h-3.5 text-white" />
+                    <span className="text-white font-bold">{t('showDirection')}</span>
+                  </button>
                 </div>
               </Popup>
             </Marker>

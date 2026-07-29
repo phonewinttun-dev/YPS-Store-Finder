@@ -212,6 +212,7 @@ export default function HomePage() {
     if (locationState.isTracking) {
       stopTracking();
       setIsNearbyMode(false);
+      setIsShowAllStoresMode(true);
     } else {
       startTracking();
       setIsNearbyMode(true);
@@ -232,13 +233,24 @@ export default function HomePage() {
   };
 
   const handleSelectStore = (store: StoreDto) => {
-    setSelectedStoreId(store.id);
-    if (window.innerWidth < 1024) {
-      setMobileTab('map');
+    if (selectedStoreId === store.id) {
+      setSelectedStoreId(null);
+      setActiveDirectionStoreId(null);
+    } else {
+      setSelectedStoreId(store.id);
+      if (window.innerWidth < 1024) {
+        setMobileTab('map');
+      }
     }
   };
 
   const handleShowDirection = (store: StoreDto) => {
+    if (activeDirectionStoreId === store.id) {
+      setActiveDirectionStoreId(null);
+      setSelectedStoreId(null);
+      return;
+    }
+
     setSelectedStoreId(store.id);
     setActiveDirectionStoreId(store.id);
 
@@ -327,7 +339,12 @@ export default function HomePage() {
             userLocation={activeLocation}
             radiusKm={radiusKm}
             selectedStoreId={selectedStoreId}
-            onSelectStore={(store) => setSelectedStoreId(store.id)}
+            onSelectStore={handleSelectStore}
+            onShowDirection={handleShowDirection}
+            onCloseDirection={() => {
+              setActiveDirectionStoreId(null);
+              setSelectedStoreId(null);
+            }}
             onRequestEnableGps={() => setShowGpsModal(true)}
             activeDirectionStoreId={activeDirectionStoreId}
           />
