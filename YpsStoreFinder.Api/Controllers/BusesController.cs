@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
@@ -20,25 +21,25 @@ namespace YpsStoreFinder.Api.Controllers
 
         // Returns paginated list of ALL YBS bus lines
         [HttpGet]
-        public async Task<IActionResult> GetBusLines([FromQuery] BusLineRequest request)
+        public async Task<IActionResult> GetBusLines([FromQuery] BusLineRequest request, CancellationToken cancellationToken = default)
         {
-            var result = await _busService.GetBusLinesAsync(request);
+            var result = await _busService.GetBusLinesAsync(request, cancellationToken);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
         // Returns paginated list of YPS-supported bus lines only
         [HttpGet("yps-supported")]
-        public async Task<IActionResult> GetYpsBusLines([FromQuery] BusLineRequest request)
+        public async Task<IActionResult> GetYpsBusLines([FromQuery] BusLineRequest request, CancellationToken cancellationToken = default)
         {
-            var result = await _busService.GetYpsBusLinesAsync(request);
+            var result = await _busService.GetYpsBusLinesAsync(request, cancellationToken);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
         // Returns route details & stop list for a specific bus number
         [HttpGet("{busNumber}")]
-        public async Task<IActionResult> GetBusRouteByNumber(string busNumber)
+        public async Task<IActionResult> GetBusRouteByNumber(string busNumber, CancellationToken cancellationToken = default)
         {
-            var result = await _busService.GetBusRouteByNumberAsync(busNumber);
+            var result = await _busService.GetBusRouteByNumberAsync(busNumber, cancellationToken);
             if (!result.IsSuccess)
             {
                 return NotFound(result);
@@ -48,9 +49,9 @@ namespace YpsStoreFinder.Api.Controllers
 
         // Returns bus stops and bus lines near a specific store
         [HttpGet("nearby-store/{storeId:int}")]
-        public async Task<IActionResult> GetNearbyBusStopsForStore(int storeId)
+        public async Task<IActionResult> GetNearbyBusStopsForStore(int storeId, CancellationToken cancellationToken = default)
         {
-            var result = await _busService.GetNearbyBusStopsForStoreAsync(storeId);
+            var result = await _busService.GetNearbyBusStopsForStoreAsync(storeId, cancellationToken);
             if (!result.IsSuccess)
             {
                 return NotFound(result);

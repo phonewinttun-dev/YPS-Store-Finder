@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
@@ -20,39 +21,39 @@ namespace YpsStoreFinder.Api.Controllers
 
         // Returns ALL stores (cached in memory) for map rendering & initial display
         [HttpGet]
-        public async Task<IActionResult> GetStores([FromQuery] string? category = null)
+        public async Task<IActionResult> GetStores([FromQuery] string? category = null, CancellationToken cancellationToken = default)
         {
-            var result = await _storeService.GetStoresAsync(category);
+            var result = await _storeService.GetStoresAsync(category, cancellationToken);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
         // Paginated search results
         [HttpGet("search")]
-        public async Task<IActionResult> SearchStores([FromQuery] StoreSearchRequest request)
+        public async Task<IActionResult> SearchStores([FromQuery] StoreSearchRequest request, CancellationToken cancellationToken = default)
         {
-            var result = await _storeService.SearchStoresAsync(request);
+            var result = await _storeService.SearchStoresAsync(request, cancellationToken);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
         [HttpGet("categories")]
-        public async Task<IActionResult> GetCategoriesSummary()
+        public async Task<IActionResult> GetCategoriesSummary(CancellationToken cancellationToken = default)
         {
-            var result = await _storeService.GetCategoriesSummaryAsync();
+            var result = await _storeService.GetCategoriesSummaryAsync(cancellationToken);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
         // Paginated geo-spatial nearby results
         [HttpGet("nearby")]
-        public async Task<IActionResult> GetNearbyStores([FromQuery] NearbyStoreRequest request)
+        public async Task<IActionResult> GetNearbyStores([FromQuery] NearbyStoreRequest request, CancellationToken cancellationToken = default)
         {
-            var result = await _storeService.GetNearbyStoresAsync(request);
+            var result = await _storeService.GetNearbyStoresAsync(request, cancellationToken);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetStoreById(int id)
+        public async Task<IActionResult> GetStoreById(int id, CancellationToken cancellationToken = default)
         {
-            var result = await _storeService.GetStoreByIdAsync(id);
+            var result = await _storeService.GetStoreByIdAsync(id, cancellationToken);
             if (!result.IsSuccess)
             {
                 return NotFound(result);

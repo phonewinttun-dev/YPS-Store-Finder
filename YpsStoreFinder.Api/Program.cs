@@ -1,8 +1,9 @@
-using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi;
 using Scalar.AspNetCore;
+using System.Threading.RateLimiting;
 using YpsStoreFinder.Database;
 using YpsStoreFinder.Domain;
 
@@ -11,11 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add Domain & Database dependencies
 builder.AddDomain();
 
-
 // Add API Controllers & Swagger / Scalar OpenAPI docs
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApi();
 
 // Add Memory Cache & Rate Limiting (60 requests / min per IP)
 builder.Services.AddMemoryCache();
@@ -33,7 +33,6 @@ builder.Services.AddRateLimiter(options =>
                 QueueLimit = 5
             }));
 });
-
 
 // Configure CORS policy for frontend clients
 builder.Services.AddCors(options =>
@@ -56,13 +55,13 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure HTTP request pipeline & Scalar OpenAPI UI
-app.UseSwagger();
-app.UseSwaggerUI();
+app.MapOpenApi();
+
 app.MapScalarApiReference(options =>
 {
     options.WithTitle("YpsStoreFinder API Documentation")
            .WithTheme(ScalarTheme.DeepSpace)
-           .WithOpenApiRoutePattern("/swagger/v1/swagger.json")
+           .WithOpenApiRoutePattern("/openapi/{documentName}.json")
            .WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Fetch);
 });
 

@@ -64,17 +64,17 @@ namespace YpsStoreFinder.Domain.Features.Bus
             _cache = cache;
         }
 
-        public async Task<PagedResult<BusLineDto>> GetBusLinesAsync(BusLineRequest request)
+        public async Task<PagedResult<BusLineDto>> GetBusLinesAsync(BusLineRequest request, CancellationToken cancellationToken = default)
         {
-            return await QueryBusLinesInternalAsync(request, ypsOnly: false);
+            return await QueryBusLinesInternalAsync(request, ypsOnly: false, cancellationToken);
         }
 
-        public async Task<PagedResult<BusLineDto>> GetYpsBusLinesAsync(BusLineRequest request)
+        public async Task<PagedResult<BusLineDto>> GetYpsBusLinesAsync(BusLineRequest request, CancellationToken cancellationToken = default)
         {
-            return await QueryBusLinesInternalAsync(request, ypsOnly: true);
+            return await QueryBusLinesInternalAsync(request, ypsOnly: true, cancellationToken);
         }
 
-        private async Task<PagedResult<BusLineDto>> QueryBusLinesInternalAsync(BusLineRequest request, bool ypsOnly)
+        private async Task<PagedResult<BusLineDto>> QueryBusLinesInternalAsync(BusLineRequest request, bool ypsOnly, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace YpsStoreFinder.Domain.Features.Bus
                                              (r.ReturnTitle != null && r.ReturnTitle.ToLower().Contains(term)));
                 }
 
-                var totalCount = await query.CountAsync();
+                var totalCount = await query.CountAsync(cancellationToken);
                 var items = await query
                     .OrderBy(r => r.BusNumber.Length)
                     .ThenBy(r => r.BusNumber)
@@ -112,7 +112,7 @@ namespace YpsStoreFinder.Domain.Features.Bus
                         ReturnTitle = r.ReturnTitle,
                         ReturnTotalStops = r.ReturnTotalStops
                     })
-                    .ToListAsync();
+                    .ToListAsync(cancellationToken);
 
                 var pagination = new Pagination(pageNumber, pageSize, totalCount);
                 return PagedResult<BusLineDto>.Success(items, pagination);
@@ -123,7 +123,7 @@ namespace YpsStoreFinder.Domain.Features.Bus
             }
         }
 
-        public async Task<Result<BusRouteDetailDto>> GetBusRouteByNumberAsync(string busNumber)
+        public async Task<Result<BusRouteDetailDto>> GetBusRouteByNumberAsync(string busNumber, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -142,7 +142,7 @@ namespace YpsStoreFinder.Domain.Features.Bus
 
                 var route = await _context.TblBusRoutes
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(r => r.BusNumber.ToLower() == cleanNum.ToLower());
+                    .FirstOrDefaultAsync(r => r.BusNumber.ToLower() == cleanNum.ToLower(), cancellationToken);
 
                 if (route == null)
                 {
@@ -169,13 +169,13 @@ namespace YpsStoreFinder.Domain.Features.Bus
             }
         }
 
-        public async Task<Result<StoreNearbyBusStopsDto>> GetNearbyBusStopsForStoreAsync(int storeId)
+        public async Task<Result<StoreNearbyBusStopsDto>> GetNearbyBusStopsForStoreAsync(int storeId, CancellationToken cancellationToken = default)
         {
             try
             {
                 var store = await _context.TblStores
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(s => s.Id == storeId);
+                    .FirstOrDefaultAsync(s => s.Id == storeId, cancellationToken);
 
                 if (store == null)
                 {
@@ -194,14 +194,14 @@ namespace YpsStoreFinder.Domain.Features.Bus
                     var hits = await query
                         .Where(s => s.StopName.ToLower().Contains(term) || (s.RoadTownship != null && s.RoadTownship.ToLower().Contains(term)))
                         .Take(25)
-                        .ToListAsync();
+                        .ToListAsync(cancellationToken);
                     matchedStops.AddRange(hits);
                 }
 
                 // Fallback: If direct term matching yielded no results, query by township or city center stops
                 if (matchedStops.Count == 0)
                 {
-                    var fallbackHits = await query.Take(15).ToListAsync();
+                    var fallbackHits = await query.Take(15).ToListAsync(cancellationToken);
                     matchedStops.AddRange(fallbackHits);
                 }
 
@@ -213,7 +213,7 @@ namespace YpsStoreFinder.Domain.Features.Bus
                 var ypsLines = await _context.TblYpsBusLines
                     .AsNoTracking()
                     .Select(x => x.BusLineNumber)
-                    .ToListAsync();
+                    .ToListAsync(cancellationToken);
 
                 var ypsSet = new HashSet<string>(ypsLines, StringComparer.OrdinalIgnoreCase);
 

@@ -20,15 +20,14 @@ Request (Client) ──> Controller (Domain Feature) ──> Service (Business L
 
 The solution is divided into the following projects and clients:
 
-| Project / Directory                 | Type / Framework                        | Purpose                                                                                                         |
-| :---------------------------------- | :-------------------------------------- | :-------------------------------------------------------------------------------------------------------------- |
-| **`{{PROJECT_NAME}}.Api`**          | ASP.NET Core {{DOTNET_VERSION}} Web API | Exposes RESTful endpoints, handles auth middleware, hosts SignalR/real-time hubs, and serves API documentation. |
-| **`{{PROJECT_NAME}}.Domain`**       | C# Class Library                        | Contains all business logic (Services), Controllers, DTOs, Realtime hubs, and Security extensions.              |
-| **`{{PROJECT_NAME}}.Database`**     | C# Class Library                        | EF Core context (`AppDbContext`) and scaffolded entity models (prefixed with `Tbl` or custom prefix).           |
-| **`{{PROJECT_NAME}}.Shared`**       | C# Class Library                        | Contains shared helpers, like pagination models and the standard `Result`/`Result<T>` pattern classes.          |
-| **`{{PROJECT_NAME}}.Domain.Tests`** | xUnit Test Project                      | Unit tests mirroring the `{{PROJECT_NAME}}.Domain` feature folder structure.                                    |
-| **`{{PROJECT_NAME}}.WebApp`**       | Blazor Web Assembly                     | Main web client application.                                                                                    |
-| **`{{PROJECT_NAME}}.Mobile`**       | Flutter                                 | Cross-platform mobile client application.                                                                       |
+| Project / Directory             | Type / Framework                        | Purpose                                                                                                         |
+| :------------------------------ | :-------------------------------------- | :-------------------------------------------------------------------------------------------------------------- | --- |
+| **`{{PROJECT_NAME}}.Api`**      | ASP.NET Core {{DOTNET_VERSION}} Web API | Exposes RESTful endpoints, handles auth middleware, hosts SignalR/real-time hubs, and serves API documentation. |
+| **`{{PROJECT_NAME}}.Domain`**   | C# Class Library                        | Contains all business logic (Services), Controllers, DTOs, Realtime hubs, and Security extensions.              |
+| **`{{PROJECT_NAME}}.Database`** | C# Class Library                        | EF Core context (`AppDbContext`) and scaffolded entity models (prefixed with `Tbl` or custom prefix).           |
+| **`{{PROJECT_NAME}}.Shared`**   | C# Class Library                        | Contains shared helpers, like pagination models and the standard `Result`/`Result<T>` pattern classes.          |     |
+| **`{{PROJECT_NAME}}.WebApp`**   | Blazor Web Assembly                     | Main web client application.                                                                                    |
+| **`{{PROJECT_NAME}}.Mobile`**   | Flutter                                 | Cross-platform mobile client application.                                                                       |
 
 ---
 
