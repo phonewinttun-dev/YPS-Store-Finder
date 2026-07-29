@@ -24,7 +24,13 @@ export function useUserLocation() {
       navigator.geolocation.clearWatch(watchIdRef.current);
       watchIdRef.current = null;
     }
-    setLocationState((prev) => ({ ...prev, isTracking: false }));
+    setLocationState((prev) => ({
+      ...prev,
+      isTracking: false,
+      latitude: null,
+      longitude: null,
+      accuracy: null,
+    }));
   }, []);
 
   const startTracking = useCallback(() => {

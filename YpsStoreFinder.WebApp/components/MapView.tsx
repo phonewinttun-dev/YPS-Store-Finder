@@ -9,6 +9,8 @@ interface MapViewProps {
   radiusKm: number;
   selectedStoreId: number | null;
   onSelectStore: (store: StoreDto) => void;
+  onShowDirection?: (store: StoreDto) => void;
+  onCloseDirection?: () => void;
   onRequestEnableGps?: () => void;
   activeDirectionStoreId?: number | null;
 }

@@ -98,7 +98,8 @@ namespace YpsStoreFinder.Domain.Features.Bus
 
                 var totalCount = await query.CountAsync();
                 var items = await query
-                    .OrderBy(r => r.BusNumber)
+                    .OrderBy(r => r.BusNumber.Length)
+                    .ThenBy(r => r.BusNumber)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
                     .Select(r => new BusLineDto

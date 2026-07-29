@@ -16,29 +16,7 @@ namespace YpsStoreFinder.Database
     {
         public static async Task SeedAsync(AppDbContext context)
         {
-            try
-            {
-                var databaseCreator = context.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
-                if (databaseCreator != null)
-                {
-                    if (!await databaseCreator.ExistsAsync())
-                    {
-                        await databaseCreator.CreateAsync();
-                    }
-                    try
-                    {
-                        await databaseCreator.CreateTablesAsync();
-                    }
-                    catch
-                    {
-                        // Ignore if some tables already exist
-                    }
-                }
-            }
-            catch
-            {
-                await context.Database.EnsureCreatedAsync();
-            }
+            await context.Database.EnsureCreatedAsync();
 
             await SeedStoresAsync(context);
             var ypsBusLineNumbers = await SeedYpsBusLinesAsync(context);
