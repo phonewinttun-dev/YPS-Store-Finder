@@ -447,12 +447,6 @@ export default function StoreDrawer({
                         )}
                       </div>
                     )}
-
-                    <div className="mt-2 text-right">
-                      <span className="text-[10px] font-mono-meta text-gray-400">
-                        {t('lat')}: {store.latitude.toFixed(4)}, {t('lng')}: {store.longitude.toFixed(4)}
-                      </span>
-                    </div>
                   </div>
                 );
               })
