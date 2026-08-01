@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using YpsStoreFinder.Domain.Features.Bus.DTOs;
 using YpsStoreFinder.Shared;
 

@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using System.Text.Json;
 using YpsStoreFinder.Database;
 using YpsStoreFinder.Database.Models;
 using YpsStoreFinder.Domain.Features.Bus.DTOs;
