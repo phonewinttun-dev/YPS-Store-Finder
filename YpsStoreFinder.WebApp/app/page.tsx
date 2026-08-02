@@ -270,43 +270,49 @@ export default function HomePage() {
 
   return (
     <main className="flex flex-col lg:flex-row h-[100dvh] w-screen overflow-hidden bg-[#f9f9fc] relative">
-      {/* Top Mobile Header Banner - YPS Gold Styling */}
-      <div className="lg:hidden p-3 bg-[#ffd200] text-[#1a1c1e] flex items-center justify-between text-xs font-semibold shrink-0 gap-2 shadow-sm z-30 border-b border-[#e5bc00]">
-        <div className="flex items-center gap-2">
+      {/* Top Mobile Header Banner - Modernized YPS Gold Bar */}
+      <div className="lg:hidden px-3 py-2 bg-[#ffd200] flex items-center justify-between text-xs shrink-0 gap-2 shadow-md shadow-amber-900/10 z-30 border-b border-[#e5bc00]">
+        {/* Brand Logo & Title */}
+        <div className="flex items-center gap-2 shrink-0">
           <img
             src="/yps_logo.jpg"
             alt="YPS Logo"
-            className="w-7 h-7 rounded-lg object-cover shadow-xs border border-[#d1c6ab]"
+            className="w-7 h-7 rounded-lg object-cover shadow-xs border border-[#e5bc00] shrink-0"
           />
-          <span className="truncate max-w-[150px] font-extrabold text-sm">{t('appTitle')}</span>
+          <span className="font-extrabold text-sm sm:text-base text-[#4a3a00] tracking-tight whitespace-nowrap">
+            YPS Store Finder
+          </span>
         </div>
 
-        <div className="flex items-center gap-2">
+        {/* Action Buttons with 100% Identical Pixel Height */}
+        <div className="flex items-center gap-1.5 shrink-0">
           <button
             onClick={toggleLanguage}
-            className="px-2.5 py-1.5 rounded-full bg-white hover:bg-gray-100 text-[#1a1c1e] font-bold text-xs flex items-center gap-1.5 transition-all border border-[#d1c6ab] cursor-pointer"
+            className="h-8 px-2.5 rounded-xl bg-white/95 hover:bg-white text-gray-800 font-bold text-xs inline-flex items-center justify-center gap-1 transition-all border border-[#e5bc00]/80 shadow-sm shadow-slate-900/5 hover:shadow-md cursor-pointer active:scale-95 whitespace-nowrap shrink-0 box-border"
           >
-            <Globe className="w-3.5 h-3.5" />
-            <span>{language === 'my' ? 'မြန်မာ' : 'English'}</span>
+            <Globe className="w-3.5 h-3.5 text-[#725c00] shrink-0" />
+            <span className="leading-none">{language === 'my' ? 'မြန်မာ' : 'EN'}</span>
           </button>
 
           <button
             onClick={handleToggleLocation}
-            className={`px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1 transition-all cursor-pointer ${
-              locationState.isTracking ? 'bg-[#ba1a1a] text-white shadow-xs' : 'bg-[#725c00] text-white shadow-xs'
+            className={`h-8 px-2.5 rounded-xl text-xs font-bold inline-flex items-center justify-center gap-1 transition-all cursor-pointer shadow-sm active:scale-95 whitespace-nowrap shrink-0 box-border border ${
+              locationState.isTracking
+                ? 'bg-[#ba1a1a] hover:bg-[#9c1414] text-white border-red-800/40 shadow-red-900/20'
+                : 'bg-[#725c00] hover:bg-[#5b4a00] text-white border-[#564500]/60 shadow-amber-950/20'
             }`}
           >
-            <Compass className="w-3.5 h-3.5" />
-            {locationState.isTracking ? t('gpsActive') : t('locateMe')}
+            <Compass className={`w-3.5 h-3.5 shrink-0 ${locationState.isTracking ? 'animate-spin' : ''}`} />
+            <span className="leading-none">{locationState.isTracking ? 'GPS' : (language === 'my' ? 'ရှာမည်' : 'Locate')}</span>
           </button>
         </div>
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col lg:flex-row h-full overflow-hidden relative">
+      <div className="flex-1 min-h-0 flex flex-col lg:flex-row overflow-hidden relative">
         <div
-          className={`w-full lg:w-[420px] h-full ${
-            mobileTab === 'list' ? 'block' : 'hidden lg:block'
+          className={`w-full lg:w-[420px] flex-1 min-h-0 lg:flex-none ${
+            mobileTab === 'list' ? 'flex flex-col' : 'hidden lg:flex lg:flex-col'
           }`}
         >
           <StoreDrawer
@@ -335,8 +341,8 @@ export default function HomePage() {
         </div>
 
         <section
-          className={`flex-1 h-full relative ${
-            mobileTab === 'map' ? 'block' : 'hidden lg:block'
+          className={`flex-1 min-h-0 relative ${
+            mobileTab === 'map' ? 'flex flex-col' : 'hidden lg:flex lg:flex-col'
           }`}
         >
           <MapView
@@ -352,6 +358,7 @@ export default function HomePage() {
             }}
             onRequestEnableGps={() => setShowGpsModal(true)}
             activeDirectionStoreId={activeDirectionStoreId}
+            mobileTab={mobileTab}
           />
 
           {isLoading && (
@@ -388,7 +395,7 @@ export default function HomePage() {
                   setShowGpsModal(false);
                   handleToggleLocation();
                 }}
-                className="flex-1 py-2.5 px-4 rounded-xl bg-[#ffd200] hover:bg-[#ffe07c] text-[#1a1c1e] border border-[#e5bc00] text-xs font-extrabold transition-all shadow-sm cursor-pointer"
+                className="flex-1 py-2.5 px-4 rounded-xl bg-[#725c00] hover:bg-[#564500] text-white text-xs font-extrabold transition-all shadow-sm cursor-pointer"
               >
                 {t('enableGpsBtn')}
               </button>
@@ -397,30 +404,33 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Floating Bottom Mobile Action Toggle Bar - YPS Gold Styling */}
-      <div className="lg:hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-[1000] bg-white/95 backdrop-blur-md p-1.5 rounded-full shadow-2xl border border-[#d1c6ab] flex items-center gap-1">
+      {/* Floating Bottom Mobile Action Toggle Bar - True Floating Overlay */}
+      <div className="lg:hidden absolute bottom-5 left-1/2 -translate-x-1/2 z-[1000] bg-white/95 backdrop-blur-md p-1 rounded-full shadow-2xl border border-[#d1c6ab] flex items-center select-none whitespace-nowrap w-[240px]">
+        {/* Smooth 300ms Sliding Active Pill Background */}
+        <div
+          className={`absolute top-1 bottom-1 w-[calc(50%-4px)] bg-[#725c00] rounded-full shadow-md transition-all duration-300 ease-out ${
+            mobileTab === 'map' ? 'left-1' : 'left-[calc(50%+2px)]'
+          }`}
+        />
+
         <button
           onClick={() => setMobileTab('map')}
-          className={`px-4 py-2 rounded-full text-xs font-extrabold flex items-center gap-2 transition-all cursor-pointer ${
-            mobileTab === 'map'
-              ? 'bg-[#725c00] text-white shadow-md'
-              : 'text-gray-700 hover:bg-gray-100'
+          className={`relative z-10 flex-1 py-2 rounded-full text-xs font-extrabold flex items-center justify-center gap-2 transition-colors duration-200 cursor-pointer whitespace-nowrap ${
+            mobileTab === 'map' ? 'text-white' : 'text-gray-700 hover:text-gray-900'
           }`}
         >
-          <Map className="w-4 h-4" />
-          <span>{language === 'my' ? 'မြေပုံ' : 'Map View'}</span>
+          <Map className="w-4 h-4 shrink-0" />
+          <span className="whitespace-nowrap">{language === 'my' ? 'မြေပုံ' : 'Map View'}</span>
         </button>
 
         <button
           onClick={() => setMobileTab('list')}
-          className={`px-4 py-2 rounded-full text-xs font-extrabold flex items-center gap-2 transition-all cursor-pointer ${
-            mobileTab === 'list'
-              ? 'bg-[#725c00] text-white shadow-md'
-              : 'text-gray-700 hover:bg-gray-100'
+          className={`relative z-10 flex-1 py-2 rounded-full text-xs font-extrabold flex items-center justify-center gap-2 transition-colors duration-200 cursor-pointer whitespace-nowrap ${
+            mobileTab === 'list' ? 'text-white' : 'text-gray-700 hover:text-gray-900'
           }`}
         >
-          <List className="w-4 h-4" />
-          <span>{language === 'my' ? 'ဆိုင်များ' : 'Stores'}</span>
+          <List className="w-4 h-4 shrink-0" />
+          <span className="whitespace-nowrap">{language === 'my' ? 'ဆိုင်များ' : 'Stores'}</span>
         </button>
       </div>
     </main>
