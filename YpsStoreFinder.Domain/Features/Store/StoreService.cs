@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using YpsStoreFinder.Database;
@@ -24,29 +20,35 @@ namespace YpsStoreFinder.Domain.Features.Store
         }
 
         // Returns ALL stores for the given category (cached in memory for optimal map rendering)
-        public async Task<Result<List<StoreDto>>> GetStoresAsync(string? category = null)
+        public async Task<Result<List<StoreDto>>> GetStoresAsync(CancellationToken cancellationToken = default)
         {
             try
             {
-                var cacheKey = $"stores_all_{category?.Trim().ToLower() ?? "all"}";
-                if (_cache.TryGetValue(cacheKey, out List<StoreDto>? cachedStores) && cachedStores != null)
+                
+                var cacheKey = "stores_all";
+                var stores = await _cache.GetOrCreateAsync(cacheKey,
+                async entry =>
                 {
-                    return Result<List<StoreDto>>.Success(cachedStores);
-                }
+                    entry.SetAbsoluteExpiration(TimeSpan.FromHours(24));
+                    entry.SetPriority(CacheItemPriority.High);
 
-                var query = _context.TblStores.AsNoTracking().AsQueryable();
+                    return await _context.TblStores
+                        .AsNoTracking()
+                        .Select(s => new StoreDto
+                        {
+                            Id = s.Id,
+                            Category = s.Category,
+                            Name = s.Name,
+                            Latitude = s.Latitude,
+                            Longitude = s.Longitude,
+                            Address = s.Address,
+                            Description = s.Description,
+                            RawAttributes = s.RawAttributes
+                        })
+                        .ToListAsync(cancellationToken);
+                });
 
-                if (!string.IsNullOrWhiteSpace(category))
-                {
-                    var catLower = category.Trim().ToLower();
-                    query = query.Where(s => s.Category.ToLower() == catLower);
-                }
-
-                var stores = await query.ToListAsync();
-                var dtos = stores.Select(MapToDto).ToList();
-
-                _cache.Set(cacheKey, dtos, CacheDuration);
-                return Result<List<StoreDto>>.Success(dtos);
+                return Result<List<StoreDto>>.Success(stores ?? new List<StoreDto>());
             }
             catch (Exception ex)
             {
@@ -54,39 +56,41 @@ namespace YpsStoreFinder.Domain.Features.Store
             }
         }
 
-        // Paginated search method utilizing cached store data
-        public async Task<PagedResult<StoreDto>> SearchStoresAsync(StoreSearchRequest request)
+        // Paginated search method
+        public async Task<PagedResult<StoreDto>> SearchStoresAsync(StoreSearchRequest request, CancellationToken cancellationToken = default)
         {
             try
             {
-                var pageNumber = request.PageNumber < 1 ? 1 : request.PageNumber;
-                var pageSize = request.PageSize < 1 ? 10 : request.PageSize;
+                if (request == null)
+                    return PagedResult<StoreDto>.Failure("Invalid search request");
 
-                var storesResult = await GetStoresAsync(request.Category);
-                if (!storesResult.IsSuccess || storesResult.Data == null)
+                var pageNumber = request.PageNumber <= 0 ? 1 : request.PageNumber;
+                var pageSize = request.PageSize <= 0 ? 10 : request.PageSize;
+
+                var query = _context.TblStores.AsNoTracking().AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(request.Category))
                 {
-                    return PagedResult<StoreDto>.Failure(storesResult.Message);
+                    var categoryTerm = request.Category.Trim();
+                    query = query.Where(s => s.Category.ToLower() == categoryTerm.ToLower());
                 }
 
-                var filtered = storesResult.Data;
                 if (!string.IsNullOrWhiteSpace(request.Query))
                 {
                     var term = request.Query.Trim().ToLower();
-                    filtered = filtered
-                        .Where(s => s.Name.ToLower().Contains(term) ||
-                                    (s.Address != null && s.Address.ToLower().Contains(term)) ||
-                                    (s.Description != null && s.Description.ToLower().Contains(term)))
-                        .ToList();
+                    query = query.Where(s => s.Name.ToLower().Contains(term) ||
+                                             (s.Address != null && s.Address.ToLower().Contains(term)));
                 }
 
-                var totalCount = filtered.Count;
-                var pagedItems = filtered
+                var totalCount = await query.CountAsync(cancellationToken);
+                var items = await query
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
-                    .ToList();
+                    .Select(s => MapToDto(s))
+                    .ToListAsync(cancellationToken);
 
                 var pagination = new Pagination(pageNumber, pageSize, totalCount);
-                return PagedResult<StoreDto>.Success(pagedItems, pagination);
+                return PagedResult<StoreDto>.Success(items, pagination);
             }
             catch (Exception ex)
             {
@@ -94,7 +98,7 @@ namespace YpsStoreFinder.Domain.Features.Store
             }
         }
 
-        public async Task<Result<StoreDto>> GetStoreByIdAsync(int id)
+        public async Task<Result<StoreDto>> GetStoreByIdAsync(int id, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -104,7 +108,7 @@ namespace YpsStoreFinder.Domain.Features.Store
                     return Result<StoreDto>.Success(cachedStore);
                 }
 
-                var store = await _context.TblStores.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
+                var store = await _context.TblStores.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id, cancellationToken);
                 if (store == null)
                 {
                     return Result<StoreDto>.Failure($"Store with ID {id} was not found.");
@@ -120,29 +124,27 @@ namespace YpsStoreFinder.Domain.Features.Store
             }
         }
 
-        public async Task<Result<List<CategorySummaryDto>>> GetCategoriesSummaryAsync()
+        public async Task<Result<List<CategorySummaryDto>>> GetCategoriesSummaryAsync(CancellationToken cancellationToken = default)
         {
             try
             {
-                const string cacheKey = "stores_categories_summary";
-                if (_cache.TryGetValue(cacheKey, out List<CategorySummaryDto>? cachedSummary) && cachedSummary != null)
+                string cacheKey = "stores_categories_summary";
+                var categories = await _cache.GetOrCreateAsync(cacheKey, async entry =>
                 {
-                    return Result<List<CategorySummaryDto>>.Success(cachedSummary);
-                }
-
-                var summary = await _context.TblStores
-                    .AsNoTracking()
-                    .GroupBy(s => s.Category)
-                    .Select(g => new CategorySummaryDto
-                    {
-                        Category = g.Key,
-                        Count = g.Count()
-                    })
-                    .OrderByDescending(c => c.Count)
-                    .ToListAsync();
-
-                _cache.Set(cacheKey, summary, CacheDuration);
-                return Result<List<CategorySummaryDto>>.Success(summary);
+                    entry.SetAbsoluteExpiration(TimeSpan.FromHours(24));
+                    entry.SetPriority(CacheItemPriority.High);
+                    return await _context.TblStores
+                        .AsNoTracking()
+                        .GroupBy(s => s.Category)
+                        .Select(g => new CategorySummaryDto
+                        {
+                            Category = g.Key,
+                            Count = g.Count()
+                        })
+                        .OrderBy(c => c.Count)
+                        .ToListAsync(cancellationToken);
+                });
+                return Result<List<CategorySummaryDto>>.Success(categories ?? new List<CategorySummaryDto>());
             }
             catch (Exception ex)
             {
@@ -151,14 +153,14 @@ namespace YpsStoreFinder.Domain.Features.Store
         }
 
         // Paginated geo-spatial nearby method utilizing cached store data
-        public async Task<PagedResult<StoreDto>> GetNearbyStoresAsync(NearbyStoreRequest request)
+        public async Task<PagedResult<StoreDto>> GetNearbyStoresAsync(NearbyStoreRequest request, CancellationToken cancellationToken = default)
         {
             try
             {
                 var pageNumber = request.PageNumber < 1 ? 1 : request.PageNumber;
                 var pageSize = request.PageSize < 1 ? 10 : request.PageSize;
 
-                var storesResult = await GetStoresAsync(request.Category);
+                var storesResult = await GetStoresAsync(cancellationToken);
                 if (!storesResult.IsSuccess || storesResult.Data == null)
                 {
                     return PagedResult<StoreDto>.Failure(storesResult.Message);

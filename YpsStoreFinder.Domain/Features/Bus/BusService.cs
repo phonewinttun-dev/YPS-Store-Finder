@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using System.Text.Json;
 using YpsStoreFinder.Database;
 using YpsStoreFinder.Database.Models;
 using YpsStoreFinder.Domain.Features.Bus.DTOs;
@@ -19,62 +14,13 @@ namespace YpsStoreFinder.Domain.Features.Bus
         private readonly IMemoryCache _cache;
         private static readonly TimeSpan CacheDuration = TimeSpan.FromMinutes(10);
 
-        private static readonly Dictionary<string, string> BilingualDictionary = new(StringComparer.OrdinalIgnoreCase)
-        {
-            { "Sule", "ဆူလေ" },
-            { "City Hall", "မြို့တော်ခန်းမ" },
-            { "Kyauktada", "ကျောက်တံတား" },
-            { "Pabedan", "ပန်းဘဲတန်း" },
-            { "Latha", "လသာ" },
-            { "Lanmadaw", "လမ်းမတော်" },
-            { "Ahlone", "အလုံ" },
-            { "San Chaung", "စမ်းချောင်း" },
-            { "Sanchaung", "စမ်းချောင်း" },
-            { "Kyun Taw", "ကျွန်းတော" },
-            { "Kamayut", "ကမာရွတ်" },
-            { "Bahan", "ဗဟန်း" },
-            { "Dagon", "ဒဂုံ" },
-            { "Yankin", "ရန်ကင်း" },
-            { "Mayangone", "မရမ်းကုန်း" },
-            { "Mayangon", "မရမ်းကုန်း" },
-            { "Insein", "အင်းစိန်" },
-            { "Mingaladon", "မင်္ဂလာဒုံ" },
-            { "Tamwe", "တာမွေ" },
-            { "Thingangyun", "သင်္ဃန်းကျွန်း" },
-            { "South Okkalapa", "တောင်ဥက္ကလာပ" },
-            { "North Okkalapa", "မြောက်ဥက္ကလာပ" },
-            { "Thaketa", "သာကေတ" },
-            { "Dawbon", "ဒေါပုံ" },
-            { "Pazundaung", "ပုဇွန်တောင်" },
-            { "Botahtaung", "ဗိုလ်တထောင်" },
-            { "Hlaing", "လှိုင်" },
-            { "Hlaingthaya", "လှိုင်သာယာ" },
-            { "Shwepyitha", "ရွှေပြည်သာ" },
-            { "Pyay", "ပြည်" },
-            { "Kaba Aye", "ကမ္ဘာအေး" },
-            { "Anawrahta", "အနော်ရထာ" },
-            { "Maha Bandula", "မဟာဗန္ဓုလ" },
-            { "Merchant", "ကုန်သည်" },
-            { "Strand", "ကမ်းနား" }
-        };
-
         public BusService(AppDbContext context, IMemoryCache cache)
         {
             _context = context;
             _cache = cache;
         }
 
-        public async Task<PagedResult<BusLineDto>> GetBusLinesAsync(BusLineRequest request)
-        {
-            return await QueryBusLinesInternalAsync(request, ypsOnly: false);
-        }
-
-        public async Task<PagedResult<BusLineDto>> GetYpsBusLinesAsync(BusLineRequest request)
-        {
-            return await QueryBusLinesInternalAsync(request, ypsOnly: true);
-        }
-
-        private async Task<PagedResult<BusLineDto>> QueryBusLinesInternalAsync(BusLineRequest request, bool ypsOnly)
+        public async Task<PagedResult<BusLineDto>> GetBusLinesAsync(PaginationRequest request, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -83,20 +29,7 @@ namespace YpsStoreFinder.Domain.Features.Bus
 
                 var query = _context.TblBusRoutes.AsNoTracking().AsQueryable();
 
-                if (ypsOnly)
-                {
-                    query = query.Where(r => r.IsYpsSupported);
-                }
-
-                if (!string.IsNullOrWhiteSpace(request.Keyword))
-                {
-                    var term = request.Keyword.Trim().ToLower();
-                    query = query.Where(r => r.BusNumber.ToLower().Contains(term) ||
-                                             (r.OutboundTitle != null && r.OutboundTitle.ToLower().Contains(term)) ||
-                                             (r.ReturnTitle != null && r.ReturnTitle.ToLower().Contains(term)));
-                }
-
-                var totalCount = await query.CountAsync();
+                var totalCount = await query.CountAsync(cancellationToken);
                 var items = await query
                     .OrderBy(r => r.BusNumber.Length)
                     .ThenBy(r => r.BusNumber)
@@ -112,7 +45,7 @@ namespace YpsStoreFinder.Domain.Features.Bus
                         ReturnTitle = r.ReturnTitle,
                         ReturnTotalStops = r.ReturnTotalStops
                     })
-                    .ToListAsync();
+                    .ToListAsync(cancellationToken);
 
                 var pagination = new Pagination(pageNumber, pageSize, totalCount);
                 return PagedResult<BusLineDto>.Success(items, pagination);
@@ -123,7 +56,89 @@ namespace YpsStoreFinder.Domain.Features.Bus
             }
         }
 
-        public async Task<Result<BusRouteDetailDto>> GetBusRouteByNumberAsync(string busNumber)
+        public async Task<PagedResult<BusLineDto>> GetYpsBusLinesAsync(PaginationRequest request, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var pageNumber = request.PageNumber < 1 ? 1 : request.PageNumber;
+                var pageSize = request.PageSize < 1 ? 10 : request.PageSize;
+
+                var query = _context.TblBusRoutes.AsNoTracking()
+                    .Where(r => r.IsYpsSupported)
+                    .AsQueryable();
+
+                var totalCount = await query.CountAsync(cancellationToken);
+                var items = await query
+                    .OrderBy(r => r.BusNumber.Length)
+                    .ThenBy(r => r.BusNumber)
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(r => new BusLineDto
+                    {
+                        BusNumber = r.BusNumber,
+                        RouteId = r.RouteId,
+                        IsYpsSupported = r.IsYpsSupported,
+                        OutboundTitle = r.OutboundTitle,
+                        OutboundTotalStops = r.OutboundTotalStops,
+                        ReturnTitle = r.ReturnTitle,
+                        ReturnTotalStops = r.ReturnTotalStops
+                    })
+                    .ToListAsync(cancellationToken);
+
+                var pagination = new Pagination(pageNumber, pageSize, totalCount);
+                return PagedResult<BusLineDto>.Success(items, pagination);
+            }
+            catch (Exception ex)
+            {
+                return PagedResult<BusLineDto>.Failure($"Failed to retrieve YPS bus lines: {ex.Message}");
+            }
+        }
+
+        public async Task<PagedResult<BusLineDto>> SearchBusLinesAsync(BusLineRequest request, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var pageNumber = request.PageNumber < 1 ? 1 : request.PageNumber;
+                var pageSize = request.PageSize < 1 ? 10 : request.PageSize;
+
+                var query = _context.TblBusRoutes.AsNoTracking().AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(request.Keyword))
+                {
+                    var term = request.Keyword.Trim().ToLower();
+                    query = query.Where(r => r.BusNumber.ToLower().Contains(term) ||
+                                             (r.OutboundTitle != null && r.OutboundTitle.ToLower().Contains(term)) ||
+                                             (r.ReturnTitle != null && r.ReturnTitle.ToLower().Contains(term)));
+                }
+
+                var totalCount = await query.CountAsync(cancellationToken);
+                var items = await query
+                    .OrderBy(r => r.BusNumber.Length)
+                    .ThenBy(r => r.BusNumber)
+                    .Skip((pageNumber - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(r => new BusLineDto
+                    {
+                        BusNumber = r.BusNumber,
+                        RouteId = r.RouteId,
+                        IsYpsSupported = r.IsYpsSupported,
+                        OutboundTitle = r.OutboundTitle,
+                        OutboundTotalStops = r.OutboundTotalStops,
+                        ReturnTitle = r.ReturnTitle,
+                        ReturnTotalStops = r.ReturnTotalStops
+                    })
+                    .ToListAsync(cancellationToken);
+
+                var pagination = new Pagination(pageNumber, pageSize, totalCount);
+                return PagedResult<BusLineDto>.Success(items, pagination);
+            }
+            catch (Exception ex)
+            {
+                return PagedResult<BusLineDto>.Failure($"Failed to search bus lines: {ex.Message}");
+            }
+        }
+
+        public async Task<Result<BusRouteDetailDto>> GetBusRouteByNumberAsync(string busNumber, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -142,7 +157,7 @@ namespace YpsStoreFinder.Domain.Features.Bus
 
                 var route = await _context.TblBusRoutes
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(r => r.BusNumber.ToLower() == cleanNum.ToLower());
+                    .FirstOrDefaultAsync(r => r.BusNumber.ToLower() == cleanNum.ToLower(), cancellationToken);
 
                 if (route == null)
                 {
@@ -169,20 +184,19 @@ namespace YpsStoreFinder.Domain.Features.Bus
             }
         }
 
-        public async Task<Result<StoreNearbyBusStopsDto>> GetNearbyBusStopsForStoreAsync(int storeId)
+        public async Task<Result<StoreNearbyBusStopsDto>> GetNearbyBusStopsForStoreAsync(int storeId, CancellationToken cancellationToken = default)
         {
             try
             {
                 var store = await _context.TblStores
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(s => s.Id == storeId);
+                    .FirstOrDefaultAsync(s => s.Id == storeId, cancellationToken);
 
                 if (store == null)
                 {
                     return Result<StoreNearbyBusStopsDto>.Failure($"Store with ID {storeId} was not found.");
                 }
 
-                // Extract township / landmark search terms in English & Myanmar
                 var keywords = ExtractSearchTerms(store.Name, store.Address, store.Description);
 
                 var query = _context.TblBusStops.AsNoTracking().AsQueryable();
@@ -194,14 +208,14 @@ namespace YpsStoreFinder.Domain.Features.Bus
                     var hits = await query
                         .Where(s => s.StopName.ToLower().Contains(term) || (s.RoadTownship != null && s.RoadTownship.ToLower().Contains(term)))
                         .Take(25)
-                        .ToListAsync();
+                        .ToListAsync(cancellationToken);
                     matchedStops.AddRange(hits);
                 }
 
                 // Fallback: If direct term matching yielded no results, query by township or city center stops
                 if (matchedStops.Count == 0)
                 {
-                    var fallbackHits = await query.Take(15).ToListAsync();
+                    var fallbackHits = await query.Take(15).ToListAsync(cancellationToken);
                     matchedStops.AddRange(fallbackHits);
                 }
 
@@ -213,7 +227,7 @@ namespace YpsStoreFinder.Domain.Features.Bus
                 var ypsLines = await _context.TblYpsBusLines
                     .AsNoTracking()
                     .Select(x => x.BusLineNumber)
-                    .ToListAsync();
+                    .ToListAsync(cancellationToken);
 
                 var ypsSet = new HashSet<string>(ypsLines, StringComparer.OrdinalIgnoreCase);
 
@@ -317,10 +331,6 @@ namespace YpsStoreFinder.Domain.Features.Bus
                     if (clean.Length >= 2 && !terms.Contains(clean))
                     {
                         terms.Add(clean);
-                        if (BilingualDictionary.TryGetValue(clean, out var myVal) && !terms.Contains(myVal))
-                        {
-                            terms.Add(myVal);
-                        }
                     }
                 }
             }
@@ -334,10 +344,6 @@ namespace YpsStoreFinder.Domain.Features.Bus
                     if (clean.Length >= 2 && !terms.Contains(clean))
                     {
                         terms.Add(clean);
-                        if (BilingualDictionary.TryGetValue(clean, out var myVal) && !terms.Contains(myVal))
-                        {
-                            terms.Add(myVal);
-                        }
                     }
                 }
             }

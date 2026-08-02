@@ -206,12 +206,18 @@ namespace YpsStoreFinder.Database
             {
                 Path.Combine(AppContext.BaseDirectory, "Data", filename),
                 Path.Combine(AppContext.BaseDirectory, filename),
-                Path.Combine(Directory.GetCurrentDirectory(), "..", "YpsStoreFinder.Database", "Data", filename),
                 Path.Combine(Directory.GetCurrentDirectory(), "Data", filename),
-                Path.Combine(Directory.GetCurrentDirectory(), "YpsStoreFinder.Database", "Data", filename)
+                Path.Combine(Directory.GetCurrentDirectory(), "YpsStoreFinder.Database", "Data", filename),
+                Path.Combine(Directory.GetCurrentDirectory(), "..", "YpsStoreFinder.Database", "Data", filename),
+                Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "YpsStoreFinder.Database", "Data", filename)
             };
 
-            return possiblePaths.FirstOrDefault(File.Exists);
+            var foundPath = possiblePaths.FirstOrDefault(File.Exists);
+            if (foundPath == null)
+            {
+                Console.WriteLine($"[DataSeeder Warning] Could not locate seed JSON file: {filename}. Checked locations: {string.Join(", ", possiblePaths)}");
+            }
+            return foundPath;
         }
 
         private class YpsDataWrapper

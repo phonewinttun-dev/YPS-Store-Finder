@@ -6,7 +6,7 @@ using YpsStoreFinder.Database;
 using YpsStoreFinder.Domain.Features.Bus;
 using YpsStoreFinder.Domain.Features.Store;
 
-namespace YpsStoreFinder.Domain
+namespace YpsStoreFinder.Domain.Features
 {
     public static class FeatureManager
     {

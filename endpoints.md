@@ -26,8 +26,9 @@ Base Controller: `BusesController.cs`
 
 | HTTP Method | Endpoint Route | Parameters | Return Type | Description / Functionality |
 | :--- | :--- | :--- | :--- | :--- |
-| **`GET`** | `/api/buses` | `keyword` *(optional string)*<br>`pageNumber` *(int, default: 1)*<br>`pageSize` *(int, default: 10)* | `PagedResult<BusLineDto>` | Retrieves a **paginated list of all YBS bus lines** (route header info, stop counts, and YPS support status). Optionally filter by search keyword. |
-| **`GET`** | `/api/buses/yps-supported` | `keyword` *(optional string)*<br>`pageNumber` *(int, default: 1)*<br>`pageSize` *(int, default: 10)* | `PagedResult<BusLineDto>` | Retrieves a **paginated list of YPS-supported bus lines only** (`IsYpsSupported == true`), allowing cardholders to verify where they can tap their card. |
+| **`GET`** | `/api/buses` | `pageNumber` *(int, default: 1)*<br>`pageSize` *(int, default: 10)* | `PagedResult<BusLineDto>` | Retrieves a **paginated list of all YBS bus lines** (route header info, stop counts, and YPS support status). |
+| **`GET`** | `/api/buses/yps-supported` | `pageNumber` *(int, default: 1)*<br>`pageSize` *(int, default: 10)* | `PagedResult<BusLineDto>` | Retrieves a **paginated list of YPS-supported bus lines only** (`IsYpsSupported == true`), allowing cardholders to verify where they can tap their card. |
+| **`GET`** | `/api/buses/search` | `keyword` *(string)*<br>`pageNumber` *(int, default: 1)*<br>`pageSize` *(int, default: 10)* | `PagedResult<BusLineDto>` | Performs a **paginated keyword search** across bus numbers and route titles. |
 | **`GET`** | `/api/buses/{busNumber}` | `busNumber` *(string, path param)* | `Result<BusRouteDetailDto>` | Retrieves **complete route details** for a specific bus line (e.g. `"1"` or `"21"`), including outbound and return title, total stops, and full stop lists with township details. |
 | **`GET`** | `/api/buses/nearby-store/{storeId}` | `storeId` *(int, path param)* | `Result<StoreNearbyBusStopsDto>` | Finds **nearby YBS bus stops and servicing bus lines** within walking distance of a specific store ID, highlighting YPS card-supported bus numbers. |
 

@@ -1,16 +1,15 @@
-using System.Threading.RateLimiting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
+using System.Threading.RateLimiting;
 using YpsStoreFinder.Database;
-using YpsStoreFinder.Domain;
+using YpsStoreFinder.Domain.Features;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add Domain & Database dependencies
 builder.AddDomain();
-
 
 // Add API Controllers & Swagger / Scalar OpenAPI docs
 builder.Services.AddControllers();
@@ -33,7 +32,6 @@ builder.Services.AddRateLimiter(options =>
                 QueueLimit = 5
             }));
 });
-
 
 // Configure CORS policy for frontend clients
 builder.Services.AddCors(options =>
