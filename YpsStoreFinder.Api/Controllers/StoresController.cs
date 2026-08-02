@@ -21,9 +21,9 @@ namespace YpsStoreFinder.Api.Controllers
 
         // Returns ALL stores (cached in memory) for map rendering & initial display
         [HttpGet]
-        public async Task<IActionResult> GetStores([FromQuery] string? category = null, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetStores(CancellationToken cancellationToken = default)
         {
-            var result = await _storeService.GetStoresAsync(category, cancellationToken);
+            var result = await _storeService.GetStoresAsync(cancellationToken);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 

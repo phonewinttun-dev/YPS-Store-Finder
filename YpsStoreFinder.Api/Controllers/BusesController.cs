@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using YpsStoreFinder.Domain.Features.Bus;
 using YpsStoreFinder.Domain.Features.Bus.DTOs;
+using YpsStoreFinder.Shared;
 
 namespace YpsStoreFinder.Api.Controllers
 {
@@ -21,7 +22,7 @@ namespace YpsStoreFinder.Api.Controllers
 
         // Returns paginated list of ALL YBS bus lines
         [HttpGet]
-        public async Task<IActionResult> GetBusLines([FromQuery] BusLineRequest request, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetBusLines([FromQuery] PaginationRequest request, CancellationToken cancellationToken = default)
         {
             var result = await _busService.GetBusLinesAsync(request, cancellationToken);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
@@ -29,9 +30,17 @@ namespace YpsStoreFinder.Api.Controllers
 
         // Returns paginated list of YPS-supported bus lines only
         [HttpGet("yps-supported")]
-        public async Task<IActionResult> GetYpsBusLines([FromQuery] BusLineRequest request, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetYpsBusLines([FromQuery] PaginationRequest request, CancellationToken cancellationToken = default)
         {
             var result = await _busService.GetYpsBusLinesAsync(request, cancellationToken);
+            return result.IsSuccess ? Ok(result) : BadRequest(result);
+        }
+
+        // Performs a keyword search across bus numbers and route titles
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchBusLines([FromQuery] BusLineRequest request, CancellationToken cancellationToken = default)
+        {
+            var result = await _busService.SearchBusLinesAsync(request, cancellationToken);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 
