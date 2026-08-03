@@ -27,7 +27,65 @@ namespace YpsStoreFinder.Database
         {
             if (await context.TblStores.AnyAsync()) return;
 
-            string? jsonFilePath = FindJsonFilePath("yps_store_locations.json");
+            string? jsonFilePath = FindJsonFilePath("yps_stores_bilingual.json");
+            if (jsonFilePath != null)
+            {
+                try
+                {
+                    var jsonContent = await File.ReadAllTextAsync(jsonFilePath);
+                    using var doc = JsonDocument.Parse(jsonContent);
+                    if (doc.RootElement.TryGetProperty("stores", out var storesArray) && storesArray.ValueKind == JsonValueKind.Array)
+                    {
+                        var entityList = new List<TblStore>();
+                        foreach (var s in storesArray.EnumerateArray())
+                        {
+                            string category = s.TryGetProperty("category", out var catProp) ? catProp.GetString() ?? "YPS Service Kios" : "YPS Service Kios";
+
+                            string name = "Unknown Store";
+                            if (s.TryGetProperty("name", out var nameProp))
+                            {
+                                if (nameProp.ValueKind == JsonValueKind.Object)
+                                    name = nameProp.TryGetProperty("mm", out var mmProp) ? mmProp.GetString() ?? name : (nameProp.TryGetProperty("en", out var enProp) ? enProp.GetString() ?? name : name);
+                                else if (nameProp.ValueKind == JsonValueKind.String)
+                                    name = nameProp.GetString() ?? name;
+                            }
+
+                            double latitude = 0;
+                            double longitude = 0;
+                            if (s.TryGetProperty("coordinates", out var coordProp))
+                            {
+                                latitude = coordProp.GetProperty("latitude").GetDouble();
+                                longitude = coordProp.GetProperty("longitude").GetDouble();
+                            }
+
+                            string? busStopsJson = s.TryGetProperty("nearest_bus_stops", out var busStopsProp) ? busStopsProp.GetRawText() : null;
+
+                            entityList.Add(new TblStore
+                            {
+                                Category = category.Trim(),
+                                Name = name.Trim(),
+                                Latitude = latitude,
+                                Longitude = longitude,
+                                NearestBusStopsJson = busStopsJson
+                            });
+                        }
+
+                        if (entityList.Count > 0)
+                        {
+                            await context.TblStores.AddRangeAsync(entityList);
+                            await context.SaveChangesAsync();
+                            return;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error seeding stores from yps_stores_bilingual.json: {ex.Message}");
+                }
+            }
+
+            // Fallback to yps_store_locations.json if bilingual file is missing
+            jsonFilePath = FindJsonFilePath("yps_store_locations.json");
             if (jsonFilePath != null)
             {
                 try

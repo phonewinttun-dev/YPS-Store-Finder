@@ -15,6 +15,7 @@ interface LanguageContextType {
   t: (key: string) => string;
   tCategory: (categoryName: string) => string;
   tAddress: (address: string | null | undefined) => string;
+  tStoreName: (name: string) => string;
 }
 
 const addressRules: [RegExp, string][] = [
@@ -251,8 +252,9 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     if (savedLang === 'my' || savedLang === 'en') {
       setLanguageState(savedLang);
     } else {
-      // Default to Myanmar per user request
+      // Default to Burmese ('my') per user request
       setLanguageState('my');
+      localStorage.setItem('yps_lang', 'my');
     }
 
     // Try fetching external translation.json if available
@@ -306,8 +308,26 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     return result;
   };
 
+  const tStoreName = (name: string): string => {
+    if (!name) return '';
+    if (language === 'my') {
+      return name
+        .replace(/Sule City Hall/g, 'ဆူးလေ YPS ဝန်ဆောင်မှုဆိုင်')
+        .replace(/Tha Khin Mya Pan Chan/g, 'သခင်မြပန်းခြံ YPS ဝန်ဆောင်မှုဆိုင်')
+        .replace(/Myanmar Plaza/g, 'မြန်မာပလာဇာ YPS ဝန်ဆောင်မှုဆိုင်')
+        .replace(/Hleden Kios/g, 'လှည်းတန်း YPS ဝန်ဆောင်မှုဆိုင်')
+        .replace(/Yuzana Plaza/g, 'ယုဇနပလာဇာ YPS ဝန်ဆောင်မှုဆိုင်')
+        .replace(/Dagon Seikkan/g, 'ဒဂုံဆိပ်ကမ်း YPS ဝန်ဆောင်မှုဆိုင်')
+        .replace(/YPS Service Kios/g, 'YPS ဝန်ဆောင်မှုဆိုင်')
+        .replace(/YPS Service Counter/g, 'YPS ဝန်ဆောင်မှု ကောင်တာ')
+        .replace(/Counter/g, 'ကောင်တာ')
+        .replace(/Store/g, 'စတိုး');
+    }
+    return name;
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage, t, tCategory, tAddress }}>
+    <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage, t, tCategory, tAddress, tStoreName }}>
       {children}
     </LanguageContext.Provider>
   );

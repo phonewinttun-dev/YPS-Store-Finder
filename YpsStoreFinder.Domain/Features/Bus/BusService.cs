@@ -197,31 +197,75 @@ namespace YpsStoreFinder.Domain.Features.Bus
                     return Result<StoreNearbyBusStopsDto>.Failure($"Store with ID {storeId} was not found.");
                 }
 
-                var keywords = ExtractSearchTerms(store.Name, store.Address, store.Description);
+                var matchedStops = new List<TblBusStop>();
+                var searchTerms = new List<string>();
+
+                // 1. Primary source: extract nearest bus stop names directly from store.NearestBusStopsJson
+                if (!string.IsNullOrWhiteSpace(store.NearestBusStopsJson))
+                {
+                    try
+                    {
+                        using var doc = JsonDocument.Parse(store.NearestBusStopsJson);
+                        if (doc.RootElement.ValueKind == JsonValueKind.Array)
+                        {
+                            foreach (var elem in doc.RootElement.EnumerateArray())
+                            {
+                                if (elem.TryGetProperty("mm", out var mmProp))
+                                {
+                                    var mmVal = mmProp.GetString()?.Trim();
+                                    if (!string.IsNullOrEmpty(mmVal) && !searchTerms.Contains(mmVal))
+                                        searchTerms.Add(mmVal);
+                                }
+                                if (elem.TryGetProperty("en", out var enProp))
+                                {
+                                    var enVal = enProp.GetString()?.Trim();
+                                    if (!string.IsNullOrEmpty(enVal) && !searchTerms.Contains(enVal))
+                                        searchTerms.Add(enVal);
+                                }
+                            }
+                        }
+                    }
+                    catch { }
+                }
+
+                // 2. Secondary source: extract terms from store Name and Address
+                var addressKeywords = ExtractSearchTerms(store.Name, store.Address, store.Description);
+                foreach (var kw in addressKeywords)
+                {
+                    if (!searchTerms.Contains(kw)) searchTerms.Add(kw);
+                }
 
                 var query = _context.TblBusStops.AsNoTracking().AsQueryable();
-                var matchedStops = new List<TblBusStop>();
 
-                foreach (var kw in keywords)
+                foreach (var term in searchTerms)
                 {
-                    var term = kw.ToLower();
+                    var lowerTerm = term.ToLower();
                     var hits = await query
-                        .Where(s => s.StopName.ToLower().Contains(term) || (s.RoadTownship != null && s.RoadTownship.ToLower().Contains(term)))
+                        .Where(s => s.StopName.ToLower().Contains(lowerTerm) || 
+                                    (s.RoadTownship != null && s.RoadTownship.ToLower().Contains(lowerTerm)))
                         .Take(25)
                         .ToListAsync(cancellationToken);
                     matchedStops.AddRange(hits);
                 }
 
-                // Fallback: If direct term matching yielded no results, query by township or city center stops
+                // 3. Fallback: query by township extracted from address if direct terms yielded no hits
                 if (matchedStops.Count == 0)
                 {
-                    var fallbackHits = await query.Take(15).ToListAsync(cancellationToken);
-                    matchedStops.AddRange(fallbackHits);
+                    var township = ExtractTownship(store.Address);
+                    if (!string.IsNullOrWhiteSpace(township))
+                    {
+                        var lowerTownship = township.ToLower();
+                        var townshipHits = await query
+                            .Where(s => s.RoadTownship != null && s.RoadTownship.ToLower().Contains(lowerTownship))
+                            .Take(25)
+                            .ToListAsync(cancellationToken);
+                        matchedStops.AddRange(townshipHits);
+                    }
                 }
 
                 var distinctStops = matchedStops
                     .GroupBy(s => new { s.StopName, s.RoadTownship })
-                    .Take(10)
+                    .Take(15)
                     .ToList();
 
                 var ypsLines = await _context.TblYpsBusLines
@@ -235,7 +279,7 @@ namespace YpsStoreFinder.Domain.Features.Bus
 
                 foreach (var group in distinctStops)
                 {
-                    var servicingBuses = group.Select(x => x.BusNumber).Distinct().OrderBy(b => b).ToList();
+                    var servicingBuses = group.Select(x => x.BusNumber).Distinct().OrderBy(b => b.Length).ThenBy(b => b).ToList();
                     var ypsSupportedBuses = servicingBuses.Where(b => ypsSet.Contains(b)).ToList();
 
                     stopItems.Add(new NearbyBusStopItem

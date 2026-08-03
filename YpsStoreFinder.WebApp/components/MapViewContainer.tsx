@@ -154,7 +154,7 @@ export default function MapViewContainer({
   activeDirectionStoreId,
   mobileTab,
 }: MapViewContainerProps) {
-  const { t, tCategory, tAddress, language } = useLanguage();
+  const { t, tCategory, tAddress, tStoreName, language } = useLanguage();
 
   const [routeCoordinates, setRouteCoordinates] = useState<[number, number][]>([]);
   const [routeInfo, setRouteInfo] = useState<{ distanceKm: number; durationMin: number } | null>(null);
@@ -365,7 +365,7 @@ export default function MapViewContainer({
                     )}
                   </div>
 
-                  <h4 className="font-bold text-sm text-[#1a1c1e] mb-1.5">{store.name}</h4>
+                  <h4 className="font-bold text-sm text-[#1a1c1e] mb-1.5">{tStoreName(store.name)}</h4>
 
                   {store.address && (
                     <p className="text-xs text-gray-700 font-medium mb-2.5 leading-relaxed flex items-start gap-1.5">

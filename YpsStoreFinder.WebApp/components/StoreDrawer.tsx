@@ -55,7 +55,7 @@ export default function StoreDrawer({
   isShowAllStoresMode,
   onToggleShowAllStores,
 }: StoreDrawerProps) {
-  const { language, toggleLanguage, t, tCategory, tAddress } = useLanguage();
+  const { language, toggleLanguage, t, tCategory, tAddress, tStoreName } = useLanguage();
 
   // Sidebar Tab Switcher State ('stores' | 'buses')
   const [activeSidebarTab, setActiveSidebarTab] = useState<'stores' | 'buses'>('stores');
@@ -235,7 +235,7 @@ export default function StoreDrawer({
           {/* Store Cards List */}
           <div
             onScroll={handleScroll}
-            className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-5 pb-24 sm:pb-28 space-y-4 bg-[#f9f9fc]"
+            className="flex-1 overflow-y-auto custom-scrollbar scrollable-panel p-4 sm:p-5 pb-24 sm:pb-28 space-y-4 bg-[#f9f9fc]"
           >
             {apiError && (
               <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-xs text-red-700 flex flex-col gap-2">
@@ -313,15 +313,34 @@ export default function StoreDrawer({
                     <div className="flex items-center gap-2 mb-2">
                       <Store className="w-5 h-5 text-[#725c00] shrink-0" />
                       <h3 className="font-bold text-base text-gray-700 truncate leading-snug">
-                        {store.name}
+                        {tStoreName(store.name)}
                       </h3>
                     </div>
 
                     {store.address && (
-                      <p className="text-xs text-gray-700 font-medium leading-relaxed mb-3.5 flex items-start gap-1.5 pl-0.5">
+                      <p className="text-xs text-gray-700 font-medium leading-relaxed mb-3 flex items-start gap-1.5 pl-0.5">
                         <MapPin className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
                         <span>{tAddress(store.address)}</span>
                       </p>
+                    )}
+
+                    {store.nearestBusStops && store.nearestBusStops.length > 0 && (
+                      <div className="mb-3.5 pl-0.5">
+                        <p className="text-[11px] font-bold text-gray-500 mb-1.5 flex items-center gap-1.5">
+                          <Bus className="w-3.5 h-3.5 text-[#725c00]" />
+                          <span>{language === 'my' ? 'အနီးဆုံး ဘတ်စ်ကားမှတ်တိုင်များ' : 'Nearest Bus Stops'}</span>
+                        </p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {store.nearestBusStops.map((stop, idx) => (
+                            <span
+                              key={idx}
+                              className="inline-flex items-center text-[11px] font-semibold px-2.5 py-0.5 rounded-lg bg-[#fff9e6] text-[#725c00] border border-[#ffe07c]/80 shadow-xs"
+                            >
+                              {language === 'my' ? stop.mm : stop.en}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     )}
 
                     {/* Action Buttons Container */}

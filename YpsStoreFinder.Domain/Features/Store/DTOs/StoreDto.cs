@@ -13,6 +13,13 @@ namespace YpsStoreFinder.Domain.Features.Store.DTOs
         public string? Description { get; set; }
         public string? RawAttributes { get; set; }
         public double? DistanceKm { get; set; }
+        public List<NearestBusStopDto>? NearestBusStops { get; set; }
+    }
+
+    public class NearestBusStopDto
+    {
+        public string Mm { get; set; } = string.Empty;
+        public string En { get; set; } = string.Empty;
     }
 
     public class StoreSearchRequest : PaginationRequest

@@ -32,20 +32,11 @@ namespace YpsStoreFinder.Domain.Features.Store
                     entry.SetAbsoluteExpiration(TimeSpan.FromHours(24));
                     entry.SetPriority(CacheItemPriority.High);
 
-                    return await _context.TblStores
+                    var dbEntities = await _context.TblStores
                         .AsNoTracking()
-                        .Select(s => new StoreDto
-                        {
-                            Id = s.Id,
-                            Category = s.Category,
-                            Name = s.Name,
-                            Latitude = s.Latitude,
-                            Longitude = s.Longitude,
-                            Address = s.Address,
-                            Description = s.Description,
-                            RawAttributes = s.RawAttributes
-                        })
                         .ToListAsync(cancellationToken);
+
+                    return dbEntities.Select(s => MapToDto(s)).ToList();
                 });
 
                 return Result<List<StoreDto>>.Success(stores ?? new List<StoreDto>());
@@ -177,6 +168,7 @@ namespace YpsStoreFinder.Domain.Features.Store
                         Address = s.Address,
                         Description = s.Description,
                         RawAttributes = s.RawAttributes,
+                        NearestBusStops = s.NearestBusStops,
                         DistanceKm = Math.Round(CalculateHaversineDistance(request.Latitude, request.Longitude, s.Latitude, s.Longitude), 2)
                     })
                     .Where(dto => dto.DistanceKm >= request.MinRadiusKm && dto.DistanceKm <= request.RadiusKm)
@@ -200,6 +192,16 @@ namespace YpsStoreFinder.Domain.Features.Store
 
         private static StoreDto MapToDto(TblStore entity)
         {
+            List<NearestBusStopDto>? busStops = null;
+            if (!string.IsNullOrWhiteSpace(entity.NearestBusStopsJson))
+            {
+                try
+                {
+                    busStops = System.Text.Json.JsonSerializer.Deserialize<List<NearestBusStopDto>>(entity.NearestBusStopsJson, new System.Text.Json.JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+                catch { }
+            }
+
             return new StoreDto
             {
                 Id = entity.Id,
@@ -209,7 +211,8 @@ namespace YpsStoreFinder.Domain.Features.Store
                 Longitude = entity.Longitude,
                 Address = entity.Address,
                 Description = entity.Description,
-                RawAttributes = entity.RawAttributes
+                RawAttributes = entity.RawAttributes,
+                NearestBusStops = busStops
             };
         }
 

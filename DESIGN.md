@@ -1,9 +1,7 @@
 ---
-name: YPS Store Finder
+name: YPS Store Finder Design System
 colors:
   surface: "#f9f9fc"
-  surface-dim: "#dadadc"
-  surface-bright: "#f9f9fc"
   surface-container-lowest: "#ffffff"
   surface-container-low: "#f3f3f6"
   surface-container: "#eeeef0"
@@ -11,51 +9,35 @@ colors:
   surface-container-highest: "#e2e2e5"
   on-surface: "#1a1c1e"
   on-surface-variant: "#4d4632"
-  inverse-surface: "#2f3133"
-  inverse-on-surface: "#f0f0f3"
   outline: "#7f765f"
   outline-variant: "#d1c6ab"
-  surface-tint: "#725c00"
+
+  /* Primary YBS Warm Gold / Yellow Tokens */
   primary: "#725c00"
+  primary-dark: "#564500"
+  primary-light: "#ffd200"
+  primary-container: "#fff9e6"
+  primary-border: "#ffe07c"
   on-primary: "#ffffff"
-  primary-container: "#ffd200"
-  on-primary-container: "#705b00"
-  inverse-primary: "#ecc200"
+
+  /* Secondary Transit Blue Tokens */
   secondary: "#1d5fa8"
+  secondary-dark: "#00417e"
+  secondary-light: "#7ab0ff"
+  secondary-container: "#ebf2f8"
   on-secondary: "#ffffff"
-  secondary-container: "#7ab0ff"
-  on-secondary-container: "#00417e"
-  tertiary: "#585f64"
-  on-tertiary: "#ffffff"
-  tertiary-container: "#d0d7dd"
-  on-tertiary-container: "#565e63"
+
+  /* Neutral & Utility */
+  cloud-blue: "#ebf2f8"
   error: "#ba1a1a"
-  on-error: "#ffffff"
   error-container: "#ffdad6"
-  on-error-container: "#93000a"
-  primary-fixed: "#ffe07c"
-  primary-fixed-dim: "#ecc200"
-  on-primary-fixed: "#231b00"
-  on-primary-fixed-variant: "#564500"
-  secondary-fixed: "#d5e3ff"
-  secondary-fixed-dim: "#a6c8ff"
-  on-secondary-fixed: "#001c3b"
-  on-secondary-fixed-variant: "#004787"
-  tertiary-fixed: "#dce3e9"
-  tertiary-fixed-dim: "#c0c7cd"
-  on-tertiary-fixed: "#151d21"
-  on-tertiary-fixed-variant: "#40484d"
-  background: "#f9f9fc"
-  on-background: "#1a1c1e"
-  surface-variant: "#e2e2e5"
+  on-error: "#ffffff"
+
 typography:
+  font-family-sans: "Work Sans, sans-serif"
+  font-family-mono: "JetBrains Mono, monospace"
+
   headline-lg:
-    fontFamily: Work Sans
-    fontSize: 32px
-    fontWeight: "700"
-    lineHeight: 40px
-    letterSpacing: -0.02em
-  headline-lg-mobile:
     fontFamily: Work Sans
     fontSize: 24px
     fontWeight: "700"
@@ -63,121 +45,88 @@ typography:
     letterSpacing: -0.01em
   headline-md:
     fontFamily: Work Sans
-    fontSize: 20px
+    fontSize: 18px
     fontWeight: "600"
-    lineHeight: 28px
-  body-lg:
-    fontFamily: Work Sans
-    fontSize: 16px
-    fontWeight: "400"
     lineHeight: 24px
   body-md:
     fontFamily: Work Sans
     fontSize: 14px
     fontWeight: "400"
     lineHeight: 20px
-  label-caps:
+  meta-mono:
     fontFamily: JetBrains Mono
-    fontSize: 12px
-    fontWeight: "500"
-    lineHeight: 16px
-  button-text:
-    fontFamily: Work Sans
-    fontSize: 16px
+    fontSize: 11px
     fontWeight: "600"
-    lineHeight: 24px
-rounded:
-  sm: 0.125rem
-  DEFAULT: 0.25rem
-  md: 0.375rem
-  lg: 0.5rem
-  xl: 0.75rem
-  full: 9999px
-spacing:
-  base: 4px
-  margin-mobile: 16px
-  gutter-mobile: 12px
-  stack-sm: 8px
-  stack-md: 16px
-  stack-lg: 24px
-  touch-target: 48px
+    lineHeight: 16px
 ---
 
-## Brand & Style
+# YPS Store Finder Design System & Color Specs
 
-The design system is built to serve the daily commuters of Yangon, emphasizing reliability, speed, and civic utility. The brand personality is **authoritative yet helpful**, acting as a trustworthy companion for urban navigation.
+This document defines the authoritative color scheme, typography, depth system, and UI component specifications used in the YPS Store Finder Web Application.
 
-The aesthetic follows a **Corporate / Modern** approach with a high-utility focus. It leverages a clean, structured layout to reduce cognitive load in high-stress transit environments. Visual clarity is prioritized through generous whitespace, high-contrast action colors, and a systematic approach to iconography. The emotional response should be one of confidence and ease—ensuring users feel that their next top-up or service point is always within reach.
+---
 
-## Colors
+## 1. Color Palette & Utility System
 
-The palette is rooted in the recognizable identity of Yangon’s transit infrastructure.
+### Primary Identity: YBS Warm Gold & Yellow
+The primary color scheme captures the iconic Yangon Payment Service (YPS) / Yangon Bus Service (YBS) visual identity, offering high contrast and legibility across mobile and web viewports.
 
-- **Primary (YBS Yellow):** Used for high-visibility elements, key highlights, and status indicators. It ensures the app feels connected to the physical buses.
-- **Secondary (Transit Blue):** The primary color for interaction, navigation, and core branding. It provides the professional weight needed for a payment-related service.
-- **Tertiary (Cloud Blue):** A soft, low-saturation blue used for background surfaces and subtle groupings to prevent visual fatigue.
-- **Neutral:** A range of deep greys and off-whites to handle typography and structural borders.
+- **Primary Action Accent (`#725c00`)**: Deep warm gold used for primary CTA buttons ("Show Direction", "View Map"), active badges, and key icons.
+- **Primary Hover (`#564500`)**: Darker shade for interactive button hover states.
+- **Soft Yellow Container (`#fff9e6`)**: Light warm cream background for badges, active chips, and store bus stop pills.
+- **Yellow Border Highlight (`#ffe07c`)**: Subtle 1px borders paired with `#fff9e6` containers.
 
-Success, warning, and error states should utilize standard semantic green, amber, and red, but adjusted to maintain high legibility against the primary yellow.
+### Secondary Identity: Transit Blue
+The secondary color scheme represents transit navigation, route tracking, and bus stop indicators.
 
-## Typography
+- **Transit Blue (`#1d5fa8`)**: Used for user location pulse markers, bus route numbers, and transit links.
+- **Transit Blue Dark (`#00417e`)**: Text color for high-contrast transit metadata.
+- **Transit Blue Container (`#ebf2f8`)**: Soft blue background used for bus stop pills and badges.
+- **Transit Blue Light Border (`#7ab0ff`)**: Border accent for bus stop badges.
 
-This design system utilizes **Work Sans** for its exceptional legibility and professional, grounded character. As a grotesque sans-serif, it performs well on low-resolution mobile screens and in outdoor lighting conditions.
+### Surface & Background Tokens
+- **Base Background (`#f9f9fc`)**: Very light cool gray surface for card containers and drawer scroll panes.
+- **Card Surface (`#ffffff`)**: Pure white background for elevated store cards and popup windows.
+- **Borders (`#e2e2e5` / `#f3f3f6`)**: Soft dividers providing visual structure without clutter.
 
-- **Headlines:** Set in bold weights with tighter letter spacing for a modern, impactful look.
-- **Body:** Standardized at 16px for optimal readability during movement.
-- **Labels:** **JetBrains Mono** is introduced for secondary metadata, such as store IDs, distances, and timestamps, to provide a subtle "technical/functional" feel that distinguishes data from instructional text.
+---
 
-## Layout & Spacing
+## 2. Glassmorphism & Depth Layers
 
-The layout utilizes a **fluid grid** logic optimized for one-handed mobile use.
+- **Glass Panels (`.glass-panel`)**:
+  - `background: rgba(255, 255, 255, 0.88)`
+  - `backdrop-filter: blur(20px)`
+  - Used for floating headers, search inputs, and mobile navigation tabs to preserve map context.
+- **Card Depth**:
+  - Standard Cards: 1px border (`#e2e2e5`), soft shadow (`shadow-slate-200/50`).
+  - Active/Selected Store Card: White surface with 1px `#725c00` or `#3b82f6` border highlight.
 
-1. **Grid:** A 4-column grid for mobile with 16px side margins.
-2. **Rhythm:** A 4px baseline grid governs all vertical spacing. Elements are typically separated by increments of 8px (stack-sm) or 16px (stack-md).
-3. **Safe Zones:** High-priority actions (like "Find Near Me") are placed within the natural "thumb zone" at the bottom third of the screen.
-4. **Touch Targets:** All interactive elements maintain a minimum hit area of 48x48px to accommodate users who may be commuting on moving vehicles.
+---
 
-## Elevation & Depth
+## 3. Component Specs
 
-To maintain a clean and efficient look, this design system avoids heavy shadows. Instead, it uses **Tonal Layers** and **Low-Contrast Outlines**.
+### Nearest Bus Stop Badges
+- **Container**: `#fff9e6` (Soft Warm Cream)
+- **Text**: `#725c00` (Bold 11px Work Sans)
+- **Border**: `#ffe07c` (1px solid)
+- **Border Radius**: `8px` (`rounded-lg`)
 
-- **Level 0 (Base):** White (#FFFFFF) or Tertiary Blue (#EBF2F8) for the main background.
-- **Level 1 (Cards):** White surfaces with a 1px border in a light neutral tone (#E2E8F0).
-- **Level 2 (Floating/Active):** Reserved for the search bar and primary action buttons, using a soft, 12% opacity shadow of the Secondary Blue to suggest interactability without cluttering the interface.
-- **Backdrop:** A 20px background blur is used for modal overlays and bottom-sheet handles to maintain context of the underlying map.
+### Primary Buttons ("Show Direction")
+- **Background**: `#725c00` (Solid Warm Gold)
+- **Text**: `#ffffff` (White, Bold 12px)
+- **Shadow**: `shadow-md shadow-[#725c00]/20`
+- **Border Radius**: `12px` (`rounded-xl`)
 
-## Shapes
+### Secondary Buttons ("Show Bus Lines")
+- **Background**: `#ffffff` (White) / `#fff9e6` (Active)
+- **Text**: `#374151` / `#725c00`
+- **Border**: `1px solid #e5e7eb` / `#ffe07c`
+- **Border Radius**: `12px` (`rounded-xl`)
 
-The shape language is **Soft (0.25rem - 0.75rem)**.
+---
 
-- **Standard Elements:** 4px radius for a crisp, professional look on small components like checkboxes or input fields.
-- **Large Components:** 8px (rounded-lg) for store cards and bottom sheets to feel approachable.
-- **Buttons:** 8px for standard buttons; however, search bars and category chips may use a fully rounded (pill) style to differentiate them from functional data cards.
+## 4. Typography Rules
 
-## Components
+- **Work Sans**: Used for all UI headings, body text, store names, and button labels.
+- **JetBrains Mono**: Used for numerical metadata (distances e.g. `0.3km`, bus line numbers e.g. `YBS 3`, store IDs).
 
-### Buttons
-
-- **Primary Action (Navigation):** Solid Secondary Blue background with White text. Used for "Start Navigation" or "Get Directions."
-- **Secondary Action (Search):** Solid Primary Yellow background with Neutral Black text. This ensures the most common action—finding a store—is the most visible.
-- **Ghost Buttons:** Transparent background with Blue borders for secondary filters.
-
-### Chips & Store Categories
-
-- Use a combination of a colored icon and a light-fill background.
-- **Top-up Points:** Yellow icon / light yellow tint.
-- **Retail Stores:** Blue icon / light blue tint.
-- **Service Centers:** Grey icon / light grey tint.
-
-### Inputs
-
-- **Search Bar:** Large, 56px height, pill-shaped with a soft shadow and a prominent search icon.
-- **Filtering:** Use bottom sheets for filter selection to keep the map view visible.
-
-### Cards
-
-- **Store Cards:** Elevated white surfaces. Title in bold Work Sans, distance and status (Open/Closed) using JetBrains Mono labels. Include a clear "Directions" icon button in the bottom right corner.
-
-### Lists
-
-- Lists should feature high-contrast dividers (1px) and generous vertical padding (12px) to ensure no mis-taps occur while traveling.

@@ -122,11 +122,25 @@
   opacity: 0.95 !important;
 }
 
+/* PWA Touch Scroll & Overscroll Fixes */
+html, body {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
+}
+
+.scrollable-panel {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
+}
+
 /* Custom Sleek 6px Scrollbar */
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #d1c6ab transparent;
-  touch-action: pan-x;
+  touch-action: pan-x pan-y;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
