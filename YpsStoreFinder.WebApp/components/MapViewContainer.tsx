@@ -154,7 +154,7 @@ export default function MapViewContainer({
   activeDirectionStoreId,
   mobileTab,
 }: MapViewContainerProps) {
-  const { t, tCategory, tAddress, tStoreName, language } = useLanguage();
+  const { t, tCategory, tAddress, tStoreName, toMmNum } = useLanguage();
 
   const [routeCoordinates, setRouteCoordinates] = useState<[number, number][]>([]);
   const [routeInfo, setRouteInfo] = useState<{ distanceKm: number; durationMin: number } | null>(null);
@@ -230,24 +230,24 @@ export default function MapViewContainer({
             </div>
             <div>
               <h4 className="font-bold text-xs sm:text-sm text-[#1a1c1e] truncate max-w-[180px]">
-                {selectedStore.name}
+                {tStoreName(selectedStore.name)}
               </h4>
               <div className="flex items-center gap-2 mt-0.5 text-[11px] font-semibold text-gray-600 font-mono-meta">
                 {isLoadingRoute ? (
                   <span className="text-[#725c00] animate-pulse">
-                    {language === 'my' ? 'လမ်းကြောင်း တွက်ချက်နေသည်...' : 'Calculating route...'}
+                    လမ်းကြောင်း တွက်ချက်နေသည်...
                   </span>
                 ) : routeInfo ? (
                   <>
-                    <span className="text-[#725c00] font-bold">{routeInfo.distanceKm} km</span>
+                    <span className="text-[#725c00] font-bold">{toMmNum(routeInfo.distanceKm)} {t('km')}</span>
                     <span>•</span>
                     <span className="flex items-center gap-1 text-gray-700">
                       <Clock className="w-3 h-3 text-[#725c00]" />
-                      ~{routeInfo.durationMin} {language === 'my' ? 'မိနစ်' : 'mins'}
+                      ~{toMmNum(routeInfo.durationMin)} မိနစ်
                     </span>
                   </>
                 ) : selectedStore.distanceKm !== null ? (
-                  <span className="text-[#725c00] font-bold">{selectedStore.distanceKm} km</span>
+                  <span className="text-[#725c00] font-bold">{toMmNum(selectedStore.distanceKm)} {t('km')}</span>
                 ) : (
                   <span>{tCategory(selectedStore.category)}</span>
                 )}
@@ -261,7 +261,7 @@ export default function MapViewContainer({
               else onSelectStore(selectedStore);
             }}
             className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center transition-colors shrink-0 cursor-pointer"
-            title="Close Route Direction"
+            title="လမ်းကြောင်းပိတ်ရန်"
           >
             <X className="w-4 h-4" />
           </button>
@@ -360,7 +360,7 @@ export default function MapViewContainer({
                     </span>
                     {store.distanceKm !== null && (
                       <span className="text-xs font-bold font-mono-meta text-[#725c00] bg-[#ffd200] px-2 py-0.5 rounded border border-[#e5bc00]">
-                        {store.distanceKm} {t('km')}
+                        {toMmNum(store.distanceKm)} {t('km')}
                       </span>
                     )}
                   </div>

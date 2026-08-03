@@ -12,7 +12,7 @@ import { Compass, RefreshCw, Globe, Map, List, Layers } from 'lucide-react';
 
 export default function HomePage() {
   const { locationState, startTracking, stopTracking, activeLocation } = useUserLocation();
-  const { language, toggleLanguage, t } = useLanguage();
+  const { t } = useLanguage();
 
   const [stores, setStores] = useState<StoreDto[]>([]);
   const [allMapStores, setAllMapStores] = useState<StoreDto[]>([]);
@@ -284,16 +284,8 @@ export default function HomePage() {
           </span>
         </div>
 
-        {/* Action Buttons with 100% Identical Pixel Height */}
+        {/* Action Buttons */}
         <div className="flex items-center gap-1.5 shrink-0">
-          <button
-            onClick={toggleLanguage}
-            className="h-8 px-2.5 rounded-xl bg-white/95 hover:bg-white text-gray-800 font-bold text-xs inline-flex items-center justify-center gap-1 transition-all border border-[#e5bc00]/80 shadow-sm shadow-slate-900/5 hover:shadow-md cursor-pointer active:scale-95 whitespace-nowrap shrink-0 box-border"
-          >
-            <Globe className="w-3.5 h-3.5 text-[#725c00] shrink-0" />
-            <span className="leading-none">{language === 'my' ? 'မြန်မာ' : 'EN'}</span>
-          </button>
-
           <button
             onClick={handleToggleLocation}
             className={`h-8 px-2.5 rounded-xl text-xs font-bold inline-flex items-center justify-center gap-1 transition-all cursor-pointer shadow-sm active:scale-95 whitespace-nowrap shrink-0 box-border border ${
@@ -303,7 +295,7 @@ export default function HomePage() {
             }`}
           >
             <Compass className={`w-3.5 h-3.5 shrink-0 ${locationState.isTracking ? 'animate-spin' : ''}`} />
-            <span className="leading-none">{locationState.isTracking ? 'GPS' : (language === 'my' ? 'ရှာမည်' : 'Locate')}</span>
+            <span className="leading-none">{locationState.isTracking ? 'GPS' : 'ရှာမည်'}</span>
           </button>
         </div>
       </div>
@@ -420,7 +412,7 @@ export default function HomePage() {
           }`}
         >
           <Map className="w-4 h-4 shrink-0" />
-          <span className="whitespace-nowrap">{language === 'my' ? 'မြေပုံ' : 'Map View'}</span>
+          <span className="whitespace-nowrap">မြေပုံ</span>
         </button>
 
         <button
@@ -430,7 +422,7 @@ export default function HomePage() {
           }`}
         >
           <List className="w-4 h-4 shrink-0" />
-          <span className="whitespace-nowrap">{language === 'my' ? 'ဆိုင်များ' : 'Stores'}</span>
+          <span className="whitespace-nowrap">ဆိုင်များ</span>
         </button>
       </div>
     </main>

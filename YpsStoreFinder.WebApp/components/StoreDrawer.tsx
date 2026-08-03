@@ -55,7 +55,7 @@ export default function StoreDrawer({
   isShowAllStoresMode,
   onToggleShowAllStores,
 }: StoreDrawerProps) {
-  const { language, toggleLanguage, t, tCategory, tAddress, tStoreName } = useLanguage();
+  const { t, tCategory, tAddress, tStoreName, toMmNum } = useLanguage();
 
   // Sidebar Tab Switcher State ('stores' | 'buses')
   const [activeSidebarTab, setActiveSidebarTab] = useState<'stores' | 'buses'>('stores');
@@ -121,7 +121,7 @@ export default function StoreDrawer({
             }`}
           >
             <MapPin className={`w-4 h-4 transition-all duration-300 ${activeSidebarTab === 'stores' ? 'text-[#725c00] scale-110' : 'text-gray-400'}`} />
-            <span>Stores</span>
+            <span>{t('stores')}</span>
           </button>
 
           <button
@@ -131,7 +131,7 @@ export default function StoreDrawer({
             }`}
           >
             <Bus className={`w-4 h-4 transition-all duration-300 ${activeSidebarTab === 'buses' ? 'text-[#725c00] scale-110' : 'text-gray-400'}`} />
-            <span>YBS Bus Lines</span>
+            <span>{t('ybsBusLines')}</span>
           </button>
         </div>
       </div>
@@ -196,7 +196,7 @@ export default function StoreDrawer({
               >
                 <Compass className={`w-3.5 h-3.5 ${locationState.isTracking ? 'animate-spin' : ''}`} />
                 <span>
-                  {language === 'my' ? 'အနီးဆုံး (2km)' : 'Nearby (2km)'}
+                  အနီးဆုံး ({toMmNum(2)}km)
                 </span>
               </button>
 
@@ -217,7 +217,7 @@ export default function StoreDrawer({
                       ? 'bg-white/25 text-white border border-white/40 font-extrabold'
                       : 'bg-gray-100 text-gray-600 border border-gray-200'
                   }`}>
-                    {cat.count}
+                    {toMmNum(cat.count)}
                   </span>
                 </button>
               ))}
@@ -286,7 +286,7 @@ export default function StoreDrawer({
 
                         {store.distanceKm !== null && (
                           <span className="text-[10px] font-extrabold font-mono-meta text-[#725c00] bg-[#fff9e6] px-2 py-0.5 rounded-md border border-[#ffe07c] whitespace-nowrap shrink-0">
-                            {store.distanceKm}km
+                            {toMmNum(store.distanceKm)}km
                           </span>
                         )}
                       </div>
@@ -302,10 +302,10 @@ export default function StoreDrawer({
                             ? 'bg-[#725c00] text-white border-[#725c00] shadow-sm shadow-[#725c00]/20'
                             : 'bg-[#fff9e6] hover:bg-[#fff3cc] text-[#725c00] border-[#ffe07c] shadow-xs shadow-amber-500/10'
                         }`}
-                        title={language === 'my' ? 'မြေပုံပေါ်တွင် ကြည့်မည်' : 'View on Map'}
+                        title="မြေပုံပေါ်တွင် ကြည့်မည်"
                       >
                         <MapPin className="w-4 h-4 shrink-0" />
-                        <span>{language === 'my' ? 'မြေပုံ' : 'View Map'}</span>
+                        <span>မြေပုံ</span>
                       </button>
                     </div>
 
@@ -328,7 +328,7 @@ export default function StoreDrawer({
                       <div className="mb-3.5 pl-0.5">
                         <p className="text-[11px] font-bold text-gray-500 mb-1.5 flex items-center gap-1.5">
                           <Bus className="w-3.5 h-3.5 text-[#725c00]" />
-                          <span>{language === 'my' ? 'အနီးဆုံး ဘတ်စ်ကားမှတ်တိုင်များ' : 'Nearest Bus Stops'}</span>
+                          <span>{t('nearestBusStops')}</span>
                         </p>
                         <div className="flex flex-wrap gap-1.5">
                           {store.nearestBusStops.map((stop, idx) => (
@@ -336,7 +336,7 @@ export default function StoreDrawer({
                               key={idx}
                               className="inline-flex items-center text-[11px] font-semibold px-2.5 py-0.5 rounded-lg bg-[#fff9e6] text-[#725c00] border border-[#ffe07c]/80 shadow-xs"
                             >
-                              {language === 'my' ? stop.mm : stop.en}
+                              {stop.mm || stop.en}
                             </span>
                           ))}
                         </div>
@@ -352,10 +352,10 @@ export default function StoreDrawer({
                           onShowDirection(store);
                         }}
                         className="flex-1 h-9 px-2.5 bg-[#725c00] hover:bg-[#564500] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#725c00]/20 hover:shadow-lg hover:shadow-[#725c00]/25 cursor-pointer outline-none active:scale-[0.98] whitespace-nowrap"
-                        title={language === 'my' ? 'လမ်းကြောင်း' : 'Show Direction'}
+                        title={t('showDirection')}
                       >
                         <Route className="w-4 h-4 shrink-0" />
-                        <span className="whitespace-nowrap">{language === 'my' ? 'လမ်းကြောင်း' : 'Show Direction'}</span>
+                        <span className="whitespace-nowrap">{t('showDirection')}</span>
                       </button>
 
                       {/* Button 2: Show Bus Lines (ကားလိုင်းများ) */}
@@ -366,10 +366,10 @@ export default function StoreDrawer({
                             ? 'bg-[#fff9e6] text-[#725c00] border-[#ffe07c] shadow-sm shadow-[#ffe07c]/50'
                             : 'bg-white hover:bg-gray-50 text-gray-700 border-gray-200 shadow-sm shadow-gray-200/60 hover:shadow-md hover:shadow-gray-200/80'
                         }`}
-                        title={language === 'my' ? 'ကားလိုင်းများ' : 'Show Bus Lines'}
+                        title={t('showBusLines')}
                       >
                         <Bus className="w-4 h-4 shrink-0" />
-                        <span className="whitespace-nowrap">{language === 'my' ? 'ကားလိုင်းများ' : 'Show Bus Lines'}</span>
+                        <span className="whitespace-nowrap">{t('showBusLines')}</span>
                       </button>
                     </div>
 
@@ -377,22 +377,22 @@ export default function StoreDrawer({
                     {isBusLoading && (
                       <div className="mt-3 p-3 bg-[#fff9e6] rounded-xl flex items-center justify-center gap-2 text-xs font-semibold text-[#725c00]">
                         <RefreshCw className="w-4 h-4 animate-spin text-[#725c00]" />
-                        <span>{language === 'my' ? 'ယာဉ်လိုင်းများ ရှာဖွေနေသည်...' : 'Finding nearby bus lines...'}</span>
+                        <span>ယာဉ်လိုင်းများ ရှာဖွေနေသည်...</span>
                       </div>
                     )}
 
                     {busData && !isBusLoading && (
                       <div className="mt-3 p-3 bg-[#fff9e6]/70 border border-[#ffe07c] rounded-xl text-xs space-y-2.5 animate-in fade-in duration-200">
                         <h4 className="font-bold text-[#725c00] text-[11px] uppercase tracking-wider flex items-center justify-between">
-                          <span>{t('nearbyBusStops')}</span>
+                          <span>{t('nearestBusStops')}</span>
                           <span className="text-[10px] font-mono-meta bg-white px-1.5 py-0.2 rounded border border-[#ffe07c] font-bold">
-                            {busData.nearbyBusStops.length} STOPS
+                            {toMmNum(busData.nearbyBusStops.length)} မှတ်တိုင်
                           </span>
                         </h4>
 
                         {busData.nearbyBusStops.length === 0 ? (
                           <p className="text-[11px] text-gray-600 italic">
-                            {language === 'my' ? 'အနီးတွင် တိုက်ရိုက် ကားမှတ်တိုင် မတွေ့ရှိပါ' : 'No direct bus stops found near this store address.'}
+                            အနီးတွင် တိုက်ရိုက် ကားမှတ်တိုင် မတွေ့ရှိပါ
                           </p>
                         ) : (
                           busData.nearbyBusStops.map((stop, sIdx) => (
@@ -417,7 +417,7 @@ export default function StoreDrawer({
                                           : 'bg-gray-100 text-gray-700'
                                       }`}
                                     >
-                                      YBS {busNum}
+                                      YBS {toMmNum(busNum)}
                                       {isYps && <CheckCircle2 className="w-2.5 h-2.5 text-[#725c00] inline" />}
                                     </span>
                                   );
@@ -437,7 +437,7 @@ export default function StoreDrawer({
             {isLoadingMore && (
               <div className="p-3 bg-white border border-[#ffe07c] rounded-xl flex items-center justify-center gap-2.5 text-xs font-semibold text-[#725c00] shadow-xs animate-pulse">
                 <RefreshCw className="w-4 h-4 animate-spin text-[#725c00]" />
-                <span>{t('loadingMore')}</span>
+                <span>{t('updatingStores')}</span>
               </div>
             )}
 
@@ -445,7 +445,7 @@ export default function StoreDrawer({
             {pagination && !pagination.hasNextPage && stores.length > 0 && (
               <div className="py-4 text-center">
                 <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#fff9e6] text-[#725c00] text-xs font-bold font-mono-meta border border-[#ffe07c] shadow-2xs">
-                  <span className="text-[#725c00] font-bold">✓</span> {t('caughtUp')}
+                  <span className="text-[#725c00] font-bold">✓</span> စတိုးဆိုင်များ အားလုံး ပြသပြီးပါပြီ
                 </span>
               </div>
             )}
