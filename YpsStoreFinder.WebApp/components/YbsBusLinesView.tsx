@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { BusLineDto, BusRouteDetailDto } from '../types/bus';
 import { fetchBusLines, fetchYpsBusLines, fetchBusRouteDetail } from '../services/api';
 import { useLanguage } from '../context/LanguageContext';
-import { Search, Bus, CreditCard, ChevronRight, ArrowLeftRight, MapPin, RefreshCw, X, CheckCircle2 } from 'lucide-react';
+import { Search, Bus, CreditCard, ChevronRight, ArrowLeftRight, MapPin, RefreshCw, X, CheckCircle2, Navigation } from 'lucide-react';
 
 interface YbsBusLinesViewProps {
   onSelectBusLineRoute?: (routeDetail: BusRouteDetailDto) => void;
@@ -74,33 +74,19 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
 
   return (
     <div className="flex flex-col h-full bg-[#f9f9fc] border-r border-[#e2e2e5] shadow-lg">
-      {/* YPS Gold Header Banner */}
-      <div className="p-4 sm:p-5 border-b border-[#d1c6ab] bg-gradient-to-br from-[#ffffff] via-[#fff9e6] to-[#ffe07c]/30">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 rounded-xl bg-[#ffd200] text-[#1a1c1e] flex items-center justify-center shadow-md border border-[#e5bc00]">
-            <Bus className="w-6 h-6" />
-          </div>
-          <div>
-            <h2 className="font-bold text-base sm:text-lg text-[#1a1c1e] leading-tight">
-              {t('ybsBusLines')}
-            </h2>
-            <p className="text-xs text-gray-600 font-medium">
-              {language === 'my' ? 'YBS ဘတ်စ်ကား လိုင်းများနှင့် မှတ်တိုင်များ' : 'Yangon Bus Service (YBS) Routes'}
-            </p>
-          </div>
-        </div>
-
+      {/* Header Banner - Clean Search & Filter Buttons Container */}
+      <div className="p-3.5 sm:p-4 border-b border-[#e2e2e5] bg-[#f9f9fc]">
         {!selectedBusNumber && (
           <>
             {/* Search Input */}
-            <div className="relative mt-2 mb-3">
+            <div className="relative mb-2.5">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder={language === 'my' ? 'YBS ယာဉ်လိုင်းနံပါတ် သို့မဟုတ် လမ်းကြောင်း ရှာရန်...' : 'Search bus line number or route...'}
-                className="w-full h-11 pl-11 pr-9 rounded-full bg-white border border-[#d1c6ab] text-xs text-[#1a1c1e] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#725c00] shadow-sm transition-all"
+                className="w-full h-11 pl-11 pr-9 rounded-full bg-white border border-[#e2e2e5] hover:border-gray-300 text-xs text-[#1a1c1e] placeholder-gray-400 outline-none focus:outline-none focus:ring-0 focus:border-gray-300 shadow-sm shadow-slate-200/50 focus:shadow-md focus:shadow-slate-200/80 transition-all"
               />
               {searchQuery && (
                 <button
@@ -112,11 +98,11 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
               )}
             </div>
 
-            {/* Filter Toggle Pills */}
-            <div className="flex items-center gap-2">
+            {/* Combined Filter Buttons Bar (All Bus Lines & YPS Only) */}
+            <div className="flex items-center gap-2.5 overflow-x-auto custom-scrollbar pb-2.5 pt-1 px-0.5">
               <button
                 onClick={() => setFilterYpsOnly(false)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                   !filterYpsOnly
                     ? 'bg-[#725c00] text-white shadow-sm'
                     : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'
@@ -127,10 +113,10 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
 
               <button
                 onClick={() => setFilterYpsOnly(true)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 whitespace-nowrap transition-all cursor-pointer ${
                   filterYpsOnly
-                    ? 'bg-[#ffd200] text-[#1a1c1e] border border-[#e5bc00] shadow-sm'
-                    : 'bg-[#fff9e6] text-[#725c00] border border-[#ffe07c] hover:bg-[#ffe07c]/50'
+                    ? 'bg-[#725c00] text-white shadow-sm'
+                    : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50'
                 }`}
               >
                 <CreditCard className="w-3.5 h-3.5" />
@@ -152,7 +138,7 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 overflow-y-auto p-4 bg-[#f9f9fc] space-y-3">
+      <div className="flex-1 overflow-y-auto custom-scrollbar p-4 sm:p-5 pb-24 sm:pb-28 bg-[#f9f9fc] space-y-4">
         {selectedBusNumber ? (
           /* Route Detail View */
           isLoadingRoute ? (
@@ -164,48 +150,76 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
             </div>
           ) : routeDetail ? (
             <div className="space-y-4">
-              {/* Bus Line Title Banner */}
-              <div className="p-4 bg-white border border-[#e2e2e5] rounded-2xl shadow-sm">
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="text-base font-extrabold text-[#1a1c1e] bg-[#ffd200] px-3.5 py-1 rounded-xl border border-[#e5bc00]">
-                    YBS {routeDetail.busNumber}
-                  </span>
-                  {routeDetail.isYpsSupported && (
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#725c00] bg-[#fff9e6] px-2.5 py-1 rounded-full border border-[#ffe07c]">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#725c00]" />
-                      {t('ypsCardAccepted')}
-                    </span>
-                  )}
+              {/* Reusable Bus Card at Top of Detail View */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#e2e2e5] shadow-sm shadow-slate-900/5 transition-all duration-200 outline-none">
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    {routeDetail.isYpsSupported ? (
+                      <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-600 border border-gray-200/80 whitespace-nowrap shrink-0 flex items-center gap-1">
+                        <CreditCard className="w-3 h-3 text-gray-500" />
+                        <span>{t('ypsCardAccepted')}</span>
+                      </span>
+                    ) : (
+                      <span className="text-[10px] font-medium px-2.5 py-0.5 rounded-full bg-gray-50 text-gray-500 border border-gray-200/60 whitespace-nowrap shrink-0 flex items-center gap-1">
+                        <X className="w-3 h-3 text-gray-400" />
+                        <span>{language === 'my' ? 'YPS Card မရရှိပါ' : 'YPS Card Unavailable'}</span>
+                      </span>
+                    )}
+                  </div>
                 </div>
 
-                {/* Route Direction Selector Tabs */}
-                <div className="flex gap-2 mt-3 pt-3 border-t border-[#f3f3f6]">
+                {/* Title with Clean Inline Bus Icon */}
+                <div className="flex items-center gap-2 mb-2">
+                  <Bus className="w-5 h-5 text-[#725c00] shrink-0" />
+                  <h3 className="font-extrabold text-base text-gray-700 truncate leading-snug">
+                    YBS {routeDetail.busNumber}
+                  </h3>
+                </div>
+
+                {routeDetail.outboundTitle && (
+                  <p className="text-xs text-gray-700 font-medium leading-relaxed mb-3.5 flex items-start gap-1.5 pl-0.5">
+                    <MapPin className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
+                    <span className="truncate">
+                      {activeRouteTab === 'outbound'
+                        ? routeDetail.outboundTitle || t('outboundRoute')
+                        : routeDetail.returnTitle || t('returnRoute')}
+                    </span>
+                  </p>
+                )}
+
+                {/* Dual Route Action Buttons as Reusable Tab Toggles */}
+                <div className="pt-3 border-t border-[#f3f3f6] flex items-center gap-2">
                   <button
                     onClick={() => setActiveRouteTab('outbound')}
-                    className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    className={`flex-1 h-9 text-[11px] font-bold rounded-xl flex items-center justify-center text-center whitespace-nowrap px-2 transition-all cursor-pointer ${
                       activeRouteTab === 'outbound'
-                        ? 'bg-[#725c00] text-white shadow-sm'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-[#725c00] text-white shadow-sm shadow-amber-950/30 hover:shadow-md hover:shadow-amber-950/40'
+                        : 'bg-white text-gray-700 border border-gray-200 shadow-sm shadow-slate-900/10 hover:bg-gray-50 hover:shadow-md'
                     }`}
                   >
-                    {t('outboundRoute')} ({routeDetail.outboundStops.length})
+                    <span className="inline-flex items-center justify-center leading-normal -translate-y-0.5">
+                      {language === 'my' ? `အသွား (${routeDetail.outboundStops.length})` : `Outbound (${routeDetail.outboundStops.length})`}
+                    </span>
                   </button>
+
                   <button
                     onClick={() => setActiveRouteTab('return')}
-                    className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    className={`flex-1 h-9 text-[11px] font-bold rounded-xl flex items-center justify-center text-center whitespace-nowrap px-2 transition-all cursor-pointer ${
                       activeRouteTab === 'return'
-                        ? 'bg-[#725c00] text-white shadow-sm'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-[#725c00] text-white shadow-sm shadow-amber-950/30 hover:shadow-md hover:shadow-amber-950/40'
+                        : 'bg-white text-gray-700 border border-gray-200 shadow-sm shadow-slate-900/10 hover:bg-gray-50 hover:shadow-md'
                     }`}
                   >
-                    {t('returnRoute')} ({routeDetail.returnStops.length})
+                    <span className="inline-flex items-center justify-center leading-normal -translate-y-0.5">
+                      {language === 'my' ? `အပြန် (${routeDetail.returnStops.length})` : `Return (${routeDetail.returnStops.length})`}
+                    </span>
                   </button>
                 </div>
               </div>
 
-              {/* Stops List without # symbol */}
-              <div className="bg-white border border-[#e2e2e5] rounded-2xl p-4 shadow-sm">
-                <h4 className="text-xs font-bold text-gray-600 mb-3 uppercase tracking-wider flex items-center gap-1.5">
+              {/* Stops Timeline List with Perfectly Centered Line & Circle Dots */}
+              <div className="bg-white border border-[#e2e2e5] rounded-2xl p-4 sm:p-5 shadow-sm shadow-slate-900/5">
+                <h4 className="text-xs font-bold text-gray-600 mb-4 uppercase tracking-wider flex items-center gap-1.5">
                   <ArrowLeftRight className="w-4 h-4 text-[#725c00]" />
                   <span>
                     {activeRouteTab === 'outbound'
@@ -214,21 +228,21 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
                   </span>
                 </h4>
 
-                <div className="relative pl-6 space-y-4 before:absolute before:left-2.5 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#ffe07c]">
+                <div className="relative pl-7 space-y-4 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-0.5 before:bg-[#ffe07c]">
                   {(activeRouteTab === 'outbound' ? routeDetail.outboundStops : routeDetail.returnStops).map(
                     (stop, idx) => {
                       const orderNum = stop.stopOrder || stop.sequenceOrder || (idx + 1);
                       return (
-                        <div key={idx} className="relative flex items-start justify-between gap-2">
-                          <div className="absolute -left-[23px] top-1 w-3.5 h-3.5 rounded-full bg-white border-2 border-[#725c00] shadow-xs" />
-                          <div>
-                            <p className="text-xs font-bold text-[#1a1c1e]">{stop.stopName || `Stop ${orderNum}`}</p>
+                        <div key={idx} className="relative flex items-center justify-between gap-3 min-h-[32px]">
+                          <div className="absolute -left-[23px] top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-[#725c00] shadow-2xs z-10" />
+                          <div className="flex-1 pr-2">
+                            <p className="text-xs font-bold text-[#1a1c1e] leading-tight">{stop.stopName || `Stop ${orderNum}`}</p>
                             {stop.roadTownship && (
-                              <p className="text-[11px] text-gray-500 font-medium">{stop.roadTownship}</p>
+                              <p className="text-[11px] text-gray-500 font-medium leading-tight mt-0.5">{stop.roadTownship}</p>
                             )}
                           </div>
-                          {/* Clean stop order number without # sign */}
-                          <span className="text-[10px] font-mono-meta bg-[#fff9e6] text-[#725c00] px-2 py-0.5 rounded-md border border-[#ffe07c] font-bold">
+                          {/* Clean stop order number badge */}
+                          <span className="text-[10px] font-mono-meta bg-[#fff9e6] text-[#725c00] px-2 py-0.5 rounded-md border border-[#ffe07c] font-bold whitespace-nowrap shrink-0">
                             {orderNum}
                           </span>
                         </div>
@@ -263,34 +277,57 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
             <div
               key={bus.busNumber}
               onClick={() => handleSelectBusLine(bus.busNumber)}
-              className="p-4 rounded-xl border border-[#e2e2e5] bg-white hover:border-[#ffd200] hover:shadow-md transition-all cursor-pointer group"
+              className="p-4 sm:p-5 rounded-2xl bg-white border border-[#e2e2e5] hover:border-gray-300 shadow-sm shadow-slate-900/5 hover:shadow-md hover:shadow-slate-900/10 transition-all duration-200 cursor-pointer outline-none group"
             >
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-extrabold text-[#1a1c1e] bg-[#ffd200] px-3 py-1 rounded-lg border border-[#e5bc00]">
-                    YBS {bus.busNumber}
-                  </span>
-                  {bus.isYpsSupported && (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-[#725c00] bg-[#fff9e6] px-2 py-0.5 rounded-md border border-[#ffe07c]">
-                      <CreditCard className="w-3 h-3 text-[#725c00]" />
-                      {t('ypsCardAccepted')}
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  {/* YPS Supported Badge - Soft Gray Pill */}
+                  {bus.isYpsSupported ? (
+                    <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-600 border border-gray-200/80 whitespace-nowrap shrink-0 flex items-center gap-1">
+                      <CreditCard className="w-3 h-3 text-gray-500" />
+                      <span>{t('ypsCardAccepted')}</span>
+                    </span>
+                  ) : (
+                    <span className="text-[10px] font-medium px-2.5 py-0.5 rounded-full bg-gray-50 text-gray-500 border border-gray-200/60 whitespace-nowrap shrink-0 flex items-center gap-1">
+                      <X className="w-3 h-3 text-gray-400" />
+                      <span>{language === 'my' ? 'YPS Card မရရှိပါ' : 'YPS Card Unavailable'}</span>
                     </span>
                   )}
                 </div>
 
-                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#725c00] transition-colors" />
+                <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#725c00] transition-colors shrink-0" />
+              </div>
+
+              {/* Title with Clean Inline Bus Icon (No Sub-Container Box Model) */}
+              <div className="flex items-center gap-2 mb-2">
+                <Bus className="w-5 h-5 text-[#725c00] shrink-0" />
+                <h3 className="font-extrabold text-base text-gray-700 truncate leading-snug">
+                  YBS {bus.busNumber}
+                </h3>
               </div>
 
               {bus.outboundTitle && (
-                <p className="text-xs text-gray-700 font-medium leading-relaxed flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-gray-400 shrink-0" />
+                <p className="text-xs text-gray-700 font-medium leading-relaxed mb-3.5 flex items-start gap-1.5 pl-0.5">
+                  <MapPin className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
                   <span className="truncate">{bus.outboundTitle}</span>
                 </p>
               )}
 
-              <div className="mt-2.5 pt-2 border-t border-[#f3f3f6] flex items-center justify-between text-[11px] font-mono-meta text-gray-500">
-                <span>{t('outboundRoute')}: {bus.outboundTotalStops} stops</span>
-                <span>{t('returnRoute')}: {bus.returnTotalStops} stops</span>
+              {/* Dual Route Buttons Side-by-Side with Compact Labels */}
+              <div className="pt-3 border-t border-[#f3f3f6] flex items-center gap-2">
+                {/* Outbound Route Button */}
+                <span className="flex-1 h-9 bg-[#725c00] text-white shadow-sm shadow-amber-950/30 hover:shadow-md hover:shadow-amber-950/40 text-[11px] font-bold rounded-xl flex items-center justify-center text-center whitespace-nowrap px-2 transition-all">
+                  <span className="inline-flex items-center justify-center leading-normal -translate-y-0.5">
+                    {language === 'my' ? `အသွား (${bus.outboundTotalStops})` : `Outbound (${bus.outboundTotalStops})`}
+                  </span>
+                </span>
+
+                {/* Return Route Button */}
+                <span className="flex-1 h-9 bg-white text-gray-700 border border-gray-200 shadow-sm shadow-slate-900/10 hover:shadow-md hover:shadow-slate-900/15 text-[11px] font-bold rounded-xl flex items-center justify-center text-center whitespace-nowrap px-2 transition-all">
+                  <span className="inline-flex items-center justify-center leading-normal -translate-y-0.5">
+                    {language === 'my' ? `အပြန် (${bus.returnTotalStops})` : `Return (${bus.returnTotalStops})`}
+                  </span>
+                </span>
               </div>
             </div>
           ))
