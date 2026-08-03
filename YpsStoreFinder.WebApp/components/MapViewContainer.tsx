@@ -18,6 +18,7 @@ interface MapViewContainerProps {
   onCloseDirection?: () => void;
   onRequestEnableGps?: () => void;
   activeDirectionStoreId?: number | null;
+  mobileTab?: 'map' | 'list';
 }
 
 // Yangon Region Geographic Bounding Box Limits
@@ -93,16 +94,32 @@ function MapRecenter({
   zoom,
   selectedStoreId,
   hasRealLocation,
+  mobileTab,
 }: {
   center: [number, number];
   zoom?: number;
   selectedStoreId: number | null;
   hasRealLocation: boolean;
+  mobileTab?: 'map' | 'list';
 }) {
   const map = useMap();
   const prevStoreIdRef = useRef<number | null>(null);
   const prevGpsStateRef = useRef<boolean>(false);
   const prevCenterRef = useRef<[number, number]>(center);
+
+  useEffect(() => {
+    const handleResize = () => {
+      map.invalidateSize();
+    };
+    window.addEventListener('resize', handleResize);
+    const t1 = setTimeout(() => map.invalidateSize(), 50);
+    const t2 = setTimeout(() => map.invalidateSize(), 250);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [map, mobileTab]);
 
   useEffect(() => {
     const isStoreChanged = selectedStoreId !== prevStoreIdRef.current;
@@ -135,6 +152,7 @@ export default function MapViewContainer({
   onCloseDirection,
   onRequestEnableGps,
   activeDirectionStoreId,
+  mobileTab,
 }: MapViewContainerProps) {
   const { t, tCategory, tAddress, language } = useLanguage();
 
@@ -202,7 +220,7 @@ export default function MapViewContainer({
   }, [selectedStore, userLocation.latitude, userLocation.longitude]);
 
   return (
-    <div className="relative w-full h-full min-h-[500px]">
+    <div className="flex-1 min-h-0 flex flex-col w-full relative">
       {/* In-App Route Information Header Overlay */}
       {selectedStore && (
         <div className="absolute top-4 left-4 right-4 sm:left-6 sm:right-auto z-[600] bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-xl border border-[#ffe07c] max-w-sm flex items-center justify-between gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
@@ -257,7 +275,8 @@ export default function MapViewContainer({
         maxBounds={YANGON_BOUNDS}
         maxBoundsViscosity={1.0}
         scrollWheelZoom={true}
-        className="w-full h-full rounded-2xl overflow-hidden shadow-inner z-10"
+        style={{ flex: '1 1 0%', width: '100%' }}
+        className="w-full h-full rounded-none overflow-hidden z-10"
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -269,6 +288,7 @@ export default function MapViewContainer({
           zoom={targetZoom}
           selectedStoreId={activeStoreId}
           hasRealLocation={userLocation.hasRealLocation}
+          mobileTab={mobileTab}
         />
 
         {/* In-App Route Line directly on Leaflet Map */}
