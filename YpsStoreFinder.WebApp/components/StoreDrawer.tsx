@@ -60,33 +60,49 @@ export default function StoreDrawer({
   // Sidebar Tab Switcher State ('stores' | 'buses')
   const [activeSidebarTab, setActiveSidebarTab] = useState<'stores' | 'buses'>('stores');
 
-  // Nearby Bus Lines State per Store
+  // Expandable Bus Stops & Per-Stop Selection State per Store
+  const [expandedStoreStops, setExpandedStoreStops] = useState<Record<number, boolean>>({});
   const [expandedStoreBusInfo, setExpandedStoreBusInfo] = useState<Record<number, StoreNearbyBusStopsDto | null>>({});
   const [loadingBusInfo, setLoadingBusInfo] = useState<Record<number, boolean>>({});
+  const [selectedStopPerStore, setSelectedStopPerStore] = useState<Record<number, string | null>>({});
+  const [showLinesPerStore, setShowLinesPerStore] = useState<Record<number, boolean>>({});
 
-  const handleToggleBusLines = async (e: React.MouseEvent, store: StoreDto) => {
+  const handleToggleStops = async (e: React.MouseEvent, storeId: number) => {
     e.stopPropagation();
+    const willBeOpen = !expandedStoreStops[storeId];
+    setExpandedStoreStops((prev) => ({ ...prev, [storeId]: willBeOpen }));
 
-    if (expandedStoreBusInfo[store.id]) {
-      setExpandedStoreBusInfo((prev) => {
-        const copy = { ...prev };
-        delete copy[store.id];
-        return copy;
-      });
-      return;
-    }
-
-    setLoadingBusInfo((prev) => ({ ...prev, [store.id]: true }));
-    try {
-      const res = await fetchNearbyBusStopsForStore(store.id);
-      if (res.isSuccess && res.data) {
-        setExpandedStoreBusInfo((prev) => ({ ...prev, [store.id]: res.data }));
+    if (willBeOpen && !expandedStoreBusInfo[storeId] && !loadingBusInfo[storeId]) {
+      setLoadingBusInfo((prev) => ({ ...prev, [storeId]: true }));
+      try {
+        const res = await fetchNearbyBusStopsForStore(storeId);
+        if (res.isSuccess && res.data) {
+          const data = res.data;
+          setExpandedStoreBusInfo((prev) => ({ ...prev, [storeId]: data }));
+          if (data.nearbyBusStops && data.nearbyBusStops.length > 0) {
+            setSelectedStopPerStore((p) => ({ ...p, [storeId]: data.nearbyBusStops[0].stopName }));
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching nearby bus stops:', err);
+      } finally {
+        setLoadingBusInfo((prev) => ({ ...prev, [storeId]: false }));
       }
-    } catch (err) {
-      console.error('Error fetching nearby bus stops:', err);
-    } finally {
-      setLoadingBusInfo((prev) => ({ ...prev, [store.id]: false }));
     }
+  };
+
+  const handleSelectStop = (e: React.MouseEvent, storeId: number, stopName: string) => {
+    e.stopPropagation();
+    setSelectedStopPerStore((prev) => ({
+      ...prev,
+      [storeId]: prev[storeId] === stopName ? null : stopName,
+    }));
+    setShowLinesPerStore((prev) => ({ ...prev, [storeId]: false }));
+  };
+
+  const handleToggleShowLines = (e: React.MouseEvent, storeId: number) => {
+    e.stopPropagation();
+    setShowLinesPerStore((prev) => ({ ...prev, [storeId]: !prev[storeId] }));
   };
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
@@ -265,6 +281,7 @@ export default function StoreDrawer({
             ) : (
               stores.map((store) => {
                 const isSelected = store.id === selectedStoreId;
+                const isStopsExpanded = !!expandedStoreStops[store.id];
                 const busData = expandedStoreBusInfo[store.id];
                 const isBusLoading = loadingBusInfo[store.id];
 
@@ -324,28 +341,9 @@ export default function StoreDrawer({
                       </p>
                     )}
 
-                    {store.nearestBusStops && store.nearestBusStops.length > 0 && (
-                      <div className="mb-3.5 pl-0.5">
-                        <p className="text-[11px] font-bold text-gray-500 mb-1.5 flex items-center gap-1.5">
-                          <Bus className="w-3.5 h-3.5 text-[#725c00]" />
-                          <span>{t('nearestBusStops')}</span>
-                        </p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {store.nearestBusStops.map((stop, idx) => (
-                            <span
-                              key={idx}
-                              className="inline-flex items-center text-[11px] font-semibold px-2.5 py-0.5 rounded-lg bg-[#fff9e6] text-[#725c00] border border-[#ffe07c]/80 shadow-xs"
-                            >
-                              {stop.mm || stop.en}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
                     {/* Action Buttons Container */}
                     <div className="flex items-center gap-2 pt-3.5 border-t border-[#f3f3f6]">
-                      {/* Button 1: Show Direction (လမ်းကြောင်း) */}
+                      {/* Button 1: Show Direction (လမ်းကြောင်းကြည့်ရန်) */}
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
@@ -358,73 +356,131 @@ export default function StoreDrawer({
                         <span className="whitespace-nowrap">{t('showDirection')}</span>
                       </button>
 
-                      {/* Button 2: Show Bus Lines (ကားလိုင်းများ) */}
+                      {/* Button 2: Show Bus Stops (အနီးရှိမှတ်တိုင်များ) */}
                       <button
-                        onClick={(e) => handleToggleBusLines(e, store)}
+                        onClick={(e) => handleToggleStops(e, store.id)}
                         className={`flex-1 h-9 px-2.5 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all border outline-none active:scale-[0.98] cursor-pointer whitespace-nowrap ${
-                          busData
+                          isStopsExpanded
                             ? 'bg-[#fff9e6] text-[#725c00] border-[#ffe07c] shadow-sm shadow-[#ffe07c]/50'
                             : 'bg-white hover:bg-gray-50 text-gray-700 border-gray-200 shadow-sm shadow-gray-200/60 hover:shadow-md hover:shadow-gray-200/80'
                         }`}
-                        title={t('showBusLines')}
+                        title={t('showBusStops')}
                       >
-                        <Bus className="w-4 h-4 shrink-0" />
-                        <span className="whitespace-nowrap">{t('showBusLines')}</span>
+                        <Bus className="w-4 h-4 shrink-0 text-[#725c00]" />
+                        <span className="whitespace-nowrap">{t('showBusStops')}</span>
                       </button>
                     </div>
 
-                    {/* Nearby Bus Lines Expandable View */}
-                    {isBusLoading && (
-                      <div className="mt-3 p-3 bg-[#fff9e6] rounded-xl flex items-center justify-center gap-2 text-xs font-semibold text-[#725c00]">
-                        <RefreshCw className="w-4 h-4 animate-spin text-[#725c00]" />
-                        <span>ယာဉ်လိုင်းများ ရှာဖွေနေသည်...</span>
-                      </div>
-                    )}
+                    {/* Expandable Nearby Bus Stops Container */}
+                    {isStopsExpanded && (
+                      <div className="mt-3 p-3 bg-[#fff9e6]/70 border border-[#ffe07c] rounded-2xl text-xs space-y-3 animate-in fade-in duration-200">
+                        {isBusLoading ? (
+                          <div className="p-3 flex items-center justify-center gap-2 text-xs font-semibold text-[#725c00]">
+                            <RefreshCw className="w-4 h-4 animate-spin text-[#725c00]" />
+                            <span>မှတ်တိုင်များ ရှာဖွေနေသည်...</span>
+                          </div>
+                        ) : busData ? (
+                          <>
+                            <h4 className="font-bold text-[#725c00] text-[11px] uppercase tracking-wider flex items-center justify-between px-0.5">
+                              <span>{t('nearestBusStops')}</span>
+                              <span className="text-[10px] font-mono-meta bg-white px-2 py-0.5 rounded-full border border-[#ffe07c] font-bold text-[#725c00]">
+                                {toMmNum(busData.nearbyBusStops.length)} မှတ်တိုင်
+                              </span>
+                            </h4>
 
-                    {busData && !isBusLoading && (
-                      <div className="mt-3 p-3 bg-[#fff9e6]/70 border border-[#ffe07c] rounded-xl text-xs space-y-2.5 animate-in fade-in duration-200">
-                        <h4 className="font-bold text-[#725c00] text-[11px] uppercase tracking-wider flex items-center justify-between">
-                          <span>{t('nearestBusStops')}</span>
-                          <span className="text-[10px] font-mono-meta bg-white px-1.5 py-0.2 rounded border border-[#ffe07c] font-bold">
-                            {toMmNum(busData.nearbyBusStops.length)} မှတ်တိုင်
-                          </span>
-                        </h4>
+                            {busData.nearbyBusStops.length === 0 ? (
+                              <p className="text-[11px] text-gray-600 italic px-0.5">
+                                အနီးတွင် တိုက်ရိုက် ကားမှတ်တိုင် မတွေ့ရှိပါ
+                              </p>
+                            ) : (
+                              <>
+                                {/* Interactive Bus Stop Selection Cards */}
+                                <div className="space-y-2.5">
+                                  {busData.nearbyBusStops.map((stop, sIdx) => {
+                                    const isSelected = selectedStopPerStore[store.id] === stop.stopName;
+                                    const showLines = isSelected && showLinesPerStore[store.id];
 
-                        {busData.nearbyBusStops.length === 0 ? (
+                                    const displayBusNumbers = Array.from(new Set(
+                                      stop.ypsSupportedBusNumbers && stop.ypsSupportedBusNumbers.length > 0
+                                        ? stop.ypsSupportedBusNumbers
+                                        : stop.servicingBusNumbers
+                                    ));
+
+                                    return (
+                                      <div key={`stop-${stop.stopName}-${sIdx}`} className="space-y-2">
+                                        <button
+                                          onClick={(e) => handleSelectStop(e, store.id, stop.stopName)}
+                                          className={`w-full p-3 rounded-xl border text-left transition-all duration-200 cursor-pointer outline-none ${
+                                            isSelected
+                                              ? 'bg-[#fffdf0] border-[#725c00] ring-2 ring-[#ffd200]/50 shadow-sm'
+                                              : 'bg-white hover:bg-gray-50/80 border-[#ffe07c]/90 text-[#1a1c1e] shadow-2xs'
+                                          }`}
+                                        >
+                                          <div className="flex items-center justify-between font-bold text-xs text-[#1a1c1e]">
+                                            <div className="flex items-center gap-2">
+                                              <MapPin className={`w-3.5 h-3.5 shrink-0 ${isSelected ? 'text-[#725c00]' : 'text-gray-400'}`} />
+                                              <span className="text-xs font-bold">{stop.stopName}</span>
+                                            </div>
+                                            {stop.roadTownship && (
+                                              <span className="text-[10px] text-gray-500 font-medium ml-2 shrink-0">{stop.roadTownship}</span>
+                                            )}
+                                          </div>
+                                        </button>
+
+                                        {/* Display under THIS selected Bus Stop card */}
+                                        {isSelected && (
+                                          <div className="pt-0.5 space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                                            <button
+                                              onClick={(e) => handleToggleShowLines(e, store.id)}
+                                              className={`w-full py-2.5 px-3 text-xs font-bold rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer outline-none active:scale-[0.98] ${
+                                                showLines
+                                                  ? 'bg-[#725c00] text-white shadow-sm shadow-amber-950/20'
+                                                  : 'bg-[#ffd200] hover:bg-[#e5bc00] text-[#1a1c1e] shadow-sm shadow-amber-500/20 border border-[#e5bc00]'
+                                              }`}
+                                            >
+                                              <Bus className="w-4 h-4 shrink-0" />
+                                              <span>{t('showBusLines')}</span>
+                                            </button>
+
+                                            {/* Dedicated YBS Bus Lines Display */}
+                                            {showLines && (
+                                              <div className="p-3 bg-white border border-[#ffe07c] rounded-xl shadow-xs space-y-2.5 animate-in fade-in slide-in-from-top-1 duration-200">
+                                                <div className="flex items-center justify-between gap-2 border-b border-gray-100 pb-2">
+                                                  <h5 className="font-bold text-[#725c00] text-[11px] truncate flex items-center gap-1.5">
+                                                    <span>{stop.stopName}</span>
+                                                    <span className="text-gray-400 font-normal">သို့ ရောက်ရှိနိုင်သော ယာဉ်လိုင်းများ</span>
+                                                  </h5>
+                                                  <span className="text-[10px] font-mono-meta bg-[#ffd200] text-[#1a1c1e] px-2 py-0.5 rounded-full font-extrabold border border-[#e5bc00] shrink-0">
+                                                    {toMmNum(displayBusNumbers.length)} ယာဉ်လိုင်း
+                                                  </span>
+                                                </div>
+
+                                                <div className="flex flex-wrap gap-1.5 pt-0.5">
+                                                  {displayBusNumbers.map((busNum, bIdx) => (
+                                                    <span
+                                                      key={`bus-${busNum}-${bIdx}`}
+                                                      className="text-xs font-mono-meta font-extrabold px-2.5 py-1 rounded-lg flex items-center gap-1 bg-[#ffd200] text-[#1a1c1e] border border-[#e5bc00] shadow-2xs"
+                                                    >
+                                                      {toMmNum(busNum)}
+                                                      <CheckCircle2 className="w-3 h-3 text-[#725c00] inline" />
+                                                    </span>
+                                                  ))}
+                                                </div>
+                                              </div>
+                                            )}
+                                          </div>
+                                        )}
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </>
+                            )}
+                          </>
+                        ) : (
                           <p className="text-[11px] text-gray-600 italic">
                             အနီးတွင် တိုက်ရိုက် ကားမှတ်တိုင် မတွေ့ရှိပါ
                           </p>
-                        ) : (
-                          busData.nearbyBusStops.map((stop, sIdx) => (
-                            <div key={sIdx} className="p-2.5 bg-white border border-[#ffe07c] rounded-lg shadow-2xs">
-                              <div className="flex items-center justify-between font-bold text-[#1a1c1e] text-xs">
-                                <span>{stop.stopName}</span>
-                                {stop.roadTownship && (
-                                  <span className="text-[10px] text-gray-500 font-medium">{stop.roadTownship}</span>
-                                )}
-                              </div>
-
-                              <div className="mt-1.5 flex flex-wrap gap-1 items-center">
-                                <span className="text-[10px] text-gray-500 font-semibold">{t('servicingLines')}:</span>
-                                {stop.servicingBusNumbers.map((busNum) => {
-                                  const isYps = stop.ypsSupportedBusNumbers.includes(busNum);
-                                  return (
-                                    <span
-                                      key={busNum}
-                                      className={`text-[10px] font-mono-meta font-extrabold px-1.5 py-0.2 rounded flex items-center gap-0.5 ${
-                                        isYps
-                                          ? 'bg-[#ffd200] text-[#1a1c1e] border border-[#e5bc00]'
-                                          : 'bg-gray-100 text-gray-700'
-                                      }`}
-                                    >
-                                      YBS {toMmNum(busNum)}
-                                      {isYps && <CheckCircle2 className="w-2.5 h-2.5 text-[#725c00] inline" />}
-                                    </span>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          ))
                         )}
                       </div>
                     )}

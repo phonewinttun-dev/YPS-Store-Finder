@@ -164,16 +164,30 @@ export default function MapViewContainer({
     };
   }, []);
 
-  // Resize map when window resizes or mobileTab changes
+  // Resize map when window resizes, container changes size, or mobileTab changes
   useEffect(() => {
-    if (!mapRef.current) return;
+    if (!mapRef.current || !containerRef.current) return;
     const map = mapRef.current;
+    const container = containerRef.current;
+
     const handleResize = () => map.invalidateSize();
     window.addEventListener('resize', handleResize);
+
+    const resizeObserver = new ResizeObserver(() => {
+      map.invalidateSize();
+    });
+    resizeObserver.observe(container);
+
+    const rafId = requestAnimationFrame(() => {
+      map.invalidateSize();
+    });
     const t1 = setTimeout(() => map.invalidateSize(), 50);
     const t2 = setTimeout(() => map.invalidateSize(), 250);
+
     return () => {
       window.removeEventListener('resize', handleResize);
+      resizeObserver.disconnect();
+      cancelAnimationFrame(rafId);
       clearTimeout(t1);
       clearTimeout(t2);
     };

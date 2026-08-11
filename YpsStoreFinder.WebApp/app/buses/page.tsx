@@ -180,10 +180,10 @@ export default function BusesPage() {
           </div>
         ) : (
           <>
-            {displayedBusLines.map((bus) => (
+            {displayedBusLines.map((bus, idx) => (
               <Link
                 href={`/buses/${encodeURIComponent(bus.busNumber)}`}
-                key={bus.busNumber}
+                key={bus.routeId ? `${bus.busNumber}-${bus.routeId}-${idx}` : `${bus.busNumber}-${idx}`}
                 className="block p-4 sm:p-5 rounded-2xl bg-white border border-[#e2e2e5] hover:border-[#ffe07c] shadow-sm hover:shadow-md transition-all duration-200 group"
               >
                 <div className="flex items-center justify-between gap-2 mb-3">
@@ -226,13 +226,13 @@ export default function BusesPage() {
                 <div className="pt-3 border-t border-[#f3f3f6] flex items-center gap-3">
                   <span className="flex-1 h-10 bg-[#725c00] text-white shadow-md text-xs font-bold rounded-xl flex items-center justify-center text-center whitespace-nowrap px-2 transition-all">
                     <span className="inline-flex items-center justify-center gap-1">
-                      အသွား <span className="font-mono-meta px-1.5 py-0.5 bg-white/20 rounded-md">({toMmNum(bus.outboundTotalStops)})</span>
+                      {t('outbound')}
                     </span>
                   </span>
 
                   <span className="flex-1 h-10 bg-white text-gray-700 border border-gray-200 shadow-sm text-xs font-bold rounded-xl flex items-center justify-center text-center whitespace-nowrap px-2 transition-all">
                     <span className="inline-flex items-center justify-center gap-1">
-                      အပြန် <span className="font-mono-meta px-1.5 py-0.5 bg-gray-100 rounded-md">({toMmNum(bus.returnTotalStops)})</span>
+                      {t('return')}
                     </span>
                   </span>
                 </div>

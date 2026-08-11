@@ -174,11 +174,11 @@ export default function StoreDetailPage({ params }: { params: Promise<{ id: stri
 
                   {stop.servicingBusNumbers && stop.servicingBusNumbers.length > 0 && (
                     <div className="pt-2 border-t border-gray-50 flex flex-wrap gap-1.5">
-                      {stop.servicingBusNumbers.map(busNum => {
+                      {Array.from(new Set(stop.servicingBusNumbers)).map((busNum, bIdx) => {
                         const isYps = stop.ypsSupportedBusNumbers?.includes(busNum);
                         return (
                           <Link
-                            key={busNum}
+                            key={`${busNum}-${bIdx}`}
                             href={`/buses/${encodeURIComponent(busNum)}`}
                             className={`text-[10px] font-bold px-2 py-0.5 rounded-full transition-colors ${
                               isYps 

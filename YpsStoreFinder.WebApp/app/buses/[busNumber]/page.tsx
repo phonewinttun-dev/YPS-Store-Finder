@@ -106,7 +106,7 @@ export default function BusDetailPage({ params }: { params: Promise<{ busNumber:
                   }`}
                 >
                   <span className="inline-flex items-center justify-center leading-normal -translate-y-0.5">
-                    အသွား ({toMmNum(routeDetail.outboundStops.length)})
+                    {t('outbound')}
                   </span>
                 </button>
 
@@ -119,7 +119,7 @@ export default function BusDetailPage({ params }: { params: Promise<{ busNumber:
                   }`}
                 >
                   <span className="inline-flex items-center justify-center leading-normal -translate-y-0.5">
-                    အပြန် ({toMmNum(routeDetail.returnStops.length)})
+                    {t('return')}
                   </span>
                 </button>
               </div>

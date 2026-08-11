@@ -309,7 +309,7 @@ export default function HomePage() {
             }`}
           >
             <Compass className={`w-3.5 h-3.5 shrink-0 ${locationState.isTracking ? 'animate-spin' : ''}`} />
-            <span className="leading-none">{locationState.isTracking ? 'GPS' : 'ရှာမည်'}</span>
+            <span className="leading-none">{locationState.isTracking ? 'GPS' : 'လက်ရှိတည်နေရာ'}</span>
           </button>
         </div>
       </div>

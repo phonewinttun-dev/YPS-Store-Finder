@@ -180,7 +180,7 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
                     }`}
                   >
                     <span className="inline-flex items-center justify-center leading-normal -translate-y-0.5">
-                      အသွား ({toMmNum(routeDetail.outboundStops.length)})
+                      {t('outbound')}
                     </span>
                   </button>
 
@@ -193,7 +193,7 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
                     }`}
                   >
                     <span className="inline-flex items-center justify-center leading-normal -translate-y-0.5">
-                      အပြန် ({toMmNum(routeDetail.returnStops.length)})
+                      {t('return')}
                     </span>
                   </button>
                 </div>
@@ -300,14 +300,14 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
                 {/* Outbound Route Button */}
                 <span className="flex-1 h-9 bg-[#725c00] text-white shadow-sm shadow-amber-950/30 hover:shadow-md hover:shadow-amber-950/40 text-[11px] font-bold rounded-xl flex items-center justify-center text-center whitespace-nowrap px-2 transition-all">
                   <span className="inline-flex items-center justify-center leading-normal -translate-y-0.5">
-                    အသွား ({toMmNum(bus.outboundTotalStops)})
+                    {t('outbound')}
                   </span>
                 </span>
 
                 {/* Return Route Button */}
                 <span className="flex-1 h-9 bg-white text-gray-700 border border-gray-200 shadow-sm shadow-slate-900/10 hover:shadow-md hover:shadow-slate-900/15 text-[11px] font-bold rounded-xl flex items-center justify-center text-center whitespace-nowrap px-2 transition-all">
                   <span className="inline-flex items-center justify-center leading-normal -translate-y-0.5">
-                    အပြန် ({toMmNum(bus.returnTotalStops)})
+                    {t('return')}
                   </span>
                 </span>
               </div>
