@@ -1,0 +1,302 @@
+[
+  {
+    "TownshipId": 1,
+    "TownshipNameMm": "အင်းစိန်",
+    "TownshipNameEn": "Insein",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 2,
+    "TownshipNameMm": "မင်္ဂလာဒုံ",
+    "TownshipNameEn": "Mingaladon",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 3,
+    "TownshipNameMm": "မြောက်ဥက္ကလာပ",
+    "TownshipNameEn": "North Okkalapa",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 4,
+    "TownshipNameMm": "ကမာရွတ်",
+    "TownshipNameEn": "Kamayut",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 5,
+    "TownshipNameMm": "လှိုင်",
+    "TownshipNameEn": "Hlaing",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 6,
+    "TownshipNameMm": "မရမ်းကုန်း",
+    "TownshipNameEn": "Mayangone",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 7,
+    "TownshipNameMm": "သင်္ဃန်းကျွန်း",
+    "TownshipNameEn": "Thingangyun",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 8,
+    "TownshipNameMm": "ရန်ကင်း",
+    "TownshipNameEn": "Yankin",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 9,
+    "TownshipNameMm": "တောင်ဥက္ကလာပ",
+    "TownshipNameEn": "South Okkalapa",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 10,
+    "TownshipNameMm": "ကြည့်မြင်တိုင်",
+    "TownshipNameEn": "Kyeemyindaing",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 11,
+    "TownshipNameMm": "စမ်းချောင်း",
+    "TownshipNameEn": "Sanchaung",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 12,
+    "TownshipNameMm": "အလုံ",
+    "TownshipNameEn": "Ahlone",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 13,
+    "TownshipNameMm": "လမ်းမတော်",
+    "TownshipNameEn": "Lanmadaw",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 14,
+    "TownshipNameMm": "ပန်းဘဲတန်း",
+    "TownshipNameEn": "Pabedan",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 15,
+    "TownshipNameMm": "လသာ",
+    "TownshipNameEn": "Latha",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 16,
+    "TownshipNameMm": "ဗိုလ်တထောင်",
+    "TownshipNameEn": "Botahtaung",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 17,
+    "TownshipNameMm": "ပုဇွန်တောင်",
+    "TownshipNameEn": "Pazundaung",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 18,
+    "TownshipNameMm": "ကျောက်တံတား",
+    "TownshipNameEn": "Kyauktada",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 19,
+    "TownshipNameMm": "ဒဂုံ",
+    "TownshipNameEn": "Dagon",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 20,
+    "TownshipNameMm": "ဗဟန်း",
+    "TownshipNameEn": "Bahan",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 21,
+    "TownshipNameMm": "တာမွေ",
+    "TownshipNameEn": "Tamwe",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 22,
+    "TownshipNameMm": "မင်္ဂလာတောင်ညွန့်",
+    "TownshipNameEn": "Mingalartaungnyunt",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 23,
+    "TownshipNameMm": "သာကေတ",
+    "TownshipNameEn": "Thaketa",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 24,
+    "TownshipNameMm": "ဒေါပုံ",
+    "TownshipNameEn": "Dawbon",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 25,
+    "TownshipNameMm": "ရွှေပြည်သာ",
+    "TownshipNameEn": "Shwepyithar",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 26,
+    "TownshipNameMm": "ဒလ",
+    "TownshipNameEn": "Dala",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 27,
+    "TownshipNameMm": "ဆိပ်ကြီး/ခနောင်တို",
+    "TownshipNameEn": "Seikgyikanaungto",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 28,
+    "TownshipNameMm": "ကိုကိုးကျွန်း",
+    "TownshipNameEn": "Cocokyun",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 29,
+    "TownshipNameMm": "သန်လျင်",
+    "TownshipNameEn": "Thanlyin",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 30,
+    "TownshipNameMm": "ကျောက်တန်း",
+    "TownshipNameEn": "Kyauktan",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 31,
+    "TownshipNameMm": "သုံးခွ",
+    "TownshipNameEn": "Thongwa",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 32,
+    "TownshipNameMm": "ခရမ်း",
+    "TownshipNameEn": "Kayan",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 33,
+    "TownshipNameMm": "တွံတေး",
+    "TownshipNameEn": "Twantay",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 34,
+    "TownshipNameMm": "ကွမ်းခြံကုန်း",
+    "TownshipNameEn": "Kungyangon",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 35,
+    "TownshipNameMm": "ကော့မှူး",
+    "TownshipNameEn": "Kawhmu",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 36,
+    "TownshipNameMm": "မှော်ဘီ",
+    "TownshipNameEn": "Hmawbi",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 37,
+    "TownshipNameMm": "လှည်းကူး",
+    "TownshipNameEn": "Hlegu",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 38,
+    "TownshipNameMm": "တိုက်ကြီး",
+    "TownshipNameEn": "Taikkyi",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 39,
+    "TownshipNameMm": "ထန်းတပင်",
+    "TownshipNameEn": "Htantabin",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 40,
+    "TownshipNameMm": "-",
+    "TownshipNameEn": "-",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 41,
+    "TownshipNameMm": "လှိုင်သာယာ(အရှေ့)",
+    "TownshipNameEn": "Hlaingtharya(East)",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 42,
+    "TownshipNameMm": "လှိုင်သာယာ(အနောက်)",
+    "TownshipNameEn": "Hlaingtharya (West)",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 43,
+    "TownshipNameMm": "ဒဂုံမြို့သစ် (မြောက်ပိုင်း)",
+    "TownshipNameEn": "Dagon Myothit (North)",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 44,
+    "TownshipNameMm": "ဒဂုံမြို့သစ် (တောင်ပိုင်း)",
+    "TownshipNameEn": "Dagon Myothit (South)",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 45,
+    "TownshipNameMm": "ဒဂုံမြို့သစ် (ဆိပ်ကမ်း)",
+    "TownshipNameEn": "Dagon Myothit (Seikkan)",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 46,
+    "TownshipNameMm": "ဒဂုံမြို့သစ် (အရှေ့ပိုင်း)",
+    "TownshipNameEn": "Dagon Myothit (East)",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 47,
+    "TownshipNameMm": "ထောက်ကြန့် မြို့",
+    "TownshipNameEn": "Htaukkyant Town",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 48,
+    "TownshipNameMm": "တံတား မြို့",
+    "TownshipNameEn": "Tadar Town",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 49,
+    "TownshipNameMm": "ဥက္ကံ မြို့",
+    "TownshipNameEn": "Okekan Town",
+    "DeleteFlag": false
+  },
+  {
+    "TownshipId": 50,
+    "TownshipNameMm": "အဖျောက် မြို့",
+    "TownshipNameEn": "Ahpyauk Town",
+    "DeleteFlag": false
+  }
+]

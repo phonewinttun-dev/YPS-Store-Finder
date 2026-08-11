@@ -1,0 +1,1379 @@
+[
+  {
+    "StoreId": 1,
+    "NameMm": "ဆူးလေ YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "Sule City Hall",
+    "Category": "YPS Service Kios",
+    "TownshipId": 18,
+    "Latitude": 16.7759633,
+    "Longitude": 96.1587317
+  },
+  {
+    "StoreId": 2,
+    "NameMm": "သခင်မြပန်းခြံ YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "Tha Khin Mya Pan Chan",
+    "Category": "YPS Service Kios",
+    "TownshipId": 12,
+    "Latitude": 16.7806217,
+    "Longitude": 96.1353017
+  },
+  {
+    "StoreId": 3,
+    "NameMm": "မြန်မာပလာဇာ YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "Myanmar Plaza",
+    "Category": "YPS Service Kios",
+    "TownshipId": 20,
+    "Latitude": 16.8276283,
+    "Longitude": 96.1546083
+  },
+  {
+    "StoreId": 4,
+    "NameMm": "လှည်းတန်း YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "Hleden Kios",
+    "Category": "YPS Service Kios",
+    "TownshipId": 4,
+    "Latitude": 16.8279405,
+    "Longitude": 96.1305082
+  },
+  {
+    "StoreId": 5,
+    "NameMm": "ယုဇနာပလာဇာ YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "Yuzana Plaza",
+    "Category": "YPS Service Kios",
+    "TownshipId": 21,
+    "Latitude": 16.79444,
+    "Longitude": 96.1757417
+  },
+  {
+    "StoreId": 6,
+    "NameMm": "ပန်းဆိုးတန်း မဟာဗန္ဓုလ YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "Pansodan (MaharBandoola)",
+    "Category": "YPS Service Kios",
+    "TownshipId": 18,
+    "Latitude": 16.7743576,
+    "Longitude": 96.1615944
+  },
+  {
+    "StoreId": 7,
+    "NameMm": "၈ မိုင် YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "8 Mile",
+    "Category": "YPS Service Kios",
+    "TownshipId": 6,
+    "Latitude": 16.8645127,
+    "Longitude": 96.1409796
+  },
+  {
+    "StoreId": 8,
+    "NameMm": "သမိုင်း YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "Thamine",
+    "Category": "YPS Service Kios",
+    "TownshipId": 6,
+    "Latitude": 16.8634972,
+    "Longitude": 96.1213585
+  },
+  {
+    "StoreId": 9,
+    "NameMm": "AYA-X Counter (Bloom) YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "AYA-X Counter (Bloom)",
+    "Category": "YPS Service Kios",
+    "TownshipId": 4,
+    "Latitude": 16.8258055,
+    "Longitude": 96.1310675
+  },
+  {
+    "StoreId": 10,
+    "NameMm": "AYA-X Counter (စမ်းချောင်း) YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "AYA-X Counter (Sanchaung)",
+    "Category": "YPS Service Kios",
+    "TownshipId": 11,
+    "Latitude": 16.8020998,
+    "Longitude": 96.1330547
+  },
+  {
+    "StoreId": 11,
+    "NameMm": "AYA-X Counter (Junction မော်တင်) YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "AYA-X Counter (Junction Mawtin)",
+    "Category": "YPS Service Kios",
+    "TownshipId": 13,
+    "Latitude": 16.7777622,
+    "Longitude": 96.1363755
+  },
+  {
+    "StoreId": 12,
+    "NameMm": "AYA-X Counter (Junction City) YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "AYA-X Counter (Junction City)",
+    "Category": "YPS Service Kios",
+    "TownshipId": 14,
+    "Latitude": 16.7784798,
+    "Longitude": 96.147974
+  },
+  {
+    "StoreId": 13,
+    "NameMm": "AYA-X Counter (Junction Square) YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "AYA-X Counter (Junction Square)",
+    "Category": "YPS Service Kios",
+    "TownshipId": 4,
+    "Latitude": 16.817121,
+    "Longitude": 96.1272447
+  },
+  {
+    "StoreId": 14,
+    "NameMm": "AYA-X Counter (Terminal M) YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "AYA-X Counter (Terminal M)",
+    "Category": "YPS Service Kios",
+    "TownshipId": 2,
+    "Latitude": 16.937125,
+    "Longitude": 96.153786
+  },
+  {
+    "StoreId": 15,
+    "NameMm": "AYA-X Counter (Pro1 ဒညင်းကုန်း) YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "AYA-X Counter (Pro1 Danyingone)",
+    "Category": "YPS Service Kios",
+    "TownshipId": 1,
+    "Latitude": 16.9272609,
+    "Longitude": 96.088273
+  },
+  {
+    "StoreId": 16,
+    "NameMm": "မြေနီကုန်း YPS ဝန်ဆောင်မှုဆိုင်",
+    "NameEn": "MyayNiGone",
+    "Category": "YPS Service Kios",
+    "TownshipId": 11,
+    "Latitude": 16.803684,
+    "Longitude": 96.1379209
+  },
+  {
+    "StoreId": 17,
+    "NameMm": "အမြင်သစ် YPS ကိုယ်စားလှယ်ဆိုင်",
+    "NameEn": "A Myin Thit Store",
+    "Category": "YPS Agents",
+    "TownshipId": 25,
+    "Latitude": 17.0975928,
+    "Longitude": 96.0376092
+  },
+  {
+    "StoreId": 18,
+    "NameMm": "စိုက်ပျိုးရေး YPS ကိုယ်စားလှယ်ဆိုင်",
+    "NameEn": "Site Pyo Yay",
+    "Category": "YPS Agents",
+    "TownshipId": 4,
+    "Latitude": 16.8177521,
+    "Longitude": 96.1334152
+  },
+  {
+    "StoreId": 19,
+    "NameMm": "ငြိမ်းချမ်းရေး YPS ကိုယ်စားလှယ်ဆိုင်",
+    "NameEn": "Nyein Chan Yay Store",
+    "Category": "YPS Agents",
+    "TownshipId": 18,
+    "Latitude": 16.8429001,
+    "Longitude": 96.2028809
+  },
+  {
+    "StoreId": 20,
+    "NameMm": "သမာဓိ မီးနီးမတ် YPS ကိုယ်စားလှယ်ဆိုင်",
+    "NameEn": "ThaMarDi Mini Mart",
+    "Category": "YPS Agents",
+    "TownshipId": 1,
+    "Latitude": 16.8864888,
+    "Longitude": 96.1082513
+  },
+  {
+    "StoreId": 21,
+    "NameMm": "ဦးမိုးသက် YPS ကိုယ်စားလှယ်ဆိုင်",
+    "NameEn": "U Moe Thet",
+    "Category": "YPS Agents",
+    "TownshipId": 43,
+    "Latitude": 16.8601041,
+    "Longitude": 96.178946
+  },
+  {
+    "StoreId": 25,
+    "NameMm": "မင်္ဂလာဝဇီရာ ရုပ်ရှင်ရုံ YPS ဆိုင်",
+    "NameEn": "Mingalar Waziyar",
+    "Category": "Mingalar Cinemas",
+    "TownshipId": 41,
+    "Latitude": 16.8748309,
+    "Longitude": 96.0519834
+  },
+  {
+    "StoreId": 26,
+    "NameMm": "ဒဂုံစင်တာ (၂) မင်္ဂလာရုပ်ရှင်ရုံ YPS ဆိုင်",
+    "NameEn": "Mingalar Cinema Dagon Center II",
+    "Category": "Mingalar Cinemas",
+    "TownshipId": 11,
+    "Latitude": 16.8045402,
+    "Longitude": 96.1374413
+  },
+  {
+    "StoreId": 27,
+    "NameMm": "တော့ပ်ရိုရယ် မင်္ဂလာရုပ်ရှင်ရုံ YPS ဆိုင်",
+    "NameEn": "Top Royal Cinema",
+    "Category": "Mingalar Cinemas",
+    "TownshipId": 6,
+    "Latitude": 16.8573113,
+    "Longitude": 96.1216203
+  },
+  {
+    "StoreId": 28,
+    "NameMm": "ဂမုန်းပွင့် မင်္ဂလာရုပ်ရှင်ရုံ YPS ဆိုင်",
+    "NameEn": "Mingalar Cineplex Gamonepwint Mall",
+    "Category": "Mingalar Cinemas",
+    "TownshipId": 4,
+    "Latitude": 16.8329871,
+    "Longitude": 96.1295532
+  },
+  {
+    "StoreId": 29,
+    "NameMm": "မြောက်ဥက္ကလာပ မင်္ဂလာရုပ်ရှင်ရုံ YPS ဆိုင်",
+    "NameEn": "Mingalar North Oakkalapa",
+    "Category": "Mingalar Cinemas",
+    "TownshipId": 3,
+    "Latitude": 16.8936795,
+    "Longitude": 96.1553079
+  },
+  {
+    "StoreId": 30,
+    "NameMm": "တာမွေ မင်္ဂလာရုပ်ရှင်ရုံ YPS ဆိုင်",
+    "NameEn": "Mingalar Cinema Tarmwe",
+    "Category": "Mingalar Cinemas",
+    "TownshipId": 21,
+    "Latitude": 16.7979182,
+    "Longitude": 96.176377
+  },
+  {
+    "StoreId": 31,
+    "NameMm": "တောင်ဒဂုံ မင်္ဂလာရုပ်ရှင်ရုံ YPS ဆိုင်",
+    "NameEn": "Mingalar Cinema South Dagon",
+    "Category": "Mingalar Cinemas",
+    "TownshipId": 44,
+    "Latitude": 16.8481744,
+    "Longitude": 96.2356662
+  },
+  {
+    "StoreId": 32,
+    "NameMm": "သန်လျင် မင်္ဂလာရုပ်ရှင်ရုံ YPS ဆိုင်",
+    "NameEn": "Mingalar Cinema Thanylin",
+    "Category": "Mingalar Cinemas",
+    "TownshipId": 29,
+    "Latitude": 16.7427429,
+    "Longitude": 96.2662228
+  },
+  {
+    "StoreId": 33,
+    "NameMm": "စိန်ဂေဟာ (လှိုင်သာယာ) မင်္ဂလာရုပ်ရှင်ရုံ YPS ဆိုင်",
+    "NameEn": "Mingalar Sein Gay Har Hlaing Thayar",
+    "Category": "Mingalar Cinemas",
+    "TownshipId": 41,
+    "Latitude": 16.8609129,
+    "Longitude": 96.0669652
+  },
+  {
+    "StoreId": 34,
+    "NameMm": "ရွှေပြည်သာ မင်္ဂလာရုပ်ရှင်ရုံ YPS ဆိုင်",
+    "NameEn": "Mingalar (SPT)",
+    "Category": "Mingalar Cinemas",
+    "TownshipId": 25,
+    "Latitude": 16.9785342,
+    "Longitude": 96.0758642
+  },
+  {
+    "StoreId": 35,
+    "NameMm": "မြရတနာ မင်္ဂလာရုပ်ရှင်ရုံ YPS ဆိုင်",
+    "NameEn": "Mingalar Myayadanar Cineplex",
+    "Category": "Mingalar Cinemas",
+    "TownshipId": 23,
+    "Latitude": 16.7920436,
+    "Longitude": 96.201949
+  },
+  {
+    "StoreId": 37,
+    "NameMm": "Capital HyperMarket သာကေတ YPS Counter",
+    "NameEn": "Capital HyperMarket Thaketa YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 23,
+    "Latitude": 16.8029399,
+    "Longitude": 96.195669
+  },
+  {
+    "StoreId": 23,
+    "NameMm": "နေပြည်တော် မင်္ဂလာရုပ်ရှင်ရုံ YPS ဆိုင်",
+    "NameEn": "Nay Pyi Taw Cinema",
+    "Category": "Mingalar Cinemas",
+    "TownshipId": 14,
+    "Latitude": 16.7785467,
+    "Longitude": 96.1592161
+  },
+  {
+    "StoreId": 24,
+    "NameMm": "သွင် မင်္ဂလာရုပ်ရှင်ရုံ YPS ဆိုင်",
+    "NameEn": "Thwin Cinema",
+    "Category": "Mingalar Cinemas",
+    "TownshipId": 14,
+    "Latitude": 16.7791376,
+    "Longitude": 96.1610409
+  },
+  {
+    "StoreId": 36,
+    "NameMm": "Capital HyperMarket တောင်ဒဂုံ YPS Counter",
+    "NameEn": "Capital HyperMarket South Dagon YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 44,
+    "Latitude": 16.850148,
+    "Longitude": 96.236976
+  },
+  {
+    "StoreId": 38,
+    "NameMm": "Capital HyperMarket ကျောက်တံတား YPS Counter",
+    "NameEn": "Capital HyperMarket Kyauktada YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 18,
+    "Latitude": 16.783158,
+    "Longitude": 96.155725
+  },
+  {
+    "StoreId": 39,
+    "NameMm": "Capital HyperMarket မြောက်ဒဂုံ YPS Counter",
+    "NameEn": "Capital HyperMarket North Dagon YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 43,
+    "Latitude": 16.866763,
+    "Longitude": 96.184625
+  },
+  {
+    "StoreId": 51,
+    "NameMm": "Capital HyperMarket တောင်ဒဂုံ YPS Counter",
+    "NameEn": "Capital HyperMarket South Dagon YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 44,
+    "Latitude": 16.825573,
+    "Longitude": 96.2628152
+  },
+  {
+    "StoreId": 52,
+    "NameMm": "Capital HyperMarket သာကေတ YPS Counter",
+    "NameEn": "Capital HyperMarket Thaketa YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 23,
+    "Latitude": 16.7775684,
+    "Longitude": 96.1954622
+  },
+  {
+    "StoreId": 53,
+    "NameMm": "Capital HyperMarket မြောက်ဥက္ကလာပ YPS Counter",
+    "NameEn": "Capital HyperMarket North Okkalapa YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 3,
+    "Latitude": 16.92688,
+    "Longitude": 96.189193
+  },
+  {
+    "StoreId": 47,
+    "NameMm": "Capital HyperMarket စမ်းချောင်း YPS Counter",
+    "NameEn": "Capital HyperMarket Sanchaung YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 11,
+    "Latitude": 16.7992672,
+    "Longitude": 96.1304071
+  },
+  {
+    "StoreId": 46,
+    "NameMm": "Capital HyperMarket ရွှေပြည်သာ YPS Counter",
+    "NameEn": "Capital HyperMarket Shwepyitha YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 25,
+    "Latitude": 16.9530992,
+    "Longitude": 96.0819955
+  },
+  {
+    "StoreId": 48,
+    "NameMm": "Capital HyperMarket မင်္ဂလာဒုံ YPS Counter",
+    "NameEn": "Capital HyperMarket Mingaladon YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 2,
+    "Latitude": 16.94642,
+    "Longitude": 96.1022203
+  },
+  {
+    "StoreId": 49,
+    "NameMm": "Capital HyperMarket မင်္ဂလာဒုံ YPS Counter",
+    "NameEn": "Capital HyperMarket Mingaladon YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 2,
+    "Latitude": 16.904889,
+    "Longitude": 96.164532
+  },
+  {
+    "StoreId": 50,
+    "NameMm": "Capital HyperMarket မြောက်ဒဂုံ YPS Counter",
+    "NameEn": "Capital HyperMarket North Dagon YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 43,
+    "Latitude": 16.8815263,
+    "Longitude": 96.2019596
+  },
+  {
+    "StoreId": 54,
+    "NameMm": "Capital HyperMarket သာကေတ YPS Counter",
+    "NameEn": "Capital HyperMarket Thaketa YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 23,
+    "Latitude": 16.7841747,
+    "Longitude": 96.1985106
+  },
+  {
+    "StoreId": 42,
+    "NameMm": "Capital HyperMarket လှိုင်သာယာ YPS Counter",
+    "NameEn": "Capital HyperMarket Hlaingthaya YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 41,
+    "Latitude": 16.90127,
+    "Longitude": 96.0466734
+  },
+  {
+    "StoreId": 43,
+    "NameMm": "Capital HyperMarket မြောက်ဒဂုံ YPS Counter",
+    "NameEn": "Capital HyperMarket North Dagon YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 43,
+    "Latitude": 16.8765617,
+    "Longitude": 96.1725946
+  },
+  {
+    "StoreId": 45,
+    "NameMm": "Capital HyperMarket တောင်ဒဂုံ YPS Counter",
+    "NameEn": "Capital HyperMarket South Dagon YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 44,
+    "Latitude": 16.8581793,
+    "Longitude": 96.2348876
+  },
+  {
+    "StoreId": 56,
+    "NameMm": "Capital HyperMarket ရွှေပြည်သာ YPS Counter",
+    "NameEn": "Capital HyperMarket Shwepyithar YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 25,
+    "Latitude": 16.952017,
+    "Longitude": 96.074388
+  },
+  {
+    "StoreId": 41,
+    "NameMm": "Capital HyperMarket လှိုင်သာယာ YPS Counter",
+    "NameEn": "Capital HyperMarket Hlaingthaya YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 41,
+    "Latitude": 16.8641126,
+    "Longitude": 96.0643673
+  },
+  {
+    "StoreId": 55,
+    "NameMm": "Capital HyperMarket သာကေတ YPS Counter",
+    "NameEn": "Capital HyperMarket Thaketa YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 23,
+    "Latitude": 16.7935295,
+    "Longitude": 96.2020326
+  },
+  {
+    "StoreId": 57,
+    "NameMm": "Capital HyperMarket ဗိုလ်တထောင် YPS Counter",
+    "NameEn": "Capital HyperMarket Botataung YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 16,
+    "Latitude": 16.771418,
+    "Longitude": 96.173429
+  },
+  {
+    "StoreId": 59,
+    "NameMm": "G&G YPS စတိုး ကျောက်တံတား",
+    "NameEn": "G&G YPS Store Kyauktada",
+    "Category": "G&G stores",
+    "TownshipId": 18,
+    "Latitude": 16.7819432,
+    "Longitude": 96.1584284
+  },
+  {
+    "StoreId": 60,
+    "NameMm": "G&G YPS စတိုး လမ်းမတော်",
+    "NameEn": "G&G YPS Store Landmadaw",
+    "Category": "G&G stores",
+    "TownshipId": 13,
+    "Latitude": 16.780199,
+    "Longitude": 96.139882
+  },
+  {
+    "StoreId": 61,
+    "NameMm": "G&G YPS စတိုး ကမာရွတ်",
+    "NameEn": "G&G YPS Store Kamayut",
+    "Category": "G&G stores",
+    "TownshipId": 4,
+    "Latitude": 16.8379343,
+    "Longitude": 96.1237901
+  },
+  {
+    "StoreId": 62,
+    "NameMm": "G&G YPS စတိုး တောင်ဥက္ကလာပ",
+    "NameEn": "G&G YPS Store South Okkalapa",
+    "Category": "G&G stores",
+    "TownshipId": 9,
+    "Latitude": 16.8334383,
+    "Longitude": 96.1923697
+  },
+  {
+    "StoreId": 64,
+    "NameMm": "G&G YPS စတိုး မြောက်ဒဂုံ",
+    "NameEn": "G&G YPS Store North Dagon",
+    "Category": "G&G stores",
+    "TownshipId": 43,
+    "Latitude": 16.853987,
+    "Longitude": 96.174024
+  },
+  {
+    "StoreId": 65,
+    "NameMm": "G&G YPS စတိုး တာမွေ",
+    "NameEn": "G&G YPS Store Tamwe",
+    "Category": "G&G stores",
+    "TownshipId": 21,
+    "Latitude": 16.7864391,
+    "Longitude": 96.1661278
+  },
+  {
+    "StoreId": 66,
+    "NameMm": "G&G YPS စတိုး တာမွေ",
+    "NameEn": "G&G YPS Store Tamwe",
+    "Category": "G&G stores",
+    "TownshipId": 21,
+    "Latitude": 16.814036,
+    "Longitude": 96.168959
+  },
+  {
+    "StoreId": 67,
+    "NameMm": "G&G YPS စတိုး သာကေတ",
+    "NameEn": "G&G YPS Store Thaketa",
+    "Category": "G&G stores",
+    "TownshipId": 23,
+    "Latitude": 16.8050106,
+    "Longitude": 96.2145003
+  },
+  {
+    "StoreId": 68,
+    "NameMm": "G&G YPS စတိုး ကမာရွတ်",
+    "NameEn": "G&G YPS Store Kamayut",
+    "Category": "G&G stores",
+    "TownshipId": 4,
+    "Latitude": 16.8284369,
+    "Longitude": 96.1292791
+  },
+  {
+    "StoreId": 70,
+    "NameMm": "G&G YPS စတိုး ရွှေပြည်သာ",
+    "NameEn": "G&G YPS Store Shwepyithar",
+    "Category": "G&G stores",
+    "TownshipId": 25,
+    "Latitude": 16.9209738,
+    "Longitude": 96.0974446
+  },
+  {
+    "StoreId": 71,
+    "NameMm": "G&G YPS စတိုး တာမွေ",
+    "NameEn": "G&G YPS Store Tamwe",
+    "Category": "G&G stores",
+    "TownshipId": 21,
+    "Latitude": 16.811393,
+    "Longitude": 96.172168
+  },
+  {
+    "StoreId": 72,
+    "NameMm": "G&G YPS စတိုး ဗဟန်း",
+    "NameEn": "G&G YPS Store Bahan",
+    "Category": "G&G stores",
+    "TownshipId": 20,
+    "Latitude": 16.801652,
+    "Longitude": 96.153734
+  },
+  {
+    "StoreId": 73,
+    "NameMm": "G&G YPS စတိုး ကျောက်တံတား",
+    "NameEn": "G&G YPS Store Kyauktada",
+    "Category": "G&G stores",
+    "TownshipId": 18,
+    "Latitude": 16.777134,
+    "Longitude": 96.147961
+  },
+  {
+    "StoreId": 75,
+    "NameMm": "G&G YPS စတိုး တာမွေ",
+    "NameEn": "G&G YPS Store Tamwe",
+    "Category": "G&G stores",
+    "TownshipId": 21,
+    "Latitude": 16.8041343,
+    "Longitude": 96.1773886
+  },
+  {
+    "StoreId": 76,
+    "NameMm": "G&G YPS စတိုး မင်္ဂလာဒုံ",
+    "NameEn": "G&G YPS Store Mingaladon",
+    "Category": "G&G stores",
+    "TownshipId": 2,
+    "Latitude": 16.9303279,
+    "Longitude": 96.1378923
+  },
+  {
+    "StoreId": 77,
+    "NameMm": "G&G YPS စတိုး ဗိုလ်တထောင်",
+    "NameEn": "G&G YPS Store Botahtaung",
+    "Category": "G&G stores",
+    "TownshipId": 16,
+    "Latitude": 16.779568,
+    "Longitude": 96.17075
+  },
+  {
+    "StoreId": 79,
+    "NameMm": "G&G YPS စတိုး မြောက်ဒဂုံ",
+    "NameEn": "G&G YPS Store North Dagon",
+    "Category": "G&G stores",
+    "TownshipId": 43,
+    "Latitude": 16.856196,
+    "Longitude": 96.1821764
+  },
+  {
+    "StoreId": 80,
+    "NameMm": "G&G YPS စတိုး ဒေါပုံ",
+    "NameEn": "G&G YPS Store Dawbon",
+    "Category": "G&G stores",
+    "TownshipId": 24,
+    "Latitude": 16.794186,
+    "Longitude": 96.175111
+  },
+  {
+    "StoreId": 81,
+    "NameMm": "G&G YPS စတိုး လှိုင်သာယာ",
+    "NameEn": "G&G YPS Store Hlaingtharya",
+    "Category": "G&G stores",
+    "TownshipId": 41,
+    "Latitude": 16.878423,
+    "Longitude": 96.067057
+  },
+  {
+    "StoreId": 83,
+    "NameMm": "G&G YPS စတိုး မြောက်ဥက္ကလာပ",
+    "NameEn": "G&G YPS Store North Okkalapa",
+    "Category": "G&G stores",
+    "TownshipId": 3,
+    "Latitude": 16.9267391,
+    "Longitude": 96.1818879
+  },
+  {
+    "StoreId": 84,
+    "NameMm": "G&G YPS စတိုး ကမာရွတ်",
+    "NameEn": "G&G YPS Store Kamayut",
+    "Category": "G&G stores",
+    "TownshipId": 4,
+    "Latitude": 16.818831,
+    "Longitude": 96.121955
+  },
+  {
+    "StoreId": 85,
+    "NameMm": "G&G YPS စတိုး စမ်းချောင်း",
+    "NameEn": "G&G YPS Store Sanchaung",
+    "Category": "G&G stores",
+    "TownshipId": 11,
+    "Latitude": 16.803277,
+    "Longitude": 96.134233
+  },
+  {
+    "StoreId": 87,
+    "NameMm": "G&G YPS စတိုး ကျောက်တံတား",
+    "NameEn": "G&G YPS Store Kyauktada",
+    "Category": "G&G stores",
+    "TownshipId": 18,
+    "Latitude": 16.776762,
+    "Longitude": 96.154231
+  },
+  {
+    "StoreId": 89,
+    "NameMm": "G&G YPS စတိုး သင်္ဃန်းကျွန်း",
+    "NameEn": "G&G YPS Store Thingangyun",
+    "Category": "G&G stores",
+    "TownshipId": 7,
+    "Latitude": 16.821886,
+    "Longitude": 96.2040571
+  },
+  {
+    "StoreId": 90,
+    "NameMm": "G&G YPS စတိုး စမ်းချောင်း",
+    "NameEn": "G&G YPS Store Sanchaung",
+    "Category": "G&G stores",
+    "TownshipId": 11,
+    "Latitude": 16.814306,
+    "Longitude": 96.124555
+  },
+  {
+    "StoreId": 92,
+    "NameMm": "G&G YPS စတိုး သာကေတ",
+    "NameEn": "G&G YPS Store Thaketa",
+    "Category": "G&G stores",
+    "TownshipId": 23,
+    "Latitude": 16.777328,
+    "Longitude": 96.247503
+  },
+  {
+    "StoreId": 93,
+    "NameMm": "G&G YPS စတိုး စမ်းချောင်း",
+    "NameEn": "G&G YPS Store Sanchaung",
+    "Category": "G&G stores",
+    "TownshipId": 11,
+    "Latitude": 16.8016915,
+    "Longitude": 96.1329942
+  },
+  {
+    "StoreId": 95,
+    "NameMm": "G&G YPS စတိုး ကျောက်တံတား",
+    "NameEn": "G&G YPS Store Kyauktada",
+    "Category": "G&G stores",
+    "TownshipId": 18,
+    "Latitude": 16.7748206,
+    "Longitude": 96.1426022
+  },
+  {
+    "StoreId": 96,
+    "NameMm": "G&G YPS စတိုး ကျောက်တံတား",
+    "NameEn": "G&G YPS Store Kyauktada",
+    "Category": "G&G stores",
+    "TownshipId": 18,
+    "Latitude": 17.0955989,
+    "Longitude": 96.2167406
+  },
+  {
+    "StoreId": 97,
+    "NameMm": "G&G YPS စတိုး မြောက်ဥက္ကလာပ",
+    "NameEn": "G&G YPS Store North Okkalapa",
+    "Category": "G&G stores",
+    "TownshipId": 3,
+    "Latitude": 16.8760389,
+    "Longitude": 96.1587051
+  },
+  {
+    "StoreId": 99,
+    "NameMm": "G&G YPS စတိုး သင်္ဃန်းကျွန်း",
+    "NameEn": "G&G YPS Store Thingangyun",
+    "Category": "G&G stores",
+    "TownshipId": 7,
+    "Latitude": 16.8237493,
+    "Longitude": 96.2109922
+  },
+  {
+    "StoreId": 100,
+    "NameMm": "G&G YPS စတိုး တောင်ဥက္ကလာပ",
+    "NameEn": "G&G YPS Store South Okkalapa",
+    "Category": "G&G stores",
+    "TownshipId": 9,
+    "Latitude": 16.8391835,
+    "Longitude": 96.189719
+  },
+  {
+    "StoreId": 102,
+    "NameMm": "G&G YPS စတိုး မြောက်ဒဂုံ",
+    "NameEn": "G&G YPS Store North Dagon",
+    "Category": "G&G stores",
+    "TownshipId": 43,
+    "Latitude": 16.8976623,
+    "Longitude": 96.1858728
+  },
+  {
+    "StoreId": 103,
+    "NameMm": "G&G YPS စတိုး ကမာရွတ်",
+    "NameEn": "G&G YPS Store Kamayut",
+    "Category": "G&G stores",
+    "TownshipId": 4,
+    "Latitude": 16.826583,
+    "Longitude": 96.128
+  },
+  {
+    "StoreId": 104,
+    "NameMm": "G&G YPS စတိုး တာမွေ",
+    "NameEn": "G&G YPS Store Tamwe",
+    "Category": "G&G stores",
+    "TownshipId": 21,
+    "Latitude": 16.806715,
+    "Longitude": 96.179322
+  },
+  {
+    "StoreId": 106,
+    "NameMm": "G&G YPS စတိုး ကျောက်တံတား",
+    "NameEn": "G&G YPS Store Kyauktada",
+    "Category": "G&G stores",
+    "TownshipId": 18,
+    "Latitude": 16.8201317,
+    "Longitude": 96.1770251
+  },
+  {
+    "StoreId": 107,
+    "NameMm": "G&G YPS စတိုး မရမ်းကုန်း",
+    "NameEn": "G&G YPS Store Mayangone",
+    "Category": "G&G stores",
+    "TownshipId": 6,
+    "Latitude": 16.861036,
+    "Longitude": 96.122454
+  },
+  {
+    "StoreId": 108,
+    "NameMm": "G&G YPS စတိုး ကျောက်တံတား",
+    "NameEn": "G&G YPS Store Kyauktada",
+    "Category": "G&G stores",
+    "TownshipId": 18,
+    "Latitude": 16.7791926,
+    "Longitude": 96.1493916
+  },
+  {
+    "StoreId": 110,
+    "NameMm": "G&G YPS စတိုး မရမ်းကုန်း",
+    "NameEn": "G&G YPS Store Mayangone",
+    "Category": "G&G stores",
+    "TownshipId": 6,
+    "Latitude": 16.866256,
+    "Longitude": 96.125725
+  },
+  {
+    "StoreId": 111,
+    "NameMm": "G&G YPS စတိုး ကမာရွတ်",
+    "NameEn": "G&G YPS Store Kamayut",
+    "Category": "G&G stores",
+    "TownshipId": 4,
+    "Latitude": 16.8288082,
+    "Longitude": 96.1246868
+  },
+  {
+    "StoreId": 112,
+    "NameMm": "G&G YPS စတိုး ဗိုလ်တထောင်",
+    "NameEn": "G&G YPS Store Botahtaung",
+    "Category": "G&G stores",
+    "TownshipId": 16,
+    "Latitude": 16.7739415,
+    "Longitude": 96.1697778
+  },
+  {
+    "StoreId": 114,
+    "NameMm": "G&G YPS စတိုး ကျောက်တံတား",
+    "NameEn": "G&G YPS Store Kyauktada",
+    "Category": "G&G stores",
+    "TownshipId": 18,
+    "Latitude": 16.774712,
+    "Longitude": 96.145419
+  },
+  {
+    "StoreId": 115,
+    "NameMm": "G&G YPS စတိုး ဗိုလ်တထောင်",
+    "NameEn": "G&G YPS Store Botahtaung",
+    "Category": "G&G stores",
+    "TownshipId": 16,
+    "Latitude": 16.7715764,
+    "Longitude": 96.1644795
+  },
+  {
+    "StoreId": 116,
+    "NameMm": "G&G YPS စတိုး တာမွေ",
+    "NameEn": "G&G YPS Store Tamwe",
+    "Category": "G&G stores",
+    "TownshipId": 21,
+    "Latitude": 16.811752,
+    "Longitude": 96.168037
+  },
+  {
+    "StoreId": 118,
+    "NameMm": "G&G YPS စတိုး ကမာရွတ်",
+    "NameEn": "G&G YPS Store Kamayut",
+    "Category": "G&G stores",
+    "TownshipId": 4,
+    "Latitude": 16.823563,
+    "Longitude": 96.131352
+  },
+  {
+    "StoreId": 119,
+    "NameMm": "G&G YPS စတိုး ကျောက်တံတား",
+    "NameEn": "G&G YPS Store Kyauktada",
+    "Category": "G&G stores",
+    "TownshipId": 18,
+    "Latitude": 16.7768625,
+    "Longitude": 96.159753
+  },
+  {
+    "StoreId": 120,
+    "NameMm": "G&G YPS စတိုး တာမွေ",
+    "NameEn": "G&G YPS Store Tamwe",
+    "Category": "G&G stores",
+    "TownshipId": 21,
+    "Latitude": 16.8072962,
+    "Longitude": 96.1762885
+  },
+  {
+    "StoreId": 146,
+    "NameMm": "G&G YPS စတိုး တာမွေ",
+    "NameEn": "G&G YPS Store Tamwe",
+    "Category": "G&G stores",
+    "TownshipId": 21,
+    "Latitude": 16.81214,
+    "Longitude": 96.17165
+  },
+  {
+    "StoreId": 145,
+    "NameMm": "G&G YPS စတိုး မရမ်းကုန်း",
+    "NameEn": "G&G YPS Store Mayangone",
+    "Category": "G&G stores",
+    "TownshipId": 6,
+    "Latitude": 16.8774772,
+    "Longitude": 96.1377325
+  },
+  {
+    "StoreId": 144,
+    "NameMm": "G&G YPS စတိုး ရွှေပြည်သာ",
+    "NameEn": "G&G YPS Store Shwepyithar",
+    "Category": "G&G stores",
+    "TownshipId": 25,
+    "Latitude": 16.9575671,
+    "Longitude": 96.0765792
+  },
+  {
+    "StoreId": 143,
+    "NameMm": "G&G YPS စတိုး ဒေါပုံ",
+    "NameEn": "G&G YPS Store Dawbon",
+    "Category": "G&G stores",
+    "TownshipId": 24,
+    "Latitude": 16.7989374,
+    "Longitude": 96.175888
+  },
+  {
+    "StoreId": 141,
+    "NameMm": "G&G YPS စတိုး မင်္ဂလာဒုံ",
+    "NameEn": "G&G YPS Store Mingaladon",
+    "Category": "G&G stores",
+    "TownshipId": 2,
+    "Latitude": 16.9339279,
+    "Longitude": 96.1028858
+  },
+  {
+    "StoreId": 131,
+    "NameMm": "G&G YPS စတိုး တာမွေ",
+    "NameEn": "G&G YPS Store Tamwe",
+    "Category": "G&G stores",
+    "TownshipId": 21,
+    "Latitude": 16.8119422,
+    "Longitude": 96.1754369
+  },
+  {
+    "StoreId": 132,
+    "NameMm": "G&G YPS စတိုး ကျောက်တံတား",
+    "NameEn": "G&G YPS Store Kyauktada",
+    "Category": "G&G stores",
+    "TownshipId": 18,
+    "Latitude": 16.777462,
+    "Longitude": 96.144265
+  },
+  {
+    "StoreId": 134,
+    "NameMm": "G&G YPS စတိုး ဗိုလ်တထောင်",
+    "NameEn": "G&G YPS Store Botahtaung",
+    "Category": "G&G stores",
+    "TownshipId": 16,
+    "Latitude": 16.771308,
+    "Longitude": 96.160251
+  },
+  {
+    "StoreId": 135,
+    "NameMm": "G&G YPS စတိုး ကျောက်တံတား",
+    "NameEn": "G&G YPS Store Kyauktada",
+    "Category": "G&G stores",
+    "TownshipId": 18,
+    "Latitude": 16.841244,
+    "Longitude": 96.201634
+  },
+  {
+    "StoreId": 136,
+    "NameMm": "G&G YPS စတိုး ကမာရွတ်",
+    "NameEn": "G&G YPS Store Kamayut",
+    "Category": "G&G stores",
+    "TownshipId": 4,
+    "Latitude": 16.8243677,
+    "Longitude": 96.1260112
+  },
+  {
+    "StoreId": 138,
+    "NameMm": "G&G YPS စတိုး တာမွေ",
+    "NameEn": "G&G YPS Store Tamwe",
+    "Category": "G&G stores",
+    "TownshipId": 21,
+    "Latitude": 16.7916153,
+    "Longitude": 96.1746038
+  },
+  {
+    "StoreId": 139,
+    "NameMm": "G&G YPS စတိုး စမ်းချောင်း",
+    "NameEn": "G&G YPS Store Sanchaung",
+    "Category": "G&G stores",
+    "TownshipId": 11,
+    "Latitude": 16.80632,
+    "Longitude": 96.13252
+  },
+  {
+    "StoreId": 140,
+    "NameMm": "G&G YPS စတိုး မရမ်းကုန်း",
+    "NameEn": "G&G YPS Store Mayangone",
+    "Category": "G&G stores",
+    "TownshipId": 6,
+    "Latitude": 16.846811,
+    "Longitude": 96.1256515
+  },
+  {
+    "StoreId": 122,
+    "NameMm": "G&G YPS စတိုး ကျောက်တံတား",
+    "NameEn": "G&G YPS Store Kyauktada",
+    "Category": "G&G stores",
+    "TownshipId": 18,
+    "Latitude": 16.7793066,
+    "Longitude": 96.1401722
+  },
+  {
+    "StoreId": 123,
+    "NameMm": "G&G YPS စတိုး တာမွေ",
+    "NameEn": "G&G YPS Store Tamwe",
+    "Category": "G&G stores",
+    "TownshipId": 21,
+    "Latitude": 16.811093,
+    "Longitude": 96.176295
+  },
+  {
+    "StoreId": 124,
+    "NameMm": "G&G YPS စတိုး တာမွေ",
+    "NameEn": "G&G YPS Store Tamwe",
+    "Category": "G&G stores",
+    "TownshipId": 21,
+    "Latitude": 16.7904899,
+    "Longitude": 96.1698271
+  },
+  {
+    "StoreId": 125,
+    "NameMm": "G&G YPS စတိုး ဗိုလ်တထောင်",
+    "NameEn": "G&G YPS Store Botahtaung",
+    "Category": "G&G stores",
+    "TownshipId": 16,
+    "Latitude": 16.7749756,
+    "Longitude": 96.1630629
+  },
+  {
+    "StoreId": 127,
+    "NameMm": "G&G YPS စတိုး ဗိုလ်တထောင်",
+    "NameEn": "G&G YPS Store Botahtaung",
+    "Category": "G&G stores",
+    "TownshipId": 16,
+    "Latitude": 16.774063,
+    "Longitude": 96.171316
+  },
+  {
+    "StoreId": 128,
+    "NameMm": "G&G YPS စတိုး မြောက်ဒဂုံ",
+    "NameEn": "G&G YPS Store North Dagon",
+    "Category": "G&G stores",
+    "TownshipId": 43,
+    "Latitude": 16.8641677,
+    "Longitude": 96.1970746
+  },
+  {
+    "StoreId": 129,
+    "NameMm": "G&G YPS စတိုး အင်းစိန်",
+    "NameEn": "G&G YPS Store Insein",
+    "Category": "G&G stores",
+    "TownshipId": 1,
+    "Latitude": 16.8808918,
+    "Longitude": 96.0994923
+  },
+  {
+    "StoreId": 150,
+    "NameMm": "GYCT ၅၇ (သခင်မြပန်းခြံ) YPS ကားဂိတ်",
+    "NameEn": "GYCT-57 ThaKhinMya",
+    "Category": "YPS Bus Terminal",
+    "TownshipId": 18,
+    "Latitude": 16.7798099,
+    "Longitude": 96.1344672
+  },
+  {
+    "StoreId": 153,
+    "NameMm": "၆၅ ကားဂိတ် (ရွှေပြည်သာ)",
+    "NameEn": "65 Bus Terminal ShwePyiThar",
+    "Category": "YPS Bus Terminal",
+    "TownshipId": 25,
+    "Latitude": 16.9726221,
+    "Longitude": 96.0722362
+  },
+  {
+    "StoreId": 22,
+    "NameMm": "သမ္မတ မင်္ဂလာရုပ်ရှင်ရုံ YPS ဆိုင်",
+    "NameEn": "Thamada Cinema",
+    "Category": "Mingalar Cinemas",
+    "TownshipId": 14,
+    "Latitude": 16.7823939,
+    "Longitude": 96.1588362
+  },
+  {
+    "StoreId": 44,
+    "NameMm": "Capital HyperMarket သင်္ဃန်းကျွန်း YPS ကောင်တာ",
+    "NameEn": "Capital HyperMarket Thingangyun YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 7,
+    "Latitude": 16.8260913,
+    "Longitude": 96.2071422
+  },
+  {
+    "StoreId": 40,
+    "NameMm": "Capital HyperMarket မင်္ဂလာဒုံ YPS Counter",
+    "NameEn": "Capital HyperMarket Mingaladon YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 2,
+    "Latitude": 16.920189,
+    "Longitude": 96.162491
+  },
+  {
+    "StoreId": 58,
+    "NameMm": "Capital HyperMarket ရွှေပြည်သာ YPS Counter",
+    "NameEn": "Capital HyperMarket Shwepyithar YPS Counter",
+    "Category": "Capital HyperMarkets",
+    "TownshipId": 25,
+    "Latitude": 17.1010506,
+    "Longitude": 96.0428309
+  },
+  {
+    "StoreId": 63,
+    "NameMm": "G&G YPS စတိုး တောင်ဥက္ကလာပ",
+    "NameEn": "G&G YPS Store South Okkalapa",
+    "Category": "G&G stores",
+    "TownshipId": 9,
+    "Latitude": 16.8390647,
+    "Longitude": 96.1661263
+  },
+  {
+    "StoreId": 69,
+    "NameMm": "G&G YPS စတိုး စမ်းချောင်း",
+    "NameEn": "G&G YPS Store Sanchaung",
+    "Category": "G&G stores",
+    "TownshipId": 11,
+    "Latitude": 16.7940503,
+    "Longitude": 96.1231191
+  },
+  {
+    "StoreId": 74,
+    "NameMm": "G&G YPS စတိုး တာမွေ",
+    "NameEn": "G&G YPS Store Tamwe",
+    "Category": "G&G stores",
+    "TownshipId": 21,
+    "Latitude": 16.816381,
+    "Longitude": 96.167479
+  },
+  {
+    "StoreId": 78,
+    "NameMm": "G&G YPS စတိုး မရမ်းကုန်း",
+    "NameEn": "G&G YPS Store Mayangone",
+    "Category": "G&G stores",
+    "TownshipId": 6,
+    "Latitude": 16.8601018,
+    "Longitude": 96.112407
+  },
+  {
+    "StoreId": 148,
+    "NameMm": "YBS ၆၁ (အနောက်ပိုင်းနည်းပညာတက္ကသိုလ်) YPS ကားဂိတ်",
+    "NameEn": "YBS-61 WYTU Bus Terminal",
+    "Category": "YPS Bus Terminal",
+    "TownshipId": 41,
+    "Latitude": 16.8675451,
+    "Longitude": 96.0114751
+  },
+  {
+    "StoreId": 149,
+    "NameMm": "YBS ၃၅ (ထောက်ကြန့်) YPS ကားဂိတ်",
+    "NameEn": "YBS-35 Htauk Kyant Bus Terminal",
+    "Category": "YPS Bus Terminal",
+    "TownshipId": 47,
+    "Latitude": 17.0479836,
+    "Longitude": 96.1506392
+  },
+  {
+    "StoreId": 151,
+    "NameMm": "YBS ၈၁ (သုခဒဂုံ) YPS ကားဂိတ်",
+    "NameEn": "YBS-81 Thukha Dagon Bus Terminal",
+    "Category": "YPS Bus Terminal",
+    "TownshipId": 45,
+    "Latitude": 16.9442779,
+    "Longitude": 96.2944519
+  },
+  {
+    "StoreId": 152,
+    "NameMm": "YBS ၂၁ (အနောက်ပိုင်းတက္ကသိုလ်) YPS ကားဂိတ်",
+    "NameEn": "YBS-21 WYU Bus Terminal",
+    "Category": "YPS Bus Terminal",
+    "TownshipId": 39,
+    "Latitude": 16.9474376,
+    "Longitude": 96.0155622
+  },
+  {
+    "StoreId": 82,
+    "NameMm": "G&G YPS စတိုး စမ်းချောင်း",
+    "NameEn": "G&G YPS Store Sanchaung",
+    "Category": "G&G stores",
+    "TownshipId": 11,
+    "Latitude": 16.798762,
+    "Longitude": 96.130656
+  },
+  {
+    "StoreId": 86,
+    "NameMm": "G&G YPS စတိုး ဒေါပုံ",
+    "NameEn": "G&G YPS Store Dawbon",
+    "Category": "G&G stores",
+    "TownshipId": 24,
+    "Latitude": 16.776372,
+    "Longitude": 96.175075
+  },
+  {
+    "StoreId": 88,
+    "NameMm": "G&G YPS စတိုး ကျောက်တံတား",
+    "NameEn": "G&G YPS Store Kyauktada",
+    "Category": "G&G stores",
+    "TownshipId": 18,
+    "Latitude": 16.84559,
+    "Longitude": 96.201145
+  },
+  {
+    "StoreId": 91,
+    "NameMm": "G&G YPS စတိုး သာကေတ",
+    "NameEn": "G&G YPS Store Thaketa",
+    "Category": "G&G stores",
+    "TownshipId": 23,
+    "Latitude": 16.780088,
+    "Longitude": 96.19117
+  },
+  {
+    "StoreId": 94,
+    "NameMm": "G&G YPS စတိုး မြောက်ဒဂုံ",
+    "NameEn": "G&G YPS Store North Dagon",
+    "Category": "G&G stores",
+    "TownshipId": 43,
+    "Latitude": 16.8914951,
+    "Longitude": 96.19679
+  },
+  {
+    "StoreId": 98,
+    "NameMm": "G&G YPS စတိုး တာမွေ",
+    "NameEn": "G&G YPS Store Tamwe",
+    "Category": "G&G stores",
+    "TownshipId": 21,
+    "Latitude": 16.800616,
+    "Longitude": 96.175481
+  },
+  {
+    "StoreId": 101,
+    "NameMm": "G&G YPS စတိုး သင်္ဃန်းကျွန်း",
+    "NameEn": "G&G YPS Store Thingangyun",
+    "Category": "G&G stores",
+    "TownshipId": 7,
+    "Latitude": 16.8279224,
+    "Longitude": 96.1884356
+  },
+  {
+    "StoreId": 105,
+    "NameMm": "G&G YPS စတိုး မြောက်ဒဂုံ",
+    "NameEn": "G&G YPS Store North Dagon",
+    "Category": "G&G stores",
+    "TownshipId": 43,
+    "Latitude": 16.8935217,
+    "Longitude": 96.2091318
+  },
+  {
+    "StoreId": 109,
+    "NameMm": "G&G YPS စတိုး မင်္ဂလာဒုံ",
+    "NameEn": "G&G YPS Store Mingaladon",
+    "Category": "G&G stores",
+    "TownshipId": 2,
+    "Latitude": 16.9010727,
+    "Longitude": 96.1592521
+  },
+  {
+    "StoreId": 113,
+    "NameMm": "G&G YPS စတိုး ဒေါပုံ",
+    "NameEn": "G&G YPS Store Dawbon",
+    "Category": "G&G stores",
+    "TownshipId": 24,
+    "Latitude": 16.7741399,
+    "Longitude": 96.1806536
+  },
+  {
+    "StoreId": 117,
+    "NameMm": "G&G YPS စတိုး ဒေါပုံ",
+    "NameEn": "G&G YPS Store Dawbon",
+    "Category": "G&G stores",
+    "TownshipId": 24,
+    "Latitude": 16.778664,
+    "Longitude": 96.175258
+  },
+  {
+    "StoreId": 147,
+    "NameMm": "G&G YPS စတိုး စမ်းချောင်း",
+    "NameEn": "G&G YPS Store Sanchaung",
+    "Category": "G&G stores",
+    "TownshipId": 11,
+    "Latitude": 16.79052,
+    "Longitude": 96.12668
+  },
+  {
+    "StoreId": 142,
+    "NameMm": "G&G YPS စတိုး စမ်းချောင်း",
+    "NameEn": "G&G YPS Store Sanchaung",
+    "Category": "G&G stores",
+    "TownshipId": 11,
+    "Latitude": 16.8015545,
+    "Longitude": 96.1397179
+  },
+  {
+    "StoreId": 133,
+    "NameMm": "G&G YPS စတိုး ဗိုလ်တထောင်",
+    "NameEn": "G&G YPS Store Botahtaung",
+    "Category": "G&G stores",
+    "TownshipId": 16,
+    "Latitude": 16.769517,
+    "Longitude": 96.1730535
+  },
+  {
+    "StoreId": 137,
+    "NameMm": "G&G YPS စတိုး သင်္ဃန်းကျွန်း",
+    "NameEn": "G&G YPS Store Thingangyun",
+    "Category": "G&G stores",
+    "TownshipId": 7,
+    "Latitude": 16.8297934,
+    "Longitude": 96.1857296
+  },
+  {
+    "StoreId": 121,
+    "NameMm": "G&G YPS စတိုး ဗိုလ်တထောင်",
+    "NameEn": "G&G YPS Store Botahtaung",
+    "Category": "G&G stores",
+    "TownshipId": 16,
+    "Latitude": 16.780068,
+    "Longitude": 96.1744897
+  },
+  {
+    "StoreId": 126,
+    "NameMm": "G&G YPS စတိုး ဒဂုံဆိပ်ကမ်း",
+    "NameEn": "G&G YPS Store Dagon Seikkan",
+    "Category": "G&G stores",
+    "TownshipId": 45,
+    "Latitude": 16.94559,
+    "Longitude": 96.297564
+  },
+  {
+    "StoreId": 130,
+    "NameMm": "G&G YPS စတိုး ဗိုလ်တထောင်",
+    "NameEn": "G&G YPS Store Botahtaung",
+    "Category": "G&G stores",
+    "TownshipId": 16,
+    "Latitude": 16.7716438,
+    "Longitude": 96.1657893
+  }
+]
