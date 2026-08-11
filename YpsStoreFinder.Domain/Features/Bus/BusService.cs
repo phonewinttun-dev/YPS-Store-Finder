@@ -1,6 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-using System.Text.Json;
 using YpsStoreFinder.Database;
 using YpsStoreFinder.Database.Models;
 using YpsStoreFinder.Domain.Features.Bus.DTOs;
@@ -27,24 +31,14 @@ namespace YpsStoreFinder.Domain.Features.Bus
                 var pageNumber = request.PageNumber < 1 ? 1 : request.PageNumber;
                 var pageSize = request.PageSize < 1 ? 10 : request.PageSize;
 
-                var query = _context.TblBusRoutes.AsNoTracking().AsQueryable();
+                var query = _context.TblBusLines.AsNoTracking().AsQueryable();
 
                 var totalCount = await query.CountAsync(cancellationToken);
                 var items = await query
-                    .OrderBy(r => r.BusNumber.Length)
-                    .ThenBy(r => r.BusNumber)
+                    .OrderBy(r => r.RouteId)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
-                    .Select(r => new BusLineDto
-                    {
-                        BusNumber = r.BusNumber,
-                        RouteId = r.RouteId,
-                        IsYpsSupported = r.IsYpsSupported,
-                        OutboundTitle = r.OutboundTitle,
-                        OutboundTotalStops = r.OutboundTotalStops,
-                        ReturnTitle = r.ReturnTitle,
-                        ReturnTotalStops = r.ReturnTotalStops
-                    })
+                    .Select(r => MapToLineDto(r))
                     .ToListAsync(cancellationToken);
 
                 var pagination = new Pagination(pageNumber, pageSize, totalCount);
@@ -63,26 +57,16 @@ namespace YpsStoreFinder.Domain.Features.Bus
                 var pageNumber = request.PageNumber < 1 ? 1 : request.PageNumber;
                 var pageSize = request.PageSize < 1 ? 10 : request.PageSize;
 
-                var query = _context.TblBusRoutes.AsNoTracking()
-                    .Where(r => r.IsYpsSupported)
+                var query = _context.TblBusLines.AsNoTracking()
+                    .Where(r => r.IsYpsAccepted)
                     .AsQueryable();
 
                 var totalCount = await query.CountAsync(cancellationToken);
                 var items = await query
-                    .OrderBy(r => r.BusNumber.Length)
-                    .ThenBy(r => r.BusNumber)
+                    .OrderBy(r => r.RouteId)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
-                    .Select(r => new BusLineDto
-                    {
-                        BusNumber = r.BusNumber,
-                        RouteId = r.RouteId,
-                        IsYpsSupported = r.IsYpsSupported,
-                        OutboundTitle = r.OutboundTitle,
-                        OutboundTotalStops = r.OutboundTotalStops,
-                        ReturnTitle = r.ReturnTitle,
-                        ReturnTotalStops = r.ReturnTotalStops
-                    })
+                    .Select(r => MapToLineDto(r))
                     .ToListAsync(cancellationToken);
 
                 var pagination = new Pagination(pageNumber, pageSize, totalCount);
@@ -101,32 +85,24 @@ namespace YpsStoreFinder.Domain.Features.Bus
                 var pageNumber = request.PageNumber < 1 ? 1 : request.PageNumber;
                 var pageSize = request.PageSize < 1 ? 10 : request.PageSize;
 
-                var query = _context.TblBusRoutes.AsNoTracking().AsQueryable();
+                var query = _context.TblBusLines.AsNoTracking().AsQueryable();
 
                 if (!string.IsNullOrWhiteSpace(request.Keyword))
                 {
                     var term = request.Keyword.Trim().ToLower();
-                    query = query.Where(r => r.BusNumber.ToLower().Contains(term) ||
-                                             (r.OutboundTitle != null && r.OutboundTitle.ToLower().Contains(term)) ||
-                                             (r.ReturnTitle != null && r.ReturnTitle.ToLower().Contains(term)));
+                    query = query.Where(r => (r.BusNumber != null && r.BusNumber.ToLower().Contains(term)) ||
+                                             (r.OutboundTitleMm != null && r.OutboundTitleMm.ToLower().Contains(term)) ||
+                                             (r.OutboundTitleEn != null && r.OutboundTitleEn.ToLower().Contains(term)) ||
+                                             (r.ReturnTitleMm != null && r.ReturnTitleMm.ToLower().Contains(term)) ||
+                                             (r.ReturnTitleEn != null && r.ReturnTitleEn.ToLower().Contains(term)));
                 }
 
                 var totalCount = await query.CountAsync(cancellationToken);
                 var items = await query
-                    .OrderBy(r => r.BusNumber.Length)
-                    .ThenBy(r => r.BusNumber)
+                    .OrderBy(r => r.RouteId)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
-                    .Select(r => new BusLineDto
-                    {
-                        BusNumber = r.BusNumber,
-                        RouteId = r.RouteId,
-                        IsYpsSupported = r.IsYpsSupported,
-                        OutboundTitle = r.OutboundTitle,
-                        OutboundTotalStops = r.OutboundTotalStops,
-                        ReturnTitle = r.ReturnTitle,
-                        ReturnTotalStops = r.ReturnTotalStops
-                    })
+                    .Select(r => MapToLineDto(r))
                     .ToListAsync(cancellationToken);
 
                 var pagination = new Pagination(pageNumber, pageSize, totalCount);
@@ -155,24 +131,53 @@ namespace YpsStoreFinder.Domain.Features.Bus
                     return Result<BusRouteDetailDto>.Success(cached);
                 }
 
-                var route = await _context.TblBusRoutes
-                    .AsNoTracking()
-                    .FirstOrDefaultAsync(r => r.BusNumber.ToLower() == cleanNum.ToLower(), cancellationToken);
+                TblBusLine? busLine = null;
+                if (int.TryParse(cleanNum, out var parsedRouteId))
+                {
+                    busLine = await _context.TblBusLines.AsNoTracking()
+                        .FirstOrDefaultAsync(r => r.RouteId == parsedRouteId || (r.BusNumber != null && r.BusNumber.ToLower() == cleanNum.ToLower()), cancellationToken);
+                }
+                else
+                {
+                    busLine = await _context.TblBusLines.AsNoTracking()
+                        .FirstOrDefaultAsync(r => r.BusNumber != null && r.BusNumber.ToLower() == cleanNum.ToLower(), cancellationToken);
+                }
 
-                if (route == null)
+                if (busLine == null)
                 {
                     return Result<BusRouteDetailDto>.Failure($"Bus line '{busNumber}' was not found.");
                 }
 
+                var routeStops = await _context.TblRouteStops
+                    .AsNoTracking()
+                    .Where(rs => rs.RouteId == busLine.RouteId)
+                    .Include(rs => rs.BusStop)
+                        .ThenInclude(bs => bs!.Township)
+                    .OrderBy(rs => rs.Direction)
+                    .ThenBy(rs => rs.StopOrder)
+                    .ToListAsync(cancellationToken);
+
+                var outboundStops = routeStops
+                    .Where(rs => rs.Direction != null && rs.Direction.Equals("outbound", StringComparison.OrdinalIgnoreCase))
+                    .Select(rs => MapToStopDto(rs))
+                    .ToList();
+
+                var returnStops = routeStops
+                    .Where(rs => rs.Direction != null && rs.Direction.Equals("return", StringComparison.OrdinalIgnoreCase))
+                    .Select(rs => MapToStopDto(rs))
+                    .ToList();
+
                 var dto = new BusRouteDetailDto
                 {
-                    BusNumber = route.BusNumber,
-                    RouteId = route.RouteId,
-                    IsYpsSupported = route.IsYpsSupported,
-                    OutboundTitle = route.OutboundTitle,
-                    ReturnTitle = route.ReturnTitle,
-                    OutboundStops = DeserializeStops(route.OutboundStopsJson),
-                    ReturnStops = DeserializeStops(route.ReturnStopsJson)
+                    RouteId = busLine.RouteId,
+                    BusNumber = busLine.BusNumber ?? string.Empty,
+                    IsYpsAccepted = busLine.IsYpsAccepted,
+                    OutboundTitleMm = busLine.OutboundTitleMm ?? string.Empty,
+                    OutboundTitleEn = busLine.OutboundTitleEn ?? string.Empty,
+                    OutboundStops = outboundStops,
+                    ReturnTitleMm = busLine.ReturnTitleMm ?? string.Empty,
+                    ReturnTitleEn = busLine.ReturnTitleEn ?? string.Empty,
+                    ReturnStops = returnStops
                 };
 
                 _cache.Set(cacheKey, dto, CacheDuration);
@@ -188,115 +193,53 @@ namespace YpsStoreFinder.Domain.Features.Bus
         {
             try
             {
-                var store = await _context.TblStores
+                var store = await _context.TblYpsStores
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(s => s.Id == storeId, cancellationToken);
+                    .Include(s => s.Township)
+                    .Include(s => s.NearestStops)
+                        .ThenInclude(ns => ns.MatchedStop)
+                            .ThenInclude(ms => ms!.Township)
+                    .Include(s => s.ServingBusLines)
+                        .ThenInclude(sb => sb.BusLine)
+                    .FirstOrDefaultAsync(s => s.StoreId == storeId, cancellationToken);
 
                 if (store == null)
                 {
                     return Result<StoreNearbyBusStopsDto>.Failure($"Store with ID {storeId} was not found.");
                 }
 
-                var matchedStops = new List<TblBusStop>();
-                var searchTerms = new List<string>();
+                var servicingBuses = store.ServingBusLines?.Where(sb => sb.BusNumber != null).Select(sb => sb.BusNumber!).Distinct().OrderBy(b => b.Length).ThenBy(b => b).ToList() ?? new List<string>();
+                var ypsSupportedBuses = store.ServingBusLines?.Where(sb => sb.BusNumber != null && sb.BusLine?.IsYpsAccepted == true).Select(sb => sb.BusNumber!).Distinct().OrderBy(b => b.Length).ThenBy(b => b).ToList() ?? new List<string>();
 
-                // 1. Primary source: extract nearest bus stop names directly from store.NearestBusStopsJson
-                if (!string.IsNullOrWhiteSpace(store.NearestBusStopsJson))
+                var nearbyStops = new List<NearbyBusStopItem>();
+
+                if (store.NearestStops != null && store.NearestStops.Count > 0)
                 {
-                    try
+                    foreach (var ns in store.NearestStops)
                     {
-                        using var doc = JsonDocument.Parse(store.NearestBusStopsJson);
-                        if (doc.RootElement.ValueKind == JsonValueKind.Array)
+                        nearbyStops.Add(new NearbyBusStopItem
                         {
-                            foreach (var elem in doc.RootElement.EnumerateArray())
-                            {
-                                if (elem.TryGetProperty("mm", out var mmProp))
-                                {
-                                    var mmVal = mmProp.GetString()?.Trim();
-                                    if (!string.IsNullOrEmpty(mmVal) && !searchTerms.Contains(mmVal))
-                                        searchTerms.Add(mmVal);
-                                }
-                                if (elem.TryGetProperty("en", out var enProp))
-                                {
-                                    var enVal = enProp.GetString()?.Trim();
-                                    if (!string.IsNullOrEmpty(enVal) && !searchTerms.Contains(enVal))
-                                        searchTerms.Add(enVal);
-                                }
-                            }
-                        }
+                            StopId = ns.MatchedStopId,
+                            StopNameMm = ns.StopNameMm ?? string.Empty,
+                            StopNameEn = ns.StopNameEn ?? string.Empty,
+                            RoadMm = ns.MatchedStop?.RoadMm ?? string.Empty,
+                            RoadEn = ns.MatchedStop?.RoadEn ?? string.Empty,
+                            TownshipNameMm = ns.MatchedStop?.Township?.TownshipNameMm ?? store.Township?.TownshipNameMm ?? string.Empty,
+                            TownshipNameEn = ns.MatchedStop?.Township?.TownshipNameEn ?? store.Township?.TownshipNameEn ?? string.Empty,
+                            ServicingBusNumbers = servicingBuses,
+                            YpsSupportedBusNumbers = ypsSupportedBuses
+                        });
                     }
-                    catch { }
-                }
-
-                // 2. Secondary source: extract terms from store Name and Address
-                var addressKeywords = ExtractSearchTerms(store.Name, store.Address, store.Description);
-                foreach (var kw in addressKeywords)
-                {
-                    if (!searchTerms.Contains(kw)) searchTerms.Add(kw);
-                }
-
-                var query = _context.TblBusStops.AsNoTracking().AsQueryable();
-
-                foreach (var term in searchTerms)
-                {
-                    var lowerTerm = term.ToLower();
-                    var hits = await query
-                        .Where(s => s.StopName.ToLower().Contains(lowerTerm) || 
-                                    (s.RoadTownship != null && s.RoadTownship.ToLower().Contains(lowerTerm)))
-                        .Take(25)
-                        .ToListAsync(cancellationToken);
-                    matchedStops.AddRange(hits);
-                }
-
-                // 3. Fallback: query by township extracted from address if direct terms yielded no hits
-                if (matchedStops.Count == 0)
-                {
-                    var township = ExtractTownship(store.Address);
-                    if (!string.IsNullOrWhiteSpace(township))
-                    {
-                        var lowerTownship = township.ToLower();
-                        var townshipHits = await query
-                            .Where(s => s.RoadTownship != null && s.RoadTownship.ToLower().Contains(lowerTownship))
-                            .Take(25)
-                            .ToListAsync(cancellationToken);
-                        matchedStops.AddRange(townshipHits);
-                    }
-                }
-
-                var distinctStops = matchedStops
-                    .GroupBy(s => new { s.StopName, s.RoadTownship })
-                    .Take(15)
-                    .ToList();
-
-                var ypsLines = await _context.TblYpsBusLines
-                    .AsNoTracking()
-                    .Select(x => x.BusLineNumber)
-                    .ToListAsync(cancellationToken);
-
-                var ypsSet = new HashSet<string>(ypsLines, StringComparer.OrdinalIgnoreCase);
-
-                var stopItems = new List<NearbyBusStopItem>();
-
-                foreach (var group in distinctStops)
-                {
-                    var servicingBuses = group.Select(x => x.BusNumber).Distinct().OrderBy(b => b.Length).ThenBy(b => b).ToList();
-                    var ypsSupportedBuses = servicingBuses.Where(b => ypsSet.Contains(b)).ToList();
-
-                    stopItems.Add(new NearbyBusStopItem
-                    {
-                        StopName = group.Key.StopName,
-                        RoadTownship = group.Key.RoadTownship,
-                        ServicingBusNumbers = servicingBuses,
-                        YpsSupportedBusNumbers = ypsSupportedBuses
-                    });
                 }
 
                 var resultDto = new StoreNearbyBusStopsDto
                 {
-                    StoreId = store.Id,
-                    StoreName = store.Name,
-                    Township = ExtractTownship(store.Address),
-                    NearbyBusStops = stopItems
+                    StoreId = store.StoreId,
+                    StoreNameMm = store.NameMm ?? string.Empty,
+                    StoreNameEn = store.NameEn ?? string.Empty,
+                    TownshipNameMm = store.Township?.TownshipNameMm ?? string.Empty,
+                    TownshipNameEn = store.Township?.TownshipNameEn ?? string.Empty,
+                    NearbyBusStops = nearbyStops
                 };
 
                 return Result<StoreNearbyBusStopsDto>.Success(resultDto);
@@ -307,99 +250,38 @@ namespace YpsStoreFinder.Domain.Features.Bus
             }
         }
 
-        private static List<BusStopDto> DeserializeStops(string? json)
+        private static BusLineDto MapToLineDto(TblBusLine entity)
         {
-            if (string.IsNullOrWhiteSpace(json)) return new List<BusStopDto>();
-            try
+            return new BusLineDto
             {
-                var list = new List<BusStopDto>();
-                using var doc = JsonDocument.Parse(json);
-
-                if (doc.RootElement.ValueKind == JsonValueKind.Array)
-                {
-                    int autoOrder = 1;
-                    foreach (var elem in doc.RootElement.EnumerateArray())
-                    {
-                        string stopName = "";
-                        string? roadTownship = null;
-                        int order = autoOrder++;
-                        string stopType = "";
-
-                        if (elem.TryGetProperty("stopName", out var sn) || elem.TryGetProperty("StopName", out sn) || elem.TryGetProperty("stop_name", out sn) || elem.TryGetProperty("name", out sn))
-                        {
-                            stopName = sn.GetString() ?? "";
-                        }
-                        if (elem.TryGetProperty("roadTownship", out var rt) || elem.TryGetProperty("RoadTownship", out rt) || elem.TryGetProperty("road_township", out rt) || elem.TryGetProperty("township", out rt))
-                        {
-                            roadTownship = rt.GetString();
-                        }
-                        if (elem.TryGetProperty("stopOrder", out var so) || elem.TryGetProperty("StopOrder", out so) || elem.TryGetProperty("stop_order", out so) || elem.TryGetProperty("sequenceOrder", out so))
-                        {
-                            if (so.ValueKind == JsonValueKind.Number) order = so.GetInt32();
-                        }
-                        if (elem.TryGetProperty("stopType", out var st) || elem.TryGetProperty("StopType", out st))
-                        {
-                            stopType = st.GetString() ?? "";
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(stopName))
-                        {
-                            list.Add(new BusStopDto
-                            {
-                                StopName = stopName,
-                                RoadTownship = roadTownship,
-                                StopOrder = order,
-                                StopType = stopType
-                            });
-                        }
-                    }
-                }
-                return list;
-            }
-            catch
-            {
-                return new List<BusStopDto>();
-            }
+                RouteId = entity.RouteId,
+                BusNumber = entity.BusNumber ?? string.Empty,
+                OutboundTitleMm = entity.OutboundTitleMm ?? string.Empty,
+                OutboundTitleEn = entity.OutboundTitleEn ?? string.Empty,
+                ReturnTitleMm = entity.ReturnTitleMm ?? string.Empty,
+                ReturnTitleEn = entity.ReturnTitleEn ?? string.Empty,
+                IsYpsAccepted = entity.IsYpsAccepted
+            };
         }
 
-        private static List<string> ExtractSearchTerms(string name, string? address, string? description)
+        private static BusStopDto MapToStopDto(TblRouteStop rs)
         {
-            var terms = new List<string>();
-
-            if (!string.IsNullOrWhiteSpace(address))
+            var stop = rs.BusStop;
+            return new BusStopDto
             {
-                var parts = address.Split(new[] { ',', ' ', '၊', '။' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var p in parts)
-                {
-                    var clean = p.Trim();
-                    if (clean.Length >= 2 && !terms.Contains(clean))
-                    {
-                        terms.Add(clean);
-                    }
-                }
-            }
-
-            if (!string.IsNullOrWhiteSpace(name))
-            {
-                var parts = name.Split(new[] { ' ', '(', ')', '[', ']' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var p in parts)
-                {
-                    var clean = p.Trim();
-                    if (clean.Length >= 2 && !terms.Contains(clean))
-                    {
-                        terms.Add(clean);
-                    }
-                }
-            }
-
-            return terms.Take(8).ToList();
-        }
-
-        private static string? ExtractTownship(string? address)
-        {
-            if (string.IsNullOrWhiteSpace(address)) return null;
-            var parts = address.Split(',');
-            return parts.Length > 1 ? parts.Last().Trim() : address.Trim();
+                StopId = rs.StopId,
+                StopOrder = rs.StopOrder,
+                NameMm = stop?.NameMm ?? string.Empty,
+                NameEn = stop?.NameEn ?? string.Empty,
+                TownshipId = stop?.TownshipId ?? 0,
+                TownshipNameMm = stop?.Township?.TownshipNameMm ?? string.Empty,
+                TownshipNameEn = stop?.Township?.TownshipNameEn ?? string.Empty,
+                RoadMm = stop?.RoadMm ?? string.Empty,
+                RoadEn = stop?.RoadEn ?? string.Empty,
+                StopType = rs.StopType ?? string.Empty,
+                Direction = rs.Direction ?? string.Empty,
+                TotalServingBusLines = stop?.TotalServingBusLines ?? 0
+            };
         }
     }
 }
