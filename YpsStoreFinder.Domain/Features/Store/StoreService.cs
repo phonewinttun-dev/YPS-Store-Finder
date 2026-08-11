@@ -116,7 +116,11 @@ namespace YpsStoreFinder.Domain.Features.Store
                 }
 
                 var dto = MapToDto(store);
-                _cache.Set(cacheKey, dto, CacheDuration);
+                _cache.Set(cacheKey, dto, new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(24),
+                    Priority = CacheItemPriority.High
+                });
                 return Result<StoreDto>.Success(dto);
             }
             catch (Exception ex)

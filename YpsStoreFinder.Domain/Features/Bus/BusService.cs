@@ -1,13 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
 using YpsStoreFinder.Database;
 using YpsStoreFinder.Database.Models;
 using YpsStoreFinder.Domain.Features.Bus.DTOs;
+using YpsStoreFinder.Domain.Features.Store.DTOs;
 using YpsStoreFinder.Shared;
 
 namespace YpsStoreFinder.Domain.Features.Bus
@@ -24,29 +25,26 @@ namespace YpsStoreFinder.Domain.Features.Bus
             _cache = cache;
         }
 
-        public async Task<PagedResult<BusLineDto>> GetBusLinesAsync(PaginationRequest request, CancellationToken cancellationToken = default)
+        public async Task<Result<List<BusLineDto>>> GetBusLinesAsync(CancellationToken cancellationToken = default)
         {
             try
             {
-                var pageNumber = request.PageNumber < 1 ? 1 : request.PageNumber;
-                var pageSize = request.PageSize < 1 ? 10 : request.PageSize;
-
-                var query = _context.TblBusLines.AsNoTracking().AsQueryable();
-
-                var totalCount = await query.CountAsync(cancellationToken);
-                var items = await query
-                    .OrderBy(r => r.RouteId)
-                    .Skip((pageNumber - 1) * pageSize)
-                    .Take(pageSize)
-                    .Select(r => MapToLineDto(r))
-                    .ToListAsync(cancellationToken);
-
-                var pagination = new Pagination(pageNumber, pageSize, totalCount);
-                return PagedResult<BusLineDto>.Success(items, pagination);
+                var cacheKey = "bus_lines_all";
+                var busLines = await _cache.GetOrCreateAsync(cacheKey, async entry =>
+                {
+                    entry.SetAbsoluteExpiration(TimeSpan.FromHours(24));
+                    entry.SetPriority(CacheItemPriority.High);
+                    var dbEntities = await _context.TblBusLines.AsNoTracking()
+                        .OrderBy(b => b.BusNumber.Length)
+                        .ThenBy(b => b.BusNumber)
+                        .ToListAsync(cancellationToken);
+                    return dbEntities.Select(b => MapToLineDto(b)).ToList();
+                });
+                return Result<List<BusLineDto>>.Success(busLines ?? new List<BusLineDto>());
             }
             catch (Exception ex)
             {
-                return PagedResult<BusLineDto>.Failure($"Failed to retrieve bus lines: {ex.Message}");
+                return Result<List<BusLineDto>>.Failure($"Failed to retrieve bus lines: {ex.Message}");
             }
         }
 
