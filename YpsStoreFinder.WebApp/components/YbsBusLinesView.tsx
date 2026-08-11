@@ -273,9 +273,9 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
             </p>
           </div>
         ) : (
-          busLines.map((bus) => (
+          busLines.map((bus, idx) => (
             <div
-              key={bus.busNumber}
+              key={bus.routeId ? `${bus.busNumber}-${bus.routeId}` : `${bus.busNumber}-${idx}`}
               onClick={() => handleSelectBusLine(bus.busNumber)}
               className="p-4 sm:p-5 rounded-2xl bg-white border border-[#e2e2e5] hover:border-gray-300 shadow-sm shadow-slate-900/5 hover:shadow-md hover:shadow-slate-900/10 transition-all duration-200 cursor-pointer outline-none group"
             >
