@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { LanguageProvider } from '../context/LanguageContext';
+import AppProviders from '../context/AppProviders';
 import PwaRegister from '../components/PwaRegister';
 import './globals.css';
 
@@ -42,10 +43,12 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="application-name" content="YPS Finder" />
       </head>
-      <body className="antialiased font-sans bg-[#f9f9fc] text-[#1a1c1e] overflow-hidden select-none">
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+      <body className="antialiased font-sans bg-[#f9f9fc] text-[#1a1c1e] select-none">
+        <AppProviders>
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
+        </AppProviders>
         <PwaRegister />
       </body>
     </html>

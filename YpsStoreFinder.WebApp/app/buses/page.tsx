@@ -1,76 +1,103 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { BusLineDto } from '../../types/bus';
-import { fetchBusLines, fetchYpsBusLines } from '../../services/api';
+import { fetchBusLines } from '../../services/api';
 import { useLanguage } from '../../context/LanguageContext';
 import { Search, Bus, CreditCard, ChevronRight, X, RefreshCw, MapPin, ChevronLeft } from 'lucide-react';
+
+const BATCH_SIZE = 20;
 
 export default function BusesPage() {
   const { t, toMmNum } = useLanguage();
 
-  const [busLines, setBusLines] = useState<BusLineDto[]>([]);
+  const [allBusLines, setAllBusLines] = useState<BusLineDto[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [filterYpsOnly, setFilterYpsOnly] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
-  const [page, setPage] = useState<number>(1);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-  
-  const PAGE_SIZE = 20;
+  const [visibleCount, setVisibleCount] = useState<number>(BATCH_SIZE);
 
-  const loadBusLines = useCallback(async (isLoadMore = false) => {
-    if (isLoadMore) {
-      setIsLoadingMore(true);
-    } else {
-      setIsLoading(true);
-    }
+  const observerTargetRef = useRef<HTMLDivElement | null>(null);
 
-    try {
-      const currentPage = isLoadMore ? page + 1 : 1;
-      const res = filterYpsOnly
-        ? await fetchYpsBusLines(searchQuery, currentPage, PAGE_SIZE)
-        : await fetchBusLines(searchQuery, currentPage, PAGE_SIZE);
-
-      if (res.isSuccess && res.data) {
-        if (isLoadMore) {
-          setBusLines(prev => [...prev, ...res.data]);
-        } else {
-          setBusLines(res.data);
-        }
-        
-        // Update pagination states
-        if (res.pagination) {
-          setHasMore(res.pagination.hasNextPage);
-        } else {
-          setHasMore(res.data.length === PAGE_SIZE);
-        }
-        setPage(currentPage);
-      } else {
-        if (!isLoadMore) setBusLines([]);
-        setHasMore(false);
-      }
-    } catch (err) {
-      console.error('Error loading YBS bus lines:', err);
-      if (!isLoadMore) setBusLines([]);
-      setHasMore(false);
-    } finally {
-      setIsLoading(false);
-      setIsLoadingMore(false);
-    }
-  }, [searchQuery, filterYpsOnly, page]);
-
-  // Initial load and filter/search changes
+  // Initial fetch of all YBS bus lines (like GetStoresAsync)
   useEffect(() => {
-    // Reset page and load
-    setPage(1);
-    const delayDebounceFn = setTimeout(() => {
-      loadBusLines(false);
-    }, 300);
+    let isMounted = true;
+    const loadData = async () => {
+      setIsLoading(true);
+      try {
+        const res = await fetchBusLines();
+        if (isMounted && res.isSuccess && res.data) {
+          setAllBusLines(res.data);
+        }
+      } catch (err) {
+        console.error('Error loading YBS bus lines:', err);
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    };
 
-    return () => clearTimeout(delayDebounceFn);
+    loadData();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Filter bus lines based on search query and YPS card filter
+  const filteredBusLines = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    return allBusLines.filter((bus) => {
+      if (filterYpsOnly && !bus.isYpsSupported) {
+        return false;
+      }
+      if (!query) {
+        return true;
+      }
+      return (
+        bus.busNumber?.toLowerCase().includes(query) ||
+        bus.outboundTitle?.toLowerCase().includes(query) ||
+        bus.returnTitle?.toLowerCase().includes(query)
+      );
+    });
+  }, [allBusLines, searchQuery, filterYpsOnly]);
+
+  // Reset visible items count whenever search query or YPS filter changes
+  useEffect(() => {
+    setVisibleCount(BATCH_SIZE);
   }, [searchQuery, filterYpsOnly]);
+
+  const displayedBusLines = useMemo(() => {
+    return filteredBusLines.slice(0, visibleCount);
+  }, [filteredBusLines, visibleCount]);
+
+  const hasMore = visibleCount < filteredBusLines.length;
+
+  const loadMoreItems = useCallback(() => {
+    if (hasMore) {
+      setVisibleCount((prev) => Math.min(prev + BATCH_SIZE, filteredBusLines.length));
+    }
+  }, [hasMore, filteredBusLines.length]);
+
+  // IntersectionObserver for Infinite Scroll
+  useEffect(() => {
+    const target = observerTargetRef.current;
+    if (!target || !hasMore || isLoading) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMoreItems();
+        }
+      },
+      { threshold: 0.1, rootMargin: '100px' }
+    );
+
+    observer.observe(target);
+
+    return () => {
+      observer.unobserve(target);
+    };
+  }, [hasMore, isLoading, loadMoreItems]);
 
   return (
     <div className="min-h-screen bg-[#f9f9fc]">
@@ -137,14 +164,14 @@ export default function BusesPage() {
 
       {/* Main Content Area */}
       <div className="max-w-2xl mx-auto p-4 sm:p-5 space-y-4 pb-12">
-        {isLoading && page === 1 ? (
+        {isLoading ? (
           <div className="py-12 flex flex-col items-center justify-center text-[#725c00]">
             <RefreshCw className="w-8 h-8 animate-spin mb-3" />
             <span className="text-sm font-semibold">
               YBS ယာဉ်လိုင်းများ ရှာဖွေနေသည်...
             </span>
           </div>
-        ) : busLines.length === 0 ? (
+        ) : displayedBusLines.length === 0 ? (
           <div className="py-16 text-center text-gray-500 bg-white rounded-2xl border border-[#e2e2e5] shadow-sm">
             <Bus className="w-12 h-12 text-gray-300 mx-auto mb-3" />
             <p className="font-semibold text-sm">
@@ -153,7 +180,7 @@ export default function BusesPage() {
           </div>
         ) : (
           <>
-            {busLines.map((bus) => (
+            {displayedBusLines.map((bus) => (
               <Link
                 href={`/buses/${encodeURIComponent(bus.busNumber)}`}
                 key={bus.busNumber}
@@ -212,22 +239,11 @@ export default function BusesPage() {
               </Link>
             ))}
 
+            {/* Sentinel element for infinite scroll */}
             {hasMore && (
-              <div className="pt-4 pb-8 flex justify-center">
-                <button
-                  onClick={() => loadBusLines(true)}
-                  disabled={isLoadingMore}
-                  className="px-6 py-2.5 bg-white border border-[#e2e2e5] text-[#725c00] font-bold rounded-full shadow-sm hover:shadow-md transition-all flex items-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
-                >
-                  {isLoadingMore ? (
-                    <>
-                      <RefreshCw className="w-4 h-4 animate-spin" />
-                      <span>ဆွဲယူနေသည်...</span>
-                    </>
-                  ) : (
-                    <span>နောက်ထပ်ပြပါ</span>
-                  )}
-                </button>
+              <div ref={observerTargetRef} className="py-6 flex justify-center items-center text-[#725c00]">
+                <RefreshCw className="w-5 h-5 animate-spin mr-2" />
+                <span className="text-xs font-bold">နောက်ထပ် ယာဉ်လိုင်းများ ဆွဲယူနေသည်...</span>
               </div>
             )}
           </>
@@ -236,3 +252,4 @@ export default function BusesPage() {
     </div>
   );
 }
+

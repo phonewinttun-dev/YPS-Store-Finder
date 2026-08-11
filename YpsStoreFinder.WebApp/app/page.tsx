@@ -6,8 +6,14 @@ import StoreDrawer from '../components/StoreDrawer';
 import { useUserLocation } from '../hooks/useUserLocation';
 import { useDebounce } from '../hooks/useDebounce';
 import { useLanguage } from '../context/LanguageContext';
-import { StoreDto, CategorySummaryDto, PaginationDto } from '../types/store';
-import { fetchStores, searchStores, fetchNearbyStores, fetchCategoriesSummary } from '../services/api';
+import { StoreDto, PaginationDto } from '../types/store';
+import { searchStores, fetchNearbyStores } from '../services/api';
+import {
+  useCategoriesSummary,
+  useStores,
+  useSearchStores,
+  useNearbyStores,
+} from '../hooks/useStoreQueries';
 import { Compass, RefreshCw, Globe, Map, List, Layers } from 'lucide-react';
 
 export default function HomePage() {
@@ -16,12 +22,10 @@ export default function HomePage() {
 
   const [stores, setStores] = useState<StoreDto[]>([]);
   const [allMapStores, setAllMapStores] = useState<StoreDto[]>([]);
-  const [categories, setCategories] = useState<CategorySummaryDto[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStoreId, setSelectedStoreId] = useState<number | null>(null);
   const [activeDirectionStoreId, setActiveDirectionStoreId] = useState<number | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isNearbyMode, setIsNearbyMode] = useState<boolean>(false);
   const [isShowAllStoresMode, setIsShowAllStoresMode] = useState<boolean>(false);
   const [apiError, setApiError] = useState<string | null>(null);
@@ -44,92 +48,105 @@ export default function HomePage() {
 
   const { latitude, longitude, hasRealLocation } = activeLocation;
 
-  // Load Categories Summary
-  const loadCategories = useCallback(async () => {
-    const res = await fetchCategoriesSummary();
-    if (res.isSuccess && res.data) {
-      setCategories(res.data);
-    }
-  }, []);
+  // Load Categories Summary via TanStack Query
+  const { data: categoriesRes, refetch: refetchCategories } = useCategoriesSummary();
+  const categories = categoriesRes?.isSuccess && categoriesRes.data ? categoriesRes.data : [];
 
-  useEffect(() => {
-    loadCategories();
-  }, [loadCategories]);
+  // Determine current active mode
+  const isSearchActive = debouncedSearchQuery.trim() !== '';
+  const isNearbyActive = (hasRealLocation || isNearbyMode) && !isShowAllStoresMode && !isSearchActive;
+  const isShowAllActive = !isSearchActive && !isNearbyActive;
 
-  // Main Store Fetching Logic
-  const loadStores = useCallback(async () => {
-    setIsLoading(true);
-    setPageNumber(1);
-
-    try {
-      if (debouncedSearchQuery.trim() !== '') {
-        const [mapRes, res] = await Promise.all([
-          searchStores(debouncedSearchQuery, selectedCategory || undefined, 1, 1000),
-          searchStores(debouncedSearchQuery, selectedCategory || undefined, 1, pageSize)
-        ]);
-        if (mapRes.isSuccess && mapRes.data) setAllMapStores(mapRes.data);
-        if (res.isSuccess && res.data) {
-          setStores(res.data);
-          setPagination(res.pagination);
-          setApiError(null);
-        } else {
-          setStores([]);
-          setPagination(null);
-          setApiError(res.message || 'Failed to connect to YPS Store Finder API.');
-        }
-      } else if ((hasRealLocation || isNearbyMode) && !isShowAllStoresMode) {
-        // Automatic 2km Nearby Store Filter when GPS is active
-        const [mapRes, res] = await Promise.all([
-          fetchNearbyStores(latitude, longitude, radiusKm, 0.3, selectedCategory || undefined, 1, 1000),
-          fetchNearbyStores(latitude, longitude, radiusKm, 0.3, selectedCategory || undefined, 1, pageSize),
-        ]);
-        if (mapRes.isSuccess && mapRes.data) setAllMapStores(mapRes.data);
-        if (res.isSuccess && res.data) {
-          setStores(res.data);
-          setPagination(res.pagination);
-          setApiError(null);
-        } else {
-          setStores([]);
-          setPagination(null);
-          setApiError(res.message || 'Failed to connect to YPS Store Finder API.');
-        }
-      } else {
-        // Option 2: Show All Stores Mode (No GPS 2km restriction)
-        const [mapRes, res] = await Promise.all([
-          fetchStores(selectedCategory || undefined),
-          searchStores('', selectedCategory || undefined, 1, pageSize),
-        ]);
-        if (mapRes.isSuccess && mapRes.data) setAllMapStores(mapRes.data);
-        if (res.isSuccess && res.data) {
-          setStores(res.data);
-          setPagination(res.pagination);
-          setApiError(null);
-        } else {
-          setStores([]);
-          setPagination(null);
-          setApiError(res.message || 'Failed to connect to YPS Store Finder API.');
-        }
-      }
-    } catch (err: any) {
-      console.error('Error loading stores:', err);
-      setStores([]);
-      setAllMapStores([]);
-      setPagination(null);
-      setApiError(err?.message || 'Error loading stores from server.');
-    } finally {
-      setIsLoading(false);
-    }
-  }, [
+  // Map Markers Queries (1000 items / full list cached)
+  const mapSearchQuery = useSearchStores(
     debouncedSearchQuery,
     selectedCategory,
-    hasRealLocation,
-    isNearbyMode,
-    isShowAllStoresMode,
+    1,
+    1000,
+    isSearchActive
+  );
+
+  const mapNearbyQuery = useNearbyStores(
     latitude,
     longitude,
     radiusKm,
+    0.3,
+    selectedCategory,
+    1,
+    1000,
+    isNearbyActive
+  );
+
+  const mapAllStoresQuery = useStores(selectedCategory);
+
+  // Paginated List Queries (pageSize items cached)
+  const listSearchQuery = useSearchStores(
+    debouncedSearchQuery,
+    selectedCategory,
+    pageNumber,
     pageSize,
-  ]);
+    isSearchActive
+  );
+
+  const listNearbyQuery = useNearbyStores(
+    latitude,
+    longitude,
+    radiusKm,
+    0.3,
+    selectedCategory,
+    pageNumber,
+    pageSize,
+    isNearbyActive
+  );
+
+  const listAllStoresQuery = useSearchStores(
+    '',
+    selectedCategory,
+    pageNumber,
+    pageSize,
+    isShowAllActive
+  );
+
+  // Active Query selection based on current mode
+  const activeListQuery = isSearchActive
+    ? listSearchQuery
+    : isNearbyActive
+    ? listNearbyQuery
+    : listAllStoresQuery;
+
+  const activeMapQuery = isSearchActive
+    ? mapSearchQuery
+    : isNearbyActive
+    ? mapNearbyQuery
+    : mapAllStoresQuery;
+
+  const isLoading = activeListQuery.isLoading;
+
+  // Sync state for stores and map markers
+  useEffect(() => {
+    if (activeMapQuery.data?.isSuccess && activeMapQuery.data.data) {
+      setAllMapStores(activeMapQuery.data.data);
+    }
+  }, [activeMapQuery.data]);
+
+  useEffect(() => {
+    if (activeListQuery.data) {
+      const res = activeListQuery.data;
+      if (res.isSuccess && res.data) {
+        if (pageNumber === 1) {
+          setStores(res.data);
+        } else {
+          setStores((prev) => [...prev, ...res.data]);
+        }
+        setPagination(res.pagination || null);
+        setApiError(null);
+      } else {
+        if (pageNumber === 1) setStores([]);
+        setPagination(null);
+        setApiError(res.message || 'Failed to connect to YPS Store Finder API.');
+      }
+    }
+  }, [activeListQuery.data, pageNumber]);
 
   const loadMoreStores = useCallback(async () => {
     if (isLoadingMore || isLoading || !pagination?.hasNextPage) return;
@@ -199,14 +216,11 @@ export default function HomePage() {
     pageSize,
   ]);
 
-  useEffect(() => {
-    loadStores();
-  }, [loadStores]);
-
   const handleRetry = useCallback(() => {
-    loadCategories();
-    loadStores();
-  }, [loadCategories, loadStores]);
+    refetchCategories();
+    activeListQuery.refetch();
+    activeMapQuery.refetch();
+  }, [refetchCategories, activeListQuery, activeMapQuery]);
 
   const handleToggleLocation = () => {
     if (locationState.isTracking) {

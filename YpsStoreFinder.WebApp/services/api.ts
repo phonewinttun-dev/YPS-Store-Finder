@@ -134,26 +134,16 @@ export async function fetchStoreById(id: number): Promise<ApiResult<StoreDto>> {
 }
 
 // YBS Bus Line API endpoints
-export async function fetchBusLines(
-  keyword?: string,
-  pageNumber = 1,
-  pageSize = 20,
-): Promise<PagedResultDto<BusLineDto>> {
+export async function fetchBusLines(): Promise<ApiResult<BusLineDto[]>> {
   try {
-    const url = new URL(`${API_BASE_URL}/api/buses`);
-    if (keyword) url.searchParams.append("keyword", keyword);
-    url.searchParams.append("pageNumber", pageNumber.toString());
-    url.searchParams.append("pageSize", pageSize.toString());
-
-    const res = await fetch(url.toString(), { cache: "no-store" });
+    const res = await fetch(`${API_BASE_URL}/api/buses`, { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
   } catch (err: any) {
     return {
       isSuccess: false,
       message: err.message || "Failed to fetch bus lines.",
-      data: [],
-      pagination: null,
+      data: null,
       isFailure: true,
     };
   }

@@ -1,8 +1,6 @@
-'use client';
-
-import React, { useState, useEffect, useCallback } from 'react';
-import { BusLineDto, BusRouteDetailDto } from '../types/bus';
-import { fetchBusLines, fetchYpsBusLines, fetchBusRouteDetail } from '../services/api';
+import React, { useState, useMemo } from 'react';
+import { BusRouteDetailDto } from '../types/bus';
+import { useBusLines, useBusRouteDetail } from '../hooks/useStoreQueries';
 import { useLanguage } from '../context/LanguageContext';
 import { Search, Bus, CreditCard, ChevronRight, ArrowLeftRight, MapPin, RefreshCw, X, CheckCircle2, Navigation } from 'lucide-react';
 
@@ -13,63 +11,47 @@ interface YbsBusLinesViewProps {
 export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesViewProps) {
   const { t, toMmNum } = useLanguage();
 
-  const [busLines, setBusLines] = useState<BusLineDto[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [filterYpsOnly, setFilterYpsOnly] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectedBusNumber, setSelectedBusNumber] = useState<string | null>(null);
-  const [routeDetail, setRouteDetail] = useState<BusRouteDetailDto | null>(null);
-  const [isLoadingRoute, setIsLoadingRoute] = useState<boolean>(false);
   const [activeRouteTab, setActiveRouteTab] = useState<'outbound' | 'return'>('outbound');
 
-  const loadBusLines = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const res = filterYpsOnly
-        ? await fetchYpsBusLines(searchQuery, 1, 50)
-        : await fetchBusLines(searchQuery, 1, 50);
+  const { data: busLinesRes, isLoading, refetch } = useBusLines();
+  const allBusLines = busLinesRes?.isSuccess && busLinesRes.data ? busLinesRes.data : [];
 
-      if (res.isSuccess && res.data) {
-        setBusLines(res.data);
-      } else {
-        setBusLines([]);
+  const { data: routeDetailRes, isLoading: isLoadingRoute } = useBusRouteDetail(selectedBusNumber);
+  const routeDetail = routeDetailRes?.isSuccess && routeDetailRes.data ? routeDetailRes.data : null;
+
+  const busLines = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    return allBusLines.filter((bus) => {
+      if (filterYpsOnly && !bus.isYpsSupported) {
+        return false;
       }
-    } catch (err) {
-      console.error('Error loading YBS bus lines:', err);
-      setBusLines([]);
-    } finally {
-      setIsLoading(false);
+      if (!query) {
+        return true;
+      }
+      return (
+        bus.busNumber?.toLowerCase().includes(query) ||
+        bus.outboundTitle?.toLowerCase().includes(query) ||
+        bus.returnTitle?.toLowerCase().includes(query)
+      );
+    });
+  }, [allBusLines, searchQuery, filterYpsOnly]);
+
+  // Notify parent component when route detail query resolves
+  React.useEffect(() => {
+    if (routeDetail && onSelectBusLineRoute) {
+      onSelectBusLineRoute(routeDetail);
     }
-  }, [searchQuery, filterYpsOnly]);
+  }, [routeDetail, onSelectBusLineRoute]);
 
-  useEffect(() => {
-    loadBusLines();
-  }, [loadBusLines]);
-
-  const handleSelectBusLine = async (busNumber: string) => {
+  const handleSelectBusLine = (busNumber: string) => {
     setSelectedBusNumber(busNumber);
-    setIsLoadingRoute(true);
-    try {
-      const res = await fetchBusRouteDetail(busNumber);
-      if (res.isSuccess && res.data) {
-        setRouteDetail(res.data);
-        if (onSelectBusLineRoute) {
-          onSelectBusLineRoute(res.data);
-        }
-      } else {
-        setRouteDetail(null);
-      }
-    } catch (err) {
-      console.error('Error fetching route detail:', err);
-      setRouteDetail(null);
-    } finally {
-      setIsLoadingRoute(false);
-    }
   };
 
   const handleBackToList = () => {
     setSelectedBusNumber(null);
-    setRouteDetail(null);
   };
 
   return (
