@@ -25,6 +25,7 @@ namespace YpsStoreFinder.Domain.Features.Bus
             _cache = cache;
         }
 
+        #region Get All Bus Lines
         public async Task<Result<List<BusLineDto>>> GetBusLinesAsync(CancellationToken cancellationToken = default)
         {
             try
@@ -38,7 +39,7 @@ namespace YpsStoreFinder.Domain.Features.Bus
                         .OrderBy(b => b.BusNumber.Length)
                         .ThenBy(b => b.BusNumber)
                         .ToListAsync(cancellationToken);
-                    return dbEntities.Select(b => MapToLineDto(b)).ToList();
+                    return dbEntities.Select(b => MapToBusLineDto(b)).ToList();
                 });
                 return Result<List<BusLineDto>>.Success(busLines ?? new List<BusLineDto>());
             }
@@ -47,7 +48,9 @@ namespace YpsStoreFinder.Domain.Features.Bus
                 return Result<List<BusLineDto>>.Failure($"Failed to retrieve bus lines: {ex.Message}");
             }
         }
+        #endregion
 
+        #region Get Bus Lines which accepts YPS
         public async Task<PagedResult<BusLineDto>> GetYpsBusLinesAsync(PaginationRequest request, CancellationToken cancellationToken = default)
         {
             try
@@ -61,10 +64,11 @@ namespace YpsStoreFinder.Domain.Features.Bus
 
                 var totalCount = await query.CountAsync(cancellationToken);
                 var items = await query
-                    .OrderBy(r => r.RouteId)
+                    .OrderBy(b => b.BusNumber.Length)
+                    .ThenBy(b => b.BusNumber)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
-                    .Select(r => MapToLineDto(r))
+                    .Select(r => MapToBusLineDto(r))
                     .ToListAsync(cancellationToken);
 
                 var pagination = new Pagination(pageNumber, pageSize, totalCount);
@@ -75,7 +79,9 @@ namespace YpsStoreFinder.Domain.Features.Bus
                 return PagedResult<BusLineDto>.Failure($"Failed to retrieve YPS bus lines: {ex.Message}");
             }
         }
+        #endregion
 
+        #region Search Bus Lines Number
         public async Task<PagedResult<BusLineDto>> SearchBusLinesAsync(BusLineRequest request, CancellationToken cancellationToken = default)
         {
             try
@@ -87,20 +93,17 @@ namespace YpsStoreFinder.Domain.Features.Bus
 
                 if (!string.IsNullOrWhiteSpace(request.Keyword))
                 {
-                    var term = request.Keyword.Trim().ToLower();
-                    query = query.Where(r => (r.BusNumber != null && r.BusNumber.ToLower().Contains(term)) ||
-                                             (r.OutboundTitleMm != null && r.OutboundTitleMm.ToLower().Contains(term)) ||
-                                             (r.OutboundTitleEn != null && r.OutboundTitleEn.ToLower().Contains(term)) ||
-                                             (r.ReturnTitleMm != null && r.ReturnTitleMm.ToLower().Contains(term)) ||
-                                             (r.ReturnTitleEn != null && r.ReturnTitleEn.ToLower().Contains(term)));
+                    var term = $"%{request.Keyword.Trim()}%"; ;
+                    query = query.Where(b => EF.Functions.Like(b.BusNumber ?? string.Empty, term));
                 }
 
                 var totalCount = await query.CountAsync(cancellationToken);
                 var items = await query
-                    .OrderBy(r => r.RouteId)
+                    .OrderBy(b => b.BusNumber.Length)
+                    .ThenBy(b => b.BusNumber)
                     .Skip((pageNumber - 1) * pageSize)
                     .Take(pageSize)
-                    .Select(r => MapToLineDto(r))
+                    .Select(r => MapToBusLineDto(r))
                     .ToListAsync(cancellationToken);
 
                 var pagination = new Pagination(pageNumber, pageSize, totalCount);
@@ -111,34 +114,36 @@ namespace YpsStoreFinder.Domain.Features.Bus
                 return PagedResult<BusLineDto>.Failure($"Failed to search bus lines: {ex.Message}");
             }
         }
+        #endregion
+
 
         public async Task<Result<BusRouteDetailDto>> GetBusRouteByNumberAsync(string busNumber, CancellationToken cancellationToken = default)
         {
+            if (string.IsNullOrWhiteSpace(busNumber))
+            {
+                return Result<BusRouteDetailDto>.Failure("Bus number is required.");
+            }
+
+            var cleanNum = busNumber.Trim();
+            var cacheKey = $"bus_route_detail_{cleanNum.ToLowerInvariant()}";
+
+            if (_cache.TryGetValue(cacheKey, out BusRouteDetailDto? cached) && cached != null)
+            {
+                return Result<BusRouteDetailDto>.Success(cached);
+            }
+
             try
             {
-                if (string.IsNullOrWhiteSpace(busNumber))
-                {
-                    return Result<BusRouteDetailDto>.Failure("Bus number is required.");
-                }
-
-                var cleanNum = busNumber.Trim();
-                var cacheKey = $"bus_route_detail_{cleanNum.ToLower()}";
-
-                if (_cache.TryGetValue(cacheKey, out BusRouteDetailDto? cached) && cached != null)
-                {
-                    return Result<BusRouteDetailDto>.Success(cached);
-                }
-
-                TblBusLine? busLine = null;
+                TblBusLine? busLine;
                 if (int.TryParse(cleanNum, out var parsedRouteId))
                 {
                     busLine = await _context.TblBusLines.AsNoTracking()
-                        .FirstOrDefaultAsync(r => r.RouteId == parsedRouteId || (r.BusNumber != null && r.BusNumber.ToLower() == cleanNum.ToLower()), cancellationToken);
+                        .FirstOrDefaultAsync(r => r.RouteId == parsedRouteId || r.BusNumber == cleanNum, cancellationToken);
                 }
                 else
                 {
                     busLine = await _context.TblBusLines.AsNoTracking()
-                        .FirstOrDefaultAsync(r => r.BusNumber != null && r.BusNumber.ToLower() == cleanNum.ToLower(), cancellationToken);
+                        .FirstOrDefaultAsync(r => r.BusNumber == cleanNum, cancellationToken);
                 }
 
                 if (busLine == null)
@@ -155,15 +160,17 @@ namespace YpsStoreFinder.Domain.Features.Bus
                     .ThenBy(rs => rs.StopOrder)
                     .ToListAsync(cancellationToken);
 
-                var outboundStops = routeStops
-                    .Where(rs => rs.Direction != null && rs.Direction.Equals("outbound", StringComparison.OrdinalIgnoreCase))
-                    .Select(rs => MapToStopDto(rs))
-                    .ToList();
+                var outboundStops = new List<BusStopDto>();
+                var returnStops = new List<BusStopDto>();
 
-                var returnStops = routeStops
-                    .Where(rs => rs.Direction != null && rs.Direction.Equals("return", StringComparison.OrdinalIgnoreCase))
-                    .Select(rs => MapToStopDto(rs))
-                    .ToList();
+                foreach (var rs in routeStops)
+                {
+                    var stopDto = MapToStopDto(rs);
+                    if (string.Equals(rs.Direction, "outbound", StringComparison.OrdinalIgnoreCase))
+                        outboundStops.Add(stopDto);
+                    else if (string.Equals(rs.Direction, "return", StringComparison.OrdinalIgnoreCase))
+                        returnStops.Add(stopDto);
+                }
 
                 var dto = new BusRouteDetailDto
                 {
@@ -181,9 +188,9 @@ namespace YpsStoreFinder.Domain.Features.Bus
                 _cache.Set(cacheKey, dto, CacheDuration);
                 return Result<BusRouteDetailDto>.Success(dto);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return Result<BusRouteDetailDto>.Failure($"Error retrieving bus route: {ex.Message}");
+                return Result<BusRouteDetailDto>.Failure("An internal error occurred while retrieving the bus route.");
             }
         }
 
@@ -248,7 +255,7 @@ namespace YpsStoreFinder.Domain.Features.Bus
             }
         }
 
-        private static BusLineDto MapToLineDto(TblBusLine entity)
+        private static BusLineDto MapToBusLineDto(TblBusLine entity)
         {
             return new BusLineDto
             {
