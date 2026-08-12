@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useSyncExternalStore } from 'react';
 import translationFile from '../public/translation.json';
 
 export type Language = 'my' | 'en';
@@ -126,20 +126,48 @@ const addressRules: Array<[RegExp, string]> = [
 
 const LanguageContext = createContext<LanguageContextType | null>(null);
 const translations = translationFile as unknown as Record<Language, Dictionary>;
+const LANGUAGE_STORAGE_KEY = 'yps_lang';
+const LANGUAGE_CHANGE_EVENT = 'yps-language-change';
+
+function getLanguageSnapshot(): Language {
+  try {
+    return window.localStorage.getItem(LANGUAGE_STORAGE_KEY) === 'en' ? 'en' : 'my';
+  } catch {
+    return 'my';
+  }
+}
+
+function getLanguageServerSnapshot(): Language {
+  return 'my';
+}
+
+function subscribeLanguage(onStoreChange: () => void) {
+  const handleStorage = (event: StorageEvent) => {
+    if (event.key === LANGUAGE_STORAGE_KEY || event.key === null) onStoreChange();
+  };
+  window.addEventListener('storage', handleStorage);
+  window.addEventListener(LANGUAGE_CHANGE_EVENT, onStoreChange);
+  return () => {
+    window.removeEventListener('storage', handleStorage);
+    window.removeEventListener(LANGUAGE_CHANGE_EVENT, onStoreChange);
+  };
+}
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>(() => {
-    if (typeof window === 'undefined') return 'my';
-    return window.localStorage.getItem('yps_lang') === 'en' ? 'en' : 'my';
-  });
+  const language = useSyncExternalStore(subscribeLanguage, getLanguageSnapshot, getLanguageServerSnapshot);
+
   useEffect(() => {
     document.documentElement.lang = language === 'my' ? 'my' : 'en';
   }, [language]);
 
-  const setLanguage = (next: Language) => {
-    window.localStorage.setItem('yps_lang', next);
-    setLanguageState(next);
-  };
+  const setLanguage = useCallback((next: Language) => {
+    try {
+      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, next);
+    } catch {
+      return;
+    }
+    window.dispatchEvent(new Event(LANGUAGE_CHANGE_EVENT));
+  }, []);
 
   const t = (key: string) => {
     const value = translations[language]?.[key];
@@ -169,10 +197,15 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return language === 'my' ? text.replace(/[0-9]/g, (digit) => digitMap[digit]) : text;
   };
 
+  const toggleLanguage = useCallback(
+    () => setLanguage(language === 'my' ? 'en' : 'my'),
+    [language, setLanguage]
+  );
+
   const value: LanguageContextType = {
     language,
     setLanguage,
-    toggleLanguage: () => setLanguage(language === 'my' ? 'en' : 'my'),
+    toggleLanguage,
     t,
     tCategory,
     tAddress,

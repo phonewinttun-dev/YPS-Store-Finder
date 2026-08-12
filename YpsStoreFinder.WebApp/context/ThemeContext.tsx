@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore } from 'react';
 
 export type ThemePreference = 'system' | 'light' | 'dark';
 export type ResolvedTheme = 'light' | 'dark';
@@ -13,48 +13,81 @@ interface ThemeContextValue {
 }
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
+const THEME_STORAGE_KEY = 'yps_theme';
+const THEME_CHANGE_EVENT = 'yps-theme-change';
 
-function systemTheme(): ResolvedTheme {
+function getSystemThemeSnapshot(): ResolvedTheme {
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [preference, setPreferenceState] = useState<ThemePreference>(() => {
-    if (typeof window === 'undefined') return 'system';
-    const stored = window.localStorage.getItem('yps_theme');
+function getSystemThemeServerSnapshot(): ResolvedTheme {
+  return 'light';
+}
+
+function subscribeSystemTheme(onStoreChange: () => void) {
+  const media = window.matchMedia('(prefers-color-scheme: dark)');
+  media.addEventListener('change', onStoreChange);
+  return () => media.removeEventListener('change', onStoreChange);
+}
+
+function getThemePreferenceSnapshot(): ThemePreference {
+  try {
+    const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
     return stored === 'light' || stored === 'dark' || stored === 'system' ? stored : 'system';
-  });
-  const [resolvedTheme, setResolvedTheme] = useState<ResolvedTheme>(() => {
-    if (typeof window === 'undefined') return 'light';
-    return document.documentElement.dataset.theme === 'dark' ? 'dark' : systemTheme();
-  });
+  } catch {
+    return 'system';
+  }
+}
+
+function getThemePreferenceServerSnapshot(): ThemePreference {
+  return 'system';
+}
+
+function subscribeThemePreference(onStoreChange: () => void) {
+  const handleStorage = (event: StorageEvent) => {
+    if (event.key === THEME_STORAGE_KEY || event.key === null) onStoreChange();
+  };
+  window.addEventListener('storage', handleStorage);
+  window.addEventListener(THEME_CHANGE_EVENT, onStoreChange);
+  return () => {
+    window.removeEventListener('storage', handleStorage);
+    window.removeEventListener(THEME_CHANGE_EVENT, onStoreChange);
+  };
+}
+
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const preference = useSyncExternalStore(
+    subscribeThemePreference,
+    getThemePreferenceSnapshot,
+    getThemePreferenceServerSnapshot
+  );
+  const currentSystemTheme = useSyncExternalStore(
+    subscribeSystemTheme,
+    getSystemThemeSnapshot,
+    getSystemThemeServerSnapshot
+  );
+  const resolvedTheme: ResolvedTheme = preference === 'system' ? currentSystemTheme : preference;
 
   useEffect(() => {
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const apply = () => {
-      const next = preference === 'system' ? (media.matches ? 'dark' : 'light') : preference;
-      setResolvedTheme(next);
-      document.documentElement.dataset.theme = next;
-      document.documentElement.style.colorScheme = next;
-    };
+    document.documentElement.dataset.theme = resolvedTheme;
+    document.documentElement.style.colorScheme = resolvedTheme;
+  }, [resolvedTheme]);
 
-    apply();
-    media.addEventListener('change', apply);
-    return () => media.removeEventListener('change', apply);
-  }, [preference]);
-
-  const setPreference = (next: ThemePreference) => {
-    window.localStorage.setItem('yps_theme', next);
-    const nextResolvedTheme = next === 'system' ? systemTheme() : next;
+  const setPreference = useCallback((next: ThemePreference) => {
+    try {
+      window.localStorage.setItem(THEME_STORAGE_KEY, next);
+    } catch {
+      return;
+    }
+    const nextResolvedTheme = next === 'system' ? getSystemThemeSnapshot() : next;
     document.documentElement.dataset.theme = nextResolvedTheme;
     document.documentElement.style.colorScheme = nextResolvedTheme;
-    setResolvedTheme(nextResolvedTheme);
-    setPreferenceState(next);
-  };
+    window.dispatchEvent(new Event(THEME_CHANGE_EVENT));
+  }, []);
 
   const value = useMemo(
     () => ({ preference, resolvedTheme, setPreference }),
-    [preference, resolvedTheme]
+    [preference, resolvedTheme, setPreference]
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
