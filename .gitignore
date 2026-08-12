@@ -382,3 +382,7 @@ out/
 
 AGENTS.md
 .rules
+
+# Local agent adapters and runtime state
+CLAUDE.md
+.claude-flow/
