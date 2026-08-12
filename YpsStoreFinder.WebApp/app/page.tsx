@@ -122,7 +122,12 @@ export default function HomePage() {
 
   const isLoading = activeListQuery.isLoading;
 
-  // Sync state for stores and map markers
+  // Reset page number on category or search query change
+  useEffect(() => {
+    setPageNumber(1);
+  }, [selectedCategory, debouncedSearchQuery, isNearbyMode, isShowAllStoresMode]);
+
+  // Sync state for stores and map markers with deduplication
   useEffect(() => {
     if (activeMapQuery.data?.isSuccess && activeMapQuery.data.data) {
       setAllMapStores(activeMapQuery.data.data);
@@ -136,7 +141,11 @@ export default function HomePage() {
         if (pageNumber === 1) {
           setStores(res.data);
         } else {
-          setStores((prev) => [...prev, ...res.data]);
+          setStores((prev) => {
+            const existingIds = new Set(prev.map((s) => s.id));
+            const newStores = res.data.filter((s) => !existingIds.has(s.id));
+            return [...prev, ...newStores];
+          });
         }
         setPagination(res.pagination || null);
         setApiError(null);
@@ -163,7 +172,11 @@ export default function HomePage() {
           pageSize
         );
         if (res.isSuccess && res.data) {
-          setStores((prev) => [...prev, ...res.data]);
+          setStores((prev) => {
+            const existingIds = new Set(prev.map((s) => s.id));
+            const newStores = res.data.filter((s) => !existingIds.has(s.id));
+            return [...prev, ...newStores];
+          });
           setPagination(res.pagination);
           setPageNumber(nextPage);
         }
@@ -178,7 +191,11 @@ export default function HomePage() {
           pageSize
         );
         if (res.isSuccess && res.data) {
-          setStores((prev) => [...prev, ...res.data]);
+          setStores((prev) => {
+            const existingIds = new Set(prev.map((s) => s.id));
+            const newStores = res.data.filter((s) => !existingIds.has(s.id));
+            return [...prev, ...newStores];
+          });
           setPagination(res.pagination);
           setPageNumber(nextPage);
         }
@@ -190,7 +207,11 @@ export default function HomePage() {
           pageSize
         );
         if (res.isSuccess && res.data) {
-          setStores((prev) => [...prev, ...res.data]);
+          setStores((prev) => {
+            const existingIds = new Set(prev.map((s) => s.id));
+            const newStores = res.data.filter((s) => !existingIds.has(s.id));
+            return [...prev, ...newStores];
+          });
           setPagination(res.pagination);
           setPageNumber(nextPage);
         }
@@ -284,14 +305,14 @@ export default function HomePage() {
 
   return (
     <main className="flex flex-col lg:flex-row h-[100dvh] w-screen overflow-hidden bg-[#f9f9fc] relative">
-      {/* Top Mobile Header Banner - Modernized YPS Gold Bar */}
-      <div className="lg:hidden px-3 py-2 bg-[#ffd200] flex items-center justify-between text-xs shrink-0 gap-2 shadow-md shadow-amber-900/10 z-30 border-b border-[#e5bc00]">
+      {/* Top Mobile Header Banner - Modernized App Bar */}
+      <header className="lg:hidden px-3.5 py-2.5 bg-[#ffd200] flex items-center justify-between text-xs shrink-0 gap-2 shadow-md shadow-amber-900/10 z-30 border-b border-[#e5bc00]">
         {/* Brand Logo & Title */}
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-2.5 shrink-0">
           <img
             src="/yps_logo.jpg"
             alt="YPS Logo"
-            className="w-7 h-7 rounded-lg object-cover shadow-xs border border-[#e5bc00] shrink-0"
+            className="w-7 h-7 rounded-xl object-cover shadow-xs border border-[#e5bc00] shrink-0"
           />
           <span className="font-extrabold text-sm sm:text-base text-[#4a3a00] tracking-tight whitespace-nowrap">
             YPS Store Finder
@@ -299,20 +320,22 @@ export default function HomePage() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-1.5 shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
           <button
+            id="mobile-gps-toggle-btn"
             onClick={handleToggleLocation}
-            className={`h-8 px-2.5 rounded-xl text-xs font-bold inline-flex items-center justify-center gap-1 transition-all cursor-pointer shadow-sm active:scale-95 whitespace-nowrap shrink-0 box-border border ${
+            className={`min-h-[36px] px-3 rounded-xl text-xs font-bold inline-flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-95 whitespace-nowrap shrink-0 border outline-none focus:ring-2 focus:ring-amber-800 ${
               locationState.isTracking
                 ? 'bg-[#ba1a1a] hover:bg-[#9c1414] text-white border-red-800/40 shadow-red-900/20'
                 : 'bg-[#725c00] hover:bg-[#5b4a00] text-white border-[#564500]/60 shadow-amber-950/20'
             }`}
+            aria-label={locationState.isTracking ? 'Turn off GPS tracking' : 'Turn on GPS tracking'}
           >
-            <Compass className={`w-3.5 h-3.5 shrink-0 ${locationState.isTracking ? 'animate-spin' : ''}`} />
-            <span className="leading-none">{locationState.isTracking ? 'GPS' : 'လက်ရှိတည်နေရာ'}</span>
+            <Compass className={`w-4 h-4 shrink-0 ${locationState.isTracking ? 'animate-spin' : ''}`} />
+            <span className="leading-none">{locationState.isTracking ? 'GPS On' : 'လက်ရှိတည်နေရာ'}</span>
           </button>
         </div>
-      </div>
+      </header>
 
       {/* Main Content Area */}
       <div className="flex-1 min-h-0 flex flex-col lg:flex-row overflow-hidden relative">
@@ -347,6 +370,7 @@ export default function HomePage() {
         </div>
 
         <section
+          aria-label="Interactive Map View"
           className={`flex-1 min-h-0 relative ${
             mobileTab === 'map' ? 'flex flex-col' : 'hidden lg:flex lg:flex-col'
           }`}
@@ -378,7 +402,7 @@ export default function HomePage() {
 
       {/* Enable GPS Modal Dialog Prompt */}
       {showGpsModal && (
-        <div className="fixed inset-0 z-[2000] bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
+        <div role="dialog" aria-modal="true" className="fixed inset-0 z-[2000] bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl border border-[#e2e2e5] animate-in fade-in zoom-in duration-200">
             <div className="w-12 h-12 rounded-full bg-[#fff9e6] text-[#725c00] border border-[#ffe07c] flex items-center justify-center mb-4 mx-auto">
               <Compass className="w-6 h-6 animate-pulse" />
@@ -391,17 +415,19 @@ export default function HomePage() {
             </p>
             <div className="flex gap-3">
               <button
+                id="modal-cancel-gps-btn"
                 onClick={() => setShowGpsModal(false)}
-                className="flex-1 py-2.5 px-4 rounded-xl border border-gray-300 text-gray-700 text-xs font-semibold hover:bg-gray-50 transition-colors cursor-pointer"
+                className="flex-1 min-h-[44px] py-2.5 px-4 rounded-xl border border-gray-300 text-gray-700 text-xs font-semibold hover:bg-gray-50 transition-colors cursor-pointer"
               >
                 {t('cancel')}
               </button>
               <button
+                id="modal-confirm-gps-btn"
                 onClick={() => {
                   setShowGpsModal(false);
                   handleToggleLocation();
                 }}
-                className="flex-1 py-2.5 px-4 rounded-xl bg-[#725c00] hover:bg-[#564500] text-white text-xs font-extrabold transition-all shadow-sm cursor-pointer"
+                className="flex-1 min-h-[44px] py-2.5 px-4 rounded-xl bg-[#725c00] hover:bg-[#564500] text-white text-xs font-extrabold transition-all shadow-sm cursor-pointer"
               >
                 {t('enableGpsBtn')}
               </button>
@@ -410,8 +436,11 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Floating Bottom Mobile Action Toggle Bar - True Floating Overlay */}
-      <div className="lg:hidden absolute bottom-5 left-1/2 -translate-x-1/2 z-[1000] bg-white/95 backdrop-blur-md p-1 rounded-full shadow-2xl border border-[#d1c6ab] flex items-center select-none whitespace-nowrap w-[240px]">
+      {/* Floating Bottom Mobile Action Toggle Bar */}
+      <nav
+        aria-label="Mobile Navigation"
+        className="lg:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-[1000] bg-white/95 backdrop-blur-md p-1 rounded-full shadow-2xl border border-[#d1c6ab] flex items-center select-none whitespace-nowrap w-[240px] mb-[env(safe-area-inset-bottom,0px)]"
+      >
         {/* Smooth 300ms Sliding Active Pill Background */}
         <div
           className={`absolute top-1 bottom-1 w-[calc(50%-4px)] bg-[#725c00] rounded-full shadow-md transition-all duration-300 ease-out ${
@@ -420,25 +449,29 @@ export default function HomePage() {
         />
 
         <button
+          id="mobile-tab-map-btn"
           onClick={() => setMobileTab('map')}
-          className={`relative z-10 flex-1 py-2 rounded-full text-xs font-extrabold flex items-center justify-center gap-2 transition-colors duration-200 cursor-pointer whitespace-nowrap ${
+          className={`relative z-10 flex-1 min-h-[40px] py-2 rounded-full text-xs font-extrabold flex items-center justify-center gap-2 transition-colors duration-200 cursor-pointer whitespace-nowrap outline-none ${
             mobileTab === 'map' ? 'text-white' : 'text-gray-700 hover:text-gray-900'
           }`}
+          aria-selected={mobileTab === 'map'}
         >
           <Map className="w-4 h-4 shrink-0" />
           <span className="whitespace-nowrap">မြေပုံ</span>
         </button>
 
         <button
+          id="mobile-tab-list-btn"
           onClick={() => setMobileTab('list')}
-          className={`relative z-10 flex-1 py-2 rounded-full text-xs font-extrabold flex items-center justify-center gap-2 transition-colors duration-200 cursor-pointer whitespace-nowrap ${
+          className={`relative z-10 flex-1 min-h-[40px] py-2 rounded-full text-xs font-extrabold flex items-center justify-center gap-2 transition-colors duration-200 cursor-pointer whitespace-nowrap outline-none ${
             mobileTab === 'list' ? 'text-white' : 'text-gray-700 hover:text-gray-900'
           }`}
+          aria-selected={mobileTab === 'list'}
         >
           <List className="w-4 h-4 shrink-0" />
           <span className="whitespace-nowrap">ဆိုင်များ</span>
         </button>
-      </div>
+      </nav>
     </main>
   );
 }

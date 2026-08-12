@@ -173,26 +173,26 @@ export default function YbsBusLinesView({ onSelectBusLineRoute }: YbsBusLinesVie
                 <div className="pt-3 border-t border-[#f3f3f6] flex items-center gap-2">
                   <button
                     onClick={() => setActiveRouteTab('outbound')}
-                    className={`flex-1 h-9 text-[11px] font-bold rounded-xl flex items-center justify-center text-center whitespace-nowrap px-2 transition-all cursor-pointer ${
+                    className={`flex-1 min-h-[40px] text-[11px] font-bold rounded-xl flex items-center justify-center text-center whitespace-nowrap px-2 transition-all cursor-pointer ${
                       activeRouteTab === 'outbound'
                         ? 'bg-[#725c00] text-white shadow-sm shadow-amber-950/30 hover:shadow-md hover:shadow-amber-950/40'
                         : 'bg-white text-gray-700 border border-gray-200 shadow-sm shadow-slate-900/10 hover:bg-gray-50 hover:shadow-md'
                     }`}
                   >
-                    <span className="inline-flex items-center justify-center leading-normal -translate-y-0.5">
+                    <span className="inline-flex items-center justify-center leading-normal">
                       {t('outbound')}
                     </span>
                   </button>
 
                   <button
                     onClick={() => setActiveRouteTab('return')}
-                    className={`flex-1 h-9 text-[11px] font-bold rounded-xl flex items-center justify-center text-center whitespace-nowrap px-2 transition-all cursor-pointer ${
+                    className={`flex-1 min-h-[40px] text-[11px] font-bold rounded-xl flex items-center justify-center text-center whitespace-nowrap px-2 transition-all cursor-pointer ${
                       activeRouteTab === 'return'
                         ? 'bg-[#725c00] text-white shadow-sm shadow-amber-950/30 hover:shadow-md hover:shadow-amber-950/40'
                         : 'bg-white text-gray-700 border border-gray-200 shadow-sm shadow-slate-900/10 hover:bg-gray-50 hover:shadow-md'
                     }`}
                   >
-                    <span className="inline-flex items-center justify-center leading-normal -translate-y-0.5">
+                    <span className="inline-flex items-center justify-center leading-normal">
                       {t('return')}
                     </span>
                   </button>

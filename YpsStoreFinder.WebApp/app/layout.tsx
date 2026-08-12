@@ -41,9 +41,11 @@ export default function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="application-name" content="YPS Finder" />
       </head>
-      <body className="antialiased font-sans bg-[#f9f9fc] text-[#1a1c1e] select-none">
+      <body className="antialiased font-sans bg-[#f9f9fc] text-[#1a1c1e] select-none touch-manipulation overscroll-none">
         <AppProviders>
           <LanguageProvider>
             {children}

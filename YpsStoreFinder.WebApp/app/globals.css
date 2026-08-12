@@ -36,11 +36,21 @@
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
   }
 }
 
 .font-mono-meta {
   font-family: var(--font-jetbrains);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  line-height: 1;
 }
 
 .glass-panel {

@@ -120,8 +120,13 @@ export default function StoreDrawer({
 
   return (
     <aside className="w-full lg:w-[420px] bg-white border-r border-[#e2e2e5] flex flex-col flex-1 min-h-0 shadow-lg shrink-0 overflow-hidden">
+      {/* Mobile Drawer Pull Handle Indicator */}
+      <div className="lg:hidden w-full pt-2 pb-0.5 flex justify-center items-center bg-[#f9f9fc]">
+        <div className="w-10 h-1 bg-gray-300 rounded-full" />
+      </div>
+
       {/* Top Navigation Switcher Bar - Sliding Pill Indicator Transition */}
-      <div className="px-3.5 pt-3 pb-1 bg-[#f9f9fc] shrink-0">
+      <div className="px-3.5 pt-2 pb-1 bg-[#f9f9fc] shrink-0">
         <div className="relative flex items-center p-1 bg-gray-200/70 rounded-2xl w-full select-none">
           {/* Sliding Background Active Pill */}
           <div
@@ -131,20 +136,24 @@ export default function StoreDrawer({
           />
 
           <button
+            id="sidebar-tab-stores-btn"
             onClick={() => setActiveSidebarTab('stores')}
-            className={`relative z-10 flex-1 h-9 text-xs font-bold flex items-center justify-center gap-2 transition-colors duration-200 cursor-pointer ${
+            className={`relative z-10 flex-1 min-h-[38px] text-xs font-bold flex items-center justify-center gap-2 transition-colors duration-200 cursor-pointer outline-none ${
               activeSidebarTab === 'stores' ? 'text-[#1a1c1e]' : 'text-gray-600 hover:text-gray-900'
             }`}
+            aria-selected={activeSidebarTab === 'stores'}
           >
             <MapPin className={`w-4 h-4 transition-all duration-300 ${activeSidebarTab === 'stores' ? 'text-[#725c00] scale-110' : 'text-gray-400'}`} />
             <span>{t('stores')}</span>
           </button>
 
           <button
+            id="sidebar-tab-buses-btn"
             onClick={() => setActiveSidebarTab('buses')}
-            className={`relative z-10 flex-1 h-9 text-xs font-bold flex items-center justify-center gap-2 transition-colors duration-200 cursor-pointer ${
+            className={`relative z-10 flex-1 min-h-[38px] text-xs font-bold flex items-center justify-center gap-2 transition-colors duration-200 cursor-pointer outline-none ${
               activeSidebarTab === 'buses' ? 'text-[#1a1c1e]' : 'text-gray-600 hover:text-gray-900'
             }`}
+            aria-selected={activeSidebarTab === 'buses'}
           >
             <Bus className={`w-4 h-4 transition-all duration-300 ${activeSidebarTab === 'buses' ? 'text-[#725c00] scale-110' : 'text-gray-400'}`} />
             <span>{t('ybsBusLines')}</span>
@@ -228,12 +237,12 @@ export default function StoreDrawer({
                   }`}
                 >
                   <span>{tCategory(cat.category)}</span>
-                  <span className={`text-[10px] font-mono-meta px-1.5 py-0.2 rounded-full transition-colors ${
+                  <span className={`text-[10px] font-mono-meta px-1.5 py-0.5 rounded-full transition-colors inline-flex items-center justify-center leading-none ${
                     selectedCategory === cat.category
                       ? 'bg-white/25 text-white border border-white/40 font-extrabold'
                       : 'bg-gray-100 text-gray-600 border border-gray-200'
                   }`}>
-                    {toMmNum(cat.count)}
+                    <span className="translate-y-[-0.5px]">{toMmNum(cat.count)}</span>
                   </span>
                 </button>
               ))}
@@ -279,7 +288,7 @@ export default function StoreDrawer({
                 <p className="text-xs text-gray-400 mt-1">{t('noStoresSub')}</p>
               </div>
             ) : (
-              stores.map((store) => {
+              stores.map((store, idx) => {
                 const isSelected = store.id === selectedStoreId;
                 const isStopsExpanded = !!expandedStoreStops[store.id];
                 const busData = expandedStoreBusInfo[store.id];
@@ -287,7 +296,7 @@ export default function StoreDrawer({
 
                 return (
                   <div
-                    key={store.id}
+                    key={`store-${store.id}-${idx}`}
                     className={`p-4 sm:p-5 rounded-2xl transition-all duration-200 outline-none ${
                       isSelected
                         ? 'bg-white border border-gray-300 shadow-sm'
@@ -302,8 +311,8 @@ export default function StoreDrawer({
                         </span>
 
                         {store.distanceKm !== null && (
-                          <span className="text-[10px] font-extrabold font-mono-meta text-[#725c00] bg-[#fff9e6] px-2 py-0.5 rounded-md border border-[#ffe07c] whitespace-nowrap shrink-0">
-                            {toMmNum(store.distanceKm)}km
+                          <span className="text-[10px] font-extrabold font-mono-meta text-[#725c00] bg-[#fff9e6] px-2 py-0.5 rounded-md border border-[#ffe07c] whitespace-nowrap shrink-0 inline-flex items-center justify-center leading-none">
+                            <span className="translate-y-[-0.5px]">{toMmNum(store.distanceKm)}km</span>
                           </span>
                         )}
                       </div>
@@ -349,7 +358,7 @@ export default function StoreDrawer({
                           e.stopPropagation();
                           onShowDirection(store);
                         }}
-                        className="flex-1 h-9 px-2.5 bg-[#725c00] hover:bg-[#564500] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#725c00]/20 hover:shadow-lg hover:shadow-[#725c00]/25 cursor-pointer outline-none active:scale-[0.98] whitespace-nowrap"
+                        className="flex-1 min-h-[40px] px-2.5 bg-[#725c00] hover:bg-[#564500] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#725c00]/20 hover:shadow-lg hover:shadow-[#725c00]/25 cursor-pointer outline-none active:scale-[0.98] whitespace-nowrap"
                         title={t('showDirection')}
                       >
                         <Route className="w-4 h-4 shrink-0" />
@@ -359,7 +368,7 @@ export default function StoreDrawer({
                       {/* Button 2: Show Bus Stops (အနီးရှိမှတ်တိုင်များ) */}
                       <button
                         onClick={(e) => handleToggleStops(e, store.id)}
-                        className={`flex-1 h-9 px-2.5 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all border outline-none active:scale-[0.98] cursor-pointer whitespace-nowrap ${
+                        className={`flex-1 min-h-[40px] px-2.5 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all border outline-none active:scale-[0.98] cursor-pointer whitespace-nowrap ${
                           isStopsExpanded
                             ? 'bg-[#fff9e6] text-[#725c00] border-[#ffe07c] shadow-sm shadow-[#ffe07c]/50'
                             : 'bg-white hover:bg-gray-50 text-gray-700 border-gray-200 shadow-sm shadow-gray-200/60 hover:shadow-md hover:shadow-gray-200/80'
