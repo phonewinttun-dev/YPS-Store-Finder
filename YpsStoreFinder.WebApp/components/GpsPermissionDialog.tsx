@@ -51,17 +51,17 @@ export default function GpsPermissionDialog({ open, onClose, onConfirm }: GpsPer
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-[2000] flex items-center justify-center bg-ink/55 p-4 backdrop-blur-sm" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
-      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby={titleId} aria-describedby={descriptionId} className="surface-card relative w-full max-w-sm p-6">
-        <button type="button" onClick={onClose} className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-2xl text-muted hover:bg-elevated hover:text-ink" aria-label={t('close')}>
+    <div className="modal-backdrop fixed inset-0 z-[2000] flex items-center justify-center bg-ink/55 p-4 backdrop-blur-sm" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby={titleId} aria-describedby={descriptionId} className="ios-material relative w-full max-w-sm rounded-[26px] border border-line p-6 shadow-soft">
+        <button type="button" onClick={onClose} className="absolute right-3 top-3 flex h-11 w-11 items-center justify-center rounded-full text-muted hover:bg-elevated hover:text-ink" aria-label={t('close')}>
           <X className="h-5 w-5" />
         </button>
-        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gps-soft text-gps"><Compass className="h-6 w-6" /></div>
-        <h2 id={titleId} className="pr-10 text-lg font-extrabold text-ink">{t('enableGpsTitle')}</h2>
+        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-[16px] bg-gps-soft text-gps"><Compass className="h-6 w-6" /></div>
+        <h2 id={titleId} className="pr-10 text-lg font-bold text-ink">{t('enableGpsTitle')}</h2>
         <p id={descriptionId} className="mt-2 text-sm leading-relaxed text-muted">{t('enableGpsMessage')}</p>
         <div className="mt-6 grid grid-cols-2 gap-3">
-          <button type="button" onClick={onClose} className="min-h-12 rounded-2xl border border-line bg-surface px-4 text-sm font-bold text-ink hover:bg-elevated">{t('cancel')}</button>
-          <button type="button" onClick={onConfirm} className="min-h-12 rounded-2xl bg-gps px-4 text-sm font-bold text-white hover:bg-gps/90">{t('enableGpsBtn')}</button>
+          <button type="button" onClick={onClose} className="min-h-12 rounded-[14px] border border-line bg-surface px-4 text-sm font-semibold text-ink hover:bg-elevated">{t('cancel')}</button>
+          <button type="button" onClick={onConfirm} className="min-h-12 rounded-[14px] bg-gps-action px-4 text-sm font-bold text-white hover:bg-gps-action/90">{t('enableGpsBtn')}</button>
         </div>
       </div>
     </div>

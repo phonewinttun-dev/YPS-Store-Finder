@@ -36,7 +36,7 @@ function ThemeSelector({ compact = false }: { compact?: boolean }) {
       <select
         value={preference}
         onChange={(event) => setPreference(event.target.value as ThemePreference)}
-        className="h-full w-full cursor-pointer appearance-none rounded-2xl border border-line bg-surface text-transparent hover:bg-elevated"
+        className="theme-select h-full w-full cursor-pointer appearance-none rounded-full border border-line bg-surface text-transparent shadow-card hover:bg-elevated"
         aria-label={t('themeSelector')}
       >
         <option value="system">{t('systemTheme')}</option>
@@ -53,7 +53,7 @@ function LanguageToggle({ compact = false }: { compact?: boolean }) {
     <button
       type="button"
       onClick={toggleLanguage}
-      className={`${compact ? 'h-11 w-11' : 'h-12 w-full'} inline-flex items-center justify-center gap-1 rounded-2xl border border-line bg-surface text-[10px] font-extrabold text-ink hover:bg-elevated`}
+      className={`${compact ? 'h-11 w-11' : 'h-12 w-full'} inline-flex items-center justify-center gap-1 rounded-full border border-line bg-surface text-[10px] font-bold text-ink shadow-card hover:bg-elevated`}
       aria-label={t('languageToggle')}
     >
       <Languages className="h-4 w-4" />
@@ -65,7 +65,7 @@ function LanguageToggle({ compact = false }: { compact?: boolean }) {
 function TransitNavigation({ active }: { active: AppDestination }) {
   const { t } = useLanguage();
   return (
-    <nav aria-label={t('navigation')} className="hidden h-[100dvh] flex-col items-center border-r border-line bg-surface px-2 py-3 lg:flex">
+    <nav aria-label={t('navigation')} className="ios-material hidden h-[100dvh] flex-col items-center border-r px-2 py-3 lg:flex">
       <Link href="/?view=map" className="mb-5 rounded-2xl" aria-label={t('appTitle')}>
         <AppMark className="h-14 w-14" />
       </Link>
@@ -77,8 +77,8 @@ function TransitNavigation({ active }: { active: AppDestination }) {
               key={id}
               href={href}
               aria-current={isActive ? 'page' : undefined}
-              className={`group relative flex min-h-[62px] flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-bold transition-colors ${
-                isActive ? 'bg-brand-soft text-brand' : 'text-muted hover:bg-elevated hover:text-ink'
+              className={`group relative flex min-h-[62px] flex-col items-center justify-center gap-1 rounded-2xl text-[10px] font-semibold transition-colors ${
+                isActive ? 'bg-brand-soft text-brand shadow-card' : 'text-muted hover:bg-elevated hover:text-ink'
               }`}
             >
               {isActive && <span className="transit-ribbon absolute left-0 top-3 h-8 w-1 rounded-r-full" />}
@@ -99,19 +99,19 @@ function TransitNavigation({ active }: { active: AppDestination }) {
 function MobileTopBar({ active }: { active: AppDestination }) {
   const { t } = useLanguage();
   return (
-    <header className="fixed inset-x-0 top-0 z-[950] flex h-16 items-center gap-1 border-b border-line bg-surface/95 px-2 backdrop-blur-xl lg:hidden">
-      <Link href="/?view=map" className="mr-auto shrink-0 rounded-2xl" aria-label={t('appTitle')}>
-        <AppMark className="h-12 w-12" />
+    <header className="ios-material fixed inset-x-0 top-0 z-[950] grid h-16 grid-cols-[44px_minmax(0,1fr)_44px_44px] items-center gap-1 border-b px-2 shadow-card lg:hidden">
+      <Link href="/?view=map" className="shrink-0 rounded-2xl" aria-label={t('appTitle')}>
+        <AppMark className="h-11 w-11" />
       </Link>
-      <nav aria-label={t('navigation')} className="flex items-center gap-0.5">
+      <nav aria-label={t('navigation')} className="flex items-center justify-self-center gap-0.5">
         {destinations.map(({ id, href, icon: Icon }) => (
           <Link
             key={id}
             href={href}
             aria-label={t(id)}
             aria-current={active === id ? 'page' : undefined}
-            className={`inline-flex h-11 w-11 items-center justify-center rounded-2xl ${
-              active === id ? 'bg-brand-soft text-brand' : 'text-muted hover:bg-elevated hover:text-ink'
+            className={`inline-flex h-11 w-11 items-center justify-center rounded-full ${
+              active === id ? 'bg-brand-soft text-brand shadow-card' : 'text-muted hover:bg-elevated hover:text-ink'
             }`}
           >
             <Icon className="h-5 w-5" />
@@ -163,12 +163,12 @@ export default function AppShell({ active, children, explorer, mobileSnap = 'pee
       {explorer && (
         <aside
           aria-label={t('openExplorer')}
-          className="fixed inset-x-0 bottom-0 z-[900] flex min-h-0 flex-col overflow-hidden rounded-t-3xl border border-line bg-surface shadow-soft transition-[height] duration-300 lg:static lg:z-auto lg:!h-[100dvh] lg:rounded-none lg:border-y-0 lg:border-l-0 lg:shadow-none"
+          className="ios-material fixed inset-x-0 bottom-0 z-[900] flex min-h-0 flex-col overflow-hidden rounded-t-[28px] border shadow-soft transition-[height] duration-300 lg:static lg:z-auto lg:!h-[100dvh] lg:rounded-none lg:border-y-0 lg:border-l-0 lg:bg-surface lg:shadow-none lg:backdrop-blur-none"
           style={{ height: sheetHeight }}
         >
           <button
             type="button"
-            className="flex min-h-9 w-full shrink-0 touch-none items-center justify-center bg-surface lg:hidden"
+            className="flex min-h-11 w-full shrink-0 touch-none items-center justify-center bg-transparent lg:hidden"
             aria-label={t('explorerHandle')}
             aria-expanded={snap !== 'peek'}
             onPointerDown={(event) => {
@@ -202,7 +202,7 @@ export default function AppShell({ active, children, explorer, mobileSnap = 'pee
               }
             }}
           >
-            <span className="h-1.5 w-12 rounded-full bg-line" />
+            <span className="h-1.5 w-9 rounded-full bg-muted/55" />
           </button>
           <div className="min-h-0 flex-1">{explorer}</div>
         </aside>

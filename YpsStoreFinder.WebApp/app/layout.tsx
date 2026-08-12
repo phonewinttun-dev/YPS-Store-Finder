@@ -1,26 +1,14 @@
 import type { Metadata, Viewport } from 'next';
-import { JetBrains_Mono, Noto_Sans_Myanmar, Sora } from 'next/font/google';
+import { Noto_Sans_Myanmar } from 'next/font/google';
 import { LanguageProvider } from '../context/LanguageContext';
 import AppProviders from '../context/AppProviders';
 import PwaRegister from '../components/PwaRegister';
 import './globals.css';
 
-const sora = Sora({
-  variable: '--font-sora',
-  subsets: ['latin'],
-  display: 'swap',
-});
-
 const notoMyanmar = Noto_Sans_Myanmar({
   variable: '--font-myanmar',
   subsets: ['myanmar'],
   weight: ['400', '500', '600', '700'],
-  display: 'swap',
-});
-
-const jetBrainsMono = JetBrains_Mono({
-  variable: '--font-mono',
-  subsets: ['latin'],
   display: 'swap',
 });
 
@@ -41,8 +29,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#F7F8FF' },
-    { media: '(prefers-color-scheme: dark)', color: '#121521' },
+    { media: '(prefers-color-scheme: light)', color: '#F2F2F7' },
+    { media: '(prefers-color-scheme: dark)', color: '#000000' },
   ],
   width: 'device-width',
   initialScale: 1,
@@ -72,7 +60,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="application-name" content="YPS Finder" />
       </head>
-      <body className={`${sora.variable} ${notoMyanmar.variable} ${jetBrainsMono.variable} antialiased`}>
+      <body className={`${notoMyanmar.variable} antialiased`}>
         <AppProviders>
           <LanguageProvider>{children}</LanguageProvider>
         </AppProviders>

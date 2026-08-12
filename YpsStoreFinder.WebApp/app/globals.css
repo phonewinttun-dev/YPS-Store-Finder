@@ -5,49 +5,59 @@
 @layer base {
   :root,
   :root[data-theme='light'] {
-    --canvas: 247 248 255;
+    --canvas: 242 242 247;
     --surface: 255 255 255;
-    --surface-elevated: 250 251 255;
-    --ink: 31 35 51;
-    --muted: 86 94 116;
-    --line: 218 223 238;
+    --surface-elevated: 229 229 234;
+    --ink: 28 28 30;
+    --muted: 99 99 102;
+    --line: 142 142 147;
     --brand: 107 86 0;
-    --brand-soft: 255 241 168;
-    --brand-ink: 45 38 0;
-    --store: 162 63 43;
-    --store-soft: 255 227 218;
-    --bus: 11 95 155;
-    --bus-soft: 220 238 255;
-    --gps: 19 116 85;
-    --gps-soft: 223 247 236;
-    --route: 101 70 173;
-    --route-soft: 238 231 255;
-    --danger: 168 61 105;
-    --danger-soft: 255 227 239;
-    --shadow: 37 43 69;
+    --brand-soft: 255 244 191;
+    --brand-ink: 51 41 0;
+    --store: 162 59 43;
+    --store-soft: 255 240 235;
+    --bus: 0 91 191;
+    --bus-soft: 231 243 255;
+    --gps: 24 115 59;
+    --gps-soft: 232 248 237;
+    --route: 79 70 199;
+    --route-soft: 239 239 255;
+    --danger: 189 38 56;
+    --danger-soft: 255 235 239;
+    --store-action: 162 59 43;
+    --bus-action: 0 91 191;
+    --gps-action: 24 115 59;
+    --route-action: 79 70 199;
+    --danger-action: 189 38 56;
+    --shadow: 60 60 67;
     --map-filter: none;
   }
 
   :root[data-theme='dark'] {
-    --canvas: 18 21 33;
-    --surface: 27 32 48;
-    --surface-elevated: 35 41 60;
-    --ink: 244 245 250;
-    --muted: 184 190 211;
-    --line: 66 73 98;
-    --brand: 246 216 103;
-    --brand-soft: 45 38 0;
-    --brand-ink: 45 38 0;
-    --store: 255 156 133;
-    --store-soft: 35 27 25;
-    --bus: 117 185 247;
-    --bus-soft: 16 33 47;
-    --gps: 114 212 179;
-    --gps-soft: 16 37 29;
-    --route: 181 154 255;
-    --route-soft: 33 26 50;
-    --danger: 245 140 179;
-    --danger-soft: 43 17 28;
+    --canvas: 0 0 0;
+    --surface: 28 28 30;
+    --surface-elevated: 44 44 46;
+    --ink: 245 245 247;
+    --muted: 174 174 178;
+    --line: 108 108 112;
+    --brand: 255 214 10;
+    --brand-soft: 56 47 0;
+    --brand-ink: 28 22 0;
+    --store: 255 159 10;
+    --store-soft: 50 31 0;
+    --bus: 100 210 255;
+    --bus-soft: 8 43 58;
+    --gps: 48 209 88;
+    --gps-soft: 9 43 22;
+    --route: 169 167 255;
+    --route-soft: 30 29 61;
+    --danger: 255 105 97;
+    --danger-soft: 58 17 21;
+    --store-action: 142 75 0;
+    --bus-action: 0 91 191;
+    --gps-action: 24 115 59;
+    --route-action: 79 70 199;
+    --danger-action: 189 38 56;
     --shadow: 0 0 0;
   }
 
@@ -58,6 +68,8 @@
   html {
     background: rgb(var(--canvas));
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
@@ -65,27 +77,35 @@
     margin: 0;
     background: rgb(var(--canvas));
     color: rgb(var(--ink));
-    font-family: var(--font-sora), var(--font-myanmar), system-ui, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    line-height: 1.45;
     -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   html[lang='my'] body,
   html[lang='my'] button,
   html[lang='my'] input,
   html[lang='my'] select {
-    font-family: var(--font-myanmar), var(--font-sora), system-ui, sans-serif;
+    font-family: 'Myanmar Sangam MN', var(--font-myanmar), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
   button,
-  a,
   input,
-  select {
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  :focus:not(:focus-visible) {
     outline: none;
   }
 
   :focus-visible {
-    outline: 3px solid rgb(var(--route));
-    outline-offset: 3px;
+    outline: 3px solid rgb(var(--bus));
+    outline-offset: 2px;
   }
 
   ::selection {
@@ -100,7 +120,55 @@
   }
 
   .control-button {
-    @apply inline-flex min-h-11 min-w-11 items-center justify-center rounded-2xl border border-line bg-surface text-ink transition-colors hover:bg-elevated;
+    @apply inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-line bg-surface text-ink transition-colors hover:bg-elevated;
+  }
+
+  .ios-material {
+    background: rgb(var(--surface) / 0.82);
+    border-color: rgb(var(--line) / 0.62);
+    backdrop-filter: saturate(180%) blur(28px);
+    -webkit-backdrop-filter: saturate(180%) blur(28px);
+  }
+
+  .ios-grouped-card {
+    @apply border border-line bg-surface shadow-card;
+    border-radius: 22px;
+  }
+
+  .ios-control {
+    @apply inline-flex min-h-11 items-center justify-center border border-line bg-surface px-4 text-sm font-semibold text-ink transition-colors hover:bg-elevated;
+    border-radius: 14px;
+  }
+
+  .ios-search-field {
+    @apply h-12 w-full border border-line bg-elevated text-base text-ink placeholder:text-muted;
+    border-radius: 14px;
+    box-shadow: inset 0 1px 0 rgb(var(--surface) / 0.46);
+  }
+
+  .ios-search-field:focus-visible {
+    border-color: rgb(var(--bus));
+  }
+
+  .ios-large-title {
+    font-size: clamp(1.75rem, 1.55rem + 0.9vw, 2.125rem);
+    font-weight: 750;
+    letter-spacing: -0.035em;
+    line-height: 1.12;
+  }
+
+  .ios-section-label {
+    @apply text-muted;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .ios-segmented-control {
+    @apply grid bg-elevated p-1;
+    border-radius: 12px;
   }
 
   .transit-ribbon {
@@ -114,19 +182,24 @@
   }
 
   .skip-link {
-    @apply fixed left-4 top-3 z-[5000] -translate-y-24 rounded-xl bg-ink px-4 py-3 text-sm font-bold text-surface transition-transform focus:translate-y-0;
+    @apply fixed left-4 top-3 z-[5000] -translate-y-24 rounded-full bg-ink px-5 py-3 text-sm font-bold text-surface shadow-soft transition-transform focus:translate-y-0;
   }
 }
 
 .font-mono-meta {
-  font-family: var(--font-mono), ui-monospace, monospace;
+  font-family: ui-monospace, 'SFMono-Regular', 'SF Mono', Menlo, Consolas, monospace;
   font-variant-numeric: tabular-nums;
 }
 
+.theme-select option {
+  background: rgb(var(--surface));
+  color: rgb(var(--ink));
+}
+
 .glass-panel {
-  background: rgb(var(--surface) / 0.9);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgb(var(--surface) / 0.86);
+  backdrop-filter: saturate(180%) blur(28px);
+  -webkit-backdrop-filter: saturate(180%) blur(28px);
 }
 
 .scrollable-panel {
@@ -150,7 +223,7 @@
   min-height: 100% !important;
   z-index: 1;
   background: rgb(var(--canvas));
-  font-family: var(--font-sora), var(--font-myanmar), system-ui, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Myanmar Sangam MN', var(--font-myanmar), 'Segoe UI', sans-serif;
 }
 
 .leaflet-popup-content-wrapper,
@@ -161,16 +234,32 @@
 
 .leaflet-popup-content-wrapper {
   border: 1px solid rgb(var(--line));
-  border-radius: 18px !important;
-  box-shadow: 0 18px 48px rgb(var(--shadow) / 0.2) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 20px 60px rgb(var(--shadow) / 0.2) !important;
 }
 
 .leaflet-popup-content { margin: 14px !important; line-height: 1.5 !important; }
 .leaflet-control-zoom a,
 .leaflet-control-attribution {
-  background: rgb(var(--surface) / 0.92) !important;
+  background: rgb(var(--surface) / 0.88) !important;
   color: rgb(var(--ink)) !important;
   border-color: rgb(var(--line)) !important;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+.leaflet-control-zoom {
+  overflow: hidden;
+  border: 1px solid rgb(var(--line)) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 28px rgb(var(--shadow) / 0.14) !important;
+}
+
+.leaflet-control-zoom a {
+  width: 44px !important;
+  height: 44px !important;
+  font-size: 22px !important;
+  line-height: 44px !important;
 }
 
 .user-pulse-marker {
@@ -203,5 +292,40 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-panel,
+  .ios-material,
+  .leaflet-control-zoom a,
+  .leaflet-control-attribution {
+    background: rgb(var(--surface)) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  .modal-backdrop {
+    background: rgb(var(--ink) / 0.72) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root,
+  :root[data-theme='light'] {
+    --line: 60 60 67;
+  }
+
+  :root[data-theme='dark'] {
+    --line: 209 209 214;
+  }
+
+  .surface-card,
+  .ios-grouped-card,
+  .ios-control,
+  .ios-search-field {
+    border-width: 2px;
   }
 }

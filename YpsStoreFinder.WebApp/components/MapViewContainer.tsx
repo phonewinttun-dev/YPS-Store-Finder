@@ -44,9 +44,10 @@ const storeMarkerIcon = (category: string, selected: boolean) => {
   const border = selected ? 'rgb(var(--route))' : 'rgb(var(--surface))';
   return L.divIcon({
     className: 'custom-store-pin',
-    html: `<div aria-hidden="true" style="background:${background};color:${foreground};width:34px;height:34px;border-radius:12px 12px 12px 4px;border:${selected ? 4 : 2}px solid ${border};box-shadow:${selected ? '0 0 0 7px rgba(101,70,173,.22),0 5px 16px rgba(0,0,0,.3)' : '0 4px 10px rgba(0,0,0,.24)'};display:flex;align-items:center;justify-content:center;transform:rotate(-45deg) ${selected ? 'scale(1.2)' : ''};transition:transform .2s ease"><span style="display:flex;transform:rotate(45deg)">${categoryIcon(category)}</span></div>`,
-    iconSize: [34, 34],
-    iconAnchor: [17, 30],
+    html: `<div aria-hidden="true" style="background:${background};color:${foreground};width:40px;height:40px;border-radius:14px 14px 14px 5px;border:${selected ? 4 : 2}px solid ${border};box-shadow:${selected ? '0 0 0 7px rgb(var(--route) / .2),0 6px 20px rgba(0,0,0,.28)' : '0 5px 14px rgba(0,0,0,.22)'};display:flex;align-items:center;justify-content:center;transform:rotate(-45deg) ${selected ? 'scale(1.1)' : ''};transition:transform .2s ease"><span style="display:flex;transform:rotate(45deg)">${categoryIcon(category)}</span></div>`,
+    iconSize: [44, 44],
+    iconAnchor: [20, 36],
+    popupAnchor: [0, -32],
   });
 };
 
@@ -141,12 +142,15 @@ export default function MapViewContainer({
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (previewStore && previousStoreId.current !== previewStore.id) {
       previousStoreId.current = previewStore.id;
-      map.flyTo([previewStore.latitude, previewStore.longitude], 16, { duration: 0.75 });
+      if (reduceMotion) map.setView([previewStore.latitude, previewStore.longitude], 16);
+      else map.flyTo([previewStore.latitude, previewStore.longitude], 16, { duration: 0.55 });
     } else if (userLocation.hasRealLocation && !previousGpsState.current) {
       previousGpsState.current = true;
-      map.flyTo([userLocation.latitude, userLocation.longitude], 15, { duration: 0.75 });
+      if (reduceMotion) map.setView([userLocation.latitude, userLocation.longitude], 15);
+      else map.flyTo([userLocation.latitude, userLocation.longitude], 15, { duration: 0.55 });
     }
   }, [previewStore, userLocation.hasRealLocation, userLocation.latitude, userLocation.longitude]);
 
@@ -186,7 +190,7 @@ export default function MapViewContainer({
       ? routeCoordinates as L.LatLngTuple[]
       : [[userLocation.latitude, userLocation.longitude], [routeStore.latitude, routeStore.longitude]];
     layer.addLayer(L.polyline(positions, {
-      color: resolvedTheme === 'dark' ? '#B59AFF' : '#6546AD',
+      color: resolvedTheme === 'dark' ? '#A9A7FF' : '#4F46C7',
       weight: 6,
       opacity: 0.92,
       dashArray: routeCoordinates.length ? undefined : '10, 10',
@@ -212,8 +216,8 @@ export default function MapViewContainer({
     layer.addLayer(marker);
     layer.addLayer(L.circle([userLocation.latitude, userLocation.longitude], {
       radius: radiusKm * 1000,
-      color: resolvedTheme === 'dark' ? '#72D4B3' : '#137455',
-      fillColor: resolvedTheme === 'dark' ? '#72D4B3' : '#DFF7EC',
+      color: resolvedTheme === 'dark' ? '#30D158' : '#18733B',
+      fillColor: resolvedTheme === 'dark' ? '#30D158' : '#E8F8ED',
       fillOpacity: 0.16,
       weight: 2,
       dashArray: '6, 6',
@@ -238,7 +242,7 @@ export default function MapViewContainer({
       badge.className = 'inline-flex rounded-full bg-store-soft px-2 py-1 text-[10px] font-bold text-store';
       badge.textContent = tCategory(store.category);
       const heading = document.createElement('strong');
-      heading.className = 'mt-2 block text-sm font-extrabold text-ink';
+      heading.className = 'mt-2 block text-sm font-bold text-ink';
       heading.textContent = tStoreName(store.name);
       popup.append(badge, heading);
       if (store.address) {
@@ -249,7 +253,7 @@ export default function MapViewContainer({
       }
       const direction = document.createElement('button');
       direction.type = 'button';
-      direction.className = 'mt-3 min-h-11 w-full rounded-xl bg-route px-3 text-xs font-bold text-white';
+      direction.className = 'mt-3 min-h-11 w-full rounded-[14px] bg-route-action px-3 text-xs font-bold text-white';
       direction.textContent = t('showDirection');
       direction.addEventListener('click', (event) => {
         event.stopPropagation();
@@ -264,23 +268,23 @@ export default function MapViewContainer({
   return (
     <div className="relative flex h-full min-h-0 w-full flex-col">
       {previewStore && (
-        <div className={`glass-panel absolute left-3 right-3 top-3 z-[600] max-w-sm rounded-3xl border p-3 shadow-soft sm:left-5 sm:right-auto ${routeStore ? 'border-route/35' : 'border-store/30'}`}>
+        <div className={`glass-panel absolute left-3 right-3 top-3 z-[600] max-w-sm rounded-[24px] border p-3 shadow-soft sm:left-5 sm:right-auto ${routeStore ? 'border-route/60' : 'border-store/55'}`}>
           <div className="flex items-start gap-3">
-            <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${routeStore ? 'bg-route-soft text-route' : 'bg-store-soft text-store'}`}>
+            <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] ${routeStore ? 'bg-route-soft text-route' : 'bg-store-soft text-store'}`}>
               {routeStore ? <Route className="h-5 w-5" /> : <MapPin className="h-5 w-5" />}
             </div>
             <div className="min-w-0 flex-1">
-              <h2 className="truncate text-sm font-extrabold text-ink">{tStoreName(previewStore.name)}</h2>
+              <h2 className="truncate text-sm font-bold text-ink">{tStoreName(previewStore.name)}</h2>
               <div className="font-mono-meta mt-1 flex items-center gap-2 text-[10px] font-semibold text-muted" role={isLoadingRoute ? 'status' : undefined}>
                 {isLoadingRoute ? <span className="text-route">{t('calculatingRoute')}</span> : routeInfo ? <><span className="font-bold text-route">{toMmNum(routeInfo.distanceKm)} {t('km')}</span><span aria-hidden="true">•</span><span className="flex items-center gap-1"><Clock className="h-3 w-3" />~{toMmNum(routeInfo.durationMin)} {t('minutes')}</span></> : <span>{tCategory(previewStore.category)}</span>}
               </div>
             </div>
-            <button type="button" onClick={() => onCloseDirection?.()} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-elevated text-muted hover:text-ink" aria-label={t('close')}><X className="h-4 w-4" /></button>
+            <button type="button" onClick={() => onCloseDirection?.()} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-elevated text-muted hover:text-ink" aria-label={t('close')}><X className="h-4 w-4" /></button>
           </div>
           {!routeStore && (
             <div className="mt-3 grid grid-cols-2 gap-2">
-              <button type="button" onClick={() => onShowDirection?.(previewStore)} className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-route text-xs font-bold text-white"><Navigation className="h-4 w-4" />{t('showDirection')}</button>
-              <Link href={`/stores/${previewStore.id}`} className="flex min-h-11 items-center justify-center gap-2 rounded-2xl border border-line bg-surface text-xs font-bold text-ink"><Store className="h-4 w-4" />{t('storeDetails')}</Link>
+              <button type="button" onClick={() => onShowDirection?.(previewStore)} className="flex min-h-11 items-center justify-center gap-2 rounded-[14px] bg-route-action text-xs font-bold text-white"><Navigation className="h-4 w-4" />{t('showDirection')}</button>
+              <Link href={`/stores/${previewStore.id}`} className="flex min-h-11 items-center justify-center gap-2 rounded-[14px] border border-line bg-surface text-xs font-bold text-ink"><Store className="h-4 w-4" />{t('storeDetails')}</Link>
             </div>
           )}
         </div>

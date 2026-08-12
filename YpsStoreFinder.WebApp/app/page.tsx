@@ -212,7 +212,7 @@ function HomeExplorer() {
             activeDirectionStoreId={activeDirectionStoreId}
           />
           {isLoading && (
-            <div className="glass-panel absolute right-3 top-3 z-[500] flex min-h-11 items-center gap-2 rounded-2xl border border-line px-3 text-xs font-bold text-ink shadow-card" role="status" aria-live="polite">
+            <div className="glass-panel absolute right-3 top-3 z-[500] flex min-h-11 items-center gap-2 rounded-full border border-line px-4 text-xs font-semibold text-ink shadow-card" role="status" aria-live="polite">
               <RefreshCw className="h-4 w-4 animate-spin text-store" /> {t('updatingStores')}
             </div>
           )}

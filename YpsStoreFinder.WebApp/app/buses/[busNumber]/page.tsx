@@ -40,31 +40,31 @@ export default function BusDetailPage({ params }: { params: Promise<{ busNumber:
     <AppShell active="buses">
       <div className="min-h-full bg-canvas p-4 pb-16 sm:p-8">
         <div className="mx-auto max-w-4xl">
-          <Link href="/buses" className="inline-flex min-h-11 items-center gap-2 rounded-2xl border border-line bg-surface px-4 text-xs font-bold text-ink hover:bg-elevated"><ArrowLeft className="h-4 w-4" />{t('backToBuses')}</Link>
+          <Link href="/buses" className="ios-control gap-2 text-xs"><ArrowLeft className="h-4 w-4" />{t('backToBuses')}</Link>
           {isLoading ? (
             <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3 text-bus" role="status"><RefreshCw className="h-8 w-8 animate-spin" /><span className="text-sm font-bold">{t('loadingBuses')}</span></div>
           ) : routeDetail ? (
             <div className="mt-5 grid gap-5 lg:grid-cols-[320px_minmax(0,1fr)]">
-              <aside className="h-fit overflow-hidden rounded-3xl border border-line bg-surface shadow-card lg:sticky lg:top-6">
-                <div className="transit-ribbon h-1.5" />
+              <aside className="ios-grouped-card h-fit overflow-hidden lg:sticky lg:top-6">
+                <div className="transit-ribbon h-1" />
                 <div className="p-5">
                   <div className="flex items-center justify-between gap-3">
-                    <span className="font-mono-meta flex h-16 min-w-16 items-center justify-center rounded-2xl bg-bus-soft px-3 text-2xl font-extrabold text-bus">{toMmNum(routeDetail.busNumber)}</span>
-                    <span className={`inline-flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 text-[10px] font-bold ${routeDetail.isYpsSupported ? 'bg-brand-soft text-brand' : 'bg-elevated text-muted'}`}>{routeDetail.isYpsSupported ? <CreditCard className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}{routeDetail.isYpsSupported ? t('ypsCardAccepted') : t('ypsCardUnavailable')}</span>
+                    <span className="font-mono-meta flex h-16 min-w-16 items-center justify-center rounded-[18px] bg-bus-soft px-3 text-2xl font-bold text-bus">{toMmNum(routeDetail.busNumber)}</span>
+                    <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-[10px] font-bold ${routeDetail.isYpsSupported ? 'bg-brand-soft text-brand' : 'bg-elevated text-muted'}`}>{routeDetail.isYpsSupported ? <CreditCard className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}{routeDetail.isYpsSupported ? t('ypsCardAccepted') : t('ypsCardUnavailable')}</span>
                   </div>
-                  <h1 className="mt-4 text-xl font-extrabold text-ink">YBS {toMmNum(routeDetail.busNumber)}</h1>
+                  <h1 className="ios-large-title mt-4 text-ink">YBS {toMmNum(routeDetail.busNumber)}</h1>
                   <p className="mt-2 flex items-start gap-2 text-xs leading-relaxed text-muted"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-bus" />{title}</p>
-                  <div className="mt-5 grid grid-cols-2 gap-2 rounded-2xl bg-elevated p-1.5">
-                    {(['outbound', 'return'] as const).map((tab) => <button key={tab} type="button" onClick={() => setActiveRouteTab(tab)} className={`min-h-11 rounded-xl px-2 text-xs font-bold ${activeRouteTab === tab ? 'bg-bus text-white shadow-card' : 'text-muted hover:text-ink'}`} aria-pressed={activeRouteTab === tab}>{t(tab)}</button>)}
+                  <div className="ios-segmented-control mt-5 grid-cols-2 gap-1">
+                    {(['outbound', 'return'] as const).map((tab) => <button key={tab} type="button" onClick={() => setActiveRouteTab(tab)} className={`min-h-11 rounded-[9px] px-2 text-xs font-semibold ${activeRouteTab === tab ? 'bg-surface text-ink shadow-card' : 'text-muted hover:text-ink'}`} aria-pressed={activeRouteTab === tab}>{t(tab)}</button>)}
                   </div>
                 </div>
               </aside>
-              <section className="rounded-3xl border border-line bg-surface p-5 shadow-card sm:p-7" aria-labelledby="route-title">
-                <div className="mb-6 flex items-start gap-3"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-route-soft text-route"><ArrowLeftRight className="h-5 w-5" /></span><div><p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-route">{t(activeRouteTab)}</p><h2 id="route-title" className="mt-1 text-lg font-extrabold text-ink">{title}</h2></div></div>
+              <section className="ios-grouped-card p-5 sm:p-7" aria-labelledby="route-title">
+                <div className="mb-6 flex items-start gap-3"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-route-soft text-route"><ArrowLeftRight className="h-5 w-5" /></span><div><p className="ios-section-label text-route">{t(activeRouteTab)}</p><h2 id="route-title" className="mt-1 text-lg font-bold text-ink">{title}</h2></div></div>
                 <ol className="relative ml-2 space-y-5 border-l-2 border-route/25 pl-7">
                   {stops.map((stop, index) => {
                     const order = stop.stopOrder || stop.sequenceOrder || index + 1;
-                    return <li key={`${stop.stopName}-${index}`} className="relative min-h-11"><span className="font-mono-meta absolute -left-[42px] top-0 flex h-7 w-7 items-center justify-center rounded-full border-2 border-route bg-surface text-[9px] font-bold text-route">{toMmNum(order)}</span><p className="text-sm font-extrabold text-ink">{stop.stopName || `${t('busStop')} ${toMmNum(order)}`}</p>{stop.roadTownship && <p className="mt-1 text-xs text-muted">{stop.roadTownship}</p>}</li>;
+                    return <li key={`${stop.stopName}-${index}`} className="relative min-h-11"><span className="font-mono-meta absolute -left-[42px] top-0 flex h-7 w-7 items-center justify-center rounded-full border-2 border-route bg-surface text-[9px] font-bold text-route">{toMmNum(order)}</span><p className="text-sm font-bold text-ink">{stop.stopName || `${t('busStop')} ${toMmNum(order)}`}</p>{stop.roadTownship && <p className="mt-1 text-xs text-muted">{stop.roadTownship}</p>}</li>;
                   })}
                 </ol>
               </section>

@@ -44,35 +44,35 @@ export default function StoreDetailPage({ params }: { params: Promise<{ id: stri
     <AppShell active="stores">
       <div className="min-h-full bg-canvas p-4 pb-16 sm:p-8">
         <div className="mx-auto max-w-5xl">
-          <Link href="/?view=stores" className="inline-flex min-h-11 items-center gap-2 rounded-2xl border border-line bg-surface px-4 text-xs font-bold text-ink hover:bg-elevated"><ArrowLeft className="h-4 w-4" />{t('back')}</Link>
+          <Link href="/?view=stores" className="ios-control gap-2 text-xs"><ArrowLeft className="h-4 w-4" />{t('back')}</Link>
           {loading ? (
             <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3 text-store" role="status"><RefreshCw className="h-8 w-8 animate-spin" /><span className="text-sm font-bold">{t('updatingStores')}</span></div>
           ) : error || !store ? (
             <div className="surface-card mt-5 flex min-h-64 flex-col items-center justify-center p-8 text-center"><span className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-danger-soft text-danger"><Store className="h-6 w-6" /></span><p className="text-sm font-bold text-muted">{error || t('noStoresFound')}</p></div>
           ) : (
             <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_360px]">
-              <article className="overflow-hidden rounded-3xl border border-line bg-surface shadow-card">
-                <div className="transit-ribbon h-1.5" />
+              <article className="ios-grouped-card overflow-hidden">
+                <div className="transit-ribbon h-1" />
                 <div className="p-5 sm:p-8">
                   <div className="flex items-start gap-4">
-                    <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-store-soft text-store"><Store className="h-6 w-6" /></span>
-                    <div className="min-w-0"><span className="inline-flex rounded-xl bg-store-soft px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-store">{tCategory(store.category)}</span><h1 className="mt-3 text-2xl font-extrabold leading-tight text-ink">{tStoreName(store.name)}</h1></div>
+                    <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[16px] bg-store-soft text-store"><Store className="h-6 w-6" /></span>
+                    <div className="min-w-0"><span className="inline-flex rounded-full bg-store-soft px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-store">{tCategory(store.category)}</span><h1 className="ios-large-title mt-3 text-ink">{tStoreName(store.name)}</h1></div>
                   </div>
                   <div className="mt-6 space-y-4 border-t border-line pt-6">
-                    {store.address && <div className="flex items-start gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-store-soft text-store"><MapPin className="h-4 w-4" /></span><div><p className="text-[10px] font-extrabold uppercase tracking-wider text-muted">Address</p><p className="mt-1 text-sm leading-relaxed text-ink">{tAddress(store.address)}</p></div></div>}
-                    {store.description && <div className="flex items-start gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-brand-soft text-brand"><CreditCard className="h-4 w-4" /></span><p className="pt-2 text-sm leading-relaxed text-muted">{store.description}</p></div>}
+                    {store.address && <div className="flex items-start gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-store-soft text-store"><MapPin className="h-4 w-4" /></span><div><p className="ios-section-label">Address</p><p className="mt-1 text-sm leading-relaxed text-ink">{tAddress(store.address)}</p></div></div>}
+                    {store.description && <div className="flex items-start gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-brand-soft text-brand"><CreditCard className="h-4 w-4" /></span><p className="pt-2 text-sm leading-relaxed text-muted">{store.description}</p></div>}
                   </div>
-                  <a href={directionsHref} target="_blank" rel="noreferrer" className="mt-7 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-route px-5 text-sm font-bold text-white hover:bg-route/90"><Navigation className="h-4 w-4" />{t('showDirection')}</a>
+                  <a href={directionsHref} target="_blank" rel="noreferrer" className="mt-7 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-[14px] bg-route-action px-5 text-sm font-bold text-white hover:bg-route-action/90"><Navigation className="h-4 w-4" />{t('showDirection')}</a>
                 </div>
               </article>
 
               <section aria-labelledby="nearby-stops-title">
-                <div className="mb-3 flex items-center gap-3"><span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-bus-soft text-bus"><Bus className="h-5 w-5" /></span><div><p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-bus">YBS CONNECTIONS</p><h2 id="nearby-stops-title" className="text-base font-extrabold text-ink">{t('nearestBusStops')}</h2></div></div>
+                <div className="mb-3 flex items-center gap-3"><span className="flex h-11 w-11 items-center justify-center rounded-[13px] bg-bus-soft text-bus"><Bus className="h-5 w-5" /></span><div><p className="ios-section-label text-bus">YBS CONNECTIONS</p><h2 id="nearby-stops-title" className="text-base font-bold text-ink">{t('nearestBusStops')}</h2></div></div>
                 <div className="space-y-3">
                   {nearbyStops?.nearbyBusStops?.length ? nearbyStops.nearbyBusStops.map((stop, index) => (
-                    <article key={`${stop.stopName}-${index}`} className="rounded-3xl border border-line bg-surface p-4 shadow-card">
-                      <div className="flex items-start justify-between gap-3"><div><h3 className="text-sm font-extrabold text-ink">{stop.stopName}</h3>{stop.roadTownship && <p className="mt-1 text-xs text-muted">{stop.roadTownship}</p>}</div><div className="flex shrink-0 flex-col items-end gap-1.5">{stop.distanceMeters !== undefined && <span className="font-mono-meta inline-flex items-center gap-1 rounded-xl bg-gps-soft px-2 py-1 text-[10px] font-bold text-gps"><Navigation className="h-3 w-3" />{toMmNum(stop.distanceMeters)} {t('meters')}</span>}{stop.walkTimeMinutes !== undefined && stop.walkTimeMinutes > 0 && <span className="font-mono-meta inline-flex items-center gap-1 rounded-xl bg-route-soft px-2 py-1 text-[10px] font-bold text-route"><Footprints className="h-3 w-3" />{toMmNum(stop.walkTimeMinutes)} {t('minutes')}</span>}</div></div>
-                      {!!stop.servicingBusNumbers?.length && <div className="mt-3 flex flex-wrap gap-1.5 border-t border-line pt-3">{Array.from(new Set(stop.servicingBusNumbers)).map((number) => <Link key={number} href={`/buses/${encodeURIComponent(number)}`} className={`font-mono-meta inline-flex min-h-9 min-w-9 items-center justify-center rounded-xl px-2 text-[10px] font-bold ${stop.ypsSupportedBusNumbers?.includes(number) ? 'bg-brand-soft text-brand' : 'bg-bus-soft text-bus'}`}>{toMmNum(number)}</Link>)}</div>}
+                    <article key={`${stop.stopName}-${index}`} className="ios-grouped-card p-4">
+                      <div className="flex items-start justify-between gap-3"><div><h3 className="text-sm font-bold text-ink">{stop.stopName}</h3>{stop.roadTownship && <p className="mt-1 text-xs text-muted">{stop.roadTownship}</p>}</div><div className="flex shrink-0 flex-col items-end gap-1.5">{stop.distanceMeters !== undefined && <span className="font-mono-meta inline-flex items-center gap-1 rounded-full bg-gps-soft px-2 py-1 text-[10px] font-bold text-gps"><Navigation className="h-3 w-3" />{toMmNum(stop.distanceMeters)} {t('meters')}</span>}{stop.walkTimeMinutes !== undefined && stop.walkTimeMinutes > 0 && <span className="font-mono-meta inline-flex items-center gap-1 rounded-full bg-route-soft px-2 py-1 text-[10px] font-bold text-route"><Footprints className="h-3 w-3" />{toMmNum(stop.walkTimeMinutes)} {t('minutes')}</span>}</div></div>
+                      {!!stop.servicingBusNumbers?.length && <div className="mt-3 flex flex-wrap gap-1.5 border-t border-line pt-3">{Array.from(new Set(stop.servicingBusNumbers)).map((number) => <Link key={number} href={`/buses/${encodeURIComponent(number)}`} className={`font-mono-meta inline-flex min-h-11 min-w-11 items-center justify-center rounded-[13px] px-2 text-[10px] font-bold ${stop.ypsSupportedBusNumbers?.includes(number) ? 'bg-brand-soft text-brand' : 'bg-bus-soft text-bus'}`}>{toMmNum(number)}</Link>)}</div>}
                     </article>
                   )) : <div className="surface-card p-5 text-sm text-muted">{t('nearestBusStops')}: —</div>}
                 </div>
