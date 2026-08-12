@@ -1,0 +1,4 @@
+interface:
+  display_name: "A11y"
+  short_description: "Accessible UI design, implementation, and audits"
+  default_prompt: "Use $a11y to review and improve this interface for WCAG 2.2 AA accessibility."
