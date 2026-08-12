@@ -28,5 +28,11 @@
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
     "typescript": "^5"
+  },
+  "overrides": {
+    "react-leaflet": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
   }
 }
