@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
 using YpsStoreFinder.Database.Models;
 
 namespace YpsStoreFinder.Database
@@ -18,185 +15,45 @@ namespace YpsStoreFinder.Database
         {
             await context.Database.EnsureCreatedAsync();
 
-            await SeedStoresAsync(context);
-            var ypsBusLineNumbers = await SeedYpsBusLinesAsync(context);
-            await SeedBusRoutesAsync(context, ypsBusLineNumbers);
+            await SeedTableAsync<TblTownship>(context, context.TblTownships, "TblTownship.json");
+            await SeedTableAsync<TblBusLine>(context, context.TblBusLines, "TblBusLine.json");
+            await SeedTableAsync<TblBusStop>(context, context.TblBusStops, "TblBusStop.json");
+            await SeedTableAsync<TblRouteStop>(context, context.TblRouteStops, "TblRouteStop.json");
+            await SeedTableAsync<TblYpsStore>(context, context.TblYpsStores, "TblYpsStore.json");
+            await SeedTableAsync<TblYpsStore_NearestStop>(context, context.TblYpsStore_NearestStops, "TblYpsStore_NearestStop.json");
+            await SeedTableAsync<TblYpsStore_ServingBusLine>(context, context.TblYpsStore_ServingBusLines, "TblYpsStore_ServingBusLine.json");
         }
 
-        private static async Task SeedStoresAsync(AppDbContext context)
+        private static async Task SeedTableAsync<TEntity>(AppDbContext context, DbSet<TEntity> dbSet, string jsonFileName) where TEntity : class
         {
-            if (await context.TblStores.AnyAsync()) return;
+            if (await dbSet.AnyAsync()) return;
 
-            string? jsonFilePath = FindJsonFilePath("yps_store_locations.json");
-            if (jsonFilePath != null)
+            string? jsonFilePath = FindJsonFilePath(jsonFileName);
+            if (jsonFilePath == null)
             {
-                try
-                {
-                    var jsonContent = await File.ReadAllTextAsync(jsonFilePath);
-                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                    var dataWrapper = JsonSerializer.Deserialize<YpsDataWrapper>(jsonContent, options);
-
-                    if (dataWrapper?.Stores != null && dataWrapper.Stores.Count > 0)
-                    {
-                        var entityList = dataWrapper.Stores.Select(s => new TblStore
-                        {
-                            Category = string.IsNullOrWhiteSpace(s.Category) ? "Uncategorized" : s.Category.Trim(),
-                            Name = string.IsNullOrWhiteSpace(s.Name) ? "Unknown Store" : s.Name.Trim(),
-                            Latitude = s.Latitude,
-                            Longitude = s.Longitude,
-                            Address = s.Address,
-                            Description = s.Description,
-                            RawAttributes = s.Attributes.HasValue ? s.Attributes.Value.GetRawText() : null
-                        }).ToList();
-
-                        await context.TblStores.AddRangeAsync(entityList);
-                        await context.SaveChangesAsync();
-                        return;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error seeding stores: {ex.Message}");
-                }
+                Console.WriteLine($"[DataSeeder Error] Seed file not found: {jsonFileName}");
+                return;
             }
 
-            var fallbackStores = new List<TblStore>
+            try
             {
-                new TblStore { Name = "Sule City Hall", Category = "YPS Service Kios", Latitude = 16.7759633, Longitude = 96.1587317 },
-                new TblStore { Name = "Myanmar Plaza", Category = "YPS Service Kios", Latitude = 16.8276283, Longitude = 96.1546083 }
-            };
-            await context.TblStores.AddRangeAsync(fallbackStores);
-            await context.SaveChangesAsync();
-        }
-
-        private static async Task<HashSet<string>> SeedYpsBusLinesAsync(AppDbContext context)
-        {
-            var ypsSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-            string? jsonFilePath = FindJsonFilePath("yps_ybs_bus_lines.json");
-            if (jsonFilePath != null)
-            {
-                try
+                var jsonContent = await File.ReadAllTextAsync(jsonFilePath);
+                var options = new JsonSerializerOptions
                 {
-                    var jsonContent = await File.ReadAllTextAsync(jsonFilePath);
-                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                    var ypsData = JsonSerializer.Deserialize<YpsBusLinesJsonWrapper>(jsonContent, options);
+                    PropertyNameCaseInsensitive = true
+                };
 
-                    if (ypsData?.BusLines != null && ypsData.BusLines.Count > 0)
-                    {
-                        foreach (var num in ypsData.BusLines)
-                        {
-                            ypsSet.Add(num.ToString());
-                        }
-
-                        if (!await context.TblYpsBusLines.AnyAsync())
-                        {
-                            var entities = ypsSet.Select(num => new TblYpsBusLine
-                            {
-                                BusLineNumber = num,
-                                IsYpsSupported = true
-                            }).ToList();
-
-                            await context.TblYpsBusLines.AddRangeAsync(entities);
-                            await context.SaveChangesAsync();
-                        }
-                    }
-                }
-                catch (Exception ex)
+                var items = JsonSerializer.Deserialize<List<TEntity>>(jsonContent, options);
+                if (items != null && items.Count > 0)
                 {
-                    Console.WriteLine($"Error seeding YPS bus lines: {ex.Message}");
+                    await dbSet.AddRangeAsync(items);
+                    await context.SaveChangesAsync();
+                    Console.WriteLine($"[DataSeeder Success] Seeded {items.Count} records into {typeof(TEntity).Name} from {jsonFileName}");
                 }
             }
-
-            if (ypsSet.Count == 0 && await context.TblYpsBusLines.AnyAsync())
+            catch (Exception ex)
             {
-                var existing = await context.TblYpsBusLines.Select(x => x.BusLineNumber).ToListAsync();
-                foreach (var e in existing) ypsSet.Add(e);
-            }
-
-            return ypsSet;
-        }
-
-        private static async Task SeedBusRoutesAsync(AppDbContext context, HashSet<string> ypsBusLines)
-        {
-            if (await context.TblBusRoutes.AnyAsync()) return;
-
-            string? jsonFilePath = FindJsonFilePath("bus_routes.json");
-            if (jsonFilePath != null)
-            {
-                try
-                {
-                    var jsonContent = await File.ReadAllTextAsync(jsonFilePath);
-                    var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-                    var rawRoutes = JsonSerializer.Deserialize<List<BusRouteRawItem>>(jsonContent, options);
-
-                    if (rawRoutes != null && rawRoutes.Count > 0)
-                    {
-                        var routeEntities = new List<TblBusRoute>();
-                        var stopEntities = new List<TblBusStop>();
-
-                        foreach (var raw in rawRoutes)
-                        {
-                            string busNum = raw.BusNumber ?? string.Empty;
-                            bool isYps = ypsBusLines.Contains(busNum);
-
-                            var route = new TblBusRoute
-                            {
-                                BusNumber = busNum,
-                                RouteId = raw.RouteId ?? string.Empty,
-                                OutboundTitle = raw.Outbound?.Title,
-                                OutboundTotalStops = raw.Outbound?.TotalStops ?? (raw.Outbound?.Stops?.Count ?? 0),
-                                ReturnTitle = raw.Return?.Title,
-                                ReturnTotalStops = raw.Return?.TotalStops ?? (raw.Return?.Stops?.Count ?? 0),
-                                OutboundStopsJson = raw.Outbound?.Stops != null ? JsonSerializer.Serialize(raw.Outbound.Stops) : null,
-                                ReturnStopsJson = raw.Return?.Stops != null ? JsonSerializer.Serialize(raw.Return.Stops) : null,
-                                IsYpsSupported = isYps
-                            };
-
-                            routeEntities.Add(route);
-
-                            if (raw.Outbound?.Stops != null)
-                            {
-                                foreach (var s in raw.Outbound.Stops)
-                                {
-                                    stopEntities.Add(new TblBusStop
-                                    {
-                                        BusNumber = busNum,
-                                        Direction = "outbound",
-                                        StopOrder = s.StopOrder,
-                                        StopName = s.StopName ?? string.Empty,
-                                        RoadTownship = s.RoadTownship,
-                                        StopType = s.StopType ?? "intermediate"
-                                    });
-                                }
-                            }
-
-                            if (raw.Return?.Stops != null)
-                            {
-                                foreach (var s in raw.Return.Stops)
-                                {
-                                    stopEntities.Add(new TblBusStop
-                                    {
-                                        BusNumber = busNum,
-                                        Direction = "return",
-                                        StopOrder = s.StopOrder,
-                                        StopName = s.StopName ?? string.Empty,
-                                        RoadTownship = s.RoadTownship,
-                                        StopType = s.StopType ?? "intermediate"
-                                    });
-                                }
-                            }
-                        }
-
-                        await context.TblBusRoutes.AddRangeAsync(routeEntities);
-                        await context.TblBusStops.AddRangeAsync(stopEntities);
-                        await context.SaveChangesAsync();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error seeding bus routes: {ex.Message}");
-                }
+                Console.WriteLine($"[DataSeeder Error] Failed to seed {typeof(TEntity).Name} from {jsonFileName}: {ex.Message}");
             }
         }
 
@@ -218,84 +75,6 @@ namespace YpsStoreFinder.Database
                 Console.WriteLine($"[DataSeeder Warning] Could not locate seed JSON file: {filename}. Checked locations: {string.Join(", ", possiblePaths)}");
             }
             return foundPath;
-        }
-
-        private class YpsDataWrapper
-        {
-            [JsonPropertyName("stores")]
-            public List<YpsStoreJsonItem>? Stores { get; set; }
-        }
-
-        private class YpsStoreJsonItem
-        {
-            [JsonPropertyName("category")]
-            public string? Category { get; set; }
-
-            [JsonPropertyName("name")]
-            public string? Name { get; set; }
-
-            [JsonPropertyName("latitude")]
-            public double Latitude { get; set; }
-
-            [JsonPropertyName("longitude")]
-            public double Longitude { get; set; }
-
-            [JsonPropertyName("address")]
-            public string? Address { get; set; }
-
-            [JsonPropertyName("description")]
-            public string? Description { get; set; }
-
-            [JsonPropertyName("attributes")]
-            public JsonElement? Attributes { get; set; }
-        }
-
-        private class YpsBusLinesJsonWrapper
-        {
-            [JsonPropertyName("bus_lines")]
-            public List<JsonElement>? BusLines { get; set; }
-        }
-
-        private class BusRouteRawItem
-        {
-            [JsonPropertyName("bus_number")]
-            public string? BusNumber { get; set; }
-
-            [JsonPropertyName("route_id")]
-            public string? RouteId { get; set; }
-
-            [JsonPropertyName("outbound")]
-            public BusRouteDirectionRaw? Outbound { get; set; }
-
-            [JsonPropertyName("return")]
-            public BusRouteDirectionRaw? Return { get; set; }
-        }
-
-        private class BusRouteDirectionRaw
-        {
-            [JsonPropertyName("title")]
-            public string? Title { get; set; }
-
-            [JsonPropertyName("total_stops")]
-            public int TotalStops { get; set; }
-
-            [JsonPropertyName("stops")]
-            public List<BusStopRaw>? Stops { get; set; }
-        }
-
-        private class BusStopRaw
-        {
-            [JsonPropertyName("stop_order")]
-            public int StopOrder { get; set; }
-
-            [JsonPropertyName("stop_name")]
-            public string? StopName { get; set; }
-
-            [JsonPropertyName("road_township")]
-            public string? RoadTownship { get; set; }
-
-            [JsonPropertyName("stop_type")]
-            public string? StopType { get; set; }
         }
     }
 }

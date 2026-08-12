@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-export type Language = 'my' | 'en';
+export type Language = 'my';
 
 interface TranslationData {
   [key: string]: any;
@@ -15,6 +15,8 @@ interface LanguageContextType {
   t: (key: string) => string;
   tCategory: (categoryName: string) => string;
   tAddress: (address: string | null | undefined) => string;
+  tStoreName: (name: string) => string;
+  toMmNum: (val: number | string | null | undefined) => string;
 }
 
 const addressRules: [RegExp, string][] = [
@@ -117,150 +119,86 @@ const digitMap: Record<string, string> = {
   '5': '၅', '6': '၆', '7': '၇', '8': '၈', '9': '၉'
 };
 
-const defaultTranslations: Record<Language, TranslationData> = {
-  my: {
-    appTitle: "YPS Store Finder",
-    appSubtitle: "YPS စတိုးဆိုင်များအား တစ်နေရာတည်းတွင် အလွယ်တကူ ရှာဖွေပါ",
-    searchPlaceholder: "စတိုးဆိုင်၊ ဆိုင်ခွဲ သို့မဟုတ် လိပ်စာ ရှာဖွေပါ...",
-    locateMe: "လက်ရှိနေရာ ရှာရန်",
-    gpsActive: "GPS ဖွင့်ထားသည်",
-    stopGps: "GPS ပိတ်ရန်",
-    deviceLocation: "စက်ပစ္စည်း တည်နေရာ",
-    deviceLocationActive: "တိုက်ရိုက် တည်နေရာ မျှဝေနေသည်",
-    deviceLocationInactive: "အနီးဆုံးဆိုင်များ ရှာရန် GPS ဖွင့်ပါ",
-    searchRadiusFilter: "ရှာဖွေရန် အကွာအဝေး အကန့်အသတ်",
-    km: "km",
-    kmAway: "km",
-    meters: "m",
-    allCategories: "အမျိုးအစား အားလုံး",
-    noStoresFound: "စတိုးဆိုင် မတွေ့ရှိပါ",
-    noStoresSub: "ရှာဖွေမှု သို့မဟုတ် အကွာအဝေးကို ပြန်လည်ပြင်ဆင်ကြည့်ပါ",
-    directions: "လမ်းကြောင်း",
-    showDirection: "လမ်းကြောင်း",
-    showBusLines: "ကားလိုင်းများ",
-    showAllStores: "ဆိုင်အားလုံး",
-    ybsBusLines: "YBS လိုင်းများ",
-    ypsCardAccepted: "YPS ရနိုင်သည်",
-    allBusLines: "လိုင်း အားလုံး",
-    ypsOnlyLines: "YPS သီးသန့်",
-    outboundRoute: "အသွား",
-    returnRoute: "အပြန်",
-    nearbyBusStops: "အနီးရှိ YBS ကားမှတ်တိုင်များ",
-    servicingLines: "ပြေးဆွဲသော ယာဉ်လိုင်းများ",
-    updatingStores: "စတိုးဆိုင်များ ယူနေသည်...",
-    storesCount: "ဆိုင် အရေအတွက်",
-    store: "ဆိုင်",
-    stores: "ဆိုင်များ",
-    retryConnection: "ပြန်လည် ကြိုးစားရန်",
-    apiErrorTitle: "ဆာဗာနှင့် ချိတ်ဆက်၍ မရနိုင်ပါ",
-    language: "ဘာသာစကား",
-    myanmar: "မြန်မာ",
-    english: "English",
-    lat: "မြောက်လတ္တီတွဒ်",
-    lng: "အရှေ့လောင်ဂျီတွဒ်",
-    enableGpsTitle: "တည်နေရာ ဝန်ဆောင်မှု ဖွင့်ရန်",
-    enableGpsMessage: "ဆိုင်သို့ သွားရောက်ရန် လမ်းကြောင်းနှင့် အကွာအဝေးကို ကြည့်ရှုနိုင်ရန် တည်နေရာ ဝန်ဆောင်မှုကို ဖွင့်ပေးပါ",
-    enableGpsBtn: "ဖွင့်မည်",
-    cancel: "မလုပ်တော့ပါ",
-    locationPermissionTitle: "တည်နေရာ ခွင့်ပြုချက် လိုအပ်ပါသည်",
-    locationPermissionMsg: "အနီးဆုံး YPS ဆိုင်များနှင့် လမ်းကြောင်းများ ပြသနိုင်ရန် သင့်စက်၏ တည်နေရာအသုံးပြုခွင့် ပေးပါ",
-    allowLocation: "ခွင့်ပြုမည်",
-    locationDenied: "တည်နေရာခွင့်ပြုချက်မရရှိပါ။ လက်ရှိတည်နေရာကို ရှာဖွေနိုင်ရန် တည်နေရာခွင့်ပြုချက်ကို အတည်ပြုပေးပါ",
-    locationUnavailable: "လက်ရှိ တည်နေရာအချက်အလက် မရရှိနိုင်ပါ။ ခဏစောင့်ပြီး ပြန်လည်ကြိုးစားကြည့်ပါ",
-    locationTimeout: "တည်နေရာရှာဖွေမှု အချိန်ကုန်သွားပါသည်။ ပြန်လည်ကြိုးစားကြည့်ပါ",
-    locationUnsupported: "ဤ browser တွင် တည်နေရာ ရှာဖွေခြင်း မပံ့ပိုးပါ",
-    categories: {
-      "YPS Service Kios": "YPS ဝန်ဆောင်မှု ကောင်တာများ",
-      "YPS Agents": "YPS ကိုယ်စားလှယ်များ",
-      "Mingalar Cinemas": "မင်္ဂလာ ရုပ်ရှင်ရုံများ",
-      "Capital HyperMarkets": "Capital ဟိုက်ပါမားကတ်များ",
-      "G&G stores": "G&G စတိုးဆိုင်များ",
-      "YPS Bus Terminal": "YPS ဘတ်စ်ကား ဂိတ်များ"
-    }
-  },
-  en: {
-    appTitle: "YPS Store Finder",
-    appSubtitle: "Easily locate YPS stores",
-    searchPlaceholder: "Search stores, kiosks, or addresses...",
-    locateMe: "Locate Me",
-    gpsActive: "GPS Active",
-    stopGps: "Stop GPS",
-    deviceLocation: "Device Location",
-    deviceLocationActive: "Sharing your live location",
-    deviceLocationInactive: "Turn on GPS to find nearest stores",
-    searchRadiusFilter: "Search Radius",
-    km: "km",
-    kmAway: "km away",
-    meters: "m",
-    allCategories: "All Categories",
-    noStoresFound: "No stores found",
-    noStoresSub: "Try adjusting your search or distance range.",
-    directions: "Directions",
-    showDirection: "Show Direction",
-    showBusLines: "Show Bus Lines",
-    showAllStores: "Show All Stores",
-    ybsBusLines: "YBS Bus Lines",
-    ypsCardAccepted: "YPS Card Accepted",
-    allBusLines: "All Bus Lines",
-    ypsOnlyLines: "YPS-Supported Only",
-    outboundRoute: "Outbound Route",
-    returnRoute: "Return Route",
-    nearbyBusStops: "Nearby YBS Bus Stops",
-    servicingLines: "Servicing Lines",
-    updatingStores: "Finding stores...",
-    storesCount: "Stores",
-    store: "Store",
-    stores: "Stores",
-    retryConnection: "Try Again",
-    apiErrorTitle: "Unable to connect",
-    language: "Language",
-    myanmar: "မြန်မာ",
-    english: "English",
-    lat: "Lat",
-    lng: "Lng",
-    enableGpsTitle: "Turn On Location",
-    enableGpsMessage: "Please turn on your location to see directions and distance to this store.",
-    enableGpsBtn: "Turn On",
-    cancel: "Not Now",
-    locationPermissionTitle: "Location Access Needed",
-    locationPermissionMsg: "Allow location access so we can show you the nearest YPS stores and directions.",
-    allowLocation: "Allow",
-    locationDenied: "Location access was not granted. Please allow location access in your browser settings to find nearby stores.",
-    locationUnavailable: "Your location is currently unavailable. Please wait a moment and try again.",
-    locationTimeout: "Finding your location took too long. Please try again.",
-    locationUnsupported: "Location services are not supported by this browser.",
-    categories: {
-      "YPS Service Kios": "YPS Service Kiosks",
-      "YPS Agents": "YPS Agents",
-      "Mingalar Cinemas": "Mingalar Cinemas",
-      "Capital HyperMarkets": "Capital HyperMarkets",
-      "G&G stores": "G&G Stores",
-      "YPS Bus Terminal": "YPS Bus Terminal"
-    }
+export function toMmNum(val: number | string | null | undefined): string {
+  if (val === null || val === undefined) return '';
+  return String(val).replace(/[0-9]/g, (match) => digitMap[match] || match);
+}
+
+const defaultTranslations: TranslationData = {
+  appTitle: "YPS စတိုးဆိုင်များ ရှာဖွေရန်",
+  appSubtitle: "YPS စတိုးဆိုင်များအား တစ်နေရာတည်းတွင် အလွယ်တကူ ရှာဖွေပါ",
+  searchPlaceholder: "စတိုးဆိုင်၊ ဆိုင်ခွဲ သို့မဟုတ် လိပ်စာ ရှာဖွေပါ",
+  locateMe: "လက်ရှိနေရာ",
+  gpsActive: "GPS ဖွင့်ထားသည်",
+  stopGps: "GPS ပိတ်ရန်",
+  deviceLocation: "တည်နေရာ",
+  deviceLocationActive: "တိုက်ရိုက် တည်နေရာ မျှဝေနေသည်",
+  deviceLocationInactive: "အနီးဆုံးဆိုင်များ ရှာရန် GPS ဖွင့်ပါ",
+  searchRadiusFilter: "ရှာဖွေရန် အကွာအဝေး အကန့်အသတ်",
+  km: "ကီလိုမီတာ",
+  kmAway: "ကီလိုမီတာ အကွာအဝေး",
+  allCategories: "အမျိုးအစား အားလုံး",
+  noStoresFound: "စတိုးဆိုင် မတွေ့ရှိပါ",
+  noStoresSub: "ရှာဖွေမှု သို့မဟုတ် အကွာအဝေးကို ပြန်လည်ပြင်ဆင်ကြည့်ပါ",
+  directions: "လမ်းကြောင်းရှာရန်",
+  stores: "YPS ဆိုင်များ",
+  ybsBusLines: "YBS ယာဉ်လိုင်းများ",
+  showDirection: "လမ်းကြောင်းကြည့်ရန်",
+  showBusStops: "အနီးရှိမှတ်တိုင်များ",
+  showBusLines: "ရောက်ရှိနိုင်သော ယာဉ်လိုင်းများကြည့်မည်",
+  servicingLines: "ရောက်ရှိနိုင်သော ယာဉ်လိုင်းများ",
+  nearestBusStops: "ဆိုင်အနီးရှိ မှတ်တိုင်များ",
+  ypsCardUnavailable: "YPS ကဒ် အသုံးပြု၍မရနိုင်ပါ",
+  ypsCardAccepted: "YPS ကဒ် အသုံးပြု၍ရပါသည်",
+  allBusLines: "ယာဉ်လိုင်းအားလုံး",
+  ypsOnlyLines: "YPS ကဒ် အသုံးပြုနိုင်သော ယာဉ်လိုင်းများ",
+  outbound: "အသွား",
+  return: "အပြန်",
+  outboundRoute: "အသွား",
+  returnRoute: "အပြန်",
+  updatingStores: "စတိုးဆိုင်များ ရယူနေသည်...",
+  storesCount: "ဆိုင် အရေအတွက်",
+  store: "ဆိုင်",
+  retryConnection: "ပြန်လည် ကြိုးစားရန်",
+  apiErrorTitle: "ချိတ်ဆက်၍ မရနိုင်ပါ",
+  language: "ဘာသာစကား",
+  myanmar: "မြန်မာ",
+  english: "English",
+  meters: "မီတာ",
+  enableGpsTitle: "တည်နေရာ ဝန်ဆောင်မှု ဖွင့်ရန်",
+  enableGpsMessage: "ဆိုင်သို့ သွားရောက်ရန် လမ်းကြောင်းနှင့် အကွာအဝေးကို ကြည့်ရှုနိုင်ရန် တည်နေရာ ဝန်ဆောင်မှုကို ဖွင့်ပေးပါ",
+  enableGpsBtn: "ဖွင့်မည်",
+  cancel: "မလုပ်တော့ပါ",
+  locationPermissionTitle: "တည်နေရာ ခွင့်ပြုချက် လိုအပ်ပါသည်",
+  locationPermissionMsg: "အနီးဆုံး YPS ဆိုင်များနှင့် လမ်းကြောင်းများ ပြသနိုင်ရန် သင့်စက်၏ တည်နေရာအသုံးပြုခွင့် ပေးပါ",
+  allowLocation: "ခွင့်ပြုမည်",
+  locationDenied: "တည်နေရာခွင့်ပြုချက်မရရှိပါ။ လက်ရှိတည်နေရာကို ရှာဖွေနိုင်ရန် တည်နေရာခွင့်ပြုချက်ကို အတည်ပြုပေးပါ",
+  locationUnavailable: "လက်ရှိ တည်နေရာအချက်အလက် မရရှိနိုင်ပါ။ ခဏစောင့်ပြီး ပြန်လည်ကြိုးစားကြည့်ပါ",
+  locationTimeout: "တည်နေရာရှာဖွေမှု အချိန်ကုန်သွားပါသည်။ ပြန်လည်ကြိုးစားကြည့်ပါ",
+  locationUnsupported: "ဤ browser တွင် တည်နေရာ ရှာဖွေခြင်း မပံ့ပိုးပါ",
+  categories: {
+    "YPS Service Kios": "YPS ဝန်ဆောင်မှု ကောင်တာများ",
+    "YPS Agents": "YPS ကိုယ်စားလှယ်များ",
+    "Mingalar Cinemas": "မင်္ဂလာ ရုပ်ရှင်ရုံများ",
+    "Capital HyperMarkets": "Capital ဟိုက်ပါမားကတ်များ",
+    "G&G stores": "G&G စတိုးဆိုင်များ",
+    "YPS Bus Terminal": "YPS ဘတ်စ်ကား ဂိတ်များ"
   }
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguageState] = useState<Language>('my');
-  const [translations, setTranslations] = useState<Record<Language, TranslationData>>(defaultTranslations);
+  const language: Language = 'my';
+  const [translations, setTranslations] = useState<TranslationData>(defaultTranslations);
 
   useEffect(() => {
-    const savedLang = localStorage.getItem('yps_lang') as Language;
-    if (savedLang === 'my' || savedLang === 'en') {
-      setLanguageState(savedLang);
-    } else {
-      // Default to Myanmar per user request
-      setLanguageState('my');
-    }
-
-    // Try fetching external translation.json if available
+    localStorage.setItem('yps_lang', 'my');
     fetch('/translation.json')
       .then((res) => res.json())
       .then((data) => {
-        if (data && data.my && data.en) {
-          setTranslations(data);
+        if (data && data.my) {
+          setTranslations(data.my);
         }
       })
       .catch((err) => {
@@ -268,46 +206,55 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
       });
   }, []);
 
-  const setLanguage = (lang: Language) => {
-    setLanguageState(lang);
-    localStorage.setItem('yps_lang', lang);
+  const setLanguage = (_lang: Language) => {
+    // Language toggling disabled - forced to Burmese ('my')
   };
 
   const toggleLanguage = () => {
-    const nextLang = language === 'my' ? 'en' : 'my';
-    setLanguage(nextLang);
+    // Language toggling disabled - forced to Burmese ('my')
   };
 
   const t = (key: string): string => {
-    const currentDict = translations[language] || defaultTranslations[language] || defaultTranslations.my;
-    return currentDict[key] || defaultTranslations['my'][key] || key;
+    return translations[key] || defaultTranslations[key] || key;
   };
 
   const tCategory = (categoryName: string): string => {
-    const currentDict = translations[language] || defaultTranslations[language] || defaultTranslations.my;
-    if (currentDict.categories && currentDict.categories[categoryName]) {
-      return currentDict.categories[categoryName];
+    if (translations.categories && translations.categories[categoryName]) {
+      return translations.categories[categoryName];
+    }
+    if (defaultTranslations.categories && defaultTranslations.categories[categoryName]) {
+      return defaultTranslations.categories[categoryName];
     }
     return categoryName;
   };
 
   const tAddress = (address: string | null | undefined): string => {
     if (!address) return '';
-    if (language !== 'my') return address;
-
     let result = address;
     for (const [pattern, replacement] of addressRules) {
       result = result.replace(pattern, replacement);
     }
-
     // Convert digits to Myanmar numerals for Burmese display
-    result = result.replace(/[0-9]/g, (match) => digitMap[match] || match);
+    return toMmNum(result);
+  };
 
-    return result;
+  const tStoreName = (name: string): string => {
+    if (!name) return '';
+    return name
+      .replace(/Sule City Hall/g, 'ဆူးလေ YPS ဝန်ဆောင်မှုဆိုင်')
+      .replace(/Tha Khin Mya Pan Chan/g, 'သခင်မြပန်းခြံ YPS ဝန်ဆောင်မှုဆိုင်')
+      .replace(/Myanmar Plaza/g, 'မြန်မာပလာဇာ YPS ဝန်ဆောင်မှုဆိုင်')
+      .replace(/Hleden Kios/g, 'လှည်းတန်း YPS ဝန်ဆောင်မှုဆိုင်')
+      .replace(/Yuzana Plaza/g, 'ယုဇနပလာဇာ YPS ဝန်ဆောင်မှုဆိုင်')
+      .replace(/Dagon Seikkan/g, 'ဒဂုံဆိပ်ကမ်း YPS ဝန်ဆောင်မှုဆိုင်')
+      .replace(/YPS Service Kios/g, 'YPS ဝန်ဆောင်မှုဆိုင်')
+      .replace(/YPS Service Counter/g, 'YPS ဝန်ဆောင်မှု ကောင်တာ')
+      .replace(/Counter/g, 'ကောင်တာ')
+      .replace(/Store/g, 'စတိုး');
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage, t, tCategory, tAddress }}>
+    <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage, t, tCategory, tAddress, tStoreName, toMmNum }}>
       {children}
     </LanguageContext.Provider>
   );

@@ -380,19 +380,6 @@ out/
 *.sqlite
 *.sqlite3
 
-# Flutter & Dart Mobile
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-**/build/
-**/ephemeral/
-**/android/.gradle/
-**/android/local.properties
-**/ios/Pods/
-**/ios/.symlinks/
-**/ios/Flutter/Flutter.framework
-**/ios/Flutter/Generated.xcconfig
-
-
+YpsStoreFinder.Database\Data
+AGENTS.md
+.rules

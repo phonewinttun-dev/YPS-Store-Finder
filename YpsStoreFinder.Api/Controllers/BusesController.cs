@@ -22,9 +22,9 @@ namespace YpsStoreFinder.Api.Controllers
 
         // Returns paginated list of ALL YBS bus lines
         [HttpGet]
-        public async Task<IActionResult> GetBusLines([FromQuery] PaginationRequest request, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> GetBusLines(CancellationToken cancellationToken = default)
         {
-            var result = await _busService.GetBusLinesAsync(request, cancellationToken);
+            var result = await _busService.GetBusLinesAsync(cancellationToken);
             return result.IsSuccess ? Ok(result) : BadRequest(result);
         }
 

@@ -1,3 +1,8 @@
+export interface NearestBusStopDto {
+  mm: string;
+  en: string;
+}
+
 export interface StoreDto {
   id: number;
   category: string;
@@ -8,6 +13,7 @@ export interface StoreDto {
   description: string | null;
   rawAttributes: string | null;
   distanceKm: number | null;
+  nearestBusStops?: NearestBusStopDto[] | null;
 }
 
 export interface CategorySummaryDto {

@@ -36,18 +36,21 @@
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
   }
-}
-
-.leaflet-container {
-  flex: 1 1 0% !important;
-  width: 100% !important;
-  height: auto !important;
-  border-radius: 0 !important;
 }
 
 .font-mono-meta {
   font-family: var(--font-jetbrains);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  line-height: 1;
 }
 
 .glass-panel {
@@ -91,9 +94,11 @@
 
 /* Custom Leaflet overrides */
 .leaflet-container {
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
   z-index: 1;
+  border-radius: 0 !important;
 }
 
 .leaflet-popup-content-wrapper {
@@ -122,11 +127,25 @@
   opacity: 0.95 !important;
 }
 
+/* PWA Touch Scroll & Overscroll Fixes */
+html, body {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
+}
+
+.scrollable-panel {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  touch-action: pan-y;
+}
+
 /* Custom Sleek 6px Scrollbar */
 .custom-scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #d1c6ab transparent;
-  touch-action: pan-x;
+  touch-action: pan-x pan-y;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
 }
 
 .custom-scrollbar::-webkit-scrollbar {

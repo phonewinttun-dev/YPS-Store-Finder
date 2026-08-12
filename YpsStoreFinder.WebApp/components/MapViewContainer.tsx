@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Circle, Polyline, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { StoreDto } from '../types/store';
-import { Navigation, MapPin, Route, Bus, X, Clock } from 'lucide-react';
+import { Clock, MapPin, Route, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { StoreDto } from '../types/store';
 
 interface MapViewContainerProps {
   stores: StoreDto[];
@@ -89,59 +88,6 @@ const createStoreMarkerIcon = (category: string, isSelected: boolean) => {
   });
 };
 
-function MapRecenter({
-  center,
-  zoom,
-  selectedStoreId,
-  hasRealLocation,
-  mobileTab,
-}: {
-  center: [number, number];
-  zoom?: number;
-  selectedStoreId: number | null;
-  hasRealLocation: boolean;
-  mobileTab?: 'map' | 'list';
-}) {
-  const map = useMap();
-  const prevStoreIdRef = useRef<number | null>(null);
-  const prevGpsStateRef = useRef<boolean>(false);
-  const prevCenterRef = useRef<[number, number]>(center);
-
-  useEffect(() => {
-    const handleResize = () => {
-      map.invalidateSize();
-    };
-    window.addEventListener('resize', handleResize);
-    const t1 = setTimeout(() => map.invalidateSize(), 50);
-    const t2 = setTimeout(() => map.invalidateSize(), 250);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
-  }, [map, mobileTab]);
-
-  useEffect(() => {
-    const isStoreChanged = selectedStoreId !== prevStoreIdRef.current;
-    const isGpsTurnedOn = hasRealLocation && !prevGpsStateRef.current;
-    const isCenterChanged =
-      hasRealLocation &&
-      (Math.abs(prevCenterRef.current[0] - center[0]) > 0.0001 ||
-        Math.abs(prevCenterRef.current[1] - center[1]) > 0.0001);
-
-    if (isStoreChanged || isGpsTurnedOn || isCenterChanged) {
-      prevStoreIdRef.current = selectedStoreId;
-      prevGpsStateRef.current = hasRealLocation;
-      prevCenterRef.current = center;
-
-      if (center && center[0] !== 0 && center[1] !== 0) {
-        map.flyTo(center, zoom || 15, { duration: 1.2 });
-      }
-    }
-  }, [center, zoom, map, selectedStoreId, hasRealLocation]);
-  return null;
-}
-
 export default function MapViewContainer({
   stores,
   userLocation,
@@ -154,7 +100,13 @@ export default function MapViewContainer({
   activeDirectionStoreId,
   mobileTab,
 }: MapViewContainerProps) {
-  const { t, tCategory, tAddress, language } = useLanguage();
+  const { t, tCategory, tAddress, tStoreName, toMmNum } = useLanguage();
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<L.Map | null>(null);
+  const userLayerRef = useRef<L.LayerGroup | null>(null);
+  const storesLayerRef = useRef<L.LayerGroup | null>(null);
+  const routeLayerRef = useRef<L.LayerGroup | null>(null);
 
   const [routeCoordinates, setRouteCoordinates] = useState<[number, number][]>([]);
   const [routeInfo, setRouteInfo] = useState<{ distanceKm: number; durationMin: number } | null>(null);
@@ -171,7 +123,100 @@ export default function MapViewContainer({
 
   const targetZoom = selectedStore ? 16 : 14;
 
-  // Fetch In-App Road Route Geometry from OSRM when activeDirectionStoreId or selectedStore changes
+  const prevStoreIdRef = useRef<number | null>(null);
+  const prevGpsStateRef = useRef<boolean>(false);
+  const prevCenterRef = useRef<[number, number]>(mapCenter);
+
+  // Initialize Native Leaflet Map Engine (React 19 & Next.js 16 Compatible)
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    if (mapRef.current) {
+      mapRef.current.remove();
+      mapRef.current = null;
+    }
+
+    const map = L.map(containerRef.current, {
+      center: [userLocation.latitude, userLocation.longitude],
+      zoom: 14,
+      minZoom: 10,
+      maxBounds: YANGON_BOUNDS,
+      maxBoundsViscosity: 1.0,
+      scrollWheelZoom: true,
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    userLayerRef.current = L.layerGroup().addTo(map);
+    storesLayerRef.current = L.layerGroup().addTo(map);
+    routeLayerRef.current = L.layerGroup().addTo(map);
+
+    mapRef.current = map;
+
+    return () => {
+      map.remove();
+      mapRef.current = null;
+      userLayerRef.current = null;
+      storesLayerRef.current = null;
+      routeLayerRef.current = null;
+    };
+  }, []);
+
+  // Resize map when window resizes, container changes size, or mobileTab changes
+  useEffect(() => {
+    if (!mapRef.current || !containerRef.current) return;
+    const map = mapRef.current;
+    const container = containerRef.current;
+
+    const handleResize = () => map.invalidateSize();
+    window.addEventListener('resize', handleResize);
+
+    const resizeObserver = new ResizeObserver(() => {
+      map.invalidateSize();
+    });
+    resizeObserver.observe(container);
+
+    const rafId = requestAnimationFrame(() => {
+      map.invalidateSize();
+    });
+    const t1 = setTimeout(() => map.invalidateSize(), 50);
+    const t2 = setTimeout(() => map.invalidateSize(), 250);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      resizeObserver.disconnect();
+      cancelAnimationFrame(rafId);
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [mobileTab]);
+
+  // Recenter map on store change or GPS activation
+  useEffect(() => {
+    if (!mapRef.current) return;
+    const map = mapRef.current;
+
+    const isStoreChanged = selectedStoreId !== prevStoreIdRef.current;
+    const isGpsTurnedOn = userLocation.hasRealLocation && !prevGpsStateRef.current;
+    const isCenterChanged =
+      userLocation.hasRealLocation &&
+      (Math.abs(prevCenterRef.current[0] - mapCenter[0]) > 0.0001 ||
+        Math.abs(prevCenterRef.current[1] - mapCenter[1]) > 0.0001);
+
+    if (isStoreChanged || isGpsTurnedOn || isCenterChanged) {
+      prevStoreIdRef.current = selectedStoreId;
+      prevGpsStateRef.current = userLocation.hasRealLocation;
+      prevCenterRef.current = mapCenter;
+
+      if (mapCenter && mapCenter[0] !== 0 && mapCenter[1] !== 0) {
+        map.flyTo(mapCenter, targetZoom, { duration: 1.2 });
+      }
+    }
+  }, [mapCenter, targetZoom, selectedStoreId, userLocation.hasRealLocation]);
+
+  // Fetch OSRM route geometry
   useEffect(() => {
     if (!selectedStore || !userLocation.latitude || !userLocation.longitude) {
       setRouteCoordinates([]);
@@ -197,7 +242,6 @@ export default function MapViewContainer({
             durationMin: Math.max(1, Math.round(route.duration / 60)),
           });
         } else {
-          // Fallback to straight line if no route returned
           setRouteCoordinates([
             [userLocation.latitude, userLocation.longitude],
             [selectedStore.latitude, selectedStore.longitude],
@@ -219,6 +263,118 @@ export default function MapViewContainer({
     fetchOsrmRoute();
   }, [selectedStore, userLocation.latitude, userLocation.longitude]);
 
+  // Update Route Polyline Layer
+  useEffect(() => {
+    if (!routeLayerRef.current) return;
+    routeLayerRef.current.clearLayers();
+
+    if (selectedStore) {
+      const positions: L.LatLngTuple[] =
+        routeCoordinates.length > 0
+          ? (routeCoordinates as L.LatLngTuple[])
+          : [
+              [userLocation.latitude, userLocation.longitude],
+              [selectedStore.latitude, selectedStore.longitude],
+            ];
+      const polyline = L.polyline(positions, {
+        color: '#ba1a1a',
+        weight: 5,
+        opacity: 0.9,
+        dashArray: routeCoordinates.length > 0 ? undefined : '10, 10',
+      });
+      routeLayerRef.current.addLayer(polyline);
+    }
+  }, [selectedStore, routeCoordinates, userLocation]);
+
+  // Update User Marker & Radius Layer
+  useEffect(() => {
+    if (!userLayerRef.current) return;
+    userLayerRef.current.clearLayers();
+
+    if (userLocation.hasRealLocation) {
+      const userMarker = L.marker([userLocation.latitude, userLocation.longitude], {
+        icon: createUserMarkerIcon(),
+      });
+      userMarker.bindPopup(`
+        <div class="p-1 font-work-sans text-xs">
+          <span class="font-bold text-[#725c00] block">${t('deviceLocation')}</span>
+          <span class="text-gray-600 font-mono-meta">${t('gpsActive')}</span>
+        </div>
+      `);
+      userLayerRef.current.addLayer(userMarker);
+
+      const circle = L.circle([userLocation.latitude, userLocation.longitude], {
+        radius: radiusKm * 1000,
+        color: '#725c00',
+        fillColor: '#ffd200',
+        fillOpacity: 0.15,
+        weight: 1.5,
+        dashArray: '6, 6',
+      });
+      userLayerRef.current.addLayer(circle);
+    }
+  }, [userLocation, radiusKm, t]);
+
+  // Update Store Markers Layer
+  useEffect(() => {
+    if (!storesLayerRef.current) return;
+    storesLayerRef.current.clearLayers();
+
+    stores.forEach((store) => {
+      const isSelected = store.id === activeStoreId;
+      const marker = L.marker([store.latitude, store.longitude], {
+        icon: createStoreMarkerIcon(store.category, isSelected),
+      });
+
+      marker.on('click', () => {
+        onSelectStore(store);
+      });
+
+      const popupDiv = document.createElement('div');
+      popupDiv.className = 'p-2 max-w-[250px] font-work-sans';
+      popupDiv.innerHTML = `
+        <div class="flex items-center justify-between gap-2 mb-1.5">
+          <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#fff9e6] text-[#725c00] border border-[#ffe07c]">
+            ${tCategory(store.category)}
+          </span>
+          ${
+            store.distanceKm !== null
+              ? `<span class="text-xs font-bold font-mono-meta text-[#725c00] bg-[#ffd200] px-2 py-0.5 rounded border border-[#e5bc00]">${toMmNum(
+                  store.distanceKm
+                )} ${t('km')}</span>`
+              : ''
+          }
+        </div>
+        <h4 class="font-bold text-sm text-[#1a1c1e] mb-1.5">${tStoreName(store.name)}</h4>
+        ${
+          store.address
+            ? `<p class="text-xs text-gray-700 font-medium mb-2.5 leading-relaxed flex items-start gap-1.5">
+                <span>${tAddress(store.address)}</span>
+              </p>`
+            : ''
+        }
+        <button class="dir-btn w-full mt-2 py-2 px-3 bg-[#725c00] hover:bg-[#564500] text-white text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-colors shadow-sm cursor-pointer">
+          <span class="text-white font-bold">${t('showDirection')}</span>
+        </button>
+      `;
+
+      const btn = popupDiv.querySelector('.dir-btn');
+      if (btn) {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (onShowDirection) {
+            onShowDirection(store);
+          } else {
+            onSelectStore(store);
+          }
+        });
+      }
+
+      marker.bindPopup(popupDiv);
+      storesLayerRef.current?.addLayer(marker);
+    });
+  }, [stores, activeStoreId, onSelectStore, onShowDirection, t, tCategory, tAddress, tStoreName, toMmNum]);
+
   return (
     <div className="flex-1 min-h-0 flex flex-col w-full relative">
       {/* In-App Route Information Header Overlay */}
@@ -230,24 +386,24 @@ export default function MapViewContainer({
             </div>
             <div>
               <h4 className="font-bold text-xs sm:text-sm text-[#1a1c1e] truncate max-w-[180px]">
-                {selectedStore.name}
+                {tStoreName(selectedStore.name)}
               </h4>
               <div className="flex items-center gap-2 mt-0.5 text-[11px] font-semibold text-gray-600 font-mono-meta">
                 {isLoadingRoute ? (
                   <span className="text-[#725c00] animate-pulse">
-                    {language === 'my' ? 'လမ်းကြောင်း တွက်ချက်နေသည်...' : 'Calculating route...'}
+                    လမ်းကြောင်း တွက်ချက်နေသည်...
                   </span>
                 ) : routeInfo ? (
                   <>
-                    <span className="text-[#725c00] font-bold">{routeInfo.distanceKm} km</span>
+                    <span className="text-[#725c00] font-bold">{toMmNum(routeInfo.distanceKm)} {t('km')}</span>
                     <span>•</span>
                     <span className="flex items-center gap-1 text-gray-700">
                       <Clock className="w-3 h-3 text-[#725c00]" />
-                      ~{routeInfo.durationMin} {language === 'my' ? 'မိနစ်' : 'mins'}
+                      ~{toMmNum(routeInfo.durationMin)} မိနစ်
                     </span>
                   </>
                 ) : selectedStore.distanceKm !== null ? (
-                  <span className="text-[#725c00] font-bold">{selectedStore.distanceKm} km</span>
+                  <span className="text-[#725c00] font-bold">{toMmNum(selectedStore.distanceKm)} {t('km')}</span>
                 ) : (
                   <span>{tCategory(selectedStore.category)}</span>
                 )}
@@ -261,140 +417,15 @@ export default function MapViewContainer({
               else onSelectStore(selectedStore);
             }}
             className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center transition-colors shrink-0 cursor-pointer"
-            title="Close Route Direction"
+            title="လမ်းကြောင်းပိတ်ရန်"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
       )}
 
-      <MapContainer
-        center={mapCenter}
-        zoom={targetZoom}
-        minZoom={10}
-        maxBounds={YANGON_BOUNDS}
-        maxBoundsViscosity={1.0}
-        scrollWheelZoom={true}
-        style={{ flex: '1 1 0%', width: '100%' }}
-        className="w-full h-full rounded-none overflow-hidden z-10"
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-        />
-
-        <MapRecenter
-          center={mapCenter}
-          zoom={targetZoom}
-          selectedStoreId={activeStoreId}
-          hasRealLocation={userLocation.hasRealLocation}
-          mobileTab={mobileTab}
-        />
-
-        {/* In-App Route Line directly on Leaflet Map */}
-        {selectedStore && (
-          <Polyline
-            positions={
-              routeCoordinates.length > 0
-                ? routeCoordinates
-                : [
-                    [userLocation.latitude, userLocation.longitude],
-                    [selectedStore.latitude, selectedStore.longitude],
-                  ]
-            }
-            pathOptions={{
-              color: '#ba1a1a',
-              weight: 5,
-              opacity: 0.9,
-              dashArray: routeCoordinates.length > 0 ? undefined : '10, 10',
-            }}
-          />
-        )}
-
-        {/* User Location Marker & Radius Circle */}
-        {userLocation.hasRealLocation && (
-          <>
-            <Marker
-              position={[userLocation.latitude, userLocation.longitude]}
-              icon={createUserMarkerIcon()}
-            >
-              <Popup>
-                <div className="p-1 font-work-sans text-xs">
-                  <span className="font-bold text-[#725c00] block">{t('deviceLocation')}</span>
-                  <span className="text-gray-600 font-mono-meta">{t('gpsActive')}</span>
-                </div>
-              </Popup>
-            </Marker>
-
-            <Circle
-              center={[userLocation.latitude, userLocation.longitude]}
-              radius={radiusKm * 1000}
-              pathOptions={{
-                color: '#725c00',
-                fillColor: '#ffd200',
-                fillOpacity: 0.15,
-                weight: 1.5,
-                dashArray: '6, 6',
-              }}
-            />
-          </>
-        )}
-
-        {/* Store Markers */}
-        {stores.map((store) => {
-          const isSelected = store.id === activeStoreId;
-          return (
-            <Marker
-              key={store.id}
-              position={[store.latitude, store.longitude]}
-              icon={createStoreMarkerIcon(store.category, isSelected)}
-              eventHandlers={{
-                click: () => onSelectStore(store),
-              }}
-            >
-              <Popup>
-                <div className="p-2 max-w-[250px] font-work-sans">
-                  <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#fff9e6] text-[#725c00] border border-[#ffe07c]">
-                      {tCategory(store.category)}
-                    </span>
-                    {store.distanceKm !== null && (
-                      <span className="text-xs font-bold font-mono-meta text-[#725c00] bg-[#ffd200] px-2 py-0.5 rounded border border-[#e5bc00]">
-                        {store.distanceKm} {t('km')}
-                      </span>
-                    )}
-                  </div>
-
-                  <h4 className="font-bold text-sm text-[#1a1c1e] mb-1.5">{store.name}</h4>
-
-                  {store.address && (
-                    <p className="text-xs text-gray-700 font-medium mb-2.5 leading-relaxed flex items-start gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-gray-500 shrink-0 mt-0.5" />
-                      <span>{tAddress(store.address)}</span>
-                    </p>
-                  )}
-
-                  {/* In-App Route Direction Trigger Button */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      if (onShowDirection) {
-                        onShowDirection(store);
-                      } else {
-                        onSelectStore(store);
-                      }
-                    }}
-                    className="w-full mt-2 py-2 px-3 bg-[#725c00] hover:bg-[#564500] text-white text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-colors shadow-sm cursor-pointer"
-                  >
-                    <Route className="w-3.5 h-3.5 text-white" />
-                    <span className="text-white font-bold">{t('showDirection')}</span>
-                  </button>
-                </div>
-              </Popup>
-            </Marker>
-          );
-        })}
-      </MapContainer>
+      {/* Native Leaflet Map Element Container */}
+      <div ref={containerRef} className="w-full h-full rounded-none overflow-hidden z-10 flex-1" />
     </div>
   );
 }

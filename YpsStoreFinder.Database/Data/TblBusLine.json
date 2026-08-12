@@ -1,0 +1,1352 @@
+[
+  {
+    "RouteId": 2,
+    "BusNumber": "2",
+    "OutboundTitleMm": "အောင်မင်္ဂလာအဝေးပြေး(ကားဝင်း) → ပိတောက်ကွေ့",
+    "OutboundTitleEn": "Aung Mingalar Terminal -> Padauk Kwe",
+    "ReturnTitleMm": "ပိတောက်ကွေ့ → အောင်မင်္ဂလာအဝေးပြေးထိပ်",
+    "ReturnTitleEn": "Padauk Kwe -> Aung Mingalar Terminal",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 14,
+    "BusNumber": "13",
+    "OutboundTitleMm": "ထန်းတပင် → ဗိုလ်တထောင်ဘုရား",
+    "OutboundTitleEn": "Htantabin -> Botataung Pagoda",
+    "ReturnTitleMm": "ဗိုလ်တထောင်ဘုရား → ထန်းတပင်",
+    "ReturnTitleEn": "Botataung Pagoda -> Htantabin",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 23,
+    "BusNumber": "20",
+    "OutboundTitleMm": "ဒဂုံဧရာအဝေးပြေး → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "Dagon Ayer Terminal -> Thakhin Mya Pan Chan",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → ဒဂုံဧရာအဝေးပြေး",
+    "ReturnTitleEn": "Thakhin Mya Pan Chan -> Dagon Ayer Terminal",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 3,
+    "BusNumber": "3",
+    "OutboundTitleMm": "အဝိုင်းထိပ်(ကွန်တိန်နာဂိတ်) → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "A Wine Hteik (Container Gate) -> Sule (City Hall)",
+    "ReturnTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → အဝိုင်းထိပ်(ကွန်တိန်နာဂိတ်)",
+    "ReturnTitleEn": "Sule (City Hall) -> A Wine Hteik (Container Gate)",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 4,
+    "BusNumber": "4",
+    "OutboundTitleMm": "ရတနာနှင်းဆီအိမ်ရာ → ဆူးလေ(ပန်းခြံ)",
+    "OutboundTitleEn": "Yadanar Hnin Si Residence -> Sule (Park)",
+    "ReturnTitleMm": "ပန်းဆိုးတန်း → ရတနာနှင်းဆီအိမ်ရာ",
+    "ReturnTitleEn": "Sule (Park) -> Yadanar Hnin Si Residence",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 5,
+    "BusNumber": "5",
+    "OutboundTitleMm": "၅ဂိတ်အစ → ညောင်တန်း",
+    "OutboundTitleEn": "5 Gate -> Nyaung Tan",
+    "ReturnTitleMm": "ညောင်တန်း → ၅ဂိတ်အစ",
+    "ReturnTitleEn": "Nyaung Tan -> 5 Gate",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 6,
+    "BusNumber": "6",
+    "OutboundTitleMm": "ဒဂုံဧရာအဝေးပြေး → ၈/၉လမ်းဆုံ",
+    "OutboundTitleEn": "Dagon Ayer Terminal -> 8/9 Junction",
+    "ReturnTitleMm": "၈/၉လမ်းဆုံ → ဒဂုံဧရာအဝေးပြေး",
+    "ReturnTitleEn": "8/9 Junction -> Dagon Ayer Terminal",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 8,
+    "BusNumber": "8",
+    "OutboundTitleMm": "၈ဂိတ်အစ → လသာ",
+    "OutboundTitleEn": "8 Gate -> Latha",
+    "ReturnTitleMm": "လသာ → ၈ဂိတ်အစ",
+    "ReturnTitleEn": "Latha -> 8 Gate",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 26,
+    "BusNumber": "22",
+    "OutboundTitleMm": "ရန်ကုန်အနောက်ပိုင်းတက္ကသိုလ် → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "WYTU -> Thakin Mya Pan Chan",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → ရန်ကုန်အနောက်ပိုင်းတက္ကသိုလ်",
+    "ReturnTitleEn": "Thakhin Mya Pan Chan -> WYTU",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 91,
+    "BusNumber": "82",
+    "OutboundTitleMm": "ဒဂုံဧရာအဝေးပြေး → ဗိုလ်တထောင်ဘုရား",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဗိုလ်တထောင်ဘုရား → ဒဂုံဧရာအဝေးပြေး",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 98,
+    "BusNumber": "89",
+    "OutboundTitleMm": "အောက်ကွေ့ → ပန်းပင်ကြီးလမ်း",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ပန်းပင်ကြီးလမ်း → အောက်ကွေ့",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 99,
+    "BusNumber": "89",
+    "OutboundTitleMm": "အောက်ကွေ့ → ပန်းပင်ကြီးလမ်း",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ပန်းပင်ကြီးလမ်း → အောက်ကွေ့",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 121,
+    "BusNumber": "111",
+    "OutboundTitleMm": "ကရုဏာလမ်းဆုံ → ဆူးလေ(ပန်းခြံ)",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဆူးလေ(ပန်းခြံ) → ကရုဏာလမ်းဆုံ",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 122,
+    "BusNumber": "112",
+    "OutboundTitleMm": "အောင်မြင့်မိုရ်အိမ်ရာ → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဆူးလေ(ပန်းခြံ) → အောင်မြင့်မိုရ်အိမ်ရာ",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 1,
+    "BusNumber": "1",
+    "OutboundTitleMm": "လှည်းကူးဈေး → ဇဝန",
+    "OutboundTitleEn": "Hlegu Zay -> Zawana",
+    "ReturnTitleMm": "ဇဝန → လှည်းကူးဈေး",
+    "ReturnTitleEn": "Zawana -> Hlegu Zay",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 82,
+    "BusNumber": "82",
+    "OutboundTitleMm": "ရွှေပြည်သာလိန်ကုန်း → မြို့ရှောင်လမ်း",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "မြို့ရှောင်လမ်း → ရွှေပြည်သာလိန်ကုန်း",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 10,
+    "BusNumber": "9",
+    "OutboundTitleMm": "၉ဂိတ်(၈၇ရပ်ကွက်) → မင်္ဂလာဈေး",
+    "OutboundTitleEn": "9 Gate -> Mingalar Zay",
+    "ReturnTitleMm": "ယုဇနပလာဇာ → ၉ဂိတ်(၈၇ရပ်ကွက်)",
+    "ReturnTitleEn": "Yuzana Plaza -> 9 Gate",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 11,
+    "BusNumber": "10",
+    "OutboundTitleMm": "၃၅ → ကန်ကြီးထောင့်",
+    "OutboundTitleEn": "35 -> Kan Gyi Htaunt",
+    "ReturnTitleMm": "ကန်ကြီးထောင့် → ၃၅",
+    "ReturnTitleEn": "Kan Gyi Htaunt -> 35",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 85,
+    "BusNumber": "76",
+    "OutboundTitleMm": "အရှေ့ပိုင်းတက္ကသိုလ် → ရတနာဆင်ဖြူတော်ဥယျာဉ်",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ရတနာဆင်ဖြူတော်ဥယျာဉ် → အရှေ့ပိုင်းတက္ကသိုလ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 86,
+    "BusNumber": "77",
+    "OutboundTitleMm": "ရွှေပြည်သာ(သဲကွင်း) → လသာ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "လသာ → ရွှေပြည်သာ(သဲကွင်း)",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 87,
+    "BusNumber": "78",
+    "OutboundTitleMm": "ကျောင်းရှေ့(ကွန်ပျူတာတက္ကသိုလ်) → ရန်ကုန်ဘူတာကြီး",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ရန်ကုန်ဘူတာကြီး → ကျောင်းရှေ့(ကွန်ပျူတာတက္ကသိုလ်)",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 88,
+    "BusNumber": "79",
+    "OutboundTitleMm": "ရန်ကုန်အနောက်ပိုင်းတက္ကသိုလ် → လင်းစဒေါင်း",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "လင်းစဒေါင်း → ရန်ကုန်အနောက်ပိုင်းတက္ကသိုလ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 89,
+    "BusNumber": "89",
+    "OutboundTitleMm": "၁၆၈ရပ်ကွက် → ရန်ကုန်ဘူတာကြီး",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ရန်ကုန်ဘူတာကြီး → ၁၆၈ရပ်ကွက်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 90,
+    "BusNumber": "81",
+    "OutboundTitleMm": "သုခဒဂုံအိမ်ရာ → ပန်းဆိုးတန်း",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ပန်းဆိုးတန်း → သုခဒဂုံအိမ်ရာ",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 92,
+    "BusNumber": "83",
+    "OutboundTitleMm": "ဒဂုံဧရာအဝေးပြေး → ရတနာနှင်းဆီအိမ်ရာ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ရတနာနှင်းဆီအိမ်ရာ → ဒဂုံဧရာအဝေးပြေး",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 93,
+    "BusNumber": "84",
+    "OutboundTitleMm": "၄၉အစိမ်းဂိတ် → ၁၄ရပ်ကွက်လမ်းဆုံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "၁၄ရပ်ကွက်လမ်းဆုံ → ၄၉အစိမ်းဂိတ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 94,
+    "BusNumber": "85",
+    "OutboundTitleMm": "တူးချောင်း → ၈/၉လမ်းဆုံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "၈/၉လမ်းဆုံ → တပ်ရင်း၉",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 95,
+    "BusNumber": "86",
+    "OutboundTitleMm": "ပေါက်တန်းအဝိုင်း → သီတာဆိပ်",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "သီတာဆိပ် → ပေါက်တန်း",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 96,
+    "BusNumber": "87",
+    "OutboundTitleMm": "မီတာရုံး → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → မီတာရုံး",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 97,
+    "BusNumber": "88",
+    "OutboundTitleMm": "မီတာရုံး → ဒညင်းကုန်းလမ်းဆုံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဒညင်းကုန်းလမ်းဆုံ → မီတာရုံး",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 100,
+    "BusNumber": "90",
+    "OutboundTitleMm": "တိုက်ကြီးဂိတ် → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → တိုက်ကြီးဂိတ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 101,
+    "BusNumber": "91",
+    "OutboundTitleMm": "တိုက်ကြီးဂိတ် → အင်းစိန်ပန်းခြံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "အင်းစိန်ပန်းခြံ → တိုက်ကြီးဂိတ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 103,
+    "BusNumber": "93",
+    "OutboundTitleMm": "ရန်ကုန်အနောက်ပိုင်းတက္ကသိုလ် → ရန်ကုန်ဘူတာကြီး",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ရန်ကုန်ဘူတာကြီး → ရန်ကုန်အနောက်ပိုင်းတက္ကသိုလ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 104,
+    "BusNumber": "94",
+    "OutboundTitleMm": "ကျောင်းရှေ့(ကွန်ပျူတာတက္ကသိုလ်) → ရန်ကုန်ဘူတာကြီး",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ရန်ကုန်ဘူတာကြီး → ကျောင်းရှေ့(ကွန်ပျူတာတက္ကသိုလ်)",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 105,
+    "BusNumber": "95",
+    "OutboundTitleMm": "ရေလယ်ကျောက်တန်း → ဗဟန်း၃လမ်း",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဗဟန်း၃လမ်း → ရေလယ်ကျောက်တန်း",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 106,
+    "BusNumber": "96",
+    "OutboundTitleMm": "ရဲစုတောင် → တိုင်းရင်းသားကျေးရွာ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "တိုင်းရင်းသားကျေးရွာ → ရဲစုတောင်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 107,
+    "BusNumber": "97",
+    "OutboundTitleMm": "သုခဒဂုံအိမ်ရာ → ပုပ္ပါးကျောင်း",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "မြို့ရှောင်လမ်း → သုခဒဂုံအိမ်ရာ",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 108,
+    "BusNumber": "98",
+    "OutboundTitleMm": "ဒဂုံဧရာအဝေးပြေး → လင်းစဒေါင်း",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "လင်းစဒေါင်း → ဒဂုံဧရာအဝေးပြေး",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 109,
+    "BusNumber": "99",
+    "OutboundTitleMm": "ဒဂုံဧရာအဝေးပြေး → ဆောက်လုပ်ရေး",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဆောက်လုပ်ရေး → ဒဂုံဧရာအဝေးပြေး",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 12,
+    "BusNumber": "11",
+    "OutboundTitleMm": "အောင်မင်္ဂလာအဝေးပြေး(ကားဝင်း) → လသာ",
+    "OutboundTitleEn": "Aung Mingalar Terminal -> Latha",
+    "ReturnTitleMm": "လသာ → အောင်မင်္ဂလာအဝေးပြေး(ကားဝင်း)",
+    "ReturnTitleEn": "Latha -> Aung Mingalar Terminal",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 9,
+    "BusNumber": "9",
+    "OutboundTitleMm": "တိုင်းရင်းသားဖွံ့ဖြိုးရေးကော်လိပ် → မင်္ဂလာဈေး",
+    "OutboundTitleEn": "Start - Alo Taw Pyae",
+    "ReturnTitleMm": "ဝါဆို → တိုင်းရင်းသားဖွံ့ဖြိုးရေးကော်လိပ်",
+    "ReturnTitleEn": "End - Mingalar Zay",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 152,
+    "BusNumber": "152",
+    "OutboundTitleMm": "ဆောက်လုပ်ရေး → ၃၅",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "၃၅ → ဆောက်လုပ်ရေး",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 166,
+    "BusNumber": "7",
+    "OutboundTitleMm": "အောင်မြင့်မိုရ်အိမ်ရာ → ပန်းဆိုးတန်း",
+    "OutboundTitleEn": "Aung Myint Mo Housing -> Pansodan",
+    "ReturnTitleMm": "ဆူးလေ(ပန်းခြံ) → အောင်မြင့်မိုရ်အိမ်ရာ",
+    "ReturnTitleEn": "Sule (Park) -> Aung Myint Mo Housing",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 13,
+    "BusNumber": "12",
+    "OutboundTitleMm": "ထားဝယ်ချောင် → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "Dawei Chaung -> Sule (City Hall)",
+    "ReturnTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → ထားဝယ်ချောင်",
+    "ReturnTitleEn": "Sule (City Hall) -> Dawei Chaung",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 15,
+    "BusNumber": "14",
+    "OutboundTitleMm": "ပါရမီညောင်ပင် → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "Parami Nyaung Pin -> Tha Khin Mya Pan Chan",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → ပါရမီညောင်ပင်",
+    "ReturnTitleEn": "Tha Khin Mya Pan Chan -> Parami Nyaung Pin",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 17,
+    "BusNumber": "15",
+    "OutboundTitleMm": "၃၅ → ဒညင်းကုန်းလမ်းဆုံ",
+    "OutboundTitleEn": "35 -> Danyingone Lan Sone",
+    "ReturnTitleMm": "ဒညင်းကုန်းလမ်းဆုံ → ၃၅",
+    "ReturnTitleEn": "Danyingone Lan Sone -> 35",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 19,
+    "BusNumber": "16",
+    "OutboundTitleMm": "အေဝမ်း → ဒဂုံဧရာအဝေးပြေး",
+    "OutboundTitleEn": "A1 -> Dagon Ayer Terminal",
+    "ReturnTitleMm": "ဒဂုံဧရာအဝေးပြေး → အေဝမ်း",
+    "ReturnTitleEn": "Dagon Ayer Terminal -> A1",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 172,
+    "BusNumber": "111",
+    "OutboundTitleMm": "ကရုဏာလမ်းဆုံ → ဆူးလေ(ပန်းခြံ)",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဆူးလေ(ပန်းခြံ) → ကရုဏာလမ်းဆုံ",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 173,
+    "BusNumber": "123",
+    "OutboundTitleMm": "တိုက်ကြီးဂိတ် → ကုလားကျောင်း",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "သမိုင်းလမ်းဆုံ(Junction) → တိုက်ကြီးဂိတ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 110,
+    "BusNumber": "100",
+    "OutboundTitleMm": "ကျီစုသုသာန် → လင်းစဒေါင်း",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "လင်းစဒေါင်း → ကျီစုသုသာန်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 111,
+    "BusNumber": "111",
+    "OutboundTitleMm": "အနောက်ပိုင်းနည်းပညာတက္ကသိုလ် → စီးပွားရေးတက္ကသိုလ်(ရွာသာကြီး)",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "စီးပွားရေးတက္ကသိုလ်(ရွာသာကြီး) → အနောက်ပိုင်းနည်းပညာတက္ကသိုလ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 112,
+    "BusNumber": "112",
+    "OutboundTitleMm": "အဝိုင်းထိပ်(ကွန်တိန်နာဂိတ်) → ၃၅",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "၃၅ → အဝိုင်းထိပ်(ကွန်တိန်နာဂိတ်)",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 113,
+    "BusNumber": "103",
+    "OutboundTitleMm": "ဒဂုံဧရာအဝေးပြေး → ကျီစုသုသာန်",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ကျီစုသုသာန် → ဒဂုံဧရာအဝေးပြေး",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 114,
+    "BusNumber": "104",
+    "OutboundTitleMm": "ဝါယာလက် → ၆ထပ်ရုံး",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "၆ထပ်ရုံး → ဝါယာလက်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 115,
+    "BusNumber": "105",
+    "OutboundTitleMm": "နည်းပညာတက္ကသိုလ် → ၆ထပ်ရုံး",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "၆ထပ်ရုံး → နည်းပညာတက္ကသိုလ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 116,
+    "BusNumber": "106",
+    "OutboundTitleMm": "ဥက္ကံဂိတ် → စိန်ဂျွန်း",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "စိန်ဂျွန်း → ဥက္ကံဂိတ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 117,
+    "BusNumber": "107",
+    "OutboundTitleMm": "၁၀၇ဂိတ် → ၆ထပ်ရုံး",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "၆ထပ်ရုံး → ၁၀၇ဂိတ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 118,
+    "BusNumber": "108",
+    "OutboundTitleMm": "မီတာရုံး → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → မီတာရုံး",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 119,
+    "BusNumber": "109",
+    "OutboundTitleMm": "နည်းပညာတက္ကသိုလ် → အင်းစိန်ပန်းခြံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "အင်းစိန်ပန်းခြံ → နည်းပညာတက္ကသိုလ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 120,
+    "BusNumber": "110",
+    "OutboundTitleMm": "အဝိုင်းထိပ်(ကွန်တိန်နာဂိတ်) → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → အဝိုင်းထိပ်(ကွန်တိန်နာဂိတ်)",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 123,
+    "BusNumber": "113",
+    "OutboundTitleMm": "ကားကြီးဂိတ် → ဆူးလေ(ပန်းခြံ)",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဆူးလေ(ပန်းခြံ) → ကားကြီးဂိတ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 124,
+    "BusNumber": "114",
+    "OutboundTitleMm": "၁၀၈ရပ်ကွက် → ဗိုလ်တထောင်ဘုရား",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဗိုလ်တထောင်ဘုရား → ၁၀၈ရပ်ကွက်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 125,
+    "BusNumber": "115",
+    "OutboundTitleMm": "အောင်မင်္ဂလာအဝေးပြေးထိပ် → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → အောင်မင်္ဂလာအဝေးပြေးထိပ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 126,
+    "BusNumber": "116",
+    "OutboundTitleMm": "၁၁၆ဂိတ် → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → ၁၁၆ဂိတ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 127,
+    "BusNumber": "117",
+    "OutboundTitleMm": "၃၅ → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → ၃၅",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 128,
+    "BusNumber": "118",
+    "OutboundTitleMm": "သုခဒဂုံအိမ်ရာ → ရန်ကုန်ဘူတာကြီး",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ရန်ကုန်ဘူတာကြီး → သုခဒဂုံအိမ်ရာ",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 129,
+    "BusNumber": "119",
+    "OutboundTitleMm": "အောင်မင်္ဂလာအဝေးပြေး(ကားဝင်း) → ဒဂုံဧရာအဝေးပြေး",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဒဂုံဧရာအဝေးပြေး → အောင်မင်္ဂလာအဝေးပြေး(ကားဝင်း)",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 130,
+    "BusNumber": "120",
+    "OutboundTitleMm": "အနော်မာ → ရန်ကုန်ဘူတာကြီး",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ရန်ကုန်ဘူတာကြီး → အနော်မာ",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 20,
+    "BusNumber": "17",
+    "OutboundTitleMm": "၁၇ဂိတ် → ဒဂုံဧရာအဝေးပြေး",
+    "OutboundTitleEn": "17 Gate -> Dagon Ayer Terminal",
+    "ReturnTitleMm": "ဒဂုံဧရာအဝေးပြေး → ၁၇ဂိတ်",
+    "ReturnTitleEn": "Dagon Ayer Terminal -> 17 Gate",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 21,
+    "BusNumber": "18",
+    "OutboundTitleMm": "ထောက်ကြန့်(ရေနံမြေ) → ယဉ်ကျေးမှု",
+    "OutboundTitleEn": "Htauk Kyant -> Yin Kyay Mhu",
+    "ReturnTitleMm": "ယဉ်ကျေးမှု → ထောက်ကြန့်(ရေနံမြေ)",
+    "ReturnTitleEn": "Yin Kyay Mhu -> Htauk Kyant",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 22,
+    "BusNumber": "19",
+    "OutboundTitleMm": "ထွန်းရွှေဝါ → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "Htun Shwe Wah -> Thakhin Mya Pan Chan",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → ဆင်ဖုံ",
+    "ReturnTitleEn": "Thakhin Mya Pan Chan -> Sin Phon",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 131,
+    "BusNumber": "121",
+    "OutboundTitleMm": "သာဓုကန် → ဒဂုံဧရာအဝေးပြေး",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဒဂုံဧရာအဝေးပြေး → သာဓုကန်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 167,
+    "BusNumber": "31",
+    "OutboundTitleMm": "ခြောက်လမ်းသွား → ပန်းဆိုးတန်း",
+    "OutboundTitleEn": "Start - A Shae Paing Takke Tho",
+    "ReturnTitleMm": "ပန်းဆိုးတန်း → ခြောက်လမ်းသွား",
+    "ReturnTitleEn": "End - Ngar-sae Kwae",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 38,
+    "BusNumber": "32",
+    "OutboundTitleMm": "မြို့ရှောင်လမ်း → ရေကြောင်းတက္ကသိုလ်",
+    "OutboundTitleEn": "Start - Paya Shae",
+    "ReturnTitleMm": "ရေကြောင်းတက္ကသိုလ် → မြို့ရှောင်လမ်း",
+    "ReturnTitleEn": "End - Ah-Hmat-Thone Lan Sone",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 39,
+    "BusNumber": "33",
+    "OutboundTitleMm": "ရေလယ်ကျောက်တန်း → မင်္ဂလာမွန်ဈေး",
+    "OutboundTitleEn": "Start - Kyauk Tan",
+    "ReturnTitleMm": "မင်္ဂလာမွန်ဈေး → ရေလယ်ကျောက်တန်း",
+    "ReturnTitleEn": "End - Thida",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 40,
+    "BusNumber": "34",
+    "OutboundTitleMm": "ခရမ်း → ကြယ်ငါးပွင့်",
+    "OutboundTitleEn": "Start - Ban Shae",
+    "ReturnTitleMm": "ကြယ်ငါးပွင့် → ခရမ်း",
+    "ReturnTitleEn": "End - Baho Yone",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 41,
+    "BusNumber": "35",
+    "OutboundTitleMm": "မြို့ရှောင်လမ်း → မော်တင်",
+    "OutboundTitleEn": "Start - Htauk Kyant Lan Sone",
+    "ReturnTitleMm": "မော်တင် → မြို့ရှောင်လမ်း",
+    "ReturnTitleEn": "End - Maw Tin",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 42,
+    "BusNumber": "36",
+    "OutboundTitleMm": "တံတားဖြူ → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "Start - Gate Haung",
+    "ReturnTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → တံတားဖြူ",
+    "ReturnTitleEn": "End - Sule Myodaw Khan Ma",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 43,
+    "BusNumber": "37",
+    "OutboundTitleMm": "ဘီအာတီဂိတ်ဟောင်း → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "Start - Gate Haung",
+    "ReturnTitleMm": "၆ထပ်ရုံး → ဘီအာတီဂိတ်ဟောင်း",
+    "ReturnTitleEn": "End - Sanpya",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 44,
+    "BusNumber": "38",
+    "OutboundTitleMm": "ပါရမီညောင်ပင် → သီရိမင်္ဂလာဈေးသစ်",
+    "OutboundTitleEn": "Start - Bay Li",
+    "ReturnTitleMm": "သီရိမင်္ဂလာဈေးသစ် → ပါရမီညောင်ပင်",
+    "ReturnTitleEn": "End - Padauk Chaung/Thiri Mingalar Market",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 45,
+    "BusNumber": "39",
+    "OutboundTitleMm": "ဝါးတရာ → လသာ",
+    "OutboundTitleEn": "Start - Auk Gate",
+    "ReturnTitleMm": "လသာ → ဝါးတရာ",
+    "ReturnTitleEn": "End - Sanpya",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 48,
+    "BusNumber": "40",
+    "OutboundTitleMm": "ရွှေအင်းဝ → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "Start - Auk Gate",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → ရွှေအင်းဝ",
+    "ReturnTitleEn": "End - Thakhin Mya Pan Chan",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 49,
+    "BusNumber": "41",
+    "OutboundTitleMm": "စုပေါင်းရုံး → ဂျမခါနာ",
+    "OutboundTitleEn": "Start - Gate Haung",
+    "ReturnTitleMm": "ဂျမခါနာ → စုပေါင်းရုံး",
+    "ReturnTitleEn": "End - Htaw Li Kwae",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 50,
+    "BusNumber": "42",
+    "OutboundTitleMm": "သာဓုကန် → ကန်ကြီးထောင့်",
+    "OutboundTitleEn": "Start - Auk Gate",
+    "ReturnTitleMm": "ကန်ကြီးထောင့် → သာဓုကန်",
+    "ReturnTitleEn": "End - Sauk Lote Yae",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 51,
+    "BusNumber": "43",
+    "OutboundTitleMm": "ဆင်မင်း → လမ်း၅၀",
+    "OutboundTitleEn": "Start - Auk Gate",
+    "ReturnTitleMm": "ဗိုလ်တထောင်ဘုရား → ဆင်မင်း",
+    "ReturnTitleEn": "End - Hmaw Bi Zay",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 53,
+    "BusNumber": "45",
+    "OutboundTitleMm": "လှည်းကူးဈေး → မင်းကုန်း",
+    "OutboundTitleEn": "Start - Hlegu Zay",
+    "ReturnTitleMm": "မင်းကုန်း → လှည်းကူးဈေး",
+    "ReturnTitleEn": "End - Min Kone",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 54,
+    "BusNumber": "46",
+    "OutboundTitleMm": "ကမ်းနား → ဇဝန",
+    "OutboundTitleEn": "Start - Lay Daung Kan (Site Mway Tit)",
+    "ReturnTitleMm": "ဇဝန → ကမ်းနား",
+    "ReturnTitleEn": "End - Taung Myauk Lan Sone",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 60,
+    "BusNumber": "52",
+    "OutboundTitleMm": "မီးခွက်ဈေး(အပေါ်ထိပ်) → ကုမုဒြာပန်းခြံ",
+    "OutboundTitleEn": null,
+    "ReturnTitleMm": "ကုမုဒြာပန်းခြံ → မီးခွက်ဈေး(အပေါ်ထိပ်)",
+    "ReturnTitleEn": null,
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 52,
+    "BusNumber": "52",
+    "OutboundTitleMm": "သဉ္ဇာဦး → သီရိမင်္ဂလာဈေးသစ်",
+    "OutboundTitleEn": null,
+    "ReturnTitleMm": "သီရိမင်္ဂလာဈေးသစ် → လှည်းကူးတာဆုံ",
+    "ReturnTitleEn": null,
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 61,
+    "BusNumber": "53",
+    "OutboundTitleMm": "အလယ်ရွာ → အလယ်ရွာ",
+    "OutboundTitleEn": "Start - Shwe Lin Pan Lan Sone",
+    "ReturnTitleMm": "",
+    "ReturnTitleEn": "End - Tayar-Tone Gate Haung",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 63,
+    "BusNumber": "55",
+    "OutboundTitleMm": "ပါရမီညောင်ပင် → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "Start - Taik Kyi Zay",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → ပါရမီညောင်ပင်",
+    "ReturnTitleEn": "End - Htauk Kyant Lan Sone",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 55,
+    "BusNumber": "55",
+    "OutboundTitleMm": "ဘီအိုစီ → တွံတေး",
+    "OutboundTitleEn": "Start - Taik Kyi Zay",
+    "ReturnTitleMm": "တွံတေး → သမကုန်း",
+    "ReturnTitleEn": "End - Htauk Kyant Lan Sone",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 64,
+    "BusNumber": "56",
+    "OutboundTitleMm": "သခင်မြပန်းခြံ → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "Start - Thakhin Mya Pan Chan",
+    "ReturnTitleMm": "",
+    "ReturnTitleEn": "End - Ngar-sae Kwae",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 56,
+    "BusNumber": "56",
+    "OutboundTitleMm": "ဒလဘုရားငုတ္တို → တွံတေး",
+    "OutboundTitleEn": "Start - Thakhin Mya Pan Chan",
+    "ReturnTitleMm": "တွံတေး → ဒလဘုရားငုတ္တို",
+    "ReturnTitleEn": "End - Ngar-sae Kwae",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 65,
+    "BusNumber": "57",
+    "OutboundTitleMm": "သခင်မြပန်းခြံ → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "Start - Thakhin Mya Pan Chan",
+    "ReturnTitleMm": "",
+    "ReturnTitleEn": "End - Lan Ngar Sae",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 25,
+    "BusNumber": "21",
+    "OutboundTitleMm": "ရန်ကုန်အနောက်ပိုင်းတက္ကသိုလ် → လသာ",
+    "OutboundTitleEn": "WYTU -> Latha",
+    "ReturnTitleMm": "လသာ → ရန်ကုန်အနောက်ပိုင်းတက္ကသိုလ်",
+    "ReturnTitleEn": "Latha -> WYTU",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 27,
+    "BusNumber": "23",
+    "OutboundTitleMm": "အနောက်ပိုင်းနည်းပညာတက္ကသိုလ် → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "WYTU -> Thakin Mya Pan Chan",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → အနောက်ပိုင်းနည်းပညာတက္ကသိုလ်",
+    "ReturnTitleEn": "Thakhin Mya Pan Chan -> WYTU",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 29,
+    "BusNumber": "24",
+    "OutboundTitleMm": "၃၅ → ဗိုလ်တထောင်ဘုရား",
+    "OutboundTitleEn": "35 -> Botataung Pagoda",
+    "ReturnTitleMm": "ဗိုလ်တထောင်ဘုရား → ၃၅",
+    "ReturnTitleEn": "Botataung Pagoda -> 35",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 30,
+    "BusNumber": "25",
+    "OutboundTitleMm": "၃၅ → ဘိုကလေးဈေး",
+    "OutboundTitleEn": "35 -> Bokalay Zay",
+    "ReturnTitleMm": "ဘိုကလေးဈေး → ၃၅",
+    "ReturnTitleEn": "Bokalay Zay -> 35",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 31,
+    "BusNumber": "26",
+    "OutboundTitleMm": "၃၅ → ပုဇွန်တောင်ဈေး",
+    "OutboundTitleEn": "35 -> Pazundaung Zay",
+    "ReturnTitleMm": "ဗိုလ်တထောင်ဘုရား → ၃၅",
+    "ReturnTitleEn": "Botataung Pagoda -> 35",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 32,
+    "BusNumber": "27",
+    "OutboundTitleMm": "စိတ်ကျန်းမာရေးဆေးရုံ → မင်္ဂလာဈေး",
+    "OutboundTitleEn": "Sate Kyan Mar Yae Say Yone -> Mingalar Zay",
+    "ReturnTitleMm": "မင်္ဂလာဈေး → စိတ်ကျန်းမာရေးဆေးရုံ",
+    "ReturnTitleEn": "Mingalar Zay -> Sate Kyan Mar Yae Say Yone",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 33,
+    "BusNumber": "28",
+    "OutboundTitleMm": "၃၅ → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "35 -> Sule (City Hall)",
+    "ReturnTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → ၃၅",
+    "ReturnTitleEn": "Sule (City Hall) -> 35",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 35,
+    "BusNumber": "29",
+    "OutboundTitleMm": "ရွှေပေါက္ကံတံတားထိပ် → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "Shwe Pauk Kan Bridge -> Sule (City Hall)",
+    "ReturnTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → ရွှေပေါက္ကံတံတားထိပ်",
+    "ReturnTitleEn": "Sule (City Hall) -> Shwe Pauk Kan Bridge",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 36,
+    "BusNumber": "30",
+    "OutboundTitleMm": "၃၅ → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "35 -> Thakhin Mya Pan Chan",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → ၃၅",
+    "ReturnTitleEn": "Thakhin Mya Pan Chan -> 35",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 37,
+    "BusNumber": "31",
+    "OutboundTitleMm": "သီလဝါအိမ်ရာ → ပန်းဆိုးတန်း",
+    "OutboundTitleEn": "Thilawa Residence -> Pansodan",
+    "ReturnTitleMm": "ပန်းဆိုးတန်း → သီလဝါအိမ်ရာ",
+    "ReturnTitleEn": "Pansodan -> Thilawa Residence",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 57,
+    "BusNumber": "57",
+    "OutboundTitleMm": "ဘီအိုစီ → ကွမ်းခြံကုန်း",
+    "OutboundTitleEn": "Start - Thakhin Mya Pan Chan",
+    "ReturnTitleMm": "ကွမ်းခြံကုန်း → သမကုန်း",
+    "ReturnTitleEn": "End - Lan Ngar Sae",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 58,
+    "BusNumber": "58",
+    "OutboundTitleMm": "ဗိုလ်တထောင်ဘုရား → ၁၅လမ်း/ညောင်ပင်လေးဈေး",
+    "OutboundTitleEn": "Start - Botahtaung Paya",
+    "ReturnTitleMm": "၁၅လမ်း/ညောင်ပင်လေးဈေး → ဗိုလ်တထောင်ဘုရား",
+    "ReturnTitleEn": "End - Sae-ngar Lan/ Nyaung Pin Lay Zay",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 67,
+    "BusNumber": "59",
+    "OutboundTitleMm": "ကျောက်လမ်း → ဗဟိုအမျိုးသမီးဆေးရုံ",
+    "OutboundTitleEn": "Start - Sanpya Zay Kwae",
+    "ReturnTitleMm": "ဗဟိုအမျိုးသမီးဆေးရုံ → ကျောက်လမ်း",
+    "ReturnTitleEn": "End - Jama Khar Nar",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 59,
+    "BusNumber": "59",
+    "OutboundTitleMm": "ကြိုဆိုရေး → မြို့လှကုန်း",
+    "OutboundTitleEn": "Start - Sanpya Zay Kwae",
+    "ReturnTitleMm": "",
+    "ReturnTitleEn": "End - Jama Khar Nar",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 68,
+    "BusNumber": "60",
+    "OutboundTitleMm": "ယုဇနအိမ်ယာ → သီရိမင်္ဂလာဈေးသစ်",
+    "OutboundTitleEn": "Start - Awine",
+    "ReturnTitleMm": "သီရိမင်္ဂလာဈေးသစ် → ယုဇနအိမ်ယာ",
+    "ReturnTitleEn": "End - Kyauk Kone",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 169,
+    "BusNumber": "60",
+    "OutboundTitleMm": "ဆောက်လုပ်ရေး → သီရိမင်္ဂလာဈေးသစ်",
+    "OutboundTitleEn": "Start - Awine",
+    "ReturnTitleMm": "သီရိမင်္ဂလာဈေးသစ် → ဆောက်လုပ်ရေး",
+    "ReturnTitleEn": "End - Kyauk Kone",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 69,
+    "BusNumber": "61",
+    "OutboundTitleMm": "အနောက်ပိုင်းနည်းပညာတက္ကသိုလ် → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "Start - Nee Pyinyar Takke Tho",
+    "ReturnTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → အနောက်ပိုင်းနည်းပညာတက္ကသိုလ်",
+    "ReturnTitleEn": "End - Youk Lan",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 70,
+    "BusNumber": "62",
+    "OutboundTitleMm": "မီတာရုံး → ဟံသာဝတီဘူတာ",
+    "OutboundTitleEn": "Start - Chauk Sal Hnit ( 62 )",
+    "ReturnTitleMm": "ဟံသာဝတီဘူတာ → မီတာရုံး",
+    "ReturnTitleEn": "End - Chauk Sal Hnit ( 62 )",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 71,
+    "BusNumber": "63",
+    "OutboundTitleMm": "ကျောက်ကုန်း → သီတာဆိပ်",
+    "OutboundTitleEn": "Start - Than Lyet Soon",
+    "ReturnTitleMm": "သီတာဆိပ် → ကျောက်ကုန်း",
+    "ReturnTitleEn": "End - Than Lyet Soon",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 72,
+    "BusNumber": "64",
+    "OutboundTitleMm": "ဝေဘာဂီ → ပန်းဆိုးတန်း",
+    "OutboundTitleEn": "Start - Waibargi",
+    "ReturnTitleMm": "ပန်းဆိုးတန်း → ဝေဘာဂီ",
+    "ReturnTitleEn": "End - Waibargi",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 170,
+    "BusNumber": "64",
+    "OutboundTitleMm": "ဝေဘာဂီ → ပန်းဆိုးတန်း",
+    "OutboundTitleEn": "Start - Waibargi",
+    "ReturnTitleMm": "ပန်းဆိုးတန်း → ဝေဘာဂီ",
+    "ReturnTitleEn": "End - Waibargi",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 73,
+    "BusNumber": "65",
+    "OutboundTitleMm": "၆၅ဂိတ် → ဗိုလ်တထောင်ဘုရား",
+    "OutboundTitleEn": "Start - Lain Kone",
+    "ReturnTitleMm": "ဗိုလ်တထောင်ဘုရား → ၆၅ဂိတ်",
+    "ReturnTitleEn": "End - Lain Kone",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 75,
+    "BusNumber": "66",
+    "OutboundTitleMm": "စိတ်ကျန်းမာရေးဆေးရုံ → ကျောင်းရှေ့(ကွန်ပျူတာတက္ကသိုလ်)",
+    "OutboundTitleEn": "Start - Yangon Mental Health Hospital",
+    "ReturnTitleMm": "ကျောင်းရှေ့(ကွန်ပျူတာတက္ကသိုလ်) → စိတ်ကျန်းမာရေးဆေးရုံ",
+    "ReturnTitleEn": "End - Yangon Mental Health Hospital",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 76,
+    "BusNumber": "67",
+    "OutboundTitleMm": "အလယ်ရွာ → ညောင်ရွာဈေးထိပ်",
+    "OutboundTitleEn": "Start - Yone Shae",
+    "ReturnTitleMm": "ညောင်ရွာဈေးထိပ် → အလယ်ရွာ",
+    "ReturnTitleEn": "End - Yone Shae",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 77,
+    "BusNumber": "68",
+    "OutboundTitleMm": "အိမ်မဲကြီး → အနောက်ပိုင်းနည်းပညာတက္ကသိုလ်",
+    "OutboundTitleEn": "Start - Aung Myittar",
+    "ReturnTitleMm": "အနောက်ပိုင်းနည်းပညာတက္ကသိုလ် → အိမ်မဲကြီး",
+    "ReturnTitleEn": "End - Aung Myittar",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 78,
+    "BusNumber": "69",
+    "OutboundTitleMm": "ထန်း၃ပင် → ဒဂုံဧရာအဝေးပြေး",
+    "OutboundTitleEn": "Start - Lain Kone",
+    "ReturnTitleMm": "ဒဂုံဧရာအဝေးပြေး → ထန်း၃ပင်",
+    "ReturnTitleEn": "End - Lain Kone",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 79,
+    "BusNumber": "70",
+    "OutboundTitleMm": "ရေလယ်ကျောက်တန်း → ပန်းဆိုးတန်း",
+    "OutboundTitleEn": "Start - Nee Pyinyar Takke Tho (G.T.U)",
+    "ReturnTitleMm": "ပန်းဆိုးတန်း → ရေလယ်ကျောက်တန်း",
+    "ReturnTitleEn": "End - Nee Pyinyar Takke Tho (G.T.U)",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 171,
+    "BusNumber": "70",
+    "OutboundTitleMm": "သီလဝါဥယျာဉ်အိမ်ရာ → ပန်းဆိုးတန်း",
+    "OutboundTitleEn": "Start - Nee Pyinyar Takke Tho (G.T.U)",
+    "ReturnTitleMm": "ပန်းဆိုးတန်း → သီလဝါဥယျာဉ်အိမ်ရာ",
+    "ReturnTitleEn": "End - Nee Pyinyar Takke Tho (G.T.U)",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 80,
+    "BusNumber": "71",
+    "OutboundTitleMm": "သရက်ပင်ချောင် → ဇဝန",
+    "OutboundTitleEn": null,
+    "ReturnTitleMm": "ဇဝန → သရက်ပင်ချောင်",
+    "ReturnTitleEn": null,
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 81,
+    "BusNumber": "72",
+    "OutboundTitleMm": "၁၃ဂိတ် → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": null,
+    "ReturnTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → ၁၃ဂိတ်",
+    "ReturnTitleEn": null,
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 174,
+    "BusNumber": "72",
+    "OutboundTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": null,
+    "ReturnTitleMm": "",
+    "ReturnTitleEn": null,
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 83,
+    "BusNumber": "74",
+    "OutboundTitleMm": "၇၄ဂိတ် → ဒဂုံဧရာအဝေးပြေး",
+    "OutboundTitleEn": null,
+    "ReturnTitleMm": "ဒဂုံဧရာအဝေးပြေး → ၇၄ဂိတ်",
+    "ReturnTitleEn": null,
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 84,
+    "BusNumber": "75",
+    "OutboundTitleMm": "ပင်လုံအိမ်ယာ → ကြည့်မြင်တိုင်ညဈေး",
+    "OutboundTitleEn": null,
+    "ReturnTitleMm": "ကြည့်မြင်တိုင်ညဈေး → ပင်လုံအိမ်ယာ",
+    "ReturnTitleEn": null,
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 102,
+    "BusNumber": "92",
+    "OutboundTitleMm": "မြို့ရှောင်လမ်း → ဇဝန",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဇဝန → မြို့ရှောင်လမ်း",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 132,
+    "BusNumber": "122",
+    "OutboundTitleMm": "တိုက်ကြီးဂိတ် → ကုလားကျောင်း",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "သမိုင်းလမ်းဆုံ(Junction) → တိုက်ကြီးဂိတ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 133,
+    "BusNumber": "123",
+    "OutboundTitleMm": "အဖျောက်ဂိတ် → ဘီအိုစီ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "အင်းစိန်ပန်းခြံ → အဖျောက်ဂိတ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 136,
+    "BusNumber": "126",
+    "OutboundTitleMm": "ရိုးကြီး → စော်ဘွားကြီးကုန်းလမ်းဆုံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "စော်ဘွားကြီးကုန်းလမ်းဆုံ → ရိုးကြီး",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 144,
+    "BusNumber": "128",
+    "OutboundTitleMm": "၃၅ → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → ၃၅",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 145,
+    "BusNumber": "129",
+    "OutboundTitleMm": "ရေလယ်ကျောက်တန်း → အနောက်မြင်းပြိုင်ကွင်း",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "အနောက်မြင်းပြိုင်ကွင်း → ရေလယ်ကျောက်တန်း",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 146,
+    "BusNumber": "130",
+    "OutboundTitleMm": "အနောက်ပိုင်းနည်းပညာတက္ကသိုလ် → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → အနောက်ပိုင်းနည်းပညာတက္ကသိုလ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 148,
+    "BusNumber": "131",
+    "OutboundTitleMm": "ရန်ကုန်အနောက်ပိုင်းတက္ကသိုလ် → မော်တင်",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "မော်တင် → ရန်ကုန်အနောက်ပိုင်းတက္ကသိုလ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 149,
+    "BusNumber": "132",
+    "OutboundTitleMm": "ရန်ကုန်အနောက်ပိုင်းတက္ကသိုလ် → ဗိုလ်တထောင်ဘုရား",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဗိုလ်တထောင်ဘုရား → ရန်ကုန်အနောက်ပိုင်းတက္ကသိုလ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 150,
+    "BusNumber": "133",
+    "OutboundTitleMm": "ယုဇနမုခ်ဦး → ရန်ကုန်ပြည်သူ့ဆေးရုံကြီး",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ရန်ကုန်ပြည်သူ့ဆေးရုံကြီး → ယုဇနမုခ်ဦး",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 151,
+    "BusNumber": "134",
+    "OutboundTitleMm": "၈ဂိတ်အစ → လသာ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "လသာ → ၈ဂိတ်အစ",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 153,
+    "BusNumber": "136",
+    "OutboundTitleMm": "အောင်မင်္ဂလာအဝေးပြေး(ကားဝင်း) → လသာ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "လသာ → အောင်မင်္ဂလာအဝေးပြေး(ကားဝင်း)",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 154,
+    "BusNumber": "137",
+    "OutboundTitleMm": "၃၅ → ဘီပီအိုင်/ကြို့ကုန်း",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဘီပီအိုင်/ကြို့ကုန်း → ၃၅",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 155,
+    "BusNumber": "138",
+    "OutboundTitleMm": "၁၃၈ဂိတ် → ဒဂုံဧရာအဝေးပြေး",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဒဂုံဧရာအဝေးပြေး → ၁၃၈ဂိတ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 156,
+    "BusNumber": "139",
+    "OutboundTitleMm": "၃၅ → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → ၃၅",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 157,
+    "BusNumber": "140",
+    "OutboundTitleMm": "လှော်ကားတာဆုံ → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → လှော်ကားတာဆုံ",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": false
+  },
+  {
+    "RouteId": 158,
+    "BusNumber": "141",
+    "OutboundTitleMm": "ရွှေပြည်သာလိန်ကုန်း → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → ရွှေပြည်သာလိန်ကုန်း",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 159,
+    "BusNumber": "142",
+    "OutboundTitleMm": "ရွှေပြည်သာလိန်ကုန်း → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → ရွှေပြည်သာလိန်ကုန်း",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 160,
+    "BusNumber": "143",
+    "OutboundTitleMm": "ဝါးတရာ → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → ဝါးတရာ",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 161,
+    "BusNumber": "144",
+    "OutboundTitleMm": "မြသီတာပန်းခြံ → သခင်မြပန်းခြံ",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "သခင်မြပန်းခြံ → မြသီတာပန်းခြံ",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 162,
+    "BusNumber": "145",
+    "OutboundTitleMm": "၁၄၅ဂိတ် → ဗိုလ်တထောင်ဘုရား",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဗိုလ်တထောင်ဘုရား → ၁၄၅ဂိတ်",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  },
+  {
+    "RouteId": 163,
+    "BusNumber": "AP",
+    "OutboundTitleMm": "အောင်မင်္ဂလာအဝေးပြေး(ကားဝင်း) → ဆူးလေ(မြို့တော်ခန်းမ)",
+    "OutboundTitleEn": "",
+    "ReturnTitleMm": "ဆူးလေ(မြို့တော်ခန်းမ) → အောင်မင်္ဂလာအဝေးပြေး(ကားဝင်း)",
+    "ReturnTitleEn": "",
+    "IsYpsAccepted": true
+  }
+]

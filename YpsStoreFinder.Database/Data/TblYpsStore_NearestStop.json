@@ -1,0 +1,5203 @@
+[
+  {
+    "Id": 2230,
+    "StoreId": 1,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "Gandhi",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2231,
+    "StoreId": 1,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Sule (Park)",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2232,
+    "StoreId": 1,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Sule (City Hall)",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2233,
+    "StoreId": 1,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Sule (Shangrila)",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2234,
+    "StoreId": 1,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pansodan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2235,
+    "StoreId": 2,
+    "StopNameMm": "ချန်မာဖီ",
+    "StopNameEn": "Chaungma Phayee",
+    "MatchedStopId": 793
+  },
+  {
+    "Id": 2236,
+    "StoreId": 2,
+    "StopNameMm": "ဂျမခါနာ",
+    "StopNameEn": "Gymkhana",
+    "MatchedStopId": 795
+  },
+  {
+    "Id": 2237,
+    "StoreId": 2,
+    "StopNameMm": "ဆင်မင်းဈေး",
+    "StopNameEn": "Sin Min Market",
+    "MatchedStopId": 601
+  },
+  {
+    "Id": 2238,
+    "StoreId": 2,
+    "StopNameMm": "ထော်လီကွေ့",
+    "StopNameEn": "Htawli Kway",
+    "MatchedStopId": 605
+  },
+  {
+    "Id": 2239,
+    "StoreId": 2,
+    "StopNameMm": "ဒန်အိုးစက်",
+    "StopNameEn": "Dan Oh Sak",
+    "MatchedStopId": 602
+  },
+  {
+    "Id": 2240,
+    "StoreId": 3,
+    "StopNameMm": "UFL",
+    "StopNameEn": "UFL",
+    "MatchedStopId": 589
+  },
+  {
+    "Id": 2241,
+    "StoreId": 3,
+    "StopNameMm": "ကုက္ကိုင်း",
+    "StopNameEn": "Kokkine",
+    "MatchedStopId": 586
+  },
+  {
+    "Id": 2242,
+    "StoreId": 3,
+    "StopNameMm": "ဂျမား",
+    "StopNameEn": "JaMar",
+    "MatchedStopId": 407
+  },
+  {
+    "Id": 2243,
+    "StoreId": 3,
+    "StopNameMm": "ဂွတ္တလစ်ဈေးကွေ့",
+    "StopNameEn": "ဂွတ္တလစ်ဈေးကွေ့",
+    "MatchedStopId": 541
+  },
+  {
+    "Id": 2244,
+    "StoreId": 3,
+    "StopNameMm": "နတ်မောက်ကျောင်းရှေ့",
+    "StopNameEn": "Nat Mauk Kyaung Shae",
+    "MatchedStopId": 406
+  },
+  {
+    "Id": 2245,
+    "StoreId": 4,
+    "StopNameMm": "ကျောင်းရှေ့(ဓမ္မာရုံ)",
+    "StopNameEn": "Kyaung Shae ( Dharmayone )",
+    "MatchedStopId": 591
+  },
+  {
+    "Id": 2246,
+    "StoreId": 4,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "Kyaung Lan",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2247,
+    "StoreId": 4,
+    "StopNameMm": "ခိုင်ရွှေဝါ",
+    "StopNameEn": "Khaing Shwe Wah",
+    "MatchedStopId": 395
+  },
+  {
+    "Id": 2248,
+    "StoreId": 4,
+    "StopNameMm": "စိုက်ပျိုးရေး",
+    "StopNameEn": "Site Pyo Yay",
+    "MatchedStopId": 781
+  },
+  {
+    "Id": 2249,
+    "StoreId": 4,
+    "StopNameMm": "စံရိပ်ငြိမ်",
+    "StopNameEn": "San Yeik Nyein",
+    "MatchedStopId": 779
+  },
+  {
+    "Id": 2250,
+    "StoreId": 5,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "KaLa Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2251,
+    "StoreId": 5,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Kyite Ka San Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2252,
+    "StoreId": 5,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Myaung Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2253,
+    "StoreId": 5,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "Kyaung Shae",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2254,
+    "StoreId": 5,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Zay Lay(Kyet Be Market)",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2255,
+    "StoreId": 6,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "Gandhi",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2256,
+    "StoreId": 6,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Sule( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2257,
+    "StoreId": 6,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Sule ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2258,
+    "StoreId": 6,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Sule (Shangrila)",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2259,
+    "StoreId": 6,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pansodan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2260,
+    "StoreId": 7,
+    "StopNameMm": "ကမ္ဘာအေးစာတိုက်",
+    "StopNameEn": "Kabar Aye Sar Teik",
+    "MatchedStopId": 336
+  },
+  {
+    "Id": 2261,
+    "StoreId": 7,
+    "StopNameMm": "ကမ္ဘာအေးဘုရား",
+    "StopNameEn": "Kabar Aye Pagoda",
+    "MatchedStopId": 337
+  },
+  {
+    "Id": 2262,
+    "StoreId": 7,
+    "StopNameMm": "ကျိုက်ဝိုင်းဘုရား",
+    "StopNameEn": "Kyaik Wine Pagoda",
+    "MatchedStopId": 636
+  },
+  {
+    "Id": 2263,
+    "StoreId": 7,
+    "StopNameMm": "ကျောက်ရေတွင်းတံတား",
+    "StopNameEn": "Kyauk Ye Twin Bridge",
+    "MatchedStopId": 1655
+  },
+  {
+    "Id": 2264,
+    "StoreId": 7,
+    "StopNameMm": "ကြွေ၁",
+    "StopNameEn": "Kyway 1",
+    "MatchedStopId": 639
+  },
+  {
+    "Id": 2265,
+    "StoreId": 8,
+    "StopNameMm": "ကမ္ဘာအေးစာတိုက်",
+    "StopNameEn": "Kabar Aye Sar Teik",
+    "MatchedStopId": 336
+  },
+  {
+    "Id": 2266,
+    "StoreId": 8,
+    "StopNameMm": "ကမ္ဘာအေးဘုရား",
+    "StopNameEn": "Kabar Aye Pagoda",
+    "MatchedStopId": 337
+  },
+  {
+    "Id": 2267,
+    "StoreId": 8,
+    "StopNameMm": "ကျိုက်ဝိုင်းဘုရား",
+    "StopNameEn": "Kyaik Wine Pagoda",
+    "MatchedStopId": 636
+  },
+  {
+    "Id": 2268,
+    "StoreId": 8,
+    "StopNameMm": "ကျောက်ရေတွင်းတံတား",
+    "StopNameEn": "Kyauk Ye Twin Bridge",
+    "MatchedStopId": 1655
+  },
+  {
+    "Id": 2269,
+    "StoreId": 8,
+    "StopNameMm": "ကြွေ၁",
+    "StopNameEn": "Kyway 1",
+    "MatchedStopId": 639
+  },
+  {
+    "Id": 2270,
+    "StoreId": 9,
+    "StopNameMm": "ကျောင်းရှေ့(ဓမ္မာရုံ)",
+    "StopNameEn": "Kyaung Shae ( Dharmayone )",
+    "MatchedStopId": 591
+  },
+  {
+    "Id": 2271,
+    "StoreId": 9,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "Kyaung Lan",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2272,
+    "StoreId": 9,
+    "StopNameMm": "ခိုင်ရွှေဝါ",
+    "StopNameEn": "Khaing Shwe Wah",
+    "MatchedStopId": 395
+  },
+  {
+    "Id": 2273,
+    "StoreId": 9,
+    "StopNameMm": "စိုက်ပျိုးရေး",
+    "StopNameEn": "Site Pyo Yay",
+    "MatchedStopId": 781
+  },
+  {
+    "Id": 2274,
+    "StoreId": 9,
+    "StopNameMm": "စံရိပ်ငြိမ်",
+    "StopNameEn": "San Yeik Nyein",
+    "MatchedStopId": 779
+  },
+  {
+    "Id": 2275,
+    "StoreId": 10,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "Kyaung Shae",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2276,
+    "StoreId": 10,
+    "StopNameMm": "မဟာမြိုင်",
+    "StopNameEn": "Maha Myaing",
+    "MatchedStopId": 783
+  },
+  {
+    "Id": 2277,
+    "StoreId": 10,
+    "StopNameMm": "မြေနီကုန်း",
+    "StopNameEn": "MyayNiGone",
+    "MatchedStopId": 513
+  },
+  {
+    "Id": 2278,
+    "StoreId": 10,
+    "StopNameMm": "ရွှေမန်း",
+    "StopNameEn": "Shwe Man",
+    "MatchedStopId": 512
+  },
+  {
+    "Id": 2279,
+    "StoreId": 10,
+    "StopNameMm": "ရှမ်းလမ်း",
+    "StopNameEn": "Shan Road",
+    "MatchedStopId": 511
+  },
+  {
+    "Id": 2280,
+    "StoreId": 11,
+    "StopNameMm": "ကီလီ",
+    "StopNameEn": "Kili",
+    "MatchedStopId": 755
+  },
+  {
+    "Id": 2281,
+    "StoreId": 11,
+    "StopNameMm": "စိန်ဂျွန်း",
+    "StopNameEn": "Saint John",
+    "MatchedStopId": 786
+  },
+  {
+    "Id": 2282,
+    "StoreId": 11,
+    "StopNameMm": "စံပြ",
+    "StopNameEn": "San Pya",
+    "MatchedStopId": 1261
+  },
+  {
+    "Id": 2283,
+    "StoreId": 11,
+    "StopNameMm": "ညောင်ပင်လေးဈေး",
+    "StopNameEn": "Nyaung Lay Pin Market",
+    "MatchedStopId": 752
+  },
+  {
+    "Id": 2284,
+    "StoreId": 11,
+    "StopNameMm": "ဗဟိုရ်စည်/မော်တင်",
+    "StopNameEn": "Bahosi/Mawtin",
+    "MatchedStopId": 756
+  },
+  {
+    "Id": 2285,
+    "StoreId": 12,
+    "StopNameMm": "ကုန်ဈေးတန်း(သိမ်ကြီးဈေး)",
+    "StopNameEn": "Kone Zay Tan( Thein Gyi Market )",
+    "MatchedStopId": 263
+  },
+  {
+    "Id": 2286,
+    "StoreId": 12,
+    "StopNameMm": "ဗိုလ်ချုပ်ဈေး",
+    "StopNameEn": "Bogyoke Market",
+    "MatchedStopId": 265
+  },
+  {
+    "Id": 2287,
+    "StoreId": 12,
+    "StopNameMm": "လမ်း၃၀",
+    "StopNameEn": "30th Street",
+    "MatchedStopId": 262
+  },
+  {
+    "Id": 2288,
+    "StoreId": 12,
+    "StopNameMm": "လေဟာပြင်ဈေး",
+    "StopNameEn": "LayHarPyin Market",
+    "MatchedStopId": 264
+  },
+  {
+    "Id": 2289,
+    "StoreId": 12,
+    "StopNameMm": "သိမ်ကြီးဈေး",
+    "StopNameEn": "Thein Gyi Market",
+    "MatchedStopId": 518
+  },
+  {
+    "Id": 2290,
+    "StoreId": 13,
+    "StopNameMm": "ကျောင်းရှေ့(ဓမ္မာရုံ)",
+    "StopNameEn": "Kyaung Shae ( Dharmayone )",
+    "MatchedStopId": 591
+  },
+  {
+    "Id": 2291,
+    "StoreId": 13,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "Kyaung Lan",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2292,
+    "StoreId": 13,
+    "StopNameMm": "ခိုင်ရွှေဝါ",
+    "StopNameEn": "Khaing Shwe Wah",
+    "MatchedStopId": 395
+  },
+  {
+    "Id": 2293,
+    "StoreId": 13,
+    "StopNameMm": "စိုက်ပျိုးရေး",
+    "StopNameEn": "Site Pyo Yay",
+    "MatchedStopId": 781
+  },
+  {
+    "Id": 2294,
+    "StoreId": 13,
+    "StopNameMm": "စံရိပ်ငြိမ်",
+    "StopNameEn": "San Yeik Nyein",
+    "MatchedStopId": 779
+  },
+  {
+    "Id": 2295,
+    "StoreId": 14,
+    "StopNameMm": "ကုက္ကိုပင်",
+    "StopNameEn": "Kokko Pin",
+    "MatchedStopId": 914
+  },
+  {
+    "Id": 2296,
+    "StoreId": 14,
+    "StopNameMm": "ကုန်းတလဘောင်",
+    "StopNameEn": "Kone TaLaBaung",
+    "MatchedStopId": 918
+  },
+  {
+    "Id": 2297,
+    "StoreId": 14,
+    "StopNameMm": "ကုန်းထိပ်",
+    "StopNameEn": "Kone Hteik",
+    "MatchedStopId": 17
+  },
+  {
+    "Id": 2298,
+    "StoreId": 14,
+    "StopNameMm": "ကုလားဘုရား",
+    "StopNameEn": "KaLa Pagoda",
+    "MatchedStopId": 482
+  },
+  {
+    "Id": 2299,
+    "StoreId": 14,
+    "StopNameMm": "ကျိုက္ကလို့",
+    "StopNameEn": "Kyike Klo",
+    "MatchedStopId": 706
+  },
+  {
+    "Id": 2300,
+    "StoreId": 15,
+    "StopNameMm": "ကနောင်မင်းသားကြီး",
+    "StopNameEn": "Ka Naung Min Thar Gyi",
+    "MatchedStopId": 1408
+  },
+  {
+    "Id": 2301,
+    "StoreId": 15,
+    "StopNameMm": "ကုလားကျောင်း",
+    "StopNameEn": "KaLa Kyaung",
+    "MatchedStopId": 769
+  },
+  {
+    "Id": 2302,
+    "StoreId": 15,
+    "StopNameMm": "ကျောက်တော်ကြီးဘုရား",
+    "StopNameEn": "Kyauk Daw Gyi Pagoda",
+    "MatchedStopId": 327
+  },
+  {
+    "Id": 2303,
+    "StoreId": 15,
+    "StopNameMm": "ကျောင်းဂိတ်",
+    "StopNameEn": "Kyaung Gate",
+    "MatchedStopId": 620
+  },
+  {
+    "Id": 2304,
+    "StoreId": 15,
+    "StopNameMm": "ကြို့ကုန်း",
+    "StopNameEn": "Gyo Gone",
+    "MatchedStopId": 766
+  },
+  {
+    "Id": 2305,
+    "StoreId": 16,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "Kyaung Shae",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2306,
+    "StoreId": 16,
+    "StopNameMm": "မဟာမြိုင်",
+    "StopNameEn": "Maha Myaing",
+    "MatchedStopId": 783
+  },
+  {
+    "Id": 2307,
+    "StoreId": 16,
+    "StopNameMm": "မြေနီကုန်း",
+    "StopNameEn": "MyayNiGone",
+    "MatchedStopId": 513
+  },
+  {
+    "Id": 2308,
+    "StoreId": 16,
+    "StopNameMm": "ရွှေမန်း",
+    "StopNameEn": "Shwe Man",
+    "MatchedStopId": 512
+  },
+  {
+    "Id": 2309,
+    "StoreId": 16,
+    "StopNameMm": "ရှမ်းလမ်း",
+    "StopNameEn": "Shan Road",
+    "MatchedStopId": 511
+  },
+  {
+    "Id": 2310,
+    "StoreId": 17,
+    "StopNameMm": "ကန်သာယာ",
+    "StopNameEn": "Kan Thar Yar",
+    "MatchedStopId": 1099
+  },
+  {
+    "Id": 2311,
+    "StoreId": 17,
+    "StopNameMm": "ကမ္ဘာလုံး",
+    "StopNameEn": "Kabar Lone",
+    "MatchedStopId": 1454
+  },
+  {
+    "Id": 2312,
+    "StoreId": 17,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Car Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2313,
+    "StoreId": 17,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "Car Lay Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2314,
+    "StoreId": 17,
+    "StopNameMm": "ကိုးသုံးလုံး",
+    "StopNameEn": "9 Thone Lone",
+    "MatchedStopId": 1188
+  },
+  {
+    "Id": 2402,
+    "StoreId": 35,
+    "StopNameMm": "ကျောင်းကွေ့",
+    "StopNameEn": "Kyaung Kwae",
+    "MatchedStopId": 131
+  },
+  {
+    "Id": 2315,
+    "StoreId": 18,
+    "StopNameMm": "ကျောင်းရှေ့(ဓမ္မာရုံ)",
+    "StopNameEn": "Kyaung Shae ( Dharmayone )",
+    "MatchedStopId": 591
+  },
+  {
+    "Id": 2316,
+    "StoreId": 18,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "Kyaung Lan",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2317,
+    "StoreId": 18,
+    "StopNameMm": "ခိုင်ရွှေဝါ",
+    "StopNameEn": "Khaing Shwe Wah",
+    "MatchedStopId": 395
+  },
+  {
+    "Id": 2318,
+    "StoreId": 18,
+    "StopNameMm": "စိုက်ပျိုးရေး",
+    "StopNameEn": "Site Pyo Yay",
+    "MatchedStopId": 781
+  },
+  {
+    "Id": 2319,
+    "StoreId": 18,
+    "StopNameMm": "စံရိပ်ငြိမ်",
+    "StopNameEn": "San Yeik Nyein",
+    "MatchedStopId": 779
+  },
+  {
+    "Id": 2320,
+    "StoreId": 19,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "Gandhi",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2321,
+    "StoreId": 19,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Sule (Park)",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2322,
+    "StoreId": 19,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Sule (City Hall)",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2323,
+    "StoreId": 19,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Sule (Shangrila)",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2324,
+    "StoreId": 19,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pansodan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2325,
+    "StoreId": 20,
+    "StopNameMm": "ကနောင်မင်းသားကြီး",
+    "StopNameEn": "Ka Naung Min Thar Gyi",
+    "MatchedStopId": 1408
+  },
+  {
+    "Id": 2326,
+    "StoreId": 20,
+    "StopNameMm": "ကုလားကျောင်း",
+    "StopNameEn": "KaLa Kyaung",
+    "MatchedStopId": 769
+  },
+  {
+    "Id": 2327,
+    "StoreId": 20,
+    "StopNameMm": "ကျောက်တော်ကြီးဘုရား",
+    "StopNameEn": "Kyauk Daw Gyi Pagoda",
+    "MatchedStopId": 327
+  },
+  {
+    "Id": 2328,
+    "StoreId": 20,
+    "StopNameMm": "ကျောင်းဂိတ်",
+    "StopNameEn": "Kyaung Gate",
+    "MatchedStopId": 620
+  },
+  {
+    "Id": 2329,
+    "StoreId": 20,
+    "StopNameMm": "ကြို့ကုန်း",
+    "StopNameEn": "Gyo Gone",
+    "MatchedStopId": 766
+  },
+  {
+    "Id": 2330,
+    "StoreId": 21,
+    "StopNameMm": "ကင်းတဲ",
+    "StopNameEn": "Kinn Te",
+    "MatchedStopId": 1465
+  },
+  {
+    "Id": 2331,
+    "StoreId": 21,
+    "StopNameMm": "ကရုဏာကွေ့",
+    "StopNameEn": "Karuna Kwe",
+    "MatchedStopId": 1391
+  },
+  {
+    "Id": 2332,
+    "StoreId": 21,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Car Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2333,
+    "StoreId": 21,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "Car Lay Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2334,
+    "StoreId": 21,
+    "StopNameMm": "ကုန်ပဒေသာ",
+    "StopNameEn": "KonePaDeThar",
+    "MatchedStopId": 142
+  },
+  {
+    "Id": 2335,
+    "StoreId": 22,
+    "StopNameMm": "ကုန်ဈေးတန်း(သိမ်ကြီးဈေး)",
+    "StopNameEn": "Kone Zay Tan( Thein Gyi Market )",
+    "MatchedStopId": 263
+  },
+  {
+    "Id": 2336,
+    "StoreId": 22,
+    "StopNameMm": "ဗိုလ်ချုပ်ဈေး",
+    "StopNameEn": "Bogyoke Market",
+    "MatchedStopId": 265
+  },
+  {
+    "Id": 2337,
+    "StoreId": 22,
+    "StopNameMm": "လမ်း၃၀",
+    "StopNameEn": "30th Street",
+    "MatchedStopId": 262
+  },
+  {
+    "Id": 2338,
+    "StoreId": 22,
+    "StopNameMm": "လေဟာပြင်ဈေး",
+    "StopNameEn": "LayHarPyin Market",
+    "MatchedStopId": 264
+  },
+  {
+    "Id": 2339,
+    "StoreId": 22,
+    "StopNameMm": "သိမ်ကြီးဈေး",
+    "StopNameEn": "Thein Gyi Market",
+    "MatchedStopId": 518
+  },
+  {
+    "Id": 2340,
+    "StoreId": 23,
+    "StopNameMm": "ကုန်ဈေးတန်း(သိမ်ကြီးဈေး)",
+    "StopNameEn": "Kone Zay Tan( Thein Gyi Market )",
+    "MatchedStopId": 263
+  },
+  {
+    "Id": 2341,
+    "StoreId": 23,
+    "StopNameMm": "ဗိုလ်ချုပ်ဈေး",
+    "StopNameEn": "Bogyoke Market",
+    "MatchedStopId": 265
+  },
+  {
+    "Id": 2342,
+    "StoreId": 23,
+    "StopNameMm": "လမ်း၃၀",
+    "StopNameEn": "30th Street",
+    "MatchedStopId": 262
+  },
+  {
+    "Id": 2343,
+    "StoreId": 23,
+    "StopNameMm": "လေဟာပြင်ဈေး",
+    "StopNameEn": "LayHarPyin Market",
+    "MatchedStopId": 264
+  },
+  {
+    "Id": 2344,
+    "StoreId": 23,
+    "StopNameMm": "သိမ်ကြီးဈေး",
+    "StopNameEn": "Thein Gyi Market",
+    "MatchedStopId": 518
+  },
+  {
+    "Id": 2345,
+    "StoreId": 24,
+    "StopNameMm": "ကုန်ဈေးတန်း(သိမ်ကြီးဈေး)",
+    "StopNameEn": "Kone Zay Tan( Thein Gyi Market )",
+    "MatchedStopId": 263
+  },
+  {
+    "Id": 2346,
+    "StoreId": 24,
+    "StopNameMm": "ဗိုလ်ချုပ်ဈေး",
+    "StopNameEn": "Bogyoke Market",
+    "MatchedStopId": 265
+  },
+  {
+    "Id": 2347,
+    "StoreId": 24,
+    "StopNameMm": "လမ်း၃၀",
+    "StopNameEn": "30th Street",
+    "MatchedStopId": 262
+  },
+  {
+    "Id": 2348,
+    "StoreId": 24,
+    "StopNameMm": "လေဟာပြင်ဈေး",
+    "StopNameEn": "LayHarPyin Market",
+    "MatchedStopId": 264
+  },
+  {
+    "Id": 2349,
+    "StoreId": 24,
+    "StopNameMm": "သိမ်ကြီးဈေး",
+    "StopNameEn": "Thein Gyi Market",
+    "MatchedStopId": 518
+  },
+  {
+    "Id": 2350,
+    "StoreId": 25,
+    "StopNameMm": "ကမ္ဘာဇ",
+    "StopNameEn": "KanBawZa",
+    "MatchedStopId": 1345
+  },
+  {
+    "Id": 2351,
+    "StoreId": 25,
+    "StopNameMm": "ကျန်းမာရေး",
+    "StopNameEn": "Kyan Mar Yay",
+    "MatchedStopId": 132
+  },
+  {
+    "Id": 2352,
+    "StoreId": 25,
+    "StopNameMm": "ကျောက်တံတား",
+    "StopNameEn": "Kyauk Tan Tar",
+    "MatchedStopId": 1280
+  },
+  {
+    "Id": 2353,
+    "StoreId": 25,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "Kyaung Shae",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2354,
+    "StoreId": 25,
+    "StopNameMm": "ကျောင်းရှေ့(ရိုးလေး)",
+    "StopNameEn": "Kyaung Shae(Yoe Lay)",
+    "MatchedStopId": 672
+  },
+  {
+    "Id": 2355,
+    "StoreId": 26,
+    "StopNameMm": "မဟာမြိုင်",
+    "StopNameEn": "Maha Myaing",
+    "MatchedStopId": 783
+  },
+  {
+    "Id": 2356,
+    "StoreId": 26,
+    "StopNameMm": "မြေနီကုန်း",
+    "StopNameEn": "MyayNiGone",
+    "MatchedStopId": 513
+  },
+  {
+    "Id": 2357,
+    "StoreId": 26,
+    "StopNameMm": "ရွှေမန်း",
+    "StopNameEn": "Shwe Man",
+    "MatchedStopId": 512
+  },
+  {
+    "Id": 2358,
+    "StoreId": 26,
+    "StopNameMm": "ရှမ်းလမ်း",
+    "StopNameEn": "Shan Road",
+    "MatchedStopId": 511
+  },
+  {
+    "Id": 2359,
+    "StoreId": 27,
+    "StopNameMm": "ကမ္ဘာအေးစာတိုက်",
+    "StopNameEn": "Kabar Aye Sar Teik",
+    "MatchedStopId": 336
+  },
+  {
+    "Id": 2360,
+    "StoreId": 27,
+    "StopNameMm": "ကမ္ဘာအေးဘုရား",
+    "StopNameEn": "Kabar Aye Pagoda",
+    "MatchedStopId": 337
+  },
+  {
+    "Id": 2361,
+    "StoreId": 27,
+    "StopNameMm": "ကျိုက်ဝိုင်းဘုရား",
+    "StopNameEn": "Kyaik Wine Pagoda",
+    "MatchedStopId": 636
+  },
+  {
+    "Id": 2362,
+    "StoreId": 27,
+    "StopNameMm": "ကျောက်ရေတွင်းတံတား",
+    "StopNameEn": "Kyauk Ye Twin Bridge",
+    "MatchedStopId": 1655
+  },
+  {
+    "Id": 2363,
+    "StoreId": 27,
+    "StopNameMm": "ကြွေ၁",
+    "StopNameEn": "Kyway 1",
+    "MatchedStopId": 639
+  },
+  {
+    "Id": 2364,
+    "StoreId": 28,
+    "StopNameMm": "ကျောင်းရှေ့(ဓမ္မာရုံ)",
+    "StopNameEn": "Kyaung Shae ( Dharmayone )",
+    "MatchedStopId": 591
+  },
+  {
+    "Id": 2365,
+    "StoreId": 28,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "Kyaung Lan",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2366,
+    "StoreId": 28,
+    "StopNameMm": "ခိုင်ရွှေဝါ",
+    "StopNameEn": "Khaing Shwe Wah",
+    "MatchedStopId": 395
+  },
+  {
+    "Id": 2367,
+    "StoreId": 28,
+    "StopNameMm": "စိုက်ပျိုးရေး",
+    "StopNameEn": "Site Pyo Yay",
+    "MatchedStopId": 781
+  },
+  {
+    "Id": 2368,
+    "StoreId": 28,
+    "StopNameMm": "စံရိပ်ငြိမ်",
+    "StopNameEn": "San Yeik Nyein",
+    "MatchedStopId": 779
+  },
+  {
+    "Id": 2369,
+    "StoreId": 29,
+    "StopNameMm": "ဃ ဈေး",
+    "StopNameEn": "ဃ Market",
+    "MatchedStopId": null
+  },
+  {
+    "Id": 2370,
+    "StoreId": 29,
+    "StopNameMm": "ကန်သာယာလမ်းဆုံ",
+    "StopNameEn": "Kan Thayar Junction",
+    "MatchedStopId": 118
+  },
+  {
+    "Id": 2371,
+    "StoreId": 29,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Car Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2372,
+    "StoreId": 29,
+    "StopNameMm": "ကျောက်ရေတွင်း",
+    "StopNameEn": "Kyauk Ye Twin",
+    "MatchedStopId": 443
+  },
+  {
+    "Id": 2373,
+    "StoreId": 29,
+    "StopNameMm": "ကျောက်လမ်းထိပ်",
+    "StopNameEn": "Kyauk Lan Hteik",
+    "MatchedStopId": 629
+  },
+  {
+    "Id": 2374,
+    "StoreId": 30,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "KaLa Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2375,
+    "StoreId": 30,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Kyaik Ka San Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2376,
+    "StoreId": 30,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Myaung Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2377,
+    "StoreId": 30,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "Kyaung Shae",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2378,
+    "StoreId": 30,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Zay Lay(Kyet Be Market)",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2379,
+    "StoreId": 31,
+    "StopNameMm": "GTC",
+    "StopNameEn": "GTC",
+    "MatchedStopId": 1601
+  },
+  {
+    "Id": 2380,
+    "StoreId": 31,
+    "StopNameMm": "ကရုဏာလမ်းဆုံ",
+    "StopNameEn": "Karuna Junction",
+    "MatchedStopId": 1641
+  },
+  {
+    "Id": 2381,
+    "StoreId": 31,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Car Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2382,
+    "StoreId": 31,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "Car Lay Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2383,
+    "StoreId": 31,
+    "StopNameMm": "ကုန်ပဒေသာ",
+    "StopNameEn": "KonePaDeThar",
+    "MatchedStopId": 142
+  },
+  {
+    "Id": 2384,
+    "StoreId": 32,
+    "StopNameMm": "APEX",
+    "StopNameEn": "APEX",
+    "MatchedStopId": 880
+  },
+  {
+    "Id": 2385,
+    "StoreId": 32,
+    "StopNameMm": "GTI",
+    "StopNameEn": "GTI",
+    "MatchedStopId": 1658
+  },
+  {
+    "Id": 2386,
+    "StoreId": 32,
+    "StopNameMm": "MITT",
+    "StopNameEn": "MITT",
+    "MatchedStopId": 879
+  },
+  {
+    "Id": 2387,
+    "StoreId": 32,
+    "StopNameMm": "က.ည.န",
+    "StopNameEn": "Ka Nya Na",
+    "MatchedStopId": 884
+  },
+  {
+    "Id": 2388,
+    "StoreId": 32,
+    "StopNameMm": "ကရင်ဆိပ်နောက်ဖျား",
+    "StopNameEn": "Karen Seik Nauk Phyar",
+    "MatchedStopId": 1043
+  },
+  {
+    "Id": 2389,
+    "StoreId": 33,
+    "StopNameMm": "ကမ္ဘာဇ",
+    "StopNameEn": "KanBawZa",
+    "MatchedStopId": 1345
+  },
+  {
+    "Id": 2390,
+    "StoreId": 33,
+    "StopNameMm": "ကျန်းမာရေး",
+    "StopNameEn": "Kyan Mar Yay",
+    "MatchedStopId": 132
+  },
+  {
+    "Id": 2391,
+    "StoreId": 33,
+    "StopNameMm": "ကျောက်တံတား",
+    "StopNameEn": "Kyauk Tan Tar",
+    "MatchedStopId": 1280
+  },
+  {
+    "Id": 2392,
+    "StoreId": 33,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "Kyaung Shae",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2393,
+    "StoreId": 33,
+    "StopNameMm": "ကျောင်းရှေ့(ရိုးလေး)",
+    "StopNameEn": "Kyaung Shae (Yoe Lay)",
+    "MatchedStopId": 672
+  },
+  {
+    "Id": 2394,
+    "StoreId": 34,
+    "StopNameMm": "ကန်သာယာ",
+    "StopNameEn": "Kan Thar Yar",
+    "MatchedStopId": 1099
+  },
+  {
+    "Id": 2395,
+    "StoreId": 34,
+    "StopNameMm": "ကမ္ဘာလုံး",
+    "StopNameEn": "Gabar Lone",
+    "MatchedStopId": 1454
+  },
+  {
+    "Id": 2396,
+    "StoreId": 34,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Car Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2397,
+    "StoreId": 34,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "Car Lay Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2398,
+    "StoreId": 34,
+    "StopNameMm": "ကိုးသုံးလုံး",
+    "StopNameEn": "9 Thone Lone",
+    "MatchedStopId": 1188
+  },
+  {
+    "Id": 2399,
+    "StoreId": 35,
+    "StopNameMm": "ကန်ကြီးထောင့်",
+    "StopNameEn": "Kan Gyi Htaunt",
+    "MatchedStopId": 425
+  },
+  {
+    "Id": 2400,
+    "StoreId": 35,
+    "StopNameMm": "ကျန်းမာရေး",
+    "StopNameEn": "Kyan Mar Yay",
+    "MatchedStopId": 132
+  },
+  {
+    "Id": 2401,
+    "StoreId": 35,
+    "StopNameMm": "ကျောက်တိုင်",
+    "StopNameEn": "Kyauk Daing",
+    "MatchedStopId": 248
+  },
+  {
+    "Id": 2403,
+    "StoreId": 35,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "Kyaung Shae",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2404,
+    "StoreId": 36,
+    "StopNameMm": "GTC",
+    "StopNameEn": "GTC",
+    "MatchedStopId": 1601
+  },
+  {
+    "Id": 2405,
+    "StoreId": 36,
+    "StopNameMm": "ကရုဏာလမ်းဆုံ",
+    "StopNameEn": "Karuna Junction",
+    "MatchedStopId": 1641
+  },
+  {
+    "Id": 2406,
+    "StoreId": 36,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Car Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2407,
+    "StoreId": 36,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "Car Lay Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2408,
+    "StoreId": 36,
+    "StopNameMm": "ကုန်ပဒေသာ",
+    "StopNameEn": "KonePaDeThar",
+    "MatchedStopId": 142
+  },
+  {
+    "Id": 2409,
+    "StoreId": 37,
+    "StopNameMm": "ကန်ကြီးထောင့်",
+    "StopNameEn": "Kan Gyi Htaunt",
+    "MatchedStopId": 425
+  },
+  {
+    "Id": 2410,
+    "StoreId": 37,
+    "StopNameMm": "ကျန်းမာရေး",
+    "StopNameEn": "Kyan Mar Yay",
+    "MatchedStopId": 132
+  },
+  {
+    "Id": 2411,
+    "StoreId": 37,
+    "StopNameMm": "ကျောက်တိုင်",
+    "StopNameEn": "Kyauk Daing",
+    "MatchedStopId": 248
+  },
+  {
+    "Id": 2412,
+    "StoreId": 37,
+    "StopNameMm": "ကျောင်းကွေ့",
+    "StopNameEn": "Kyaung Kwae",
+    "MatchedStopId": 131
+  },
+  {
+    "Id": 2413,
+    "StoreId": 37,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "Kyaung Shae",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2414,
+    "StoreId": 38,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "Gandhi",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2415,
+    "StoreId": 38,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Sule (Park)",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2416,
+    "StoreId": 38,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Sule (City Hall)",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2417,
+    "StoreId": 38,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Sule (Shangrila)",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2418,
+    "StoreId": 38,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pansodan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2419,
+    "StoreId": 39,
+    "StopNameMm": "ကင်းတဲ",
+    "StopNameEn": "Kinn Te",
+    "MatchedStopId": 1465
+  },
+  {
+    "Id": 2420,
+    "StoreId": 39,
+    "StopNameMm": "ကရုဏာကွေ့",
+    "StopNameEn": "Karuna Kwe",
+    "MatchedStopId": 1391
+  },
+  {
+    "Id": 2421,
+    "StoreId": 39,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Car Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2422,
+    "StoreId": 39,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "Car Lay Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2423,
+    "StoreId": 39,
+    "StopNameMm": "ကုန်ပဒေသာ",
+    "StopNameEn": "KonePaDeThar",
+    "MatchedStopId": 142
+  },
+  {
+    "Id": 2424,
+    "StoreId": 40,
+    "StopNameMm": "ကုက္ကိုပင်",
+    "StopNameEn": "Kokko Pin",
+    "MatchedStopId": 914
+  },
+  {
+    "Id": 2425,
+    "StoreId": 40,
+    "StopNameMm": "ကုန်းတလဘောင်",
+    "StopNameEn": "Kone TaLaBaung",
+    "MatchedStopId": 918
+  },
+  {
+    "Id": 2426,
+    "StoreId": 40,
+    "StopNameMm": "ကုန်းထိပ်",
+    "StopNameEn": "Kone Htaik",
+    "MatchedStopId": 17
+  },
+  {
+    "Id": 2427,
+    "StoreId": 40,
+    "StopNameMm": "ကုလားဘုရား",
+    "StopNameEn": "KaLa Pagoda",
+    "MatchedStopId": 482
+  },
+  {
+    "Id": 2428,
+    "StoreId": 40,
+    "StopNameMm": "ကျိုက္ကလို့",
+    "StopNameEn": "Kyike Klo",
+    "MatchedStopId": 706
+  },
+  {
+    "Id": 2429,
+    "StoreId": 41,
+    "StopNameMm": "ကမ္ဘာဇ",
+    "StopNameEn": "KanBawZa",
+    "MatchedStopId": 1345
+  },
+  {
+    "Id": 2430,
+    "StoreId": 41,
+    "StopNameMm": "ကျန်းမာရေး",
+    "StopNameEn": "Kyan Mar Yay",
+    "MatchedStopId": 132
+  },
+  {
+    "Id": 2431,
+    "StoreId": 41,
+    "StopNameMm": "ကျောက်တံတား",
+    "StopNameEn": "Kyauk Tan Tar",
+    "MatchedStopId": 1280
+  },
+  {
+    "Id": 2432,
+    "StoreId": 41,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "Kyaung Shae",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2433,
+    "StoreId": 41,
+    "StopNameMm": "ကျောင်းရှေ့(ရိုးလေး)",
+    "StopNameEn": "Kyaung Shae (Yoe Lay)",
+    "MatchedStopId": 672
+  },
+  {
+    "Id": 2434,
+    "StoreId": 42,
+    "StopNameMm": "ကမ္ဘာဇ",
+    "StopNameEn": "KanBawZa",
+    "MatchedStopId": 1345
+  },
+  {
+    "Id": 2435,
+    "StoreId": 42,
+    "StopNameMm": "ကျန်းမာရေး",
+    "StopNameEn": "Kyan Mar Yay",
+    "MatchedStopId": 132
+  },
+  {
+    "Id": 2436,
+    "StoreId": 42,
+    "StopNameMm": "ကျောက်တံတား",
+    "StopNameEn": "Kyauk Tan Tar",
+    "MatchedStopId": 1280
+  },
+  {
+    "Id": 2437,
+    "StoreId": 42,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "Kyaung Shae",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2438,
+    "StoreId": 42,
+    "StopNameMm": "ကျောင်းရှေ့(ရိုးလေး)",
+    "StopNameEn": "Kyaung Shae (Yoe Lay)",
+    "MatchedStopId": 672
+  },
+  {
+    "Id": 2439,
+    "StoreId": 43,
+    "StopNameMm": "ကင်းတဲ",
+    "StopNameEn": "Kinn Te",
+    "MatchedStopId": 1465
+  },
+  {
+    "Id": 2440,
+    "StoreId": 43,
+    "StopNameMm": "ကရုဏာကွေ့",
+    "StopNameEn": "Karuna Kwe",
+    "MatchedStopId": 1391
+  },
+  {
+    "Id": 2441,
+    "StoreId": 43,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Car Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2442,
+    "StoreId": 43,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "Car Lay Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2443,
+    "StoreId": 43,
+    "StopNameMm": "ကုန်ပဒေသာ",
+    "StopNameEn": "KonePaDeThar",
+    "MatchedStopId": 142
+  },
+  {
+    "Id": 2444,
+    "StoreId": 44,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Car Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2445,
+    "StoreId": 44,
+    "StopNameMm": "ကုလားဘုရား",
+    "StopNameEn": "KaLa Pagoda",
+    "MatchedStopId": 482
+  },
+  {
+    "Id": 2446,
+    "StoreId": 44,
+    "StopNameMm": "ကျိုက္ကဆံဘုရား",
+    "StopNameEn": "Kyaik Wine Pagoda",
+    "MatchedStopId": 572
+  },
+  {
+    "Id": 2447,
+    "StoreId": 44,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "Kyaung Shae",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2448,
+    "StoreId": 44,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "Kyaung Lan",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2449,
+    "StoreId": 45,
+    "StopNameMm": "GTC",
+    "StopNameEn": "GTC",
+    "MatchedStopId": 1601
+  },
+  {
+    "Id": 2450,
+    "StoreId": 45,
+    "StopNameMm": "ကရုဏာလမ်းဆုံ",
+    "StopNameEn": "Karuna Junction",
+    "MatchedStopId": 1641
+  },
+  {
+    "Id": 2451,
+    "StoreId": 45,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Car Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2452,
+    "StoreId": 45,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "Car Lay Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2453,
+    "StoreId": 45,
+    "StopNameMm": "ကုန်ပဒေသာ",
+    "StopNameEn": "KonePaDeThar",
+    "MatchedStopId": 142
+  },
+  {
+    "Id": 2454,
+    "StoreId": 46,
+    "StopNameMm": "ကန်သာယာ",
+    "StopNameEn": "Kan Thar Yar",
+    "MatchedStopId": 1099
+  },
+  {
+    "Id": 2455,
+    "StoreId": 46,
+    "StopNameMm": "ကမ္ဘာလုံး",
+    "StopNameEn": "Kabar Lone",
+    "MatchedStopId": 1454
+  },
+  {
+    "Id": 2456,
+    "StoreId": 46,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Car Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2457,
+    "StoreId": 46,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "Car Lay Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2458,
+    "StoreId": 46,
+    "StopNameMm": "ကိုးသုံးလုံး",
+    "StopNameEn": "9 Thone Lone",
+    "MatchedStopId": 1188
+  },
+  {
+    "Id": 2459,
+    "StoreId": 47,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "Kyaung Shae",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2460,
+    "StoreId": 47,
+    "StopNameMm": "မဟာမြိုင်",
+    "StopNameEn": "Maha Myaing",
+    "MatchedStopId": 783
+  },
+  {
+    "Id": 2461,
+    "StoreId": 47,
+    "StopNameMm": "မြေနီကုန်း",
+    "StopNameEn": "MyayNiGone",
+    "MatchedStopId": 513
+  },
+  {
+    "Id": 2462,
+    "StoreId": 47,
+    "StopNameMm": "ရွှေမန်း",
+    "StopNameEn": "Shwe Man",
+    "MatchedStopId": 512
+  },
+  {
+    "Id": 2463,
+    "StoreId": 47,
+    "StopNameMm": "ရှမ်းလမ်း",
+    "StopNameEn": "Shan Road",
+    "MatchedStopId": 511
+  },
+  {
+    "Id": 2464,
+    "StoreId": 48,
+    "StopNameMm": "ကုက္ကိုပင်",
+    "StopNameEn": "Kokko Pin",
+    "MatchedStopId": 914
+  },
+  {
+    "Id": 2465,
+    "StoreId": 48,
+    "StopNameMm": "ကုန်းတလဘောင်",
+    "StopNameEn": "Kone TaLaBaung",
+    "MatchedStopId": 918
+  },
+  {
+    "Id": 2466,
+    "StoreId": 48,
+    "StopNameMm": "ကုန်းထိပ်",
+    "StopNameEn": "Kone Htaik",
+    "MatchedStopId": 17
+  },
+  {
+    "Id": 2467,
+    "StoreId": 48,
+    "StopNameMm": "ကုလားဘုရား",
+    "StopNameEn": "KaLa Pagoda",
+    "MatchedStopId": 482
+  },
+  {
+    "Id": 2468,
+    "StoreId": 48,
+    "StopNameMm": "ကျိုက္ကလို့",
+    "StopNameEn": "La",
+    "MatchedStopId": 706
+  },
+  {
+    "Id": 2469,
+    "StoreId": 49,
+    "StopNameMm": "ကုက္ကိုပင်",
+    "StopNameEn": "Kokko Pin",
+    "MatchedStopId": 914
+  },
+  {
+    "Id": 2470,
+    "StoreId": 49,
+    "StopNameMm": "ကုန်းတလဘောင်",
+    "StopNameEn": "Kone TaLaBaung",
+    "MatchedStopId": 918
+  },
+  {
+    "Id": 2471,
+    "StoreId": 49,
+    "StopNameMm": "ကုန်းထိပ်",
+    "StopNameEn": "Kone Htaik",
+    "MatchedStopId": 17
+  },
+  {
+    "Id": 2472,
+    "StoreId": 49,
+    "StopNameMm": "ကုလားဘုရား",
+    "StopNameEn": "KaLa Pagoda",
+    "MatchedStopId": 482
+  },
+  {
+    "Id": 2473,
+    "StoreId": 49,
+    "StopNameMm": "ကျိုက္ကလို့",
+    "StopNameEn": "Kyike Klo",
+    "MatchedStopId": 706
+  },
+  {
+    "Id": 2474,
+    "StoreId": 50,
+    "StopNameMm": "ကင်းတဲ",
+    "StopNameEn": "Kinn Te",
+    "MatchedStopId": 1465
+  },
+  {
+    "Id": 2475,
+    "StoreId": 50,
+    "StopNameMm": "ကရုဏာကွေ့",
+    "StopNameEn": "Karuna Kwe",
+    "MatchedStopId": 1391
+  },
+  {
+    "Id": 2476,
+    "StoreId": 50,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Car Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2477,
+    "StoreId": 50,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "Car Lay Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2478,
+    "StoreId": 50,
+    "StopNameMm": "ကုန်ပဒေသာ",
+    "StopNameEn": "KonePaDeThar",
+    "MatchedStopId": 142
+  },
+  {
+    "Id": 2479,
+    "StoreId": 51,
+    "StopNameMm": "GTC",
+    "StopNameEn": "GTC",
+    "MatchedStopId": 1601
+  },
+  {
+    "Id": 2480,
+    "StoreId": 51,
+    "StopNameMm": "ကရုဏာလမ်းဆုံ",
+    "StopNameEn": "Karuna Junction",
+    "MatchedStopId": 1641
+  },
+  {
+    "Id": 2481,
+    "StoreId": 51,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Car Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2482,
+    "StoreId": 51,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "Car Lay Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2483,
+    "StoreId": 51,
+    "StopNameMm": "ကုန်ပဒေသာ",
+    "StopNameEn": "KonePaDeThar",
+    "MatchedStopId": 142
+  },
+  {
+    "Id": 2484,
+    "StoreId": 52,
+    "StopNameMm": "ကန်ကြီးထောင့်",
+    "StopNameEn": "Kan Gyi Htaunt",
+    "MatchedStopId": 425
+  },
+  {
+    "Id": 2485,
+    "StoreId": 52,
+    "StopNameMm": "ကျန်းမာရေး",
+    "StopNameEn": "Kyan Mar Yay",
+    "MatchedStopId": 132
+  },
+  {
+    "Id": 2486,
+    "StoreId": 52,
+    "StopNameMm": "ကျောက်တိုင်",
+    "StopNameEn": "Kyauk Daing",
+    "MatchedStopId": 248
+  },
+  {
+    "Id": 2487,
+    "StoreId": 52,
+    "StopNameMm": "ကျောင်းကွေ့",
+    "StopNameEn": "Kyaung Kwae",
+    "MatchedStopId": 131
+  },
+  {
+    "Id": 2488,
+    "StoreId": 52,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "Kyaung Shae",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2489,
+    "StoreId": 53,
+    "StopNameMm": "Jဈေး",
+    "StopNameEn": "J Market",
+    "MatchedStopId": 717
+  },
+  {
+    "Id": 2490,
+    "StoreId": 53,
+    "StopNameMm": "ကန်သာယာလမ်းဆုံ",
+    "StopNameEn": "Thar Junction",
+    "MatchedStopId": 118
+  },
+  {
+    "Id": 2491,
+    "StoreId": 53,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2492,
+    "StoreId": 53,
+    "StopNameMm": "ကျောက်ရေတွင်း",
+    "StopNameEn": "Kyauk",
+    "MatchedStopId": 443
+  },
+  {
+    "Id": 2493,
+    "StoreId": 53,
+    "StopNameMm": "ကျောက်လမ်းထိပ်",
+    "StopNameEn": "Kyauk Road Terminal",
+    "MatchedStopId": 629
+  },
+  {
+    "Id": 2494,
+    "StoreId": 54,
+    "StopNameMm": "ကန်ကြီးထောင့်",
+    "StopNameEn": "Gyi",
+    "MatchedStopId": 425
+  },
+  {
+    "Id": 2495,
+    "StoreId": 54,
+    "StopNameMm": "ကျန်းမာရေး",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 132
+  },
+  {
+    "Id": 2496,
+    "StoreId": 54,
+    "StopNameMm": "ကျောက်တိုင်",
+    "StopNameEn": "Kyauk Daing",
+    "MatchedStopId": 248
+  },
+  {
+    "Id": 2497,
+    "StoreId": 54,
+    "StopNameMm": "ကျောင်းကွေ့",
+    "StopNameEn": "School Bend",
+    "MatchedStopId": 131
+  },
+  {
+    "Id": 2498,
+    "StoreId": 54,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2499,
+    "StoreId": 55,
+    "StopNameMm": "ကန်ကြီးထောင့်",
+    "StopNameEn": "Gyi",
+    "MatchedStopId": 425
+  },
+  {
+    "Id": 2500,
+    "StoreId": 55,
+    "StopNameMm": "ကျန်းမာရေး",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 132
+  },
+  {
+    "Id": 2501,
+    "StoreId": 55,
+    "StopNameMm": "ကျောက်တိုင်",
+    "StopNameEn": "Kyauk Daing",
+    "MatchedStopId": 248
+  },
+  {
+    "Id": 2502,
+    "StoreId": 55,
+    "StopNameMm": "ကျောင်းကွေ့",
+    "StopNameEn": "School Bend",
+    "MatchedStopId": 131
+  },
+  {
+    "Id": 2503,
+    "StoreId": 55,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2504,
+    "StoreId": 56,
+    "StopNameMm": "ကန်သာယာ",
+    "StopNameEn": "Thar",
+    "MatchedStopId": 1099
+  },
+  {
+    "Id": 2505,
+    "StoreId": 56,
+    "StopNameMm": "ကမ္ဘာလုံး",
+    "StopNameEn": "Ma La",
+    "MatchedStopId": 1454
+  },
+  {
+    "Id": 2506,
+    "StoreId": 56,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2507,
+    "StoreId": 56,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "La Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2508,
+    "StoreId": 56,
+    "StopNameMm": "ကိုးသုံးလုံး",
+    "StopNameEn": "Thong La",
+    "MatchedStopId": 1188
+  },
+  {
+    "Id": 2509,
+    "StoreId": 57,
+    "StopNameMm": "ကြယ်ငါးပွင့်",
+    "StopNameEn": "ကြယ်ငါးပွင့်",
+    "MatchedStopId": 373
+  },
+  {
+    "Id": 2510,
+    "StoreId": 57,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2511,
+    "StoreId": 57,
+    "StopNameMm": "စိန်ပေါလ်",
+    "StopNameEn": "Sein La",
+    "MatchedStopId": 372
+  },
+  {
+    "Id": 2512,
+    "StoreId": 57,
+    "StopNameMm": "ဆီဆိုင်",
+    "StopNameEn": "Petrol Station",
+    "MatchedStopId": 170
+  },
+  {
+    "Id": 2513,
+    "StoreId": 57,
+    "StopNameMm": "ဗိုလ်တထောင်ဘုရား",
+    "StopNameEn": "Bo Tahtaung Pagoda",
+    "MatchedStopId": 565
+  },
+  {
+    "Id": 2514,
+    "StoreId": 58,
+    "StopNameMm": "ကန်သာယာ",
+    "StopNameEn": "Thar",
+    "MatchedStopId": 1099
+  },
+  {
+    "Id": 2515,
+    "StoreId": 58,
+    "StopNameMm": "ကမ္ဘာလုံး",
+    "StopNameEn": "Ma La",
+    "MatchedStopId": 1454
+  },
+  {
+    "Id": 2516,
+    "StoreId": 58,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2517,
+    "StoreId": 58,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "La Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2518,
+    "StoreId": 58,
+    "StopNameMm": "ကိုးသုံးလုံး",
+    "StopNameEn": "Thong La",
+    "MatchedStopId": 1188
+  },
+  {
+    "Id": 2519,
+    "StoreId": 59,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2520,
+    "StoreId": 59,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Su La ( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2521,
+    "StoreId": 59,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Su La ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2522,
+    "StoreId": 59,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Su La ( La )",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2523,
+    "StoreId": 59,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pan Tan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2524,
+    "StoreId": 60,
+    "StopNameMm": "ကီလီ",
+    "StopNameEn": "La",
+    "MatchedStopId": 755
+  },
+  {
+    "Id": 2525,
+    "StoreId": 60,
+    "StopNameMm": "စိန်ဂျွန်း",
+    "StopNameEn": "Sein",
+    "MatchedStopId": 786
+  },
+  {
+    "Id": 2526,
+    "StoreId": 60,
+    "StopNameMm": "စံပြ",
+    "StopNameEn": "စံပြ",
+    "MatchedStopId": 1261
+  },
+  {
+    "Id": 2527,
+    "StoreId": 60,
+    "StopNameMm": "ညောင်ပင်လေးဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 752
+  },
+  {
+    "Id": 2528,
+    "StoreId": 60,
+    "StopNameMm": "ဗဟိုရ်စည်/မော်တင်",
+    "StopNameEn": "/ Ma",
+    "MatchedStopId": 756
+  },
+  {
+    "Id": 2529,
+    "StoreId": 61,
+    "StopNameMm": "ကျောင်းရှေ့(ဓမ္မာရုံ)",
+    "StopNameEn": "School ( Ma Ma )",
+    "MatchedStopId": 591
+  },
+  {
+    "Id": 2530,
+    "StoreId": 61,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "School Road",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2531,
+    "StoreId": 61,
+    "StopNameMm": "ခိုင်ရွှေဝါ",
+    "StopNameEn": "Shwe",
+    "MatchedStopId": 395
+  },
+  {
+    "Id": 2532,
+    "StoreId": 61,
+    "StopNameMm": "စိုက်ပျိုးရေး",
+    "StopNameEn": "စိုက်ပျိုးရေး",
+    "MatchedStopId": 781
+  },
+  {
+    "Id": 2533,
+    "StoreId": 61,
+    "StopNameMm": "စံရိပ်ငြိမ်",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 779
+  },
+  {
+    "Id": 2534,
+    "StoreId": 62,
+    "StopNameMm": "ကေတုမာလာကွေ့",
+    "StopNameEn": "Ma La Bend",
+    "MatchedStopId": 341
+  },
+  {
+    "Id": 2535,
+    "StoreId": 62,
+    "StopNameMm": "ဂန္ဓာမာဟိုးဆေး",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 1566
+  },
+  {
+    "Id": 2536,
+    "StoreId": 62,
+    "StopNameMm": "ဂိတ်ဟောင်း",
+    "StopNameEn": "Gate",
+    "MatchedStopId": 127
+  },
+  {
+    "Id": 2537,
+    "StoreId": 62,
+    "StopNameMm": "စီမံကိန်း",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 348
+  },
+  {
+    "Id": 2538,
+    "StoreId": 62,
+    "StopNameMm": "ဆေးရုံရှေ့",
+    "StopNameEn": "Hospital",
+    "MatchedStopId": 838
+  },
+  {
+    "Id": 2539,
+    "StoreId": 63,
+    "StopNameMm": "ကေတုမာလာကွေ့",
+    "StopNameEn": "Ma La Bend",
+    "MatchedStopId": 341
+  },
+  {
+    "Id": 2540,
+    "StoreId": 63,
+    "StopNameMm": "ဂန္ဓာမာဟိုးဆေး",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 1566
+  },
+  {
+    "Id": 2541,
+    "StoreId": 63,
+    "StopNameMm": "ဂိတ်ဟောင်း",
+    "StopNameEn": "Gate",
+    "MatchedStopId": 127
+  },
+  {
+    "Id": 2542,
+    "StoreId": 63,
+    "StopNameMm": "စီမံကိန်း",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 348
+  },
+  {
+    "Id": 2543,
+    "StoreId": 63,
+    "StopNameMm": "ဆေးရုံရှေ့",
+    "StopNameEn": "Hospital",
+    "MatchedStopId": 838
+  },
+  {
+    "Id": 2544,
+    "StoreId": 64,
+    "StopNameMm": "ကင်းတဲ",
+    "StopNameEn": "Kin",
+    "MatchedStopId": 1465
+  },
+  {
+    "Id": 2545,
+    "StoreId": 64,
+    "StopNameMm": "ကရုဏာကွေ့",
+    "StopNameEn": "Bend",
+    "MatchedStopId": 1391
+  },
+  {
+    "Id": 2546,
+    "StoreId": 64,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2547,
+    "StoreId": 64,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "La Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2548,
+    "StoreId": 64,
+    "StopNameMm": "ကုန်ပဒေသာ",
+    "StopNameEn": "Thar",
+    "MatchedStopId": 142
+  },
+  {
+    "Id": 2549,
+    "StoreId": 65,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2550,
+    "StoreId": 65,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2551,
+    "StoreId": 65,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Ma Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2552,
+    "StoreId": 65,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2553,
+    "StoreId": 65,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Market La ( Be Market )",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2554,
+    "StoreId": 66,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2555,
+    "StoreId": 66,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2556,
+    "StoreId": 66,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Ma Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2557,
+    "StoreId": 66,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2558,
+    "StoreId": 66,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Market La ( Be Market )",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2559,
+    "StoreId": 67,
+    "StopNameMm": "ကန်ကြီးထောင့်",
+    "StopNameEn": "Gyi",
+    "MatchedStopId": 425
+  },
+  {
+    "Id": 2560,
+    "StoreId": 67,
+    "StopNameMm": "ကျန်းမာရေး",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 132
+  },
+  {
+    "Id": 2561,
+    "StoreId": 67,
+    "StopNameMm": "ကျောက်တိုင်",
+    "StopNameEn": "Kyauk Daing",
+    "MatchedStopId": 248
+  },
+  {
+    "Id": 2562,
+    "StoreId": 67,
+    "StopNameMm": "ကျောင်းကွေ့",
+    "StopNameEn": "School Bend",
+    "MatchedStopId": 131
+  },
+  {
+    "Id": 2563,
+    "StoreId": 67,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2564,
+    "StoreId": 68,
+    "StopNameMm": "ကျောင်းရှေ့(ဓမ္မာရုံ)",
+    "StopNameEn": "School ( Ma Ma )",
+    "MatchedStopId": 591
+  },
+  {
+    "Id": 2565,
+    "StoreId": 68,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "School Road",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2566,
+    "StoreId": 68,
+    "StopNameMm": "ခိုင်ရွှေဝါ",
+    "StopNameEn": "Shwe",
+    "MatchedStopId": 395
+  },
+  {
+    "Id": 2567,
+    "StoreId": 68,
+    "StopNameMm": "စိုက်ပျိုးရေး",
+    "StopNameEn": "စိုက်ပျိုးရေး",
+    "MatchedStopId": 781
+  },
+  {
+    "Id": 2568,
+    "StoreId": 68,
+    "StopNameMm": "စံရိပ်ငြိမ်",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 779
+  },
+  {
+    "Id": 2569,
+    "StoreId": 69,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2570,
+    "StoreId": 69,
+    "StopNameMm": "မဟာမြိုင်",
+    "StopNameEn": "Ma Ma",
+    "MatchedStopId": 783
+  },
+  {
+    "Id": 2571,
+    "StoreId": 69,
+    "StopNameMm": "မြေနီကုန်း",
+    "StopNameEn": "Ma Gone",
+    "MatchedStopId": 513
+  },
+  {
+    "Id": 2572,
+    "StoreId": 69,
+    "StopNameMm": "ရွှေမန်း",
+    "StopNameEn": "Shwe Ma",
+    "MatchedStopId": 512
+  },
+  {
+    "Id": 2573,
+    "StoreId": 69,
+    "StopNameMm": "ရှမ်းလမ်း",
+    "StopNameEn": "Ma Road",
+    "MatchedStopId": 511
+  },
+  {
+    "Id": 2574,
+    "StoreId": 70,
+    "StopNameMm": "ကန်သာယာ",
+    "StopNameEn": "Thar",
+    "MatchedStopId": 1099
+  },
+  {
+    "Id": 2575,
+    "StoreId": 70,
+    "StopNameMm": "ကမ္ဘာလုံး",
+    "StopNameEn": "Ma La",
+    "MatchedStopId": 1454
+  },
+  {
+    "Id": 2576,
+    "StoreId": 70,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2577,
+    "StoreId": 70,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "La Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2578,
+    "StoreId": 70,
+    "StopNameMm": "ကိုးသုံးလုံး",
+    "StopNameEn": "Thong La",
+    "MatchedStopId": 1188
+  },
+  {
+    "Id": 2579,
+    "StoreId": 71,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2580,
+    "StoreId": 71,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2581,
+    "StoreId": 71,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Ma Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2582,
+    "StoreId": 71,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2583,
+    "StoreId": 71,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Market La ( Be Market )",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2584,
+    "StoreId": 72,
+    "StopNameMm": "UFL",
+    "StopNameEn": "UFL",
+    "MatchedStopId": 589
+  },
+  {
+    "Id": 2585,
+    "StoreId": 72,
+    "StopNameMm": "ကုက္ကိုင်း",
+    "StopNameEn": "ကုက္ကိုင်း",
+    "MatchedStopId": 586
+  },
+  {
+    "Id": 2586,
+    "StoreId": 72,
+    "StopNameMm": "ဂျမား",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 407
+  },
+  {
+    "Id": 2587,
+    "StoreId": 72,
+    "StopNameMm": "ဂွတ္တလစ်ဈေးကွေ့",
+    "StopNameEn": "La Market Bend",
+    "MatchedStopId": 541
+  },
+  {
+    "Id": 2588,
+    "StoreId": 72,
+    "StopNameMm": "နတ်မောက်ကျောင်းရှေ့",
+    "StopNameEn": "Ma School",
+    "MatchedStopId": 406
+  },
+  {
+    "Id": 2589,
+    "StoreId": 73,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2590,
+    "StoreId": 73,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Su La ( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2591,
+    "StoreId": 73,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Su La ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2592,
+    "StoreId": 73,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Su La ( La )",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2593,
+    "StoreId": 73,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pan Tan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2594,
+    "StoreId": 74,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2595,
+    "StoreId": 74,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2596,
+    "StoreId": 74,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Ma Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2597,
+    "StoreId": 74,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2598,
+    "StoreId": 74,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Market La ( Be Market )",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2599,
+    "StoreId": 75,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2600,
+    "StoreId": 75,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2601,
+    "StoreId": 75,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Ma Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2602,
+    "StoreId": 75,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2603,
+    "StoreId": 75,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Market La ( Be Market )",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2604,
+    "StoreId": 76,
+    "StopNameMm": "ကုက္ကိုပင်",
+    "StopNameEn": "ကုက္ကိုပင်",
+    "MatchedStopId": 914
+  },
+  {
+    "Id": 2605,
+    "StoreId": 76,
+    "StopNameMm": "ကုန်းတလဘောင်",
+    "StopNameEn": "Gone La",
+    "MatchedStopId": 918
+  },
+  {
+    "Id": 2606,
+    "StoreId": 76,
+    "StopNameMm": "ကုန်းထိပ်",
+    "StopNameEn": "Gone Terminal",
+    "MatchedStopId": 17
+  },
+  {
+    "Id": 2607,
+    "StoreId": 76,
+    "StopNameMm": "ကုလားဘုရား",
+    "StopNameEn": "La Pagoda",
+    "MatchedStopId": 482
+  },
+  {
+    "Id": 2608,
+    "StoreId": 76,
+    "StopNameMm": "ကျိုက္ကလို့",
+    "StopNameEn": "La",
+    "MatchedStopId": 706
+  },
+  {
+    "Id": 2609,
+    "StoreId": 77,
+    "StopNameMm": "ကြယ်ငါးပွင့်",
+    "StopNameEn": "ကြယ်ငါးပွင့်",
+    "MatchedStopId": 373
+  },
+  {
+    "Id": 2610,
+    "StoreId": 77,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2611,
+    "StoreId": 77,
+    "StopNameMm": "စိန်ပေါလ်",
+    "StopNameEn": "Sein La",
+    "MatchedStopId": 372
+  },
+  {
+    "Id": 2612,
+    "StoreId": 77,
+    "StopNameMm": "ဆီဆိုင်",
+    "StopNameEn": "Petrol Station",
+    "MatchedStopId": 170
+  },
+  {
+    "Id": 2613,
+    "StoreId": 77,
+    "StopNameMm": "ဗိုလ်တထောင်ဘုရား",
+    "StopNameEn": "Bo Tahtaung Pagoda",
+    "MatchedStopId": 565
+  },
+  {
+    "Id": 2614,
+    "StoreId": 78,
+    "StopNameMm": "ကမ္ဘာအေးစာတိုက်",
+    "StopNameEn": "Ma Aye Taik",
+    "MatchedStopId": 336
+  },
+  {
+    "Id": 2615,
+    "StoreId": 78,
+    "StopNameMm": "ကမ္ဘာအေးဘုရား",
+    "StopNameEn": "Kabar Aye Pagoda",
+    "MatchedStopId": 337
+  },
+  {
+    "Id": 2616,
+    "StoreId": 78,
+    "StopNameMm": "ကျိုက်ဝိုင်းဘုရား",
+    "StopNameEn": "Pagoda",
+    "MatchedStopId": 636
+  },
+  {
+    "Id": 2617,
+    "StoreId": 78,
+    "StopNameMm": "ကျောက်ရေတွင်းတံတား",
+    "StopNameEn": "Kyauk Bridge",
+    "MatchedStopId": 1655
+  },
+  {
+    "Id": 2618,
+    "StoreId": 78,
+    "StopNameMm": "ကြွေ၁",
+    "StopNameEn": "Kyway 1",
+    "MatchedStopId": 639
+  },
+  {
+    "Id": 2619,
+    "StoreId": 79,
+    "StopNameMm": "ကင်းတဲ",
+    "StopNameEn": "Kin",
+    "MatchedStopId": 1465
+  },
+  {
+    "Id": 2620,
+    "StoreId": 79,
+    "StopNameMm": "ကရုဏာကွေ့",
+    "StopNameEn": "Bend",
+    "MatchedStopId": 1391
+  },
+  {
+    "Id": 2621,
+    "StoreId": 79,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2622,
+    "StoreId": 79,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "La Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2623,
+    "StoreId": 79,
+    "StopNameMm": "ကုန်ပဒေသာ",
+    "StopNameEn": "Thar",
+    "MatchedStopId": 142
+  },
+  {
+    "Id": 2624,
+    "StoreId": 80,
+    "StopNameMm": "ဝါဆို",
+    "StopNameEn": "ဝါဆို",
+    "MatchedStopId": 303
+  },
+  {
+    "Id": 2625,
+    "StoreId": 81,
+    "StopNameMm": "ကမ္ဘာဇ",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 1345
+  },
+  {
+    "Id": 2626,
+    "StoreId": 81,
+    "StopNameMm": "ကျန်းမာရေး",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 132
+  },
+  {
+    "Id": 2627,
+    "StoreId": 81,
+    "StopNameMm": "ကျောက်တံတား",
+    "StopNameEn": "Kyauk Bridge",
+    "MatchedStopId": 1280
+  },
+  {
+    "Id": 2628,
+    "StoreId": 81,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2629,
+    "StoreId": 81,
+    "StopNameMm": "ကျောင်းရှေ့(ရိုးလေး)",
+    "StopNameEn": "School ( La )",
+    "MatchedStopId": 672
+  },
+  {
+    "Id": 2630,
+    "StoreId": 82,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2631,
+    "StoreId": 82,
+    "StopNameMm": "မဟာမြိုင်",
+    "StopNameEn": "Ma Ma",
+    "MatchedStopId": 783
+  },
+  {
+    "Id": 2632,
+    "StoreId": 82,
+    "StopNameMm": "မြေနီကုန်း",
+    "StopNameEn": "Ma Gone",
+    "MatchedStopId": 513
+  },
+  {
+    "Id": 2633,
+    "StoreId": 82,
+    "StopNameMm": "ရွှေမန်း",
+    "StopNameEn": "Shwe Ma",
+    "MatchedStopId": 512
+  },
+  {
+    "Id": 2634,
+    "StoreId": 82,
+    "StopNameMm": "ရှမ်းလမ်း",
+    "StopNameEn": "Ma Road",
+    "MatchedStopId": 511
+  },
+  {
+    "Id": 2635,
+    "StoreId": 83,
+    "StopNameMm": "Jဈေး",
+    "StopNameEn": "J Market",
+    "MatchedStopId": 717
+  },
+  {
+    "Id": 2636,
+    "StoreId": 83,
+    "StopNameMm": "ကန်သာယာလမ်းဆုံ",
+    "StopNameEn": "Thar Junction",
+    "MatchedStopId": 118
+  },
+  {
+    "Id": 2637,
+    "StoreId": 83,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2638,
+    "StoreId": 83,
+    "StopNameMm": "ကျောက်ရေတွင်း",
+    "StopNameEn": "Kyauk",
+    "MatchedStopId": 443
+  },
+  {
+    "Id": 2639,
+    "StoreId": 83,
+    "StopNameMm": "ကျောက်လမ်းထိပ်",
+    "StopNameEn": "Kyauk Road Terminal",
+    "MatchedStopId": 629
+  },
+  {
+    "Id": 2640,
+    "StoreId": 84,
+    "StopNameMm": "ကျောင်းရှေ့(ဓမ္မာရုံ)",
+    "StopNameEn": "School ( Ma Ma )",
+    "MatchedStopId": 591
+  },
+  {
+    "Id": 2641,
+    "StoreId": 84,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "School Road",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2642,
+    "StoreId": 84,
+    "StopNameMm": "ခိုင်ရွှေဝါ",
+    "StopNameEn": "Shwe",
+    "MatchedStopId": 395
+  },
+  {
+    "Id": 2643,
+    "StoreId": 84,
+    "StopNameMm": "စိုက်ပျိုးရေး",
+    "StopNameEn": "စိုက်ပျိုးရေး",
+    "MatchedStopId": 781
+  },
+  {
+    "Id": 2644,
+    "StoreId": 84,
+    "StopNameMm": "စံရိပ်ငြိမ်",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 779
+  },
+  {
+    "Id": 2645,
+    "StoreId": 85,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2646,
+    "StoreId": 85,
+    "StopNameMm": "မဟာမြိုင်",
+    "StopNameEn": "Ma Ma",
+    "MatchedStopId": 783
+  },
+  {
+    "Id": 2647,
+    "StoreId": 85,
+    "StopNameMm": "မြေနီကုန်း",
+    "StopNameEn": "Ma Gone",
+    "MatchedStopId": 513
+  },
+  {
+    "Id": 2648,
+    "StoreId": 85,
+    "StopNameMm": "ရွှေမန်း",
+    "StopNameEn": "Shwe Ma",
+    "MatchedStopId": 512
+  },
+  {
+    "Id": 2649,
+    "StoreId": 85,
+    "StopNameMm": "ရှမ်းလမ်း",
+    "StopNameEn": "Ma Road",
+    "MatchedStopId": 511
+  },
+  {
+    "Id": 2650,
+    "StoreId": 86,
+    "StopNameMm": "ဝါဆို",
+    "StopNameEn": "ဝါဆို",
+    "MatchedStopId": 303
+  },
+  {
+    "Id": 2651,
+    "StoreId": 87,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2652,
+    "StoreId": 87,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Su La ( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2653,
+    "StoreId": 87,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Su La ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2654,
+    "StoreId": 87,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Su La ( La )",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2655,
+    "StoreId": 87,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pan Tan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2656,
+    "StoreId": 88,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2657,
+    "StoreId": 88,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Su La ( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2658,
+    "StoreId": 88,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Su La ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2659,
+    "StoreId": 88,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Su La ( La )",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2660,
+    "StoreId": 88,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pan Tan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2661,
+    "StoreId": 89,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2662,
+    "StoreId": 89,
+    "StopNameMm": "ကုလားဘုရား",
+    "StopNameEn": "La Pagoda",
+    "MatchedStopId": 482
+  },
+  {
+    "Id": 2663,
+    "StoreId": 89,
+    "StopNameMm": "ကျိုက္ကဆံဘုရား",
+    "StopNameEn": "Pagoda",
+    "MatchedStopId": 572
+  },
+  {
+    "Id": 2664,
+    "StoreId": 89,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2665,
+    "StoreId": 89,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "School Road",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2666,
+    "StoreId": 90,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2667,
+    "StoreId": 90,
+    "StopNameMm": "မဟာမြိုင်",
+    "StopNameEn": "Ma Ma",
+    "MatchedStopId": 783
+  },
+  {
+    "Id": 2668,
+    "StoreId": 90,
+    "StopNameMm": "မြေနီကုန်း",
+    "StopNameEn": "Ma Gone",
+    "MatchedStopId": 513
+  },
+  {
+    "Id": 2669,
+    "StoreId": 90,
+    "StopNameMm": "ရွှေမန်း",
+    "StopNameEn": "Shwe Ma",
+    "MatchedStopId": 512
+  },
+  {
+    "Id": 2670,
+    "StoreId": 90,
+    "StopNameMm": "ရှမ်းလမ်း",
+    "StopNameEn": "Ma Road",
+    "MatchedStopId": 511
+  },
+  {
+    "Id": 2671,
+    "StoreId": 91,
+    "StopNameMm": "ကန်ကြီးထောင့်",
+    "StopNameEn": "Gyi",
+    "MatchedStopId": 425
+  },
+  {
+    "Id": 2672,
+    "StoreId": 91,
+    "StopNameMm": "ကျန်းမာရေး",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 132
+  },
+  {
+    "Id": 2673,
+    "StoreId": 91,
+    "StopNameMm": "ကျောက်တိုင်",
+    "StopNameEn": "Kyauk Daing",
+    "MatchedStopId": 248
+  },
+  {
+    "Id": 2674,
+    "StoreId": 91,
+    "StopNameMm": "ကျောင်းကွေ့",
+    "StopNameEn": "School Bend",
+    "MatchedStopId": 131
+  },
+  {
+    "Id": 2675,
+    "StoreId": 91,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2676,
+    "StoreId": 92,
+    "StopNameMm": "ကန်ကြီးထောင့်",
+    "StopNameEn": "Gyi",
+    "MatchedStopId": 425
+  },
+  {
+    "Id": 2677,
+    "StoreId": 92,
+    "StopNameMm": "ကျန်းမာရေး",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 132
+  },
+  {
+    "Id": 2678,
+    "StoreId": 92,
+    "StopNameMm": "ကျောက်တိုင်",
+    "StopNameEn": "Kyauk Daing",
+    "MatchedStopId": 248
+  },
+  {
+    "Id": 2679,
+    "StoreId": 92,
+    "StopNameMm": "ကျောင်းကွေ့",
+    "StopNameEn": "School Bend",
+    "MatchedStopId": 131
+  },
+  {
+    "Id": 2680,
+    "StoreId": 92,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2681,
+    "StoreId": 93,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2682,
+    "StoreId": 93,
+    "StopNameMm": "မဟာမြိုင်",
+    "StopNameEn": "Ma Ma",
+    "MatchedStopId": 783
+  },
+  {
+    "Id": 2683,
+    "StoreId": 93,
+    "StopNameMm": "မြေနီကုန်း",
+    "StopNameEn": "Ma Gone",
+    "MatchedStopId": 513
+  },
+  {
+    "Id": 2684,
+    "StoreId": 93,
+    "StopNameMm": "ရွှေမန်း",
+    "StopNameEn": "Shwe Ma",
+    "MatchedStopId": 512
+  },
+  {
+    "Id": 2685,
+    "StoreId": 93,
+    "StopNameMm": "ရှမ်းလမ်း",
+    "StopNameEn": "Ma Road",
+    "MatchedStopId": 511
+  },
+  {
+    "Id": 2686,
+    "StoreId": 94,
+    "StopNameMm": "ကင်းတဲ",
+    "StopNameEn": "Kin",
+    "MatchedStopId": 1465
+  },
+  {
+    "Id": 2687,
+    "StoreId": 94,
+    "StopNameMm": "ကရုဏာကွေ့",
+    "StopNameEn": "Bend",
+    "MatchedStopId": 1391
+  },
+  {
+    "Id": 2688,
+    "StoreId": 94,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2689,
+    "StoreId": 94,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "La Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2690,
+    "StoreId": 94,
+    "StopNameMm": "ကုန်ပဒေသာ",
+    "StopNameEn": "Thar",
+    "MatchedStopId": 142
+  },
+  {
+    "Id": 2691,
+    "StoreId": 95,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2692,
+    "StoreId": 95,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Su La ( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2693,
+    "StoreId": 95,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Su La ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2694,
+    "StoreId": 95,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Su La ( La )",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2695,
+    "StoreId": 95,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pan Tan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2696,
+    "StoreId": 96,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2697,
+    "StoreId": 96,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Su La ( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2698,
+    "StoreId": 96,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Su La ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2699,
+    "StoreId": 96,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Su La ( La )",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2700,
+    "StoreId": 96,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pan Tan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2701,
+    "StoreId": 97,
+    "StopNameMm": "Jဈေး",
+    "StopNameEn": "J Market",
+    "MatchedStopId": 717
+  },
+  {
+    "Id": 2702,
+    "StoreId": 97,
+    "StopNameMm": "ကန်သာယာလမ်းဆုံ",
+    "StopNameEn": "Thar Junction",
+    "MatchedStopId": 118
+  },
+  {
+    "Id": 2703,
+    "StoreId": 97,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2704,
+    "StoreId": 97,
+    "StopNameMm": "ကျောက်ရေတွင်း",
+    "StopNameEn": "Kyauk",
+    "MatchedStopId": 443
+  },
+  {
+    "Id": 2705,
+    "StoreId": 97,
+    "StopNameMm": "ကျောက်လမ်းထိပ်",
+    "StopNameEn": "Kyauk Road Terminal",
+    "MatchedStopId": 629
+  },
+  {
+    "Id": 2706,
+    "StoreId": 98,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2707,
+    "StoreId": 98,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2708,
+    "StoreId": 98,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Ma Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2709,
+    "StoreId": 98,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2710,
+    "StoreId": 98,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Market La ( Be Market )",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2711,
+    "StoreId": 99,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2712,
+    "StoreId": 99,
+    "StopNameMm": "ကုလားဘုရား",
+    "StopNameEn": "La Pagoda",
+    "MatchedStopId": 482
+  },
+  {
+    "Id": 2713,
+    "StoreId": 99,
+    "StopNameMm": "ကျိုက္ကဆံဘုရား",
+    "StopNameEn": "Pagoda",
+    "MatchedStopId": 572
+  },
+  {
+    "Id": 2714,
+    "StoreId": 99,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2715,
+    "StoreId": 99,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "School Road",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2716,
+    "StoreId": 100,
+    "StopNameMm": "ကေတုမာလာကွေ့",
+    "StopNameEn": "Ma La Bend",
+    "MatchedStopId": 341
+  },
+  {
+    "Id": 2717,
+    "StoreId": 100,
+    "StopNameMm": "ဂန္ဓာမာဟိုးဆေး",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 1566
+  },
+  {
+    "Id": 2718,
+    "StoreId": 100,
+    "StopNameMm": "ဂိတ်ဟောင်း",
+    "StopNameEn": "Gate",
+    "MatchedStopId": 127
+  },
+  {
+    "Id": 2719,
+    "StoreId": 100,
+    "StopNameMm": "စီမံကိန်း",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 348
+  },
+  {
+    "Id": 2720,
+    "StoreId": 100,
+    "StopNameMm": "ဆေးရုံရှေ့",
+    "StopNameEn": "Hospital",
+    "MatchedStopId": 838
+  },
+  {
+    "Id": 2721,
+    "StoreId": 101,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2722,
+    "StoreId": 101,
+    "StopNameMm": "ကုလားဘုရား",
+    "StopNameEn": "La Pagoda",
+    "MatchedStopId": 482
+  },
+  {
+    "Id": 2723,
+    "StoreId": 101,
+    "StopNameMm": "ကျိုက္ကဆံဘုရား",
+    "StopNameEn": "Pagoda",
+    "MatchedStopId": 572
+  },
+  {
+    "Id": 2724,
+    "StoreId": 101,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2725,
+    "StoreId": 101,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "School Road",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2726,
+    "StoreId": 102,
+    "StopNameMm": "ကင်းတဲ",
+    "StopNameEn": "Kin",
+    "MatchedStopId": 1465
+  },
+  {
+    "Id": 2727,
+    "StoreId": 102,
+    "StopNameMm": "ကရုဏာကွေ့",
+    "StopNameEn": "Bend",
+    "MatchedStopId": 1391
+  },
+  {
+    "Id": 2728,
+    "StoreId": 102,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2729,
+    "StoreId": 102,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "La Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2730,
+    "StoreId": 102,
+    "StopNameMm": "ကုန်ပဒေသာ",
+    "StopNameEn": "Thar",
+    "MatchedStopId": 142
+  },
+  {
+    "Id": 2731,
+    "StoreId": 103,
+    "StopNameMm": "ကျောင်းရှေ့(ဓမ္မာရုံ)",
+    "StopNameEn": "School ( Ma Ma )",
+    "MatchedStopId": 591
+  },
+  {
+    "Id": 2732,
+    "StoreId": 103,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "School Road",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2733,
+    "StoreId": 103,
+    "StopNameMm": "ခိုင်ရွှေဝါ",
+    "StopNameEn": "Shwe",
+    "MatchedStopId": 395
+  },
+  {
+    "Id": 2734,
+    "StoreId": 103,
+    "StopNameMm": "စိုက်ပျိုးရေး",
+    "StopNameEn": "စိုက်ပျိုးရေး",
+    "MatchedStopId": 781
+  },
+  {
+    "Id": 2735,
+    "StoreId": 103,
+    "StopNameMm": "စံရိပ်ငြိမ်",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 779
+  },
+  {
+    "Id": 2736,
+    "StoreId": 104,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2737,
+    "StoreId": 104,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2738,
+    "StoreId": 104,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Ma Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2739,
+    "StoreId": 104,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2740,
+    "StoreId": 104,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Market La ( Be Market )",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2741,
+    "StoreId": 105,
+    "StopNameMm": "ကင်းတဲ",
+    "StopNameEn": "Kin",
+    "MatchedStopId": 1465
+  },
+  {
+    "Id": 2742,
+    "StoreId": 105,
+    "StopNameMm": "ကရုဏာကွေ့",
+    "StopNameEn": "Bend",
+    "MatchedStopId": 1391
+  },
+  {
+    "Id": 2743,
+    "StoreId": 105,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2744,
+    "StoreId": 105,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "La Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2745,
+    "StoreId": 105,
+    "StopNameMm": "ကုန်ပဒေသာ",
+    "StopNameEn": "Thar",
+    "MatchedStopId": 142
+  },
+  {
+    "Id": 2746,
+    "StoreId": 106,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2747,
+    "StoreId": 106,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Su La ( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2748,
+    "StoreId": 106,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Su La ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2749,
+    "StoreId": 106,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Su La ( La )",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2750,
+    "StoreId": 106,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pan Tan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2751,
+    "StoreId": 107,
+    "StopNameMm": "ကမ္ဘာအေးစာတိုက်",
+    "StopNameEn": "Ma Aye Taik",
+    "MatchedStopId": 336
+  },
+  {
+    "Id": 2752,
+    "StoreId": 107,
+    "StopNameMm": "ကမ္ဘာအေးဘုရား",
+    "StopNameEn": "Kabar Aye Pagoda",
+    "MatchedStopId": 337
+  },
+  {
+    "Id": 2753,
+    "StoreId": 107,
+    "StopNameMm": "ကျိုက်ဝိုင်းဘုရား",
+    "StopNameEn": "Pagoda",
+    "MatchedStopId": 636
+  },
+  {
+    "Id": 2754,
+    "StoreId": 107,
+    "StopNameMm": "ကျောက်ရေတွင်းတံတား",
+    "StopNameEn": "Kyauk Bridge",
+    "MatchedStopId": 1655
+  },
+  {
+    "Id": 2755,
+    "StoreId": 107,
+    "StopNameMm": "ကြွေ၁",
+    "StopNameEn": "Kyway 1",
+    "MatchedStopId": 639
+  },
+  {
+    "Id": 2756,
+    "StoreId": 108,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2757,
+    "StoreId": 108,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Su La ( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2758,
+    "StoreId": 108,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Su La ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2759,
+    "StoreId": 108,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Su La ( La )",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2760,
+    "StoreId": 108,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pan Tan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2761,
+    "StoreId": 109,
+    "StopNameMm": "ကုက္ကိုပင်",
+    "StopNameEn": "ကုက္ကိုပင်",
+    "MatchedStopId": 914
+  },
+  {
+    "Id": 2762,
+    "StoreId": 109,
+    "StopNameMm": "ကုန်းတလဘောင်",
+    "StopNameEn": "Gone La",
+    "MatchedStopId": 918
+  },
+  {
+    "Id": 2763,
+    "StoreId": 109,
+    "StopNameMm": "ကုန်းထိပ်",
+    "StopNameEn": "Gone Terminal",
+    "MatchedStopId": 17
+  },
+  {
+    "Id": 2764,
+    "StoreId": 109,
+    "StopNameMm": "ကုလားဘုရား",
+    "StopNameEn": "La Pagoda",
+    "MatchedStopId": 482
+  },
+  {
+    "Id": 2765,
+    "StoreId": 109,
+    "StopNameMm": "ကျိုက္ကလို့",
+    "StopNameEn": "La",
+    "MatchedStopId": 706
+  },
+  {
+    "Id": 2766,
+    "StoreId": 110,
+    "StopNameMm": "ကမ္ဘာအေးစာတိုက်",
+    "StopNameEn": "Ma Aye Taik",
+    "MatchedStopId": 336
+  },
+  {
+    "Id": 2767,
+    "StoreId": 110,
+    "StopNameMm": "ကမ္ဘာအေးဘုရား",
+    "StopNameEn": "Kabar Aye Pagoda",
+    "MatchedStopId": 337
+  },
+  {
+    "Id": 2768,
+    "StoreId": 110,
+    "StopNameMm": "ကျိုက်ဝိုင်းဘုရား",
+    "StopNameEn": "Pagoda",
+    "MatchedStopId": 636
+  },
+  {
+    "Id": 2769,
+    "StoreId": 110,
+    "StopNameMm": "ကျောက်ရေတွင်းတံတား",
+    "StopNameEn": "Kyauk Bridge",
+    "MatchedStopId": 1655
+  },
+  {
+    "Id": 2770,
+    "StoreId": 110,
+    "StopNameMm": "ကြွေ၁",
+    "StopNameEn": "Kyway 1",
+    "MatchedStopId": 639
+  },
+  {
+    "Id": 2771,
+    "StoreId": 111,
+    "StopNameMm": "ကျောင်းရှေ့(ဓမ္မာရုံ)",
+    "StopNameEn": "School ( Ma Ma )",
+    "MatchedStopId": 591
+  },
+  {
+    "Id": 2772,
+    "StoreId": 111,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "School Road",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2773,
+    "StoreId": 111,
+    "StopNameMm": "ခိုင်ရွှေဝါ",
+    "StopNameEn": "Shwe",
+    "MatchedStopId": 395
+  },
+  {
+    "Id": 2774,
+    "StoreId": 111,
+    "StopNameMm": "စိုက်ပျိုးရေး",
+    "StopNameEn": "စိုက်ပျိုးရေး",
+    "MatchedStopId": 781
+  },
+  {
+    "Id": 2775,
+    "StoreId": 111,
+    "StopNameMm": "စံရိပ်ငြိမ်",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 779
+  },
+  {
+    "Id": 2776,
+    "StoreId": 112,
+    "StopNameMm": "ကြယ်ငါးပွင့်",
+    "StopNameEn": "ကြယ်ငါးပွင့်",
+    "MatchedStopId": 373
+  },
+  {
+    "Id": 2777,
+    "StoreId": 112,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2778,
+    "StoreId": 112,
+    "StopNameMm": "စိန်ပေါလ်",
+    "StopNameEn": "Sein La",
+    "MatchedStopId": 372
+  },
+  {
+    "Id": 2779,
+    "StoreId": 112,
+    "StopNameMm": "ဆီဆိုင်",
+    "StopNameEn": "Petrol Station",
+    "MatchedStopId": 170
+  },
+  {
+    "Id": 2780,
+    "StoreId": 112,
+    "StopNameMm": "ဗိုလ်တထောင်ဘုရား",
+    "StopNameEn": "Bo Tahtaung Pagoda",
+    "MatchedStopId": 565
+  },
+  {
+    "Id": 2781,
+    "StoreId": 113,
+    "StopNameMm": "ဝါဆို",
+    "StopNameEn": "ဝါဆို",
+    "MatchedStopId": 303
+  },
+  {
+    "Id": 2782,
+    "StoreId": 114,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2783,
+    "StoreId": 114,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Su La ( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2784,
+    "StoreId": 114,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Su La ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2785,
+    "StoreId": 114,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Su La ( La )",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2786,
+    "StoreId": 114,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pan Tan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2787,
+    "StoreId": 115,
+    "StopNameMm": "ကြယ်ငါးပွင့်",
+    "StopNameEn": "ကြယ်ငါးပွင့်",
+    "MatchedStopId": 373
+  },
+  {
+    "Id": 2788,
+    "StoreId": 115,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2789,
+    "StoreId": 115,
+    "StopNameMm": "စိန်ပေါလ်",
+    "StopNameEn": "Sein La",
+    "MatchedStopId": 372
+  },
+  {
+    "Id": 2790,
+    "StoreId": 115,
+    "StopNameMm": "ဆီဆိုင်",
+    "StopNameEn": "Petrol Station",
+    "MatchedStopId": 170
+  },
+  {
+    "Id": 2791,
+    "StoreId": 115,
+    "StopNameMm": "ဗိုလ်တထောင်ဘုရား",
+    "StopNameEn": "Bo Tahtaung Pagoda",
+    "MatchedStopId": 565
+  },
+  {
+    "Id": 2792,
+    "StoreId": 116,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2793,
+    "StoreId": 116,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2794,
+    "StoreId": 116,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Ma Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2795,
+    "StoreId": 116,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2796,
+    "StoreId": 116,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Market La ( Be Market )",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2797,
+    "StoreId": 117,
+    "StopNameMm": "ဝါဆို",
+    "StopNameEn": "ဝါဆို",
+    "MatchedStopId": 303
+  },
+  {
+    "Id": 2798,
+    "StoreId": 118,
+    "StopNameMm": "ကျောင်းရှေ့(ဓမ္မာရုံ)",
+    "StopNameEn": "School ( Ma Ma )",
+    "MatchedStopId": 591
+  },
+  {
+    "Id": 2799,
+    "StoreId": 118,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "School Road",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2800,
+    "StoreId": 118,
+    "StopNameMm": "ခိုင်ရွှေဝါ",
+    "StopNameEn": "Shwe",
+    "MatchedStopId": 395
+  },
+  {
+    "Id": 2801,
+    "StoreId": 118,
+    "StopNameMm": "စိုက်ပျိုးရေး",
+    "StopNameEn": "စိုက်ပျိုးရေး",
+    "MatchedStopId": 781
+  },
+  {
+    "Id": 2802,
+    "StoreId": 118,
+    "StopNameMm": "စံရိပ်ငြိမ်",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 779
+  },
+  {
+    "Id": 2803,
+    "StoreId": 119,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2804,
+    "StoreId": 119,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Su La ( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2805,
+    "StoreId": 119,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Su La ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2806,
+    "StoreId": 119,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Su La ( La )",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2807,
+    "StoreId": 119,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pan Tan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2808,
+    "StoreId": 120,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2809,
+    "StoreId": 120,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2810,
+    "StoreId": 120,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Ma Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2811,
+    "StoreId": 120,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2812,
+    "StoreId": 120,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Market La ( Be Market )",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2813,
+    "StoreId": 121,
+    "StopNameMm": "ကြယ်ငါးပွင့်",
+    "StopNameEn": "ကြယ်ငါးပွင့်",
+    "MatchedStopId": 373
+  },
+  {
+    "Id": 2814,
+    "StoreId": 121,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2815,
+    "StoreId": 121,
+    "StopNameMm": "စိန်ပေါလ်",
+    "StopNameEn": "Sein La",
+    "MatchedStopId": 372
+  },
+  {
+    "Id": 2816,
+    "StoreId": 121,
+    "StopNameMm": "ဆီဆိုင်",
+    "StopNameEn": "Petrol Station",
+    "MatchedStopId": 170
+  },
+  {
+    "Id": 2817,
+    "StoreId": 121,
+    "StopNameMm": "ဗိုလ်တထောင်ဘုရား",
+    "StopNameEn": "Bo Tahtaung Pagoda",
+    "MatchedStopId": 565
+  },
+  {
+    "Id": 2818,
+    "StoreId": 122,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2819,
+    "StoreId": 122,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Su La ( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2820,
+    "StoreId": 122,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Su La ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2821,
+    "StoreId": 122,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Su La ( La )",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2822,
+    "StoreId": 122,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pan Tan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2823,
+    "StoreId": 123,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2824,
+    "StoreId": 123,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2825,
+    "StoreId": 123,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Ma Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2826,
+    "StoreId": 123,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2827,
+    "StoreId": 123,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Market La ( Be Market )",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2828,
+    "StoreId": 124,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2829,
+    "StoreId": 124,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2830,
+    "StoreId": 124,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Ma Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2831,
+    "StoreId": 124,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2832,
+    "StoreId": 124,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Market La ( Be Market )",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2833,
+    "StoreId": 125,
+    "StopNameMm": "ကြယ်ငါးပွင့်",
+    "StopNameEn": "ကြယ်ငါးပွင့်",
+    "MatchedStopId": 373
+  },
+  {
+    "Id": 2834,
+    "StoreId": 125,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2835,
+    "StoreId": 125,
+    "StopNameMm": "စိန်ပေါလ်",
+    "StopNameEn": "Sein La",
+    "MatchedStopId": 372
+  },
+  {
+    "Id": 2836,
+    "StoreId": 125,
+    "StopNameMm": "ဆီဆိုင်",
+    "StopNameEn": "Petrol Station",
+    "MatchedStopId": 170
+  },
+  {
+    "Id": 2837,
+    "StoreId": 125,
+    "StopNameMm": "ဗိုလ်တထောင်ဘုရား",
+    "StopNameEn": "Bo Tahtaung Pagoda",
+    "MatchedStopId": 565
+  },
+  {
+    "Id": 2838,
+    "StoreId": 126,
+    "StopNameMm": "ကနောင်ကွေ့",
+    "StopNameEn": "Bend",
+    "MatchedStopId": 281
+  },
+  {
+    "Id": 2839,
+    "StoreId": 126,
+    "StopNameMm": "ကနောင်အိမ်ရာ",
+    "StopNameEn": "Housing",
+    "MatchedStopId": 276
+  },
+  {
+    "Id": 2840,
+    "StoreId": 126,
+    "StopNameMm": "ကန်ကြီးထောင့်",
+    "StopNameEn": "Gyi",
+    "MatchedStopId": 425
+  },
+  {
+    "Id": 2841,
+    "StoreId": 126,
+    "StopNameMm": "ကူးပေါင်း",
+    "StopNameEn": "ကူးပေါင်း",
+    "MatchedStopId": 279
+  },
+  {
+    "Id": 2842,
+    "StoreId": 126,
+    "StopNameMm": "ကျီစုသုသာန်",
+    "StopNameEn": "Thu Thar",
+    "MatchedStopId": 378
+  },
+  {
+    "Id": 2843,
+    "StoreId": 127,
+    "StopNameMm": "ကြယ်ငါးပွင့်",
+    "StopNameEn": "ကြယ်ငါးပွင့်",
+    "MatchedStopId": 373
+  },
+  {
+    "Id": 2844,
+    "StoreId": 127,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2845,
+    "StoreId": 127,
+    "StopNameMm": "စိန်ပေါလ်",
+    "StopNameEn": "Sein La",
+    "MatchedStopId": 372
+  },
+  {
+    "Id": 2846,
+    "StoreId": 127,
+    "StopNameMm": "ဆီဆိုင်",
+    "StopNameEn": "Petrol Station",
+    "MatchedStopId": 170
+  },
+  {
+    "Id": 2847,
+    "StoreId": 127,
+    "StopNameMm": "ဗိုလ်တထောင်ဘုရား",
+    "StopNameEn": "Bo Tahtaung Pagoda",
+    "MatchedStopId": 565
+  },
+  {
+    "Id": 2848,
+    "StoreId": 128,
+    "StopNameMm": "ကင်းတဲ",
+    "StopNameEn": "Kin",
+    "MatchedStopId": 1465
+  },
+  {
+    "Id": 2849,
+    "StoreId": 128,
+    "StopNameMm": "ကရုဏာကွေ့",
+    "StopNameEn": "Bend",
+    "MatchedStopId": 1391
+  },
+  {
+    "Id": 2850,
+    "StoreId": 128,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2851,
+    "StoreId": 128,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "La Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2852,
+    "StoreId": 128,
+    "StopNameMm": "ကုန်ပဒေသာ",
+    "StopNameEn": "Thar",
+    "MatchedStopId": 142
+  },
+  {
+    "Id": 2853,
+    "StoreId": 129,
+    "StopNameMm": "ကနောင်မင်းသားကြီး",
+    "StopNameEn": "Ma Thar Gyi",
+    "MatchedStopId": 1408
+  },
+  {
+    "Id": 2854,
+    "StoreId": 129,
+    "StopNameMm": "ကုလားကျောင်း",
+    "StopNameEn": "La School",
+    "MatchedStopId": 769
+  },
+  {
+    "Id": 2855,
+    "StoreId": 129,
+    "StopNameMm": "ကျောက်တော်ကြီးဘုရား",
+    "StopNameEn": "Kyauk Daw Gyi Pagoda",
+    "MatchedStopId": 327
+  },
+  {
+    "Id": 2856,
+    "StoreId": 129,
+    "StopNameMm": "ကျောင်းဂိတ်",
+    "StopNameEn": "School Gate",
+    "MatchedStopId": 620
+  },
+  {
+    "Id": 2857,
+    "StoreId": 129,
+    "StopNameMm": "ကြို့ကုန်း",
+    "StopNameEn": "Gone",
+    "MatchedStopId": 766
+  },
+  {
+    "Id": 2858,
+    "StoreId": 130,
+    "StopNameMm": "ကြယ်ငါးပွင့်",
+    "StopNameEn": "ကြယ်ငါးပွင့်",
+    "MatchedStopId": 373
+  },
+  {
+    "Id": 2859,
+    "StoreId": 130,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2860,
+    "StoreId": 130,
+    "StopNameMm": "စိန်ပေါလ်",
+    "StopNameEn": "Sein La",
+    "MatchedStopId": 372
+  },
+  {
+    "Id": 2861,
+    "StoreId": 130,
+    "StopNameMm": "ဆီဆိုင်",
+    "StopNameEn": "Petrol Station",
+    "MatchedStopId": 170
+  },
+  {
+    "Id": 2862,
+    "StoreId": 130,
+    "StopNameMm": "ဗိုလ်တထောင်ဘုရား",
+    "StopNameEn": "Bo Tahtaung Pagoda",
+    "MatchedStopId": 565
+  },
+  {
+    "Id": 2863,
+    "StoreId": 131,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2864,
+    "StoreId": 131,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2865,
+    "StoreId": 131,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Ma Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2866,
+    "StoreId": 131,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2867,
+    "StoreId": 131,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Market La ( Be Market )",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2868,
+    "StoreId": 132,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2869,
+    "StoreId": 132,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Su La ( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2870,
+    "StoreId": 132,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Su La ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2871,
+    "StoreId": 132,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Su La ( La )",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2872,
+    "StoreId": 132,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pan Tan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2873,
+    "StoreId": 133,
+    "StopNameMm": "ကြယ်ငါးပွင့်",
+    "StopNameEn": "ကြယ်ငါးပွင့်",
+    "MatchedStopId": 373
+  },
+  {
+    "Id": 2874,
+    "StoreId": 133,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2875,
+    "StoreId": 133,
+    "StopNameMm": "စိန်ပေါလ်",
+    "StopNameEn": "Sein La",
+    "MatchedStopId": 372
+  },
+  {
+    "Id": 2876,
+    "StoreId": 133,
+    "StopNameMm": "ဆီဆိုင်",
+    "StopNameEn": "Petrol Station",
+    "MatchedStopId": 170
+  },
+  {
+    "Id": 2877,
+    "StoreId": 133,
+    "StopNameMm": "ဗိုလ်တထောင်ဘုရား",
+    "StopNameEn": "Bo Tahtaung Pagoda",
+    "MatchedStopId": 565
+  },
+  {
+    "Id": 2878,
+    "StoreId": 134,
+    "StopNameMm": "ကြယ်ငါးပွင့်",
+    "StopNameEn": "ကြယ်ငါးပွင့်",
+    "MatchedStopId": 373
+  },
+  {
+    "Id": 2879,
+    "StoreId": 134,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2880,
+    "StoreId": 134,
+    "StopNameMm": "စိန်ပေါလ်",
+    "StopNameEn": "Sein La",
+    "MatchedStopId": 372
+  },
+  {
+    "Id": 2881,
+    "StoreId": 134,
+    "StopNameMm": "ဆီဆိုင်",
+    "StopNameEn": "Petrol Station",
+    "MatchedStopId": 170
+  },
+  {
+    "Id": 2882,
+    "StoreId": 134,
+    "StopNameMm": "ဗိုလ်တထောင်ဘုရား",
+    "StopNameEn": "Bo Tahtaung Pagoda",
+    "MatchedStopId": 565
+  },
+  {
+    "Id": 2883,
+    "StoreId": 135,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2884,
+    "StoreId": 135,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Su La ( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2885,
+    "StoreId": 135,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Su La ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2886,
+    "StoreId": 135,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Su La ( La )",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2887,
+    "StoreId": 135,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pan Tan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2888,
+    "StoreId": 136,
+    "StopNameMm": "ကျောင်းရှေ့(ဓမ္မာရုံ)",
+    "StopNameEn": "School ( Ma Ma )",
+    "MatchedStopId": 591
+  },
+  {
+    "Id": 2889,
+    "StoreId": 136,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "School Road",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2890,
+    "StoreId": 136,
+    "StopNameMm": "ခိုင်ရွှေဝါ",
+    "StopNameEn": "Shwe",
+    "MatchedStopId": 395
+  },
+  {
+    "Id": 2891,
+    "StoreId": 136,
+    "StopNameMm": "စိုက်ပျိုးရေး",
+    "StopNameEn": "စိုက်ပျိုးရေး",
+    "MatchedStopId": 781
+  },
+  {
+    "Id": 2892,
+    "StoreId": 136,
+    "StopNameMm": "စံရိပ်ငြိမ်",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 779
+  },
+  {
+    "Id": 2893,
+    "StoreId": 137,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2894,
+    "StoreId": 137,
+    "StopNameMm": "ကုလားဘုရား",
+    "StopNameEn": "La Pagoda",
+    "MatchedStopId": 482
+  },
+  {
+    "Id": 2895,
+    "StoreId": 137,
+    "StopNameMm": "ကျိုက္ကဆံဘုရား",
+    "StopNameEn": "Pagoda",
+    "MatchedStopId": 572
+  },
+  {
+    "Id": 2896,
+    "StoreId": 137,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2897,
+    "StoreId": 137,
+    "StopNameMm": "ကျောင်းလမ်း",
+    "StopNameEn": "School Road",
+    "MatchedStopId": 69
+  },
+  {
+    "Id": 2898,
+    "StoreId": 138,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2899,
+    "StoreId": 138,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2900,
+    "StoreId": 138,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Ma Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2901,
+    "StoreId": 138,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2902,
+    "StoreId": 138,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Market La ( Be Market )",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2903,
+    "StoreId": 139,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2904,
+    "StoreId": 139,
+    "StopNameMm": "မဟာမြိုင်",
+    "StopNameEn": "Ma Ma",
+    "MatchedStopId": 783
+  },
+  {
+    "Id": 2905,
+    "StoreId": 139,
+    "StopNameMm": "မြေနီကုန်း",
+    "StopNameEn": "Ma Gone",
+    "MatchedStopId": 513
+  },
+  {
+    "Id": 2906,
+    "StoreId": 139,
+    "StopNameMm": "ရွှေမန်း",
+    "StopNameEn": "Shwe Ma",
+    "MatchedStopId": 512
+  },
+  {
+    "Id": 2907,
+    "StoreId": 139,
+    "StopNameMm": "ရှမ်းလမ်း",
+    "StopNameEn": "Ma Road",
+    "MatchedStopId": 511
+  },
+  {
+    "Id": 2908,
+    "StoreId": 140,
+    "StopNameMm": "ကမ္ဘာအေးစာတိုက်",
+    "StopNameEn": "Ma Aye Taik",
+    "MatchedStopId": 336
+  },
+  {
+    "Id": 2909,
+    "StoreId": 140,
+    "StopNameMm": "ကမ္ဘာအေးဘုရား",
+    "StopNameEn": "Kabar Aye Pagoda",
+    "MatchedStopId": 337
+  },
+  {
+    "Id": 2910,
+    "StoreId": 140,
+    "StopNameMm": "ကျိုက်ဝိုင်းဘုရား",
+    "StopNameEn": "Pagoda",
+    "MatchedStopId": 636
+  },
+  {
+    "Id": 2911,
+    "StoreId": 140,
+    "StopNameMm": "ကျောက်ရေတွင်းတံတား",
+    "StopNameEn": "Kyauk Bridge",
+    "MatchedStopId": 1655
+  },
+  {
+    "Id": 2912,
+    "StoreId": 140,
+    "StopNameMm": "ကြွေ၁",
+    "StopNameEn": "Kyway 1",
+    "MatchedStopId": 639
+  },
+  {
+    "Id": 2913,
+    "StoreId": 141,
+    "StopNameMm": "ကုက္ကိုပင်",
+    "StopNameEn": "ကုက္ကိုပင်",
+    "MatchedStopId": 914
+  },
+  {
+    "Id": 2914,
+    "StoreId": 141,
+    "StopNameMm": "ကုန်းတလဘောင်",
+    "StopNameEn": "Gone La",
+    "MatchedStopId": 918
+  },
+  {
+    "Id": 2915,
+    "StoreId": 141,
+    "StopNameMm": "ကုန်းထိပ်",
+    "StopNameEn": "Gone Terminal",
+    "MatchedStopId": 17
+  },
+  {
+    "Id": 2916,
+    "StoreId": 141,
+    "StopNameMm": "ကုလားဘုရား",
+    "StopNameEn": "La Pagoda",
+    "MatchedStopId": 482
+  },
+  {
+    "Id": 2917,
+    "StoreId": 141,
+    "StopNameMm": "ကျိုက္ကလို့",
+    "StopNameEn": "La",
+    "MatchedStopId": 706
+  },
+  {
+    "Id": 2918,
+    "StoreId": 142,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2919,
+    "StoreId": 142,
+    "StopNameMm": "မဟာမြိုင်",
+    "StopNameEn": "Ma Ma",
+    "MatchedStopId": 783
+  },
+  {
+    "Id": 2920,
+    "StoreId": 142,
+    "StopNameMm": "မြေနီကုန်း",
+    "StopNameEn": "Ma Gone",
+    "MatchedStopId": 513
+  },
+  {
+    "Id": 2921,
+    "StoreId": 142,
+    "StopNameMm": "ရွှေမန်း",
+    "StopNameEn": "Shwe Ma",
+    "MatchedStopId": 512
+  },
+  {
+    "Id": 2922,
+    "StoreId": 142,
+    "StopNameMm": "ရှမ်းလမ်း",
+    "StopNameEn": "Ma Road",
+    "MatchedStopId": 511
+  },
+  {
+    "Id": 2923,
+    "StoreId": 143,
+    "StopNameMm": "ဝါဆို",
+    "StopNameEn": "ဝါဆို",
+    "MatchedStopId": 303
+  },
+  {
+    "Id": 2924,
+    "StoreId": 144,
+    "StopNameMm": "ကန်သာယာ",
+    "StopNameEn": "Thar",
+    "MatchedStopId": 1099
+  },
+  {
+    "Id": 2925,
+    "StoreId": 144,
+    "StopNameMm": "ကမ္ဘာလုံး",
+    "StopNameEn": "Ma La",
+    "MatchedStopId": 1454
+  },
+  {
+    "Id": 2926,
+    "StoreId": 144,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2927,
+    "StoreId": 144,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "La Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2928,
+    "StoreId": 144,
+    "StopNameMm": "ကိုးသုံးလုံး",
+    "StopNameEn": "Thong La",
+    "MatchedStopId": 1188
+  },
+  {
+    "Id": 2929,
+    "StoreId": 145,
+    "StopNameMm": "ကမ္ဘာအေးစာတိုက်",
+    "StopNameEn": "Ma Aye Taik",
+    "MatchedStopId": 336
+  },
+  {
+    "Id": 2930,
+    "StoreId": 145,
+    "StopNameMm": "ကမ္ဘာအေးဘုရား",
+    "StopNameEn": "Kabar Aye Pagoda",
+    "MatchedStopId": 337
+  },
+  {
+    "Id": 2931,
+    "StoreId": 145,
+    "StopNameMm": "ကျိုက်ဝိုင်းဘုရား",
+    "StopNameEn": "Pagoda",
+    "MatchedStopId": 636
+  },
+  {
+    "Id": 2932,
+    "StoreId": 145,
+    "StopNameMm": "ကျောက်ရေတွင်းတံတား",
+    "StopNameEn": "Kyauk Bridge",
+    "MatchedStopId": 1655
+  },
+  {
+    "Id": 2933,
+    "StoreId": 145,
+    "StopNameMm": "ကြွေ၁",
+    "StopNameEn": "Kyway 1",
+    "MatchedStopId": 639
+  },
+  {
+    "Id": 2934,
+    "StoreId": 146,
+    "StopNameMm": "ကုလားဈေး",
+    "StopNameEn": "La Market",
+    "MatchedStopId": 841
+  },
+  {
+    "Id": 2935,
+    "StoreId": 146,
+    "StopNameMm": "ကျိုက္ကဆံလမ်းဆုံ",
+    "StopNameEn": "Junction",
+    "MatchedStopId": 206
+  },
+  {
+    "Id": 2936,
+    "StoreId": 146,
+    "StopNameMm": "ကျောက်မြောင်းဈေး",
+    "StopNameEn": "Kyauk Ma Market",
+    "MatchedStopId": 210
+  },
+  {
+    "Id": 2937,
+    "StoreId": 146,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2938,
+    "StoreId": 146,
+    "StopNameMm": "ဈေးလေး(ကြက်ဘဲဈေး)",
+    "StopNameEn": "Market La ( Be Market )",
+    "MatchedStopId": 416
+  },
+  {
+    "Id": 2939,
+    "StoreId": 147,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2940,
+    "StoreId": 147,
+    "StopNameMm": "မဟာမြိုင်",
+    "StopNameEn": "Ma Ma",
+    "MatchedStopId": 783
+  },
+  {
+    "Id": 2941,
+    "StoreId": 147,
+    "StopNameMm": "မြေနီကုန်း",
+    "StopNameEn": "Ma Gone",
+    "MatchedStopId": 513
+  },
+  {
+    "Id": 2942,
+    "StoreId": 147,
+    "StopNameMm": "ရွှေမန်း",
+    "StopNameEn": "Shwe Ma",
+    "MatchedStopId": 512
+  },
+  {
+    "Id": 2943,
+    "StoreId": 147,
+    "StopNameMm": "ရှမ်းလမ်း",
+    "StopNameEn": "Ma Road",
+    "MatchedStopId": 511
+  },
+  {
+    "Id": 2944,
+    "StoreId": 148,
+    "StopNameMm": "ကမ္ဘာဇ",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 1345
+  },
+  {
+    "Id": 2945,
+    "StoreId": 148,
+    "StopNameMm": "ကျန်းမာရေး",
+    "StopNameEn": "Ma",
+    "MatchedStopId": 132
+  },
+  {
+    "Id": 2946,
+    "StoreId": 148,
+    "StopNameMm": "ကျောက်တံတား",
+    "StopNameEn": "Kyauk Bridge",
+    "MatchedStopId": 1280
+  },
+  {
+    "Id": 2947,
+    "StoreId": 148,
+    "StopNameMm": "ကျောင်းရှေ့",
+    "StopNameEn": "School",
+    "MatchedStopId": 85
+  },
+  {
+    "Id": 2948,
+    "StoreId": 148,
+    "StopNameMm": "ကျောင်းရှေ့(ရိုးလေး)",
+    "StopNameEn": "School ( La )",
+    "MatchedStopId": 672
+  },
+  {
+    "Id": 2949,
+    "StoreId": 149,
+    "StopNameMm": "ညောင်ပင်(ထောက်ကြန့်)",
+    "StopNameEn": "( Htawk Kyant )",
+    "MatchedStopId": 685
+  },
+  {
+    "Id": 2950,
+    "StoreId": 149,
+    "StopNameMm": "ထောက်ကြန့်လမ်းဆုံ",
+    "StopNameEn": "Htawk Kyant Junction",
+    "MatchedStopId": 686
+  },
+  {
+    "Id": 2951,
+    "StoreId": 149,
+    "StopNameMm": "ဘီအာတီဂိတ်ဟောင်း",
+    "StopNameEn": "Bi Gate",
+    "MatchedStopId": 683
+  },
+  {
+    "Id": 2952,
+    "StoreId": 149,
+    "StopNameMm": "ဘုရားလေးကွေ့",
+    "StopNameEn": "Pagoda La Bend",
+    "MatchedStopId": 389
+  },
+  {
+    "Id": 2953,
+    "StoreId": 150,
+    "StopNameMm": "ဂန္ဒီ",
+    "StopNameEn": "ဂန္ဒီ",
+    "MatchedStopId": 258
+  },
+  {
+    "Id": 2954,
+    "StoreId": 150,
+    "StopNameMm": "ဆူးလေ(ပန်းခြံ)",
+    "StopNameEn": "Su La ( Park )",
+    "MatchedStopId": 267
+  },
+  {
+    "Id": 2955,
+    "StoreId": 150,
+    "StopNameMm": "ဆူးလေ(မြို့တော်ခန်းမ)",
+    "StopNameEn": "Su La ( City Hall )",
+    "MatchedStopId": 221
+  },
+  {
+    "Id": 2956,
+    "StoreId": 150,
+    "StopNameMm": "ဆူးလေ(ရှန်ဂရီလာ)",
+    "StopNameEn": "Su La ( La )",
+    "MatchedStopId": 266
+  },
+  {
+    "Id": 2957,
+    "StoreId": 150,
+    "StopNameMm": "ပန်းဆိုးတန်း",
+    "StopNameEn": "Pan Tan",
+    "MatchedStopId": 220
+  },
+  {
+    "Id": 2958,
+    "StoreId": 151,
+    "StopNameMm": "ကနောင်ကွေ့",
+    "StopNameEn": "Bend",
+    "MatchedStopId": 281
+  },
+  {
+    "Id": 2959,
+    "StoreId": 151,
+    "StopNameMm": "ကနောင်အိမ်ရာ",
+    "StopNameEn": "Housing",
+    "MatchedStopId": 276
+  },
+  {
+    "Id": 2960,
+    "StoreId": 151,
+    "StopNameMm": "ကန်ကြီးထောင့်",
+    "StopNameEn": "Gyi",
+    "MatchedStopId": 425
+  },
+  {
+    "Id": 2961,
+    "StoreId": 151,
+    "StopNameMm": "ကူးပေါင်း",
+    "StopNameEn": "ကူးပေါင်း",
+    "MatchedStopId": 279
+  },
+  {
+    "Id": 2962,
+    "StoreId": 151,
+    "StopNameMm": "ကျီစုသုသာန်",
+    "StopNameEn": "Thu Thar",
+    "MatchedStopId": 378
+  },
+  {
+    "Id": 2963,
+    "StoreId": 152,
+    "StopNameMm": "ကုမုဒြာပန်းခြံ",
+    "StopNameEn": "Ma Park",
+    "MatchedStopId": 1331
+  },
+  {
+    "Id": 2964,
+    "StoreId": 152,
+    "StopNameMm": "ကျိုက္ခနာ",
+    "StopNameEn": "ကျိုက္ခနာ",
+    "MatchedStopId": 1307
+  },
+  {
+    "Id": 2965,
+    "StoreId": 152,
+    "StopNameMm": "ကျူလေးစု",
+    "StopNameEn": "La",
+    "MatchedStopId": 1309
+  },
+  {
+    "Id": 2966,
+    "StoreId": 152,
+    "StopNameMm": "ကျောင်းကုန်း(ဆိုင်းဘုတ်)",
+    "StopNameEn": "School Gone",
+    "MatchedStopId": 1319
+  },
+  {
+    "Id": 2967,
+    "StoreId": 152,
+    "StopNameMm": "ကျောင်းကုန်း(ဟိုဘက်ထိပ်)",
+    "StopNameEn": "School Gone ( Terminal )",
+    "MatchedStopId": 1320
+  },
+  {
+    "Id": 2968,
+    "StoreId": 153,
+    "StopNameMm": "ကန်သာယာ",
+    "StopNameEn": "Kan Thar Yar",
+    "MatchedStopId": 1099
+  },
+  {
+    "Id": 2969,
+    "StoreId": 153,
+    "StopNameMm": "ကမ္ဘာလုံး",
+    "StopNameEn": "Kabar Lone",
+    "MatchedStopId": 1454
+  },
+  {
+    "Id": 2970,
+    "StoreId": 153,
+    "StopNameMm": "ကားကြီးဂိတ်",
+    "StopNameEn": "Car Gyi Gate",
+    "MatchedStopId": 97
+  },
+  {
+    "Id": 2971,
+    "StoreId": 153,
+    "StopNameMm": "ကားလေးဂိတ်",
+    "StopNameEn": "Car Lay Gate",
+    "MatchedStopId": 157
+  },
+  {
+    "Id": 2972,
+    "StoreId": 153,
+    "StopNameMm": "ကိုးသုံးလုံး",
+    "StopNameEn": "9 Thone Lone",
+    "MatchedStopId": 1188
+  }
+]
