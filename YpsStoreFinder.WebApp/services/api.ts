@@ -149,6 +149,31 @@ export async function fetchBusLines(): Promise<ApiResult<BusLineDto[]>> {
   }
 }
 
+export async function searchBusLines(
+  keyword?: string,
+  pageNumber = 1,
+  pageSize = 20,
+): Promise<PagedResultDto<BusLineDto>> {
+  try {
+    const url = new URL(`${API_BASE_URL}/api/buses/search`);
+    if (keyword) url.searchParams.append("keyword", keyword);
+    url.searchParams.append("pageNumber", pageNumber.toString());
+    url.searchParams.append("pageSize", pageSize.toString());
+
+    const res = await fetch(url.toString(), { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return await res.json();
+  } catch (err: any) {
+    return {
+      isSuccess: false,
+      message: err.message || "Failed to search bus lines.",
+      data: [],
+      pagination: null,
+      isFailure: true,
+    };
+  }
+}
+
 export async function fetchYpsBusLines(
   keyword?: string,
   pageNumber = 1,

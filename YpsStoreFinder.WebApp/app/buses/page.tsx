@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { BusLineDto } from '../../types/bus';
-import { fetchBusLines } from '../../services/api';
+import { fetchBusLines, searchBusLines } from '../../services/api';
 import { useLanguage } from '../../context/LanguageContext';
 import { Search, Bus, CreditCard, ChevronRight, X, RefreshCw, MapPin, ChevronLeft } from 'lucide-react';
 
@@ -20,15 +20,23 @@ export default function BusesPage() {
 
   const observerTargetRef = useRef<HTMLDivElement | null>(null);
 
-  // Initial fetch of all YBS bus lines (like GetStoresAsync)
+  // Fetch bus lines (uses searchBusLines when keyword exists, otherwise fetchBusLines)
   useEffect(() => {
     let isMounted = true;
     const loadData = async () => {
       setIsLoading(true);
       try {
-        const res = await fetchBusLines();
-        if (isMounted && res.isSuccess && res.data) {
-          setAllBusLines(res.data);
+        const query = searchQuery.trim();
+        if (query) {
+          const res = await searchBusLines(query, 1, 100);
+          if (isMounted && res.isSuccess && res.data) {
+            setAllBusLines(res.data);
+          }
+        } else {
+          const res = await fetchBusLines();
+          if (isMounted && res.isSuccess && res.data) {
+            setAllBusLines(res.data);
+          }
         }
       } catch (err) {
         console.error('Error loading YBS bus lines:', err);
@@ -37,11 +45,15 @@ export default function BusesPage() {
       }
     };
 
-    loadData();
+    const timer = setTimeout(() => {
+      loadData();
+    }, 300);
+
     return () => {
       isMounted = false;
+      clearTimeout(timer);
     };
-  }, []);
+  }, [searchQuery]);
 
   // Filter bus lines based on search query and YPS card filter
   const filteredBusLines = useMemo(() => {
