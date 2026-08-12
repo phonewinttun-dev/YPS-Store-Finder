@@ -1,25 +1,31 @@
 {
   "name": "YPS Store Finder",
   "short_name": "YPS Finder",
-  "description": "YPS စတိုးဆိုင်များအား တစ်နေရာတည်းတွင် အလွယ်တကူ ရှာဖွေပါ - Easily locate YPS stores",
-  "start_url": "/",
+  "description": "Find YPS stores, nearby YBS stops, and bus routes across Yangon.",
+  "start_url": "/?view=map",
   "id": "/",
   "display": "standalone",
-  "background_color": "#1d5fa8",
-  "theme_color": "#1d5fa8",
+  "background_color": "#F7F8FF",
+  "theme_color": "#FFF1A8",
   "orientation": "portrait-primary",
   "icons": [
+    {
+      "src": "/brand/yps-finder-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
     {
       "src": "/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     },
     {
       "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
   ]
 }

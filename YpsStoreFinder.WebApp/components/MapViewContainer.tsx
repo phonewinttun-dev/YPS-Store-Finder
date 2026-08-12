@@ -2,9 +2,11 @@
 
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Clock, MapPin, Route, X } from 'lucide-react';
+import Link from 'next/link';
+import { Clock, MapPin, Navigation, Route, Store, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 import { StoreDto } from '../types/store';
 
 interface MapViewContainerProps {
@@ -20,73 +22,40 @@ interface MapViewContainerProps {
   mobileTab?: 'map' | 'list';
 }
 
-// Yangon Region Geographic Bounding Box Limits
-const YANGON_BOUNDS = L.latLngBounds(
-  [16.30, 95.80], // South-West
-  [17.50, 96.70]  // North-East
-);
+const YANGON_BOUNDS = L.latLngBounds([16.3, 95.8], [17.5, 96.7]);
 
-// Custom Leaflet User Location Pulse Icon with YPS Gold Theme
-const createUserMarkerIcon = () => {
-  return L.divIcon({
-    className: 'custom-user-marker',
-    html: `<div class="user-pulse-marker" style="background-color: #725c00; box-shadow: 0 0 0 8px rgba(255, 210, 0, 0.4);"></div>`,
-    iconSize: [20, 20],
-    iconAnchor: [10, 10],
-  });
-};
-
-const getCategorySvgIcon = (category: string) => {
-  const cat = category.toLowerCase();
-  if (cat.includes('kios') || cat.includes('top-up')) {
-    return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>`;
-  } else if (cat.includes('bus') || cat.includes('terminal')) {
-    return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M16 6v6"/><path d="M4 18v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2"/><path d="M16 18v2a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-2"/><path d="M3 11a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-6z"/><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4H4V6z"/></svg>`;
-  } else if (cat.includes('cinema')) {
-    return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M17 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></svg>`;
-  } else if (cat.includes('capital') || cat.includes('hyper') || cat.includes('market')) {
-    return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>`;
-  } else if (cat.includes('agent')) {
-    return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>`;
-  } else if (cat.includes('g&g') || cat.includes('store')) {
-    return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/><path d="M22 7v3a2 2 0 0 1-2 2v0a2 2 0 0 1-2-2V7"/><path d="M18 7v3a2 2 0 0 1-2 2v0a2 2 0 0 1-2-2V7"/><path d="M14 7v3a2 2 0 0 1-2 2v0a2 2 0 0 1-2-2V7"/><path d="M10 7v3a2 2 0 0 1-2 2v0a2 2 0 0 1-2-2V7"/><path d="M6 7v3a2 2 0 0 1-2 2v0a2 2 0 0 1-2-2V7"/></svg>`;
+const categoryIcon = (category: string) => {
+  const normalized = category.toLowerCase();
+  if (normalized.includes('bus') || normalized.includes('terminal')) {
+    return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 6v6M16 6v6M4 18v2h4v-2M16 18v2h4v-2M3 10h18v8H3zM4 10V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"/></svg>';
   }
-  return `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`;
+  if (normalized.includes('cinema')) {
+    return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 3v18M17 3v18M3 8h4M17 8h4M3 16h4M17 16h4"/></svg>';
+  }
+  if (normalized.includes('agent')) {
+    return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 13c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V6c3.5 0 6-1.4 8-3 2 1.6 4.5 3 8 3z"/><path d="m9 12 2 2 4-4"/></svg>';
+  }
+  return '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 10h18M5 10v10h14V10M4 10l2-6h12l2 6M9 20v-6h6v6"/></svg>';
 };
 
-const createStoreMarkerIcon = (category: string, isSelected: boolean) => {
-  const iconSvg = getCategorySvgIcon(category);
-
-  const bgColor = isSelected ? '#ffd200' : '#725c00';
-  const iconColor = isSelected ? '#1a1c1e' : '#ffffff';
-  const border = isSelected ? '3px solid #1a1c1e' : '2px solid #ffffff';
-  const scale = isSelected ? 'scale(1.35)' : 'scale(1)';
-  const boxShadow = isSelected
-    ? '0 0 16px rgba(255, 210, 0, 0.9), 0 4px 12px rgba(0,0,0,0.4)'
-    : '0 3px 8px rgba(0,0,0,0.25)';
-
+const storeMarkerIcon = (category: string, selected: boolean) => {
+  const background = 'rgb(var(--store))';
+  const foreground = 'rgb(var(--surface))';
+  const border = selected ? 'rgb(var(--route))' : 'rgb(var(--surface))';
   return L.divIcon({
     className: 'custom-store-pin',
-    html: `<div style="
-      background-color: ${bgColor};
-      color: ${iconColor};
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: ${border};
-      box-shadow: ${boxShadow};
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform: ${scale};
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    ">
-      ${iconSvg}
-    </div>`,
-    iconSize: [32, 32],
-    iconAnchor: [16, 16],
+    html: `<div aria-hidden="true" style="background:${background};color:${foreground};width:34px;height:34px;border-radius:12px 12px 12px 4px;border:${selected ? 4 : 2}px solid ${border};box-shadow:${selected ? '0 0 0 7px rgba(101,70,173,.22),0 5px 16px rgba(0,0,0,.3)' : '0 4px 10px rgba(0,0,0,.24)'};display:flex;align-items:center;justify-content:center;transform:rotate(-45deg) ${selected ? 'scale(1.2)' : ''};transition:transform .2s ease"><span style="display:flex;transform:rotate(45deg)">${categoryIcon(category)}</span></div>`,
+    iconSize: [34, 34],
+    iconAnchor: [17, 30],
   });
 };
+
+const userMarkerIcon = () => L.divIcon({
+  className: 'custom-user-marker',
+  html: '<div class="user-pulse-marker" aria-hidden="true"></div>',
+  iconSize: [20, 20],
+  iconAnchor: [10, 10],
+});
 
 export default function MapViewContainer({
   stores,
@@ -96,336 +65,227 @@ export default function MapViewContainer({
   onSelectStore,
   onShowDirection,
   onCloseDirection,
-  onRequestEnableGps,
   activeDirectionStoreId,
-  mobileTab,
 }: MapViewContainerProps) {
-  const { t, tCategory, tAddress, tStoreName, toMmNum } = useLanguage();
-
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const { t, tAddress, tCategory, tStoreName, toMmNum } = useLanguage();
+  const { resolvedTheme } = useTheme();
+  const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
+  const tileLayerRef = useRef<L.TileLayer | null>(null);
   const userLayerRef = useRef<L.LayerGroup | null>(null);
   const storesLayerRef = useRef<L.LayerGroup | null>(null);
   const routeLayerRef = useRef<L.LayerGroup | null>(null);
-
+  const previousStoreId = useRef<number | null>(null);
+  const previousGpsState = useRef(false);
   const [routeCoordinates, setRouteCoordinates] = useState<[number, number][]>([]);
   const [routeInfo, setRouteInfo] = useState<{ distanceKm: number; durationMin: number } | null>(null);
-  const [isLoadingRoute, setIsLoadingRoute] = useState<boolean>(false);
+  const [isLoadingRoute, setIsLoadingRoute] = useState(false);
 
-  const activeStoreId = activeDirectionStoreId || selectedStoreId;
-  const selectedStore = activeStoreId
-    ? stores.find((s) => s.id === activeStoreId) || null
-    : null;
+  const previewStore = selectedStoreId ? stores.find((store) => store.id === selectedStoreId) ?? null : null;
+  const routeStore = activeDirectionStoreId ? stores.find((store) => store.id === activeDirectionStoreId) ?? null : null;
 
-  const mapCenter: [number, number] = selectedStore
-    ? [selectedStore.latitude, selectedStore.longitude]
-    : [userLocation.latitude, userLocation.longitude];
-
-  const targetZoom = selectedStore ? 16 : 14;
-
-  const prevStoreIdRef = useRef<number | null>(null);
-  const prevGpsStateRef = useRef<boolean>(false);
-  const prevCenterRef = useRef<[number, number]>(mapCenter);
-
-  // Initialize Native Leaflet Map Engine (React 19 & Next.js 16 Compatible)
   useEffect(() => {
     if (!containerRef.current) return;
-
-    if (mapRef.current) {
-      mapRef.current.remove();
-      mapRef.current = null;
-    }
-
     const map = L.map(containerRef.current, {
       center: [userLocation.latitude, userLocation.longitude],
       zoom: 14,
       minZoom: 10,
+      maxZoom: 20,
       maxBounds: YANGON_BOUNDS,
-      maxBoundsViscosity: 1.0,
+      maxBoundsViscosity: 1,
       scrollWheelZoom: true,
     });
-
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    const tileName = resolvedTheme === 'dark' ? 'dark_all' : 'light_all';
+    tileLayerRef.current = L.tileLayer(`https://{s}.basemaps.cartocdn.com/${tileName}/{z}/{x}/{y}{r}.png`, {
+      attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+      subdomains: 'abcd',
+      maxZoom: 20,
     }).addTo(map);
-
     userLayerRef.current = L.layerGroup().addTo(map);
     storesLayerRef.current = L.layerGroup().addTo(map);
     routeLayerRef.current = L.layerGroup().addTo(map);
-
     mapRef.current = map;
 
     return () => {
       map.remove();
       mapRef.current = null;
+      tileLayerRef.current = null;
       userLayerRef.current = null;
       storesLayerRef.current = null;
       routeLayerRef.current = null;
     };
+    // The map engine is intentionally initialized once; later effects update its layers.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Resize map when window resizes, container changes size, or mobileTab changes
+  useEffect(() => {
+    const tileName = resolvedTheme === 'dark' ? 'dark_all' : 'light_all';
+    tileLayerRef.current?.setUrl(`https://{s}.basemaps.cartocdn.com/${tileName}/{z}/{x}/{y}{r}.png`);
+  }, [resolvedTheme]);
+
   useEffect(() => {
     if (!mapRef.current || !containerRef.current) return;
     const map = mapRef.current;
-    const container = containerRef.current;
-
-    const handleResize = () => map.invalidateSize();
-    window.addEventListener('resize', handleResize);
-
-    const resizeObserver = new ResizeObserver(() => {
-      map.invalidateSize();
-    });
-    resizeObserver.observe(container);
-
-    const rafId = requestAnimationFrame(() => {
-      map.invalidateSize();
-    });
-    const t1 = setTimeout(() => map.invalidateSize(), 50);
-    const t2 = setTimeout(() => map.invalidateSize(), 250);
-
+    const resize = () => map.invalidateSize();
+    const observer = new ResizeObserver(resize);
+    observer.observe(containerRef.current);
+    window.addEventListener('resize', resize);
+    const timer = window.setTimeout(resize, 220);
     return () => {
-      window.removeEventListener('resize', handleResize);
-      resizeObserver.disconnect();
-      cancelAnimationFrame(rafId);
-      clearTimeout(t1);
-      clearTimeout(t2);
+      observer.disconnect();
+      window.removeEventListener('resize', resize);
+      window.clearTimeout(timer);
     };
-  }, [mobileTab]);
+  }, []);
 
-  // Recenter map on store change or GPS activation
   useEffect(() => {
-    if (!mapRef.current) return;
     const map = mapRef.current;
-
-    const isStoreChanged = selectedStoreId !== prevStoreIdRef.current;
-    const isGpsTurnedOn = userLocation.hasRealLocation && !prevGpsStateRef.current;
-    const isCenterChanged =
-      userLocation.hasRealLocation &&
-      (Math.abs(prevCenterRef.current[0] - mapCenter[0]) > 0.0001 ||
-        Math.abs(prevCenterRef.current[1] - mapCenter[1]) > 0.0001);
-
-    if (isStoreChanged || isGpsTurnedOn || isCenterChanged) {
-      prevStoreIdRef.current = selectedStoreId;
-      prevGpsStateRef.current = userLocation.hasRealLocation;
-      prevCenterRef.current = mapCenter;
-
-      if (mapCenter && mapCenter[0] !== 0 && mapCenter[1] !== 0) {
-        map.flyTo(mapCenter, targetZoom, { duration: 1.2 });
-      }
+    if (!map) return;
+    if (previewStore && previousStoreId.current !== previewStore.id) {
+      previousStoreId.current = previewStore.id;
+      map.flyTo([previewStore.latitude, previewStore.longitude], 16, { duration: 0.75 });
+    } else if (userLocation.hasRealLocation && !previousGpsState.current) {
+      previousGpsState.current = true;
+      map.flyTo([userLocation.latitude, userLocation.longitude], 15, { duration: 0.75 });
     }
-  }, [mapCenter, targetZoom, selectedStoreId, userLocation.hasRealLocation]);
+  }, [previewStore, userLocation.hasRealLocation, userLocation.latitude, userLocation.longitude]);
 
-  // Fetch OSRM route geometry
   useEffect(() => {
-    if (!selectedStore || !userLocation.latitude || !userLocation.longitude) {
-      setRouteCoordinates([]);
-      setRouteInfo(null);
-      return;
-    }
-
-    const fetchOsrmRoute = async () => {
+    if (!routeStore) return;
+    const controller = new AbortController();
+    const loadRoute = async () => {
       setIsLoadingRoute(true);
       try {
-        const url = `https://router.project-osrm.org/route/v1/driving/${userLocation.longitude},${userLocation.latitude};${selectedStore.longitude},${selectedStore.latitude}?overview=full&geometries=geojson`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error('OSRM router service error');
-        const data = await res.json();
-        if (data.routes && data.routes.length > 0) {
-          const route = data.routes[0];
-          const coords: [number, number][] = route.geometry.coordinates.map(
-            (coord: [number, number]) => [coord[1], coord[0]]
-          );
-          setRouteCoordinates(coords);
-          setRouteInfo({
-            distanceKm: Number((route.distance / 1000).toFixed(2)),
-            durationMin: Math.max(1, Math.round(route.duration / 60)),
-          });
-        } else {
-          setRouteCoordinates([
-            [userLocation.latitude, userLocation.longitude],
-            [selectedStore.latitude, selectedStore.longitude],
-          ]);
-          setRouteInfo(null);
-        }
-      } catch (err) {
-        console.warn('In-app routing fetch failed, falling back to straight polyline:', err);
-        setRouteCoordinates([
-          [userLocation.latitude, userLocation.longitude],
-          [selectedStore.latitude, selectedStore.longitude],
-        ]);
+        const url = `https://router.project-osrm.org/route/v1/driving/${userLocation.longitude},${userLocation.latitude};${routeStore.longitude},${routeStore.latitude}?overview=full&geometries=geojson`;
+        const response = await fetch(url, { signal: controller.signal });
+        if (!response.ok) throw new Error('OSRM route service unavailable');
+        const data = await response.json();
+        const route = data.routes?.[0];
+        if (!route) throw new Error('No route returned');
+        setRouteCoordinates(route.geometry.coordinates.map(([longitude, latitude]: [number, number]) => [latitude, longitude]));
+        setRouteInfo({ distanceKm: Number((route.distance / 1000).toFixed(2)), durationMin: Math.max(1, Math.round(route.duration / 60)) });
+      } catch (error) {
+        if (controller.signal.aborted) return;
+        console.warn('Routing service fallback:', error);
+        setRouteCoordinates([[userLocation.latitude, userLocation.longitude], [routeStore.latitude, routeStore.longitude]]);
         setRouteInfo(null);
       } finally {
-        setIsLoadingRoute(false);
+        if (!controller.signal.aborted) setIsLoadingRoute(false);
       }
     };
+    loadRoute();
+    return () => controller.abort();
+  }, [routeStore, userLocation.latitude, userLocation.longitude]);
 
-    fetchOsrmRoute();
-  }, [selectedStore, userLocation.latitude, userLocation.longitude]);
-
-  // Update Route Polyline Layer
   useEffect(() => {
-    if (!routeLayerRef.current) return;
-    routeLayerRef.current.clearLayers();
+    const layer = routeLayerRef.current;
+    if (!layer) return;
+    layer.clearLayers();
+    if (!routeStore) return;
+    const positions: L.LatLngTuple[] = routeCoordinates.length
+      ? routeCoordinates as L.LatLngTuple[]
+      : [[userLocation.latitude, userLocation.longitude], [routeStore.latitude, routeStore.longitude]];
+    layer.addLayer(L.polyline(positions, {
+      color: resolvedTheme === 'dark' ? '#B59AFF' : '#6546AD',
+      weight: 6,
+      opacity: 0.92,
+      dashArray: routeCoordinates.length ? undefined : '10, 10',
+    }));
+  }, [resolvedTheme, routeCoordinates, routeStore, userLocation.latitude, userLocation.longitude]);
 
-    if (selectedStore) {
-      const positions: L.LatLngTuple[] =
-        routeCoordinates.length > 0
-          ? (routeCoordinates as L.LatLngTuple[])
-          : [
-              [userLocation.latitude, userLocation.longitude],
-              [selectedStore.latitude, selectedStore.longitude],
-            ];
-      const polyline = L.polyline(positions, {
-        color: '#ba1a1a',
-        weight: 5,
-        opacity: 0.9,
-        dashArray: routeCoordinates.length > 0 ? undefined : '10, 10',
-      });
-      routeLayerRef.current.addLayer(polyline);
-    }
-  }, [selectedStore, routeCoordinates, userLocation]);
-
-  // Update User Marker & Radius Layer
   useEffect(() => {
-    if (!userLayerRef.current) return;
-    userLayerRef.current.clearLayers();
+    const layer = userLayerRef.current;
+    if (!layer) return;
+    layer.clearLayers();
+    if (!userLocation.hasRealLocation) return;
+    const marker = L.marker([userLocation.latitude, userLocation.longitude], { icon: userMarkerIcon(), title: t('deviceLocation') });
+    const popup = document.createElement('div');
+    popup.className = 'p-1 text-xs';
+    const title = document.createElement('strong');
+    title.className = 'block text-gps';
+    title.textContent = t('deviceLocation');
+    const status = document.createElement('span');
+    status.className = 'font-mono-meta text-muted';
+    status.textContent = t('gpsActive');
+    popup.append(title, status);
+    marker.bindPopup(popup);
+    layer.addLayer(marker);
+    layer.addLayer(L.circle([userLocation.latitude, userLocation.longitude], {
+      radius: radiusKm * 1000,
+      color: resolvedTheme === 'dark' ? '#72D4B3' : '#137455',
+      fillColor: resolvedTheme === 'dark' ? '#72D4B3' : '#DFF7EC',
+      fillOpacity: 0.16,
+      weight: 2,
+      dashArray: '6, 6',
+    }));
+  }, [radiusKm, resolvedTheme, t, userLocation]);
 
-    if (userLocation.hasRealLocation) {
-      const userMarker = L.marker([userLocation.latitude, userLocation.longitude], {
-        icon: createUserMarkerIcon(),
-      });
-      userMarker.bindPopup(`
-        <div class="p-1 font-work-sans text-xs">
-          <span class="font-bold text-[#725c00] block">${t('deviceLocation')}</span>
-          <span class="text-gray-600 font-mono-meta">${t('gpsActive')}</span>
-        </div>
-      `);
-      userLayerRef.current.addLayer(userMarker);
-
-      const circle = L.circle([userLocation.latitude, userLocation.longitude], {
-        radius: radiusKm * 1000,
-        color: '#725c00',
-        fillColor: '#ffd200',
-        fillOpacity: 0.15,
-        weight: 1.5,
-        dashArray: '6, 6',
-      });
-      userLayerRef.current.addLayer(circle);
-    }
-  }, [userLocation, radiusKm, t]);
-
-  // Update Store Markers Layer
   useEffect(() => {
-    if (!storesLayerRef.current) return;
-    storesLayerRef.current.clearLayers();
-
+    const layer = storesLayerRef.current;
+    if (!layer) return;
+    layer.clearLayers();
     stores.forEach((store) => {
-      const isSelected = store.id === activeStoreId;
       const marker = L.marker([store.latitude, store.longitude], {
-        icon: createStoreMarkerIcon(store.category, isSelected),
+        icon: storeMarkerIcon(store.category, store.id === selectedStoreId),
+        title: tStoreName(store.name),
+        alt: tStoreName(store.name),
       });
+      marker.on('click', () => onSelectStore(store));
 
-      marker.on('click', () => {
-        onSelectStore(store);
-      });
-
-      const popupDiv = document.createElement('div');
-      popupDiv.className = 'p-2 max-w-[250px] font-work-sans';
-      popupDiv.innerHTML = `
-        <div class="flex items-center justify-between gap-2 mb-1.5">
-          <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-[#fff9e6] text-[#725c00] border border-[#ffe07c]">
-            ${tCategory(store.category)}
-          </span>
-          ${
-            store.distanceKm !== null
-              ? `<span class="text-xs font-bold font-mono-meta text-[#725c00] bg-[#ffd200] px-2 py-0.5 rounded border border-[#e5bc00]">${toMmNum(
-                  store.distanceKm
-                )} ${t('km')}</span>`
-              : ''
-          }
-        </div>
-        <h4 class="font-bold text-sm text-[#1a1c1e] mb-1.5">${tStoreName(store.name)}</h4>
-        ${
-          store.address
-            ? `<p class="text-xs text-gray-700 font-medium mb-2.5 leading-relaxed flex items-start gap-1.5">
-                <span>${tAddress(store.address)}</span>
-              </p>`
-            : ''
-        }
-        <button class="dir-btn w-full mt-2 py-2 px-3 bg-[#725c00] hover:bg-[#564500] text-white text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-colors shadow-sm cursor-pointer">
-          <span class="text-white font-bold">${t('showDirection')}</span>
-        </button>
-      `;
-
-      const btn = popupDiv.querySelector('.dir-btn');
-      if (btn) {
-        btn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (onShowDirection) {
-            onShowDirection(store);
-          } else {
-            onSelectStore(store);
-          }
-        });
+      const popup = document.createElement('div');
+      popup.className = 'max-w-[260px] p-1';
+      const badge = document.createElement('span');
+      badge.className = 'inline-flex rounded-full bg-store-soft px-2 py-1 text-[10px] font-bold text-store';
+      badge.textContent = tCategory(store.category);
+      const heading = document.createElement('strong');
+      heading.className = 'mt-2 block text-sm font-extrabold text-ink';
+      heading.textContent = tStoreName(store.name);
+      popup.append(badge, heading);
+      if (store.address) {
+        const address = document.createElement('p');
+        address.className = 'mt-1 text-xs leading-relaxed text-muted';
+        address.textContent = tAddress(store.address);
+        popup.append(address);
       }
-
-      marker.bindPopup(popupDiv);
-      storesLayerRef.current?.addLayer(marker);
+      const direction = document.createElement('button');
+      direction.type = 'button';
+      direction.className = 'mt-3 min-h-11 w-full rounded-xl bg-route px-3 text-xs font-bold text-white';
+      direction.textContent = t('showDirection');
+      direction.addEventListener('click', (event) => {
+        event.stopPropagation();
+        onShowDirection?.(store);
+      });
+      popup.append(direction);
+      marker.bindPopup(popup);
+      layer.addLayer(marker);
     });
-  }, [stores, activeStoreId, onSelectStore, onShowDirection, t, tCategory, tAddress, tStoreName, toMmNum]);
+  }, [onSelectStore, onShowDirection, resolvedTheme, selectedStoreId, stores, t, tAddress, tCategory, tStoreName]);
 
   return (
-    <div className="flex-1 min-h-0 flex flex-col w-full relative">
-      {/* In-App Route Information Header Overlay */}
-      {selectedStore && (
-        <div className="absolute top-4 left-4 right-4 sm:left-6 sm:right-auto z-[600] bg-white/95 backdrop-blur-md p-3.5 rounded-2xl shadow-xl border border-[#ffe07c] max-w-sm flex items-center justify-between gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#ffd200] text-[#1a1c1e] flex items-center justify-center font-bold shrink-0 border border-[#e5bc00] shadow-xs">
-              <Route className="w-5 h-5" />
+    <div className="relative flex h-full min-h-0 w-full flex-col">
+      {previewStore && (
+        <div className={`glass-panel absolute left-3 right-3 top-3 z-[600] max-w-sm rounded-3xl border p-3 shadow-soft sm:left-5 sm:right-auto ${routeStore ? 'border-route/35' : 'border-store/30'}`}>
+          <div className="flex items-start gap-3">
+            <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl ${routeStore ? 'bg-route-soft text-route' : 'bg-store-soft text-store'}`}>
+              {routeStore ? <Route className="h-5 w-5" /> : <MapPin className="h-5 w-5" />}
             </div>
-            <div>
-              <h4 className="font-bold text-xs sm:text-sm text-[#1a1c1e] truncate max-w-[180px]">
-                {tStoreName(selectedStore.name)}
-              </h4>
-              <div className="flex items-center gap-2 mt-0.5 text-[11px] font-semibold text-gray-600 font-mono-meta">
-                {isLoadingRoute ? (
-                  <span className="text-[#725c00] animate-pulse">
-                    လမ်းကြောင်း တွက်ချက်နေသည်...
-                  </span>
-                ) : routeInfo ? (
-                  <>
-                    <span className="text-[#725c00] font-bold">{toMmNum(routeInfo.distanceKm)} {t('km')}</span>
-                    <span>•</span>
-                    <span className="flex items-center gap-1 text-gray-700">
-                      <Clock className="w-3 h-3 text-[#725c00]" />
-                      ~{toMmNum(routeInfo.durationMin)} မိနစ်
-                    </span>
-                  </>
-                ) : selectedStore.distanceKm !== null ? (
-                  <span className="text-[#725c00] font-bold">{toMmNum(selectedStore.distanceKm)} {t('km')}</span>
-                ) : (
-                  <span>{tCategory(selectedStore.category)}</span>
-                )}
+            <div className="min-w-0 flex-1">
+              <h2 className="truncate text-sm font-extrabold text-ink">{tStoreName(previewStore.name)}</h2>
+              <div className="font-mono-meta mt-1 flex items-center gap-2 text-[10px] font-semibold text-muted" role={isLoadingRoute ? 'status' : undefined}>
+                {isLoadingRoute ? <span className="text-route">{t('calculatingRoute')}</span> : routeInfo ? <><span className="font-bold text-route">{toMmNum(routeInfo.distanceKm)} {t('km')}</span><span aria-hidden="true">•</span><span className="flex items-center gap-1"><Clock className="h-3 w-3" />~{toMmNum(routeInfo.durationMin)} {t('minutes')}</span></> : <span>{tCategory(previewStore.category)}</span>}
               </div>
             </div>
+            <button type="button" onClick={() => onCloseDirection?.()} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-elevated text-muted hover:text-ink" aria-label={t('close')}><X className="h-4 w-4" /></button>
           </div>
-
-          <button
-            onClick={() => {
-              if (onCloseDirection) onCloseDirection();
-              else onSelectStore(selectedStore);
-            }}
-            className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center transition-colors shrink-0 cursor-pointer"
-            title="လမ်းကြောင်းပိတ်ရန်"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          {!routeStore && (
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <button type="button" onClick={() => onShowDirection?.(previewStore)} className="flex min-h-11 items-center justify-center gap-2 rounded-2xl bg-route text-xs font-bold text-white"><Navigation className="h-4 w-4" />{t('showDirection')}</button>
+              <Link href={`/stores/${previewStore.id}`} className="flex min-h-11 items-center justify-center gap-2 rounded-2xl border border-line bg-surface text-xs font-bold text-ink"><Store className="h-4 w-4" />{t('storeDetails')}</Link>
+            </div>
+          )}
         </div>
       )}
-
-      {/* Native Leaflet Map Element Container */}
-      <div ref={containerRef} className="w-full h-full rounded-none overflow-hidden z-10 flex-1" />
+      <div ref={containerRef} className="min-h-0 w-full flex-1 overflow-hidden" />
     </div>
   );
 }

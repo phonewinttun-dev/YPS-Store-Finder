@@ -1,8 +1,9 @@
-const CACHE_NAME = 'yps-store-finder-v1';
+const CACHE_NAME = 'yps-store-finder-v2';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
   '/translation.json',
+  '/brand/yps-finder-mark.svg',
   '/favicon.ico',
 ];
 

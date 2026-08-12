@@ -1,170 +1,77 @@
 'use client';
 
-import React, { useState, useEffect, use } from 'react';
 import Link from 'next/link';
-import { Bus, CreditCard, ChevronRight, ArrowLeftRight, MapPin, RefreshCw, X } from 'lucide-react';
+import { ArrowLeft, ArrowLeftRight, CreditCard, MapPin, RefreshCw, X } from 'lucide-react';
+import { use, useEffect, useState } from 'react';
+import AppShell from '../../../components/AppShell';
+import { useLanguage } from '../../../context/LanguageContext';
 import { fetchBusRouteDetail } from '../../../services/api';
 import { BusRouteDetailDto } from '../../../types/bus';
-import { useLanguage } from '../../../context/LanguageContext';
 
 export default function BusDetailPage({ params }: { params: Promise<{ busNumber: string }> }) {
   const { busNumber } = use(params);
   const { t, toMmNum } = useLanguage();
-  
   const [routeDetail, setRouteDetail] = useState<BusRouteDetailDto | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [activeRouteTab, setActiveRouteTab] = useState<'outbound' | 'return'>('outbound');
 
   useEffect(() => {
-    const loadRouteDetail = async () => {
+    let mounted = true;
+    const load = async () => {
       setIsLoading(true);
       try {
-        const decodedBusNumber = decodeURIComponent(busNumber);
-        const res = await fetchBusRouteDetail(decodedBusNumber);
-        if (res.isSuccess && res.data) {
-          setRouteDetail(res.data);
-        } else {
-          setRouteDetail(null);
-        }
-      } catch (err) {
-        console.error('Error fetching route detail:', err);
-        setRouteDetail(null);
+        const response = await fetchBusRouteDetail(decodeURIComponent(busNumber));
+        if (mounted) setRouteDetail(response.isSuccess && response.data ? response.data : null);
+      } catch (error) {
+        console.error('Error fetching route detail:', error);
+        if (mounted) setRouteDetail(null);
       } finally {
-        setIsLoading(false);
+        if (mounted) setIsLoading(false);
       }
     };
-
-    loadRouteDetail();
+    load();
+    return () => { mounted = false; };
   }, [busNumber]);
 
+  const stops = routeDetail ? (activeRouteTab === 'outbound' ? routeDetail.outboundStops : routeDetail.returnStops) : [];
+  const title = routeDetail ? (activeRouteTab === 'outbound' ? routeDetail.outboundTitle || t('outboundRoute') : routeDetail.returnTitle || t('returnRoute')) : '';
+
   return (
-    <div className="min-h-screen bg-[#f9f9fc]">
-      <div className="max-w-2xl mx-auto p-4 sm:p-5 pb-24 space-y-4">
-        {/* Top Navigation */}
-        <div className="mb-4">
-          <Link
-            href="/buses"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-gray-100 border border-[#d1c6ab] text-gray-800 text-xs font-bold transition-colors shadow-sm"
-          >
-            <ChevronRight className="w-4 h-4 rotate-180" />
-            <span>ယာဉ်လိုင်းများ စာရင်းသို့ ပြန်သွားရန်</span>
-          </Link>
-        </div>
-
-        {isLoading ? (
-          <div className="py-12 flex flex-col items-center justify-center text-[#725c00]">
-            <RefreshCw className="w-8 h-8 animate-spin mb-2" />
-            <span className="text-xs font-semibold">
-              လမ်းကြောင်း အချက်အလက်များ ယူနေသည်...
-            </span>
-          </div>
-        ) : routeDetail ? (
-          <div className="space-y-4">
-            {/* Header Card */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#e2e2e5] shadow-sm">
-              <div className="flex items-center justify-between gap-2 mb-3">
-                <div className="flex items-center gap-1.5 flex-wrap">
-                  {routeDetail.isYpsSupported ? (
-                    <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-600 border border-gray-200/80 whitespace-nowrap shrink-0 flex items-center gap-1">
-                      <CreditCard className="w-3 h-3 text-gray-500" />
-                      <span>{t('ypsCardAccepted')}</span>
-                    </span>
-                  ) : (
-                    <span className="text-[10px] font-medium px-2.5 py-0.5 rounded-full bg-gray-50 text-gray-500 border border-gray-200/60 whitespace-nowrap shrink-0 flex items-center gap-1">
-                      <X className="w-3 h-3 text-gray-400" />
-                      <span>YPS ကဒ် အသုံးပြု၍မရနိုင်ပါ</span>
-                    </span>
-                  )}
+    <AppShell active="buses">
+      <div className="min-h-full bg-canvas p-4 pb-16 sm:p-8">
+        <div className="mx-auto max-w-4xl">
+          <Link href="/buses" className="inline-flex min-h-11 items-center gap-2 rounded-2xl border border-line bg-surface px-4 text-xs font-bold text-ink hover:bg-elevated"><ArrowLeft className="h-4 w-4" />{t('backToBuses')}</Link>
+          {isLoading ? (
+            <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3 text-bus" role="status"><RefreshCw className="h-8 w-8 animate-spin" /><span className="text-sm font-bold">{t('loadingBuses')}</span></div>
+          ) : routeDetail ? (
+            <div className="mt-5 grid gap-5 lg:grid-cols-[320px_minmax(0,1fr)]">
+              <aside className="h-fit overflow-hidden rounded-3xl border border-line bg-surface shadow-card lg:sticky lg:top-6">
+                <div className="transit-ribbon h-1.5" />
+                <div className="p-5">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="font-mono-meta flex h-16 min-w-16 items-center justify-center rounded-2xl bg-bus-soft px-3 text-2xl font-extrabold text-bus">{toMmNum(routeDetail.busNumber)}</span>
+                    <span className={`inline-flex items-center gap-1.5 rounded-xl px-2.5 py-1.5 text-[10px] font-bold ${routeDetail.isYpsSupported ? 'bg-brand-soft text-brand' : 'bg-elevated text-muted'}`}>{routeDetail.isYpsSupported ? <CreditCard className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}{routeDetail.isYpsSupported ? t('ypsCardAccepted') : t('ypsCardUnavailable')}</span>
+                  </div>
+                  <h1 className="mt-4 text-xl font-extrabold text-ink">YBS {toMmNum(routeDetail.busNumber)}</h1>
+                  <p className="mt-2 flex items-start gap-2 text-xs leading-relaxed text-muted"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-bus" />{title}</p>
+                  <div className="mt-5 grid grid-cols-2 gap-2 rounded-2xl bg-elevated p-1.5">
+                    {(['outbound', 'return'] as const).map((tab) => <button key={tab} type="button" onClick={() => setActiveRouteTab(tab)} className={`min-h-11 rounded-xl px-2 text-xs font-bold ${activeRouteTab === tab ? 'bg-bus text-white shadow-card' : 'text-muted hover:text-ink'}`} aria-pressed={activeRouteTab === tab}>{t(tab)}</button>)}
+                  </div>
                 </div>
-              </div>
-
-              <div className="flex items-center gap-2 mb-2">
-                <Bus className="w-5 h-5 text-[#725c00] shrink-0" />
-                <h3 className="font-extrabold text-base text-gray-700 truncate leading-snug">
-                  YBS <span className="font-mono-meta">{toMmNum(routeDetail.busNumber)}</span>
-                </h3>
-              </div>
-
-              {routeDetail.outboundTitle && (
-                <p className="text-xs text-gray-700 font-medium leading-relaxed mb-3.5 flex items-start gap-1.5 pl-0.5">
-                  <MapPin className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
-                  <span className="truncate">
-                    {activeRouteTab === 'outbound'
-                      ? routeDetail.outboundTitle || t('outboundRoute')
-                      : routeDetail.returnTitle || t('returnRoute')}
-                  </span>
-                </p>
-              )}
-
-              <div className="pt-3 border-t border-[#f3f3f6] flex items-center gap-2">
-                <button
-                  onClick={() => setActiveRouteTab('outbound')}
-                  className={`flex-1 h-9 text-[11px] font-bold rounded-xl flex items-center justify-center text-center whitespace-nowrap px-2 transition-all cursor-pointer ${
-                    activeRouteTab === 'outbound'
-                      ? 'bg-[#725c00] text-white shadow-sm shadow-amber-950/30'
-                      : 'bg-white text-gray-700 border border-gray-200 shadow-sm'
-                  }`}
-                >
-                  <span className="inline-flex items-center justify-center leading-normal -translate-y-0.5">
-                    {t('outbound')}
-                  </span>
-                </button>
-
-                <button
-                  onClick={() => setActiveRouteTab('return')}
-                  className={`flex-1 h-9 text-[11px] font-bold rounded-xl flex items-center justify-center text-center whitespace-nowrap px-2 transition-all cursor-pointer ${
-                    activeRouteTab === 'return'
-                      ? 'bg-[#725c00] text-white shadow-sm shadow-amber-950/30'
-                      : 'bg-white text-gray-700 border border-gray-200 shadow-sm'
-                  }`}
-                >
-                  <span className="inline-flex items-center justify-center leading-normal -translate-y-0.5">
-                    {t('return')}
-                  </span>
-                </button>
-              </div>
+              </aside>
+              <section className="rounded-3xl border border-line bg-surface p-5 shadow-card sm:p-7" aria-labelledby="route-title">
+                <div className="mb-6 flex items-start gap-3"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-route-soft text-route"><ArrowLeftRight className="h-5 w-5" /></span><div><p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-route">{t(activeRouteTab)}</p><h2 id="route-title" className="mt-1 text-lg font-extrabold text-ink">{title}</h2></div></div>
+                <ol className="relative ml-2 space-y-5 border-l-2 border-route/25 pl-7">
+                  {stops.map((stop, index) => {
+                    const order = stop.stopOrder || stop.sequenceOrder || index + 1;
+                    return <li key={`${stop.stopName}-${index}`} className="relative min-h-11"><span className="font-mono-meta absolute -left-[42px] top-0 flex h-7 w-7 items-center justify-center rounded-full border-2 border-route bg-surface text-[9px] font-bold text-route">{toMmNum(order)}</span><p className="text-sm font-extrabold text-ink">{stop.stopName || `${t('busStop')} ${toMmNum(order)}`}</p>{stop.roadTownship && <p className="mt-1 text-xs text-muted">{stop.roadTownship}</p>}</li>;
+                  })}
+                </ol>
+              </section>
             </div>
-
-            {/* Stops Timeline */}
-            <div className="bg-white border border-[#e2e2e5] rounded-2xl p-4 sm:p-5 shadow-sm">
-              <h4 className="text-xs font-bold text-gray-600 mb-4 uppercase tracking-wider flex items-center gap-1.5">
-                <ArrowLeftRight className="w-4 h-4 text-[#725c00]" />
-                <span>
-                  {activeRouteTab === 'outbound'
-                    ? routeDetail.outboundTitle || t('outboundRoute')
-                    : routeDetail.returnTitle || t('returnRoute')}
-                </span>
-              </h4>
-
-              <div className="relative pl-7 space-y-4 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-0.5 before:bg-[#ffe07c]">
-                {(activeRouteTab === 'outbound' ? routeDetail.outboundStops : routeDetail.returnStops).map(
-                  (stop, idx) => {
-                    const orderNum = stop.stopOrder || stop.sequenceOrder || (idx + 1);
-                    return (
-                      <div key={idx} className="relative flex items-center justify-between gap-3 min-h-[32px]">
-                        <div className="absolute -left-[23px] top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-white border-2 border-[#725c00] shadow-2xs z-10" />
-                        <div className="flex-1 pr-2">
-                          <p className="text-xs font-bold text-[#1a1c1e] leading-tight">{stop.stopName || `မှတ်တိုင် ${toMmNum(orderNum)}`}</p>
-                          {stop.roadTownship && (
-                            <p className="text-[11px] text-gray-500 font-medium leading-tight mt-0.5">{stop.roadTownship}</p>
-                          )}
-                        </div>
-                        <span className="text-[10px] font-mono-meta bg-[#fff9e6] text-[#725c00] px-2 py-0.5 rounded-md border border-[#ffe07c] font-bold whitespace-nowrap shrink-0">
-                          {toMmNum(orderNum)}
-                        </span>
-                      </div>
-                    );
-                  }
-                )}
-              </div>
-            </div>
-          </div>
-        ) : (
-          <div className="py-8 text-center text-gray-500 bg-white border border-[#e2e2e5] rounded-2xl p-5 shadow-sm">
-            <p className="text-xs font-semibold">လမ်းကြောင်း အချက်အလက် မရှိပါ</p>
-          </div>
-        )}
+          ) : <div className="surface-card mt-5 flex min-h-64 items-center justify-center p-8 text-sm font-bold text-muted">{t('noRoute')}</div>}
+        </div>
       </div>
-    </div>
+    </AppShell>
   );
 }

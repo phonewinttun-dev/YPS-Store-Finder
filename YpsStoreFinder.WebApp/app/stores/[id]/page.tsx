@@ -1,203 +1,86 @@
 'use client';
 
-import { use, useEffect, useState } from 'react';
 import Link from 'next/link';
-import {
-  Store,
-  MapPin,
-  Bus,
-  CreditCard,
-  ChevronLeft,
-  RefreshCw,
-  Navigation,
-  Footprints,
-} from 'lucide-react';
-import { fetchStoreById, fetchNearbyBusStopsForStore } from '../../../services/api';
-import { StoreDto } from '../../../types/store';
-import { StoreNearbyBusStopsDto } from '../../../types/bus';
+import { ArrowLeft, Bus, CreditCard, Footprints, MapPin, Navigation, RefreshCw, Store } from 'lucide-react';
+import { use, useEffect, useState } from 'react';
+import AppShell from '../../../components/AppShell';
 import { useLanguage } from '../../../context/LanguageContext';
+import { fetchNearbyBusStopsForStore, fetchStoreById } from '../../../services/api';
+import { StoreNearbyBusStopsDto } from '../../../types/bus';
+import { StoreDto } from '../../../types/store';
 
 export default function StoreDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  const { t, tCategory, tAddress, tStoreName, toMmNum } = useLanguage();
-
+  const { t, tAddress, tCategory, tStoreName, toMmNum } = useLanguage();
   const [store, setStore] = useState<StoreDto | null>(null);
   const [nearbyStops, setNearbyStops] = useState<StoreNearbyBusStopsDto | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function loadData() {
+    let mounted = true;
+    const load = async () => {
+      setLoading(true);
       try {
-        setLoading(true);
         const storeId = Number(id);
-        
-        const [storeRes, stopsRes] = await Promise.all([
-          fetchStoreById(storeId),
-          fetchNearbyBusStopsForStore(storeId)
-        ]);
-
-        if (storeRes.isSuccess && storeRes.data) {
-          setStore(storeRes.data);
-        } else {
-          setError(storeRes.message || 'Failed to fetch store details');
-        }
-
-        if (stopsRes.isSuccess && stopsRes.data) {
-          setNearbyStops(stopsRes.data);
-        }
-      } catch (err: any) {
-        setError(err.message || 'An error occurred while fetching data');
+        const [storeResponse, stopsResponse] = await Promise.all([fetchStoreById(storeId), fetchNearbyBusStopsForStore(storeId)]);
+        if (!mounted) return;
+        if (storeResponse.isSuccess && storeResponse.data) setStore(storeResponse.data);
+        else setError(storeResponse.message || t('noStoresFound'));
+        if (stopsResponse.isSuccess && stopsResponse.data) setNearbyStops(stopsResponse.data);
+      } catch (loadError) {
+        if (mounted) setError(loadError instanceof Error ? loadError.message : t('apiErrorTitle'));
       } finally {
-        setLoading(false);
+        if (mounted) setLoading(false);
       }
-    }
+    };
+    load();
+    return () => { mounted = false; };
+  }, [id, t]);
 
-    loadData();
-  }, [id]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[#f9f9fc] p-6 flex flex-col items-center justify-center">
-        <RefreshCw className="w-8 h-8 animate-spin text-[#725c00] mb-4" />
-        <p className="text-gray-500">{t('updatingStores')}</p>
-      </div>
-    );
-  }
-
-  if (error || !store) {
-    return (
-      <div className="min-h-screen bg-[#f9f9fc] p-6 max-w-2xl mx-auto flex flex-col items-center pt-20">
-        <Store className="w-12 h-12 text-gray-300 mb-4" />
-        <p className="text-gray-500 mb-6">{error || t('noStoresFound')}</p>
-        <Link 
-          href="/"
-          className="inline-flex items-center gap-1.5 bg-white hover:bg-gray-100 border border-[#d1c6ab] text-gray-800 text-xs font-bold rounded-lg px-3 py-1.5"
-        >
-          <ChevronLeft className="w-4 h-4" />
-          Back to Home
-        </Link>
-      </div>
-    );
-  }
+  const directionsHref = store ? `https://www.google.com/maps/dir/?api=1&destination=${store.latitude},${store.longitude}` : '#';
 
   return (
-    <div className="min-h-screen bg-[#f9f9fc] p-4 sm:p-6">
-      <div className="max-w-2xl mx-auto space-y-6">
-        {/* Header / Back */}
-        <div>
-          <Link 
-            href="/"
-            className="inline-flex items-center gap-1.5 bg-white hover:bg-gray-100 border border-[#d1c6ab] text-gray-800 text-xs font-bold rounded-lg px-3 py-1.5 shadow-sm transition-colors"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            Back
-          </Link>
-        </div>
-
-        {/* Store Detail Card */}
-        <div className="bg-white border border-[#e2e2e5] rounded-2xl p-5 shadow-sm space-y-4">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#fff9e6] text-[#725c00] border border-[#ffe07c] mb-2">
-                {tCategory(store.category)}
-              </span>
-              <h1 className="font-extrabold text-lg text-[#1a1c1e]">
-                {tStoreName(store.name)}
-              </h1>
-            </div>
-            <div className="w-10 h-10 rounded-full bg-[#fff9e6] flex items-center justify-center shrink-0">
-              <Store className="w-5 h-5 text-[#725c00]" />
-            </div>
-          </div>
-
-          {(store.address || store.description) && (
-            <div className="space-y-3 pt-3 border-t border-gray-100">
-              {store.address && (
-                <div className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
-                  <p className="text-xs text-gray-600 leading-relaxed">
-                    {tAddress(store.address)}
-                  </p>
+    <AppShell active="stores">
+      <div className="min-h-full bg-canvas p-4 pb-16 sm:p-8">
+        <div className="mx-auto max-w-5xl">
+          <Link href="/?view=stores" className="inline-flex min-h-11 items-center gap-2 rounded-2xl border border-line bg-surface px-4 text-xs font-bold text-ink hover:bg-elevated"><ArrowLeft className="h-4 w-4" />{t('back')}</Link>
+          {loading ? (
+            <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3 text-store" role="status"><RefreshCw className="h-8 w-8 animate-spin" /><span className="text-sm font-bold">{t('updatingStores')}</span></div>
+          ) : error || !store ? (
+            <div className="surface-card mt-5 flex min-h-64 flex-col items-center justify-center p-8 text-center"><span className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-danger-soft text-danger"><Store className="h-6 w-6" /></span><p className="text-sm font-bold text-muted">{error || t('noStoresFound')}</p></div>
+          ) : (
+            <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1fr)_360px]">
+              <article className="overflow-hidden rounded-3xl border border-line bg-surface shadow-card">
+                <div className="transit-ribbon h-1.5" />
+                <div className="p-5 sm:p-8">
+                  <div className="flex items-start gap-4">
+                    <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-store-soft text-store"><Store className="h-6 w-6" /></span>
+                    <div className="min-w-0"><span className="inline-flex rounded-xl bg-store-soft px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider text-store">{tCategory(store.category)}</span><h1 className="mt-3 text-2xl font-extrabold leading-tight text-ink">{tStoreName(store.name)}</h1></div>
+                  </div>
+                  <div className="mt-6 space-y-4 border-t border-line pt-6">
+                    {store.address && <div className="flex items-start gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-store-soft text-store"><MapPin className="h-4 w-4" /></span><div><p className="text-[10px] font-extrabold uppercase tracking-wider text-muted">Address</p><p className="mt-1 text-sm leading-relaxed text-ink">{tAddress(store.address)}</p></div></div>}
+                    {store.description && <div className="flex items-start gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-brand-soft text-brand"><CreditCard className="h-4 w-4" /></span><p className="pt-2 text-sm leading-relaxed text-muted">{store.description}</p></div>}
+                  </div>
+                  <a href={directionsHref} target="_blank" rel="noreferrer" className="mt-7 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-route px-5 text-sm font-bold text-white hover:bg-route/90"><Navigation className="h-4 w-4" />{t('showDirection')}</a>
                 </div>
-              )}
-              {store.description && (
-                <div className="flex items-start gap-2.5">
-                  <CreditCard className="w-4 h-4 text-gray-400 shrink-0 mt-0.5" />
-                  <p className="text-xs text-gray-600 leading-relaxed">
-                    {store.description}
-                  </p>
+              </article>
+
+              <section aria-labelledby="nearby-stops-title">
+                <div className="mb-3 flex items-center gap-3"><span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-bus-soft text-bus"><Bus className="h-5 w-5" /></span><div><p className="text-[10px] font-extrabold uppercase tracking-[0.16em] text-bus">YBS CONNECTIONS</p><h2 id="nearby-stops-title" className="text-base font-extrabold text-ink">{t('nearestBusStops')}</h2></div></div>
+                <div className="space-y-3">
+                  {nearbyStops?.nearbyBusStops?.length ? nearbyStops.nearbyBusStops.map((stop, index) => (
+                    <article key={`${stop.stopName}-${index}`} className="rounded-3xl border border-line bg-surface p-4 shadow-card">
+                      <div className="flex items-start justify-between gap-3"><div><h3 className="text-sm font-extrabold text-ink">{stop.stopName}</h3>{stop.roadTownship && <p className="mt-1 text-xs text-muted">{stop.roadTownship}</p>}</div><div className="flex shrink-0 flex-col items-end gap-1.5">{stop.distanceMeters !== undefined && <span className="font-mono-meta inline-flex items-center gap-1 rounded-xl bg-gps-soft px-2 py-1 text-[10px] font-bold text-gps"><Navigation className="h-3 w-3" />{toMmNum(stop.distanceMeters)} {t('meters')}</span>}{stop.walkTimeMinutes !== undefined && stop.walkTimeMinutes > 0 && <span className="font-mono-meta inline-flex items-center gap-1 rounded-xl bg-route-soft px-2 py-1 text-[10px] font-bold text-route"><Footprints className="h-3 w-3" />{toMmNum(stop.walkTimeMinutes)} {t('minutes')}</span>}</div></div>
+                      {!!stop.servicingBusNumbers?.length && <div className="mt-3 flex flex-wrap gap-1.5 border-t border-line pt-3">{Array.from(new Set(stop.servicingBusNumbers)).map((number) => <Link key={number} href={`/buses/${encodeURIComponent(number)}`} className={`font-mono-meta inline-flex min-h-9 min-w-9 items-center justify-center rounded-xl px-2 text-[10px] font-bold ${stop.ypsSupportedBusNumbers?.includes(number) ? 'bg-brand-soft text-brand' : 'bg-bus-soft text-bus'}`}>{toMmNum(number)}</Link>)}</div>}
+                    </article>
+                  )) : <div className="surface-card p-5 text-sm text-muted">{t('nearestBusStops')}: —</div>}
                 </div>
-              )}
+              </section>
             </div>
           )}
         </div>
-
-        {/* Nearby Bus Stops Section */}
-        {nearbyStops && nearbyStops.nearbyBusStops && nearbyStops.nearbyBusStops.length > 0 && (
-          <div className="space-y-3">
-            <h2 className="flex items-center gap-2 text-xs font-bold text-gray-600 uppercase tracking-wider pl-1">
-              <Bus className="w-4 h-4 text-[#725c00]" />
-              {t('nearestBusStops')}
-            </h2>
-            
-            <div className="grid gap-3">
-              {nearbyStops.nearbyBusStops.map((stop, idx) => (
-                <div key={idx} className="bg-white border border-[#e2e2e5] rounded-xl p-4 shadow-sm space-y-3 hover:border-gray-300 transition-colors">
-                  <div className="flex justify-between items-start gap-3">
-                    <div>
-                      <h3 className="text-sm font-bold text-[#1a1c1e]">
-                        {stop.stopName}
-                      </h3>
-                      {stop.roadTownship && (
-                        <p className="text-[11px] text-gray-500 mt-1">
-                          {stop.roadTownship}
-                        </p>
-                      )}
-                    </div>
-                    
-                    <div className="flex flex-col items-end gap-1.5 shrink-0">
-                      {stop.distanceMeters !== undefined && (
-                        <span className="inline-flex items-center gap-1 font-mono-meta text-[10px] bg-[#ebf2f8] text-[#1d5fa8] px-2 py-0.5 rounded-md border border-[#7ab0ff]/30">
-                          <Navigation className="w-3 h-3" />
-                          {toMmNum(stop.distanceMeters)} {t('meters')}
-                        </span>
-                      )}
-                      {stop.walkTimeMinutes !== undefined && stop.walkTimeMinutes > 0 && (
-                        <span className="inline-flex items-center gap-1 font-mono-meta text-[10px] bg-[#fff9e6] text-[#725c00] px-2 py-0.5 rounded-md border border-[#ffe07c]">
-                          <Footprints className="w-3 h-3" />
-                          {toMmNum(stop.walkTimeMinutes)} min
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  {stop.servicingBusNumbers && stop.servicingBusNumbers.length > 0 && (
-                    <div className="pt-2 border-t border-gray-50 flex flex-wrap gap-1.5">
-                      {Array.from(new Set(stop.servicingBusNumbers)).map((busNum, bIdx) => {
-                        const isYps = stop.ypsSupportedBusNumbers?.includes(busNum);
-                        return (
-                          <Link
-                            key={`${busNum}-${bIdx}`}
-                            href={`/buses/${encodeURIComponent(busNum)}`}
-                            className={`text-[10px] font-bold px-2 py-0.5 rounded-full transition-colors ${
-                              isYps 
-                                ? 'bg-[#fff9e6] text-[#725c00] border border-[#ffe07c] hover:bg-[#ffe07c]/50'
-                                : 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200'
-                            }`}
-                          >
-                            {toMmNum(busNum)}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
-    </div>
+    </AppShell>
   );
 }
