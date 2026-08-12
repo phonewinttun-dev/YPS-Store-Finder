@@ -239,7 +239,7 @@ export default function MapViewContainer({
       const popup = document.createElement('div');
       popup.className = 'max-w-[260px] p-1';
       const badge = document.createElement('span');
-      badge.className = 'inline-flex rounded-full bg-store-soft px-2 py-1 text-[10px] font-bold text-store';
+      badge.className = 'ui-badge inline-flex border-store/30 bg-store-soft text-store';
       badge.textContent = tCategory(store.category);
       const heading = document.createElement('strong');
       heading.className = 'mt-2 block text-sm font-bold text-ink';
@@ -253,7 +253,7 @@ export default function MapViewContainer({
       }
       const direction = document.createElement('button');
       direction.type = 'button';
-      direction.className = 'mt-3 min-h-11 w-full rounded-[14px] bg-route-action px-3 text-xs font-bold text-white';
+      direction.className = 'ui-button mt-3 min-h-11 w-full bg-route-action px-3 text-xs font-bold text-white';
       direction.textContent = t('showDirection');
       direction.addEventListener('click', (event) => {
         event.stopPropagation();
@@ -268,7 +268,7 @@ export default function MapViewContainer({
   return (
     <div className="relative flex h-full min-h-0 w-full flex-col">
       {previewStore && (
-        <div className={`glass-panel absolute left-3 right-3 top-3 z-[600] max-w-sm rounded-[24px] border p-3 shadow-soft sm:left-5 sm:right-auto ${routeStore ? 'border-route/60' : 'border-store/55'}`}>
+        <div className={`glass-panel ui-card absolute left-3 right-3 top-3 z-[600] max-w-sm p-3 shadow-soft sm:left-5 sm:right-auto ${routeStore ? 'border-route/60' : 'border-store/55'}`}>
           <div className="flex items-start gap-3">
             <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] ${routeStore ? 'bg-route-soft text-route' : 'bg-store-soft text-store'}`}>
               {routeStore ? <Route className="h-5 w-5" /> : <MapPin className="h-5 w-5" />}
@@ -279,12 +279,12 @@ export default function MapViewContainer({
                 {isLoadingRoute ? <span className="text-route">{t('calculatingRoute')}</span> : routeInfo ? <><span className="font-bold text-route">{toMmNum(routeInfo.distanceKm)} {t('km')}</span><span aria-hidden="true">•</span><span className="flex items-center gap-1"><Clock className="h-3 w-3" />~{toMmNum(routeInfo.durationMin)} {t('minutes')}</span></> : <span>{tCategory(previewStore.category)}</span>}
               </div>
             </div>
-            <button type="button" onClick={() => onCloseDirection?.()} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-elevated text-muted hover:text-ink" aria-label={t('close')}><X className="h-4 w-4" /></button>
+            <button type="button" onClick={() => onCloseDirection?.()} className="ui-button flex h-11 w-11 shrink-0 items-center justify-center border border-transparent bg-elevated text-muted hover:text-ink" aria-label={t('close')}><X className="h-4 w-4" /></button>
           </div>
           {!routeStore && (
             <div className="mt-3 grid grid-cols-2 gap-2">
-              <button type="button" onClick={() => onShowDirection?.(previewStore)} className="flex min-h-11 items-center justify-center gap-2 rounded-[14px] bg-route-action text-xs font-bold text-white"><Navigation className="h-4 w-4" />{t('showDirection')}</button>
-              <Link href={`/stores/${previewStore.id}`} className="flex min-h-11 items-center justify-center gap-2 rounded-[14px] border border-line bg-surface text-xs font-bold text-ink"><Store className="h-4 w-4" />{t('storeDetails')}</Link>
+              <button type="button" onClick={() => onShowDirection?.(previewStore)} className="ui-button flex min-h-11 items-center justify-center gap-2 bg-route-action text-xs font-bold text-white"><Navigation className="h-4 w-4" />{t('showDirection')}</button>
+              <Link href={`/stores/${previewStore.id}`} className="ui-button flex min-h-11 items-center justify-center gap-2 border border-line bg-surface text-xs font-bold text-ink"><Store className="h-4 w-4" />{t('storeDetails')}</Link>
             </div>
           )}
         </div>

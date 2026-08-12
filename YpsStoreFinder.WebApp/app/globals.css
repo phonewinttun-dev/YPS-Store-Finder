@@ -5,15 +5,15 @@
 @layer base {
   :root,
   :root[data-theme='light'] {
-    --canvas: 242 242 247;
+    --canvas: 246 248 252;
     --surface: 255 255 255;
-    --surface-elevated: 229 229 234;
-    --ink: 28 28 30;
-    --muted: 99 99 102;
-    --line: 142 142 147;
+    --surface-elevated: 238 242 248;
+    --ink: 15 23 42;
+    --muted: 76 91 113;
+    --line: 132 146 168;
     --brand: 107 86 0;
     --brand-soft: 255 244 191;
-    --brand-ink: 51 41 0;
+    --brand-ink: 255 255 255;
     --store: 162 59 43;
     --store-soft: 255 240 235;
     --bus: 0 91 191;
@@ -29,17 +29,17 @@
     --gps-action: 24 115 59;
     --route-action: 79 70 199;
     --danger-action: 189 38 56;
-    --shadow: 60 60 67;
+    --shadow: 36 48 71;
     --map-filter: none;
   }
 
   :root[data-theme='dark'] {
-    --canvas: 0 0 0;
-    --surface: 28 28 30;
-    --surface-elevated: 44 44 46;
-    --ink: 245 245 247;
-    --muted: 174 174 178;
-    --line: 108 108 112;
+    --canvas: 3 7 17;
+    --surface: 7 12 24;
+    --surface-elevated: 16 24 40;
+    --ink: 248 250 252;
+    --muted: 168 180 200;
+    --line: 92 108 132;
     --brand: 255 214 10;
     --brand-soft: 56 47 0;
     --brand-ink: 28 22 0;
@@ -78,7 +78,7 @@
     background: rgb(var(--canvas));
     color: rgb(var(--ink));
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    font-feature-settings: 'kern' 1, 'liga' 1;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'ss01' 1;
     line-height: 1.45;
     -webkit-tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
@@ -92,11 +92,20 @@
     font-family: 'Myanmar Sangam MN', var(--font-myanmar), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 
+  html[lang='my'] .ui-page-title {
+    letter-spacing: 0;
+    line-height: 1.35;
+  }
+
   button,
   input,
   select,
   textarea {
     font: inherit;
+  }
+
+  input[type='search']::-webkit-search-cancel-button {
+    appearance: none;
   }
 
   :focus:not(:focus-visible) {
@@ -116,59 +125,102 @@
 
 @layer components {
   .surface-card {
-    @apply rounded-3xl border border-line bg-surface shadow-card;
+    @apply border border-line bg-surface shadow-card;
+    border-radius: 18px;
   }
 
   .control-button {
-    @apply inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-line bg-surface text-ink transition-colors hover:bg-elevated;
+    @apply inline-flex min-h-11 min-w-11 items-center justify-center border border-line bg-surface text-ink transition-colors hover:bg-elevated;
+    border-radius: 12px;
   }
 
-  .ios-material {
-    background: rgb(var(--surface) / 0.82);
-    border-color: rgb(var(--line) / 0.62);
-    backdrop-filter: saturate(180%) blur(28px);
-    -webkit-backdrop-filter: saturate(180%) blur(28px);
+  .ui-material {
+    background: rgb(var(--surface) / 0.9);
+    border-color: rgb(var(--line) / 0.7);
+    backdrop-filter: saturate(140%) blur(22px);
+    -webkit-backdrop-filter: saturate(140%) blur(22px);
   }
 
-  .ios-grouped-card {
+  .ui-card {
     @apply border border-line bg-surface shadow-card;
-    border-radius: 22px;
+    border-radius: 18px;
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.08),
+      0 1px 2px rgb(var(--shadow) / 0.08),
+      0 12px 32px rgb(var(--shadow) / 0.08);
   }
 
-  .ios-control {
-    @apply inline-flex min-h-11 items-center justify-center border border-line bg-surface px-4 text-sm font-semibold text-ink transition-colors hover:bg-elevated;
-    border-radius: 14px;
+  .ui-control {
+    @apply inline-flex min-h-11 items-center justify-center border border-line bg-surface px-4 text-sm font-semibold text-ink transition-colors hover:border-ink/45 hover:bg-elevated;
+    border-radius: 12px;
   }
 
-  .ios-search-field {
-    @apply h-12 w-full border border-line bg-elevated text-base text-ink placeholder:text-muted;
-    border-radius: 14px;
-    box-shadow: inset 0 1px 0 rgb(var(--surface) / 0.46);
+  .ui-button {
+    border-radius: 12px;
+    transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
   }
 
-  .ios-search-field:focus-visible {
+  .ui-button:not(:disabled):active {
+    transform: translateY(1px) scale(0.985);
+  }
+
+  .ui-search-field {
+    @apply h-12 w-full border border-line bg-surface text-base text-ink placeholder:text-muted;
+    border-radius: 12px;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
+  }
+
+  .ui-search-field:focus-visible {
     border-color: rgb(var(--bus));
+    box-shadow: 0 0 0 3px rgb(var(--bus) / 0.16);
   }
 
-  .ios-large-title {
-    font-size: clamp(1.75rem, 1.55rem + 0.9vw, 2.125rem);
-    font-weight: 750;
-    letter-spacing: -0.035em;
-    line-height: 1.12;
+  .ui-page-title {
+    font-size: clamp(1.75rem, 1.5rem + 1vw, 2.25rem);
+    font-weight: 780;
+    letter-spacing: -0.045em;
+    line-height: 1.08;
   }
 
-  .ios-section-label {
+  .ui-eyebrow {
     @apply text-muted;
     font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
+    font-weight: 760;
+    letter-spacing: 0.1em;
     line-height: 1.2;
     text-transform: uppercase;
   }
 
-  .ios-segmented-control {
-    @apply grid bg-elevated p-1;
+  .ui-segmented-control {
+    @apply grid border border-line bg-elevated p-1;
     border-radius: 12px;
+  }
+
+  .ui-badge {
+    @apply inline-flex items-center gap-1.5 border px-2.5 py-1.5 text-[10px] font-bold;
+    border-radius: 999px;
+  }
+
+  .ui-interactive-card {
+    transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+  }
+
+  .ui-interactive-card:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.1),
+      0 18px 42px rgb(var(--shadow) / 0.13);
+  }
+
+  .ui-dot-grid {
+    background-color: rgb(var(--canvas));
+    background-image: radial-gradient(rgb(var(--line) / 0.22) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+
+  .ui-dashed-divider {
+    border-color: rgb(var(--line) / 0.55);
+    border-style: dashed;
   }
 
   .transit-ribbon {
@@ -182,7 +234,8 @@
   }
 
   .skip-link {
-    @apply fixed left-4 top-3 z-[5000] -translate-y-24 rounded-full bg-ink px-5 py-3 text-sm font-bold text-surface shadow-soft transition-transform focus:translate-y-0;
+    @apply fixed left-4 top-3 z-[5000] -translate-y-24 bg-ink px-5 py-3 text-sm font-bold text-surface shadow-soft transition-transform focus:translate-y-0;
+    border-radius: 12px;
   }
 }
 
@@ -191,15 +244,25 @@
   font-variant-numeric: tabular-nums;
 }
 
+.yps-sidebar {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Myanmar Sangam MN', var(--font-myanmar), sans-serif;
+  font-optical-sizing: auto;
+  letter-spacing: -0.005em;
+}
+
+html[lang='my'] .yps-sidebar {
+  letter-spacing: 0;
+}
+
 .theme-select option {
   background: rgb(var(--surface));
   color: rgb(var(--ink));
 }
 
 .glass-panel {
-  background: rgb(var(--surface) / 0.86);
-  backdrop-filter: saturate(180%) blur(28px);
-  -webkit-backdrop-filter: saturate(180%) blur(28px);
+  background: rgb(var(--surface) / 0.92);
+  backdrop-filter: saturate(140%) blur(22px);
+  -webkit-backdrop-filter: saturate(140%) blur(22px);
 }
 
 .scrollable-panel {
@@ -234,7 +297,7 @@
 
 .leaflet-popup-content-wrapper {
   border: 1px solid rgb(var(--line));
-  border-radius: 20px !important;
+  border-radius: 16px !important;
   box-shadow: 0 20px 60px rgb(var(--shadow) / 0.2) !important;
 }
 
@@ -251,7 +314,7 @@
 .leaflet-control-zoom {
   overflow: hidden;
   border: 1px solid rgb(var(--line)) !important;
-  border-radius: 14px !important;
+  border-radius: 12px !important;
   box-shadow: 0 8px 28px rgb(var(--shadow) / 0.14) !important;
 }
 
@@ -293,11 +356,16 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  .ui-interactive-card:hover,
+  .ui-button:not(:disabled):active {
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-transparency: reduce) {
   .glass-panel,
-  .ios-material,
+  .ui-material,
   .leaflet-control-zoom a,
   .leaflet-control-attribution {
     background: rgb(var(--surface)) !important;
@@ -323,9 +391,10 @@
   }
 
   .surface-card,
-  .ios-grouped-card,
-  .ios-control,
-  .ios-search-field {
+  .ui-card,
+  .ui-control,
+  .ui-search-field,
+  .ui-button {
     border-width: 2px;
   }
 }

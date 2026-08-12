@@ -11,14 +11,14 @@ import {
   MapPin,
   Navigation,
   RefreshCw,
-  Search,
   Store,
-  X,
 } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { fetchNearbyBusStopsForStore } from '../services/api';
 import { StoreNearbyBusStopsDto } from '../types/bus';
 import { CategorySummaryDto, PaginationDto, StoreDto, UserLocationState } from '../types/store';
+import SearchField from './ui/SearchField';
+import StatusBadge from './ui/StatusBadge';
 
 interface StoreDrawerProps {
   stores: StoreDto[];
@@ -101,37 +101,22 @@ export default function StoreDrawer({
     <section className="flex h-full min-h-0 w-full min-w-0 max-w-full flex-col overflow-hidden bg-surface" aria-label={t('stores')}>
       <div className="transit-ribbon h-1 w-full shrink-0" />
       <div className="shrink-0 border-b border-line bg-surface px-4 pb-4 pt-3">
-        <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
+        <div className="mb-3 grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
           <div className="min-w-0">
-            <p className="ios-section-label text-store">YPS TRANSIT EXPLORER</p>
-            <h1 className="ios-large-title mt-1 text-ink">{t('stores')}</h1>
+            <p className="ui-eyebrow text-store">YPS TRANSIT EXPLORER</p>
+            <h1 className="ui-page-title mt-1 text-ink">{t('stores')}</h1>
           </div>
-          <span className="font-mono-meta inline-flex min-h-9 shrink-0 items-center rounded-full bg-store-soft px-3 text-xs font-bold text-store" aria-live="polite">
+          <StatusBadge tone="store" mono className="min-h-9 max-w-28 justify-center whitespace-normal text-center text-xs leading-relaxed" aria-live="polite">
             {toMmNum(pagination?.totalCount ?? stores.length)} {t('resultCount')}
-          </span>
+          </StatusBadge>
         </div>
 
-        <div className="relative">
-          <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
-          <input
-            type="search"
-            value={searchQuery}
-            onChange={(event) => onSearchChange(event.target.value)}
-            placeholder={t('searchPlaceholder')}
-            aria-label={t('searchPlaceholder')}
-            className="ios-search-field pl-11 pr-12"
-          />
-          {searchQuery && (
-            <button
-              type="button"
-              onClick={() => onSearchChange('')}
-              className="absolute right-0.5 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full text-muted hover:bg-surface hover:text-ink"
-              aria-label={t('close')}
-            >
-              <X className="h-4 w-4" />
-            </button>
-          )}
-        </div>
+        <SearchField
+          value={searchQuery}
+          onChange={onSearchChange}
+          placeholder={t('searchPlaceholder')}
+          clearLabel={t('close')}
+        />
 
         <div className="custom-scrollbar mt-3 flex gap-2 overflow-x-auto pb-1">
           <button
@@ -140,7 +125,7 @@ export default function StoreDrawer({
               onSelectCategory(null);
               if (!isShowAllStoresMode) onToggleShowAllStores();
             }}
-            className={`min-h-11 shrink-0 rounded-full px-4 text-xs font-semibold ${
+            className={`ui-button min-h-11 shrink-0 border px-4 text-xs font-semibold ${
               selectedCategory === null && isShowAllStoresMode
                 ? 'bg-brand-soft text-brand ring-1 ring-brand/30'
                 : 'border border-line bg-surface text-muted hover:bg-elevated hover:text-ink'
@@ -154,7 +139,7 @@ export default function StoreDrawer({
               if (isShowAllStoresMode || !locationState.isTracking) onToggleLocation();
               else onToggleShowAllStores();
             }}
-            className={`flex min-h-11 shrink-0 items-center gap-2 rounded-full px-4 text-xs font-semibold ${
+            className={`ui-button flex min-h-11 shrink-0 items-center gap-2 border px-4 text-xs font-semibold ${
               locationState.isTracking && !isShowAllStoresMode
                 ? 'bg-gps-soft text-gps ring-1 ring-gps/30'
                 : 'border border-line bg-surface text-muted hover:bg-elevated hover:text-ink'
@@ -168,7 +153,7 @@ export default function StoreDrawer({
               type="button"
               key={category.category}
               onClick={() => onSelectCategory(category.category)}
-              className={`flex min-h-11 shrink-0 items-center gap-2 rounded-full px-4 text-xs font-semibold ${
+              className={`ui-button flex min-h-11 shrink-0 items-center gap-2 border px-4 text-xs font-semibold ${
                 selectedCategory === category.category
                   ? 'bg-store-soft text-store ring-1 ring-store/30'
                   : 'border border-line bg-surface text-muted hover:bg-elevated hover:text-ink'
@@ -190,14 +175,14 @@ export default function StoreDrawer({
 
       <div onScroll={handleScroll} className="custom-scrollbar scrollable-panel min-h-0 flex-1 space-y-2.5 overflow-y-auto bg-canvas p-2.5 pb-24 sm:p-3">
         {apiError && (
-          <div className="ios-grouped-card border-danger/35 bg-danger-soft p-4 text-danger" role="alert">
+          <div className="ui-card border-danger/35 bg-danger-soft p-4 text-danger" role="alert">
             <div className="flex items-center gap-2 text-sm font-bold">
               <AlertCircle className="h-4 w-4" />
               {t('apiErrorTitle')}
             </div>
             <p className="mt-2 text-xs leading-relaxed">{apiError}</p>
             {onRetry && (
-              <button type="button" onClick={onRetry} className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-[14px] bg-danger-action px-4 text-xs font-bold text-white">
+              <button type="button" onClick={onRetry} className="ui-button mt-3 inline-flex min-h-11 items-center gap-2 bg-danger-action px-4 text-xs font-bold text-white">
                 <RefreshCw className="h-4 w-4" /> {t('retryConnection')}
               </button>
             )}
@@ -223,7 +208,7 @@ export default function StoreDrawer({
           const selected = selectedStoreId === store.id;
           const stops = busInfo[store.id]?.nearbyBusStops ?? [];
           return (
-            <article key={store.id} className={`ios-grouped-card overflow-hidden transition ${selected ? 'border-store ring-2 ring-store/20' : 'hover:border-store/60'}`}>
+            <article key={store.id} className={`ui-card ui-interactive-card overflow-hidden ${selected ? 'border-store ring-2 ring-store/20' : 'hover:border-store/60'}`}>
               <button type="button" onClick={() => onSelectStore(store)} className="block min-h-11 w-full p-4 text-left" aria-expanded={selected}>
                 <div className="flex items-start gap-3">
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-store-soft text-store"><MapPin className="h-5 w-5" /></span>
@@ -242,14 +227,14 @@ export default function StoreDrawer({
               {selected && (
                 <div className="border-t border-line bg-elevated/60 p-3">
                   <div className="grid grid-cols-2 gap-2">
-                    <button type="button" onClick={() => onShowDirection(store)} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[14px] bg-route-action text-xs font-bold text-white hover:bg-route-action/90">
+                    <button type="button" onClick={() => onShowDirection(store)} className="ui-button inline-flex min-h-11 items-center justify-center gap-2 bg-route-action text-xs font-bold text-white hover:bg-route-action/90">
                       <Navigation className="h-4 w-4" /> {t('showDirection')}
                     </button>
-                    <Link href={`/stores/${store.id}`} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[14px] border border-line bg-surface text-xs font-bold text-ink hover:bg-elevated">
+                    <Link href={`/stores/${store.id}`} className="ui-button inline-flex min-h-11 items-center justify-center gap-2 border border-line bg-surface text-xs font-bold text-ink hover:bg-elevated">
                       <Store className="h-4 w-4" /> {t('storeDetails')}
                     </Link>
                   </div>
-                  <button type="button" onClick={() => toggleStops(store.id)} className="mt-2 flex min-h-11 w-full items-center justify-between rounded-[14px] bg-bus-soft px-3 text-xs font-bold text-bus" aria-expanded={!!expandedStops[store.id]}>
+                  <button type="button" onClick={() => toggleStops(store.id)} className="ui-button mt-2 flex min-h-11 w-full items-center justify-between bg-bus-soft px-3 text-xs font-bold text-bus" aria-expanded={!!expandedStops[store.id]}>
                     <span className="flex items-center gap-2"><Bus className="h-4 w-4" /> {t('showBusStops')}</span>
                     {loadingBusInfo[store.id] ? <RefreshCw className="h-4 w-4 animate-spin" /> : <ChevronDown className={`h-4 w-4 transition-transform ${expandedStops[store.id] ? 'rotate-180' : ''}`} />}
                   </button>
