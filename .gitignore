@@ -380,6 +380,5 @@ out/
 *.sqlite
 *.sqlite3
 
-YpsStoreFinder.Database\Data
 AGENTS.md
 .rules
