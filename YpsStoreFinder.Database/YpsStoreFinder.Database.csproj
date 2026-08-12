@@ -16,13 +16,7 @@
   </ItemGroup>
 
  <ItemGroup>
-  <None Update="Data\yps_store_locations.json">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </None>
-  <None Update="Data\yps_ybs_bus_lines.json">
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </None>
-  <None Update="Data\bus_routes.json">
+  <None Update="Data\*.json">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </None>
 </ItemGroup>
