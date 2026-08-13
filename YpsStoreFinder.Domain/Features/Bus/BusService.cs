@@ -134,16 +134,13 @@ namespace YpsStoreFinder.Domain.Features.Bus
 
             try
             {
-                TblBusLine? busLine;
-                if (int.TryParse(cleanNum, out var parsedRouteId))
+                TblBusLine? busLine = await _context.TblBusLines.AsNoTracking()
+                    .FirstOrDefaultAsync(r => r.BusNumber == cleanNum, cancellationToken);
+
+                if (busLine == null && int.TryParse(cleanNum, out var parsedRouteId))
                 {
                     busLine = await _context.TblBusLines.AsNoTracking()
-                        .FirstOrDefaultAsync(r => r.RouteId == parsedRouteId || r.BusNumber == cleanNum, cancellationToken);
-                }
-                else
-                {
-                    busLine = await _context.TblBusLines.AsNoTracking()
-                        .FirstOrDefaultAsync(r => r.BusNumber == cleanNum, cancellationToken);
+                        .FirstOrDefaultAsync(r => r.RouteId == parsedRouteId, cancellationToken);
                 }
 
                 if (busLine == null)
