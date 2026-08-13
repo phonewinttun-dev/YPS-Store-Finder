@@ -213,8 +213,37 @@ namespace YpsStoreFinder.Domain.Features.Bus
                     return Result<StoreNearbyBusStopsDto>.Failure($"Store with ID {storeId} was not found.");
                 }
 
-                var servicingBuses = store.ServingBusLines?.Where(sb => sb.BusNumber != null).Select(sb => sb.BusNumber!).Distinct().OrderBy(b => b.Length).ThenBy(b => b).ToList() ?? new List<string>();
-                var ypsSupportedBuses = store.ServingBusLines?.Where(sb => sb.BusNumber != null && sb.BusLine?.IsYpsAccepted == true).Select(sb => sb.BusNumber!).Distinct().OrderBy(b => b.Length).ThenBy(b => b).ToList() ?? new List<string>();
+                var stopIds = store.NearestStops?
+                    .Where(ns => ns.MatchedStopId != null)
+                    .Select(ns => ns.MatchedStopId!.Value)
+                    .Distinct()
+                    .ToList() ?? new List<int>();
+
+                var routeStops = stopIds.Count > 0
+                    ? await _context.TblRouteStops
+                        .AsNoTracking()
+                        .Include(rs => rs.BusLine)
+                        .Where(rs => stopIds.Contains(rs.StopId) && rs.BusLine != null && rs.BusLine.BusNumber != null)
+                        .ToListAsync(cancellationToken)
+                    : new List<TblRouteStop>();
+
+                var servicingBusesByStopId = routeStops
+                    .GroupBy(rs => rs.StopId)
+                    .ToDictionary(
+                        g => g.Key,
+                        g => g.Select(rs => rs.BusLine!.BusNumber!).Distinct().OrderBy(b => b.Length).ThenBy(b => b).ToList()
+                    );
+
+                var ypsBusesByStopId = routeStops
+                    .Where(rs => rs.BusLine!.IsYpsAccepted)
+                    .GroupBy(rs => rs.StopId)
+                    .ToDictionary(
+                        g => g.Key,
+                        g => g.Select(rs => rs.BusLine!.BusNumber!).Distinct().OrderBy(b => b.Length).ThenBy(b => b).ToList()
+                    );
+
+                var storeFallbackServicingBuses = store.ServingBusLines?.Where(sb => sb.BusNumber != null).Select(sb => sb.BusNumber!).Distinct().OrderBy(b => b.Length).ThenBy(b => b).ToList() ?? new List<string>();
+                var storeFallbackYpsBuses = store.ServingBusLines?.Where(sb => sb.BusNumber != null && sb.BusLine?.IsYpsAccepted == true).Select(sb => sb.BusNumber!).Distinct().OrderBy(b => b.Length).ThenBy(b => b).ToList() ?? new List<string>();
 
                 var nearbyStops = new List<NearbyBusStopItem>();
 
@@ -222,6 +251,14 @@ namespace YpsStoreFinder.Domain.Features.Bus
                 {
                     foreach (var ns in store.NearestStops)
                     {
+                        var stopIdKey = ns.MatchedStopId ?? 0;
+                        var stopServicingBuses = servicingBusesByStopId.TryGetValue(stopIdKey, out var sbList) && sbList.Count > 0
+                            ? sbList
+                            : storeFallbackServicingBuses;
+                        var stopYpsBuses = ypsBusesByStopId.TryGetValue(stopIdKey, out var ypsList) && ypsList.Count > 0
+                            ? ypsList
+                            : storeFallbackYpsBuses;
+
                         nearbyStops.Add(new NearbyBusStopItem
                         {
                             StopId = ns.MatchedStopId,
@@ -231,8 +268,8 @@ namespace YpsStoreFinder.Domain.Features.Bus
                             RoadEn = ns.MatchedStop?.RoadEn ?? string.Empty,
                             TownshipNameMm = ns.MatchedStop?.Township?.TownshipNameMm ?? store.Township?.TownshipNameMm ?? string.Empty,
                             TownshipNameEn = ns.MatchedStop?.Township?.TownshipNameEn ?? store.Township?.TownshipNameEn ?? string.Empty,
-                            ServicingBusNumbers = servicingBuses,
-                            YpsSupportedBusNumbers = ypsSupportedBuses
+                            ServicingBusNumbers = stopServicingBuses,
+                            YpsSupportedBusNumbers = stopYpsBuses
                         });
                     }
                 }

@@ -56,7 +56,7 @@ const uiStrings: Record<Language, Record<string, string>> = {
     languageToggle: 'ဘာသာစကား ပြောင်းရန်',
     themeSelector: 'Theme ရွေးရန်',
     skipToContent: 'အဓိကအကြောင်းအရာသို့ ကျော်ရန်',
-    resultCount: 'ဆိုင်ပေါင်း',
+    resultCount: 'ဆိုင်',
     allBusLines: 'ယာဉ်လိုင်းအားလုံး',
     ypsOnlyLines: 'YPS ကတ် အသုံးပြုနိုင်သော ယာဉ်လိုင်းများ',
     showBusStops: 'အနီးရှိ မှတ်တိုင်များ',
@@ -201,7 +201,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const tStoreCount = (count: number | string | null | undefined) => {
     if (count === null || count === undefined) return '';
     const numText = toMmNum(count);
-    return language === 'my' ? `ဆိုင်ပေါင်း ${numText}` : `${numText} stores`;
+    return language === 'my' ? `ဆိုင် ${numText}` : `${numText} stores`;
   };
 
   const toggleLanguage = useCallback(
