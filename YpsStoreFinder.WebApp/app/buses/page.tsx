@@ -13,7 +13,7 @@ import StatusBadge from '../../components/ui/StatusBadge';
 const BATCH_SIZE = 20;
 
 export default function BusesPage() {
-  const { t, toMmNum } = useLanguage();
+  const { t, toMmNum, tBusCount } = useLanguage();
   const [allBusLines, setAllBusLines] = useState<BusLineDto[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterYpsOnly, setFilterYpsOnly] = useState(false);
@@ -71,7 +71,7 @@ export default function BusesPage() {
                 <p className="ui-eyebrow text-bus">YANGON BUS EXPLORER</p>
                 <h1 className="ui-page-title mt-1 text-ink">{t('ybsBusLines')}</h1>
               </div>
-              <StatusBadge tone="bus" mono className="min-h-9 text-xs" aria-live="polite">{toMmNum(filteredBusLines.length)} {t('resultCount')}</StatusBadge>
+              <StatusBadge tone="bus" mono className="min-h-9 text-xs" aria-live="polite">{tBusCount(filteredBusLines.length)}</StatusBadge>
             </div>
 
             <div className="mt-5 grid gap-3 md:grid-cols-[minmax(0,1fr)_auto]">

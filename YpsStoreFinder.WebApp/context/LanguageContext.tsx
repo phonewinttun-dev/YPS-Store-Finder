@@ -16,6 +16,7 @@ interface LanguageContextType {
   tStoreName: (name: string) => string;
   toMmNum: (value: number | string | null | undefined) => string;
   tStoreCount: (count: number | string | null | undefined) => string;
+  tBusCount: (count: number | string | null | undefined) => string;
 }
 
 const uiStrings: Record<Language, Record<string, string>> = {
@@ -204,6 +205,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return language === 'my' ? `ဆိုင် ${numText}` : `${numText} stores`;
   };
 
+  const tBusCount = (count: number | string | null | undefined) => {
+    if (count === null || count === undefined) return '';
+    const numText = toMmNum(count);
+    return language === 'my' ? `ယာဉ်လိုင်းပေါင်း ${numText} လိုင်း` : `${numText} buses`;
+  };
+
   const toggleLanguage = useCallback(
     () => setLanguage(language === 'my' ? 'en' : 'my'),
     [language, setLanguage]
@@ -219,6 +226,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     tStoreName,
     toMmNum,
     tStoreCount,
+    tBusCount,
   };
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
