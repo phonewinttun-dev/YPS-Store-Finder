@@ -1,55 +1,68 @@
 import type { Metadata, Viewport } from 'next';
+import { Noto_Sans_Myanmar } from 'next/font/google';
 import { LanguageProvider } from '../context/LanguageContext';
 import AppProviders from '../context/AppProviders';
 import PwaRegister from '../components/PwaRegister';
 import './globals.css';
 
+const notoMyanmar = Noto_Sans_Myanmar({
+  variable: '--font-myanmar',
+  subsets: ['myanmar'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+});
+
 export const metadata: Metadata = {
   title: 'YPS Store Finder',
-  description: 'Interactive store finder and location tracker for YPS service counters, agents, capital markets, and cinemas in Yangon.',
+  description: 'Find YPS stores, nearby YBS stops, and bus routes across Yangon.',
   manifest: '/manifest.json',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'YPS Finder',
-  },
-  formatDetection: {
-    telephone: false,
-  },
+  appleWebApp: { capable: true, statusBarStyle: 'default', title: 'YPS Finder' },
+  formatDetection: { telephone: false },
   icons: {
-    icon: '/icons/icon-192x192.png',
+    icon: [
+      { url: '/brand/yps-finder-mark.svg', type: 'image/svg+xml' },
+      { url: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+    ],
     apple: '/icons/icon-192x192.png',
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#725c00',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#F6F8FC' },
+    { media: '(prefers-color-scheme: dark)', color: '#030711' },
+  ],
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   viewportFit: 'cover',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+const themeBootScript = `
+  (() => {
+    try {
+      const preference = localStorage.getItem('yps_theme') || 'system';
+      const theme = preference === 'system'
+        ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        : preference;
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+    } catch (_) {}
+  })();
+`;
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="my">
+    <html lang="my" suppressHydrationWarning>
       <head>
-        <link rel="manifest" href="/manifest.json" />
+        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="application-name" content="YPS Finder" />
       </head>
-      <body className="antialiased font-sans bg-[#f9f9fc] text-[#1a1c1e] select-none touch-manipulation overscroll-none">
+      <body className={`${notoMyanmar.variable} antialiased`}>
         <AppProviders>
-          <LanguageProvider>
-            {children}
-          </LanguageProvider>
+          <LanguageProvider>{children}</LanguageProvider>
         </AppProviders>
         <PwaRegister />
       </body>

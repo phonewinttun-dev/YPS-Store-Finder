@@ -21,9 +21,9 @@ const DynamicMapViewContainer = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full h-full min-h-0 bg-[#eeeef0] flex flex-col items-center justify-center text-gray-500 gap-3">
-        <div className="w-8 h-8 border-3 border-[#1d5fa8] border-t-transparent rounded-full animate-spin"></div>
-        <p className="text-sm font-medium">Loading Interactive Map...</p>
+      <div className="flex h-full min-h-0 w-full flex-col items-center justify-center gap-3 bg-canvas text-muted" role="status">
+        <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-bus border-t-transparent" />
+        <p className="text-sm font-medium">Loading map…</p>
       </div>
     ),
   }
@@ -31,7 +31,7 @@ const DynamicMapViewContainer = dynamic(
 
 export default function MapView(props: MapViewProps) {
   return (
-    <div className="flex-1 min-h-0 flex flex-col w-full relative">
+    <div className="relative flex h-full min-h-0 w-full flex-col">
       <DynamicMapViewContainer {...props} />
     </div>
   );

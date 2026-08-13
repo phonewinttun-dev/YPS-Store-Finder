@@ -15,6 +15,9 @@ const API_BASE_URL =
   "http://localhost:5257" ||
   "https://localhost:7261";
 
+const errorMessage = (error: unknown, fallback: string) =>
+  error instanceof Error ? error.message : fallback;
+
 export async function fetchStores(
   category?: string,
 ): Promise<ApiResult<StoreDto[]>> {
@@ -25,10 +28,10 @@ export async function fetchStores(
     const res = await fetch(url.toString(), { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
-  } catch (err: any) {
+  } catch (err: unknown) {
     return {
       isSuccess: false,
-      message: err.message || "Failed to fetch stores.",
+      message: errorMessage(err, "Failed to fetch stores."),
       data: null,
       isFailure: true,
     };
@@ -52,10 +55,10 @@ export async function searchStores(
     const res = await fetch(url.toString(), { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
-  } catch (err: any) {
+  } catch (err: unknown) {
     return {
       isSuccess: false,
-      message: err.message || "Failed to search stores.",
+      message: errorMessage(err, "Failed to search stores."),
       data: [],
       pagination: null,
       isFailure: true,
@@ -72,10 +75,10 @@ export async function fetchCategoriesSummary(): Promise<
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
-  } catch (err: any) {
+  } catch (err: unknown) {
     return {
       isSuccess: false,
-      message: err.message || "Failed to fetch categories summary.",
+      message: errorMessage(err, "Failed to fetch categories summary."),
       data: null,
       isFailure: true,
     };
@@ -105,10 +108,10 @@ export async function fetchNearbyStores(
     const res = await fetch(url.toString(), { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
-  } catch (err: any) {
+  } catch (err: unknown) {
     return {
       isSuccess: false,
-      message: err.message || "Failed to fetch nearby stores.",
+      message: errorMessage(err, "Failed to fetch nearby stores."),
       data: [],
       pagination: null,
       isFailure: true,
@@ -123,10 +126,10 @@ export async function fetchStoreById(id: number): Promise<ApiResult<StoreDto>> {
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
-  } catch (err: any) {
+  } catch (err: unknown) {
     return {
       isSuccess: false,
-      message: err.message || "Failed to fetch store details.",
+      message: errorMessage(err, "Failed to fetch store details."),
       data: null,
       isFailure: true,
     };
@@ -139,10 +142,10 @@ export async function fetchBusLines(): Promise<ApiResult<BusLineDto[]>> {
     const res = await fetch(`${API_BASE_URL}/api/buses`, { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
-  } catch (err: any) {
+  } catch (err: unknown) {
     return {
       isSuccess: false,
-      message: err.message || "Failed to fetch bus lines.",
+      message: errorMessage(err, "Failed to fetch bus lines."),
       data: null,
       isFailure: true,
     };
@@ -163,10 +166,10 @@ export async function searchBusLines(
     const res = await fetch(url.toString(), { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
-  } catch (err: any) {
+  } catch (err: unknown) {
     return {
       isSuccess: false,
-      message: err.message || "Failed to search bus lines.",
+      message: errorMessage(err, "Failed to search bus lines."),
       data: [],
       pagination: null,
       isFailure: true,
@@ -188,10 +191,10 @@ export async function fetchYpsBusLines(
     const res = await fetch(url.toString(), { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
-  } catch (err: any) {
+  } catch (err: unknown) {
     return {
       isSuccess: false,
-      message: err.message || "Failed to fetch YPS bus lines.",
+      message: errorMessage(err, "Failed to fetch YPS bus lines."),
       data: [],
       pagination: null,
       isFailure: true,
@@ -209,10 +212,10 @@ export async function fetchBusRouteDetail(
     );
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
-  } catch (err: any) {
+  } catch (err: unknown) {
     return {
       isSuccess: false,
-      message: err.message || "Failed to fetch bus route detail.",
+      message: errorMessage(err, "Failed to fetch bus route detail."),
       data: null,
       isFailure: true,
     };
@@ -228,10 +231,10 @@ export async function fetchNearbyBusStopsForStore(
     });
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     return await res.json();
-  } catch (err: any) {
+  } catch (err: unknown) {
     return {
       isSuccess: false,
-      message: err.message || "Failed to fetch nearby bus stops.",
+      message: errorMessage(err, "Failed to fetch nearby bus stops."),
       data: null,
       isFailure: true,
     };
