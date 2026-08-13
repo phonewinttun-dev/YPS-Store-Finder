@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { Bus, Languages, Map, MapPin, Moon, Sun, Monitor, type LucideIcon } from 'lucide-react';
+import { Bus, Languages, Map, MapPin, Moon, Sun, Monitor, Volume2, VolumeX, type LucideIcon } from 'lucide-react';
 import React, { useRef, useState, useSyncExternalStore } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { useSound } from '../context/SoundContext';
 import { useTheme, type ThemePreference } from '../context/ThemeContext';
 import AppMark from './AppMark';
 import UiButton from './ui/Button';
@@ -36,7 +37,7 @@ function ThemeSelector({ compact = false }: { compact?: boolean }) {
       : t('systemTheme');
 
   return (
-    <label className={`relative inline-flex ${compact ? 'h-11 w-11' : 'h-12 w-full'}`}>
+    <label className={`relative inline-flex ${compact ? 'h-10 w-10 sm:h-11 sm:w-11' : 'h-12 w-full'}`}>
       <span className="sr-only">{t('themeSelector')}</span>
       <Icon className={`pointer-events-none absolute top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-ink ${compact ? 'left-1/2 -translate-x-1/2' : 'left-3.5'}`} />
       {!compact && <span className="pointer-events-none absolute left-11 top-1/2 z-10 -translate-y-1/2 text-xs font-semibold text-ink">{preferenceLabel}</span>}
@@ -60,7 +61,7 @@ function LanguageToggle({ compact = false }: { compact?: boolean }) {
     <UiButton
       onClick={toggleLanguage}
       size={compact ? 'icon' : 'lg'}
-      className={`${compact ? '' : 'w-full justify-start px-3.5'} gap-2 text-xs shadow-card`}
+      className={`${compact ? '!h-10 !w-10 sm:!h-11 sm:!w-11' : 'w-full justify-start px-3.5'} gap-2 text-xs shadow-card`}
       aria-label={t('languageToggle')}
     >
       <Languages className="h-4 w-4" />
@@ -69,18 +70,38 @@ function LanguageToggle({ compact = false }: { compact?: boolean }) {
   );
 }
 
+function SoundToggle({ compact = false }: { compact?: boolean }) {
+  const { enabled, setEnabled } = useSound();
+  const { t } = useLanguage();
+  const Icon = enabled ? Volume2 : VolumeX;
+  return (
+    <UiButton
+      onClick={() => setEnabled(!enabled)}
+      size={compact ? 'icon' : 'lg'}
+      tone={enabled ? 'brand' : 'neutral'}
+      variant={enabled ? 'soft' : 'outline'}
+      className={`${compact ? '!h-10 !w-10 sm:!h-11 sm:!w-11' : 'w-full justify-start px-3.5'} gap-2 text-xs shadow-card`}
+      aria-label={enabled ? t('disableSound') : t('enableSound')}
+      aria-pressed={enabled}
+    >
+      <Icon className="h-4 w-4" />
+      {!compact && <span>{enabled ? t('soundOn') : t('soundOff')}</span>}
+    </UiButton>
+  );
+}
+
 function TransitNavigation({ active }: { active: AppDestination }) {
   const { t } = useLanguage();
   return (
-    <nav aria-label={t('navigation')} className="yps-sidebar ui-material hidden h-[100dvh] flex-col overflow-hidden rounded-tr-[24px] border-r px-3 pb-5 pt-3 shadow-[10px_0_32px_rgb(var(--shadow)/0.08)] lg:flex">
-      <Link href="/?view=map" className="mb-5 flex min-h-12 items-center gap-3 rounded-[14px] px-1.5" aria-label={t('appTitle')}>
+    <nav aria-label={t('navigation')} className="yps-sidebar hud-system-rail ui-material hidden h-[100dvh] flex-col overflow-hidden border-r px-3 pb-5 pt-3 lg:flex">
+      <Link href="/?view=map" className="hud-brand-lockup mb-5 flex min-h-14 items-center gap-3 px-2" aria-label={t('appTitle')}>
         <AppMark className="h-11 w-11 shrink-0" />
         <span className="min-w-0">
           <span className="block truncate text-sm font-bold text-ink">YPS Finder</span>
-          <span className="font-mono-meta mt-0.5 block text-[9px] font-medium text-muted">YANGON TRANSIT</span>
+          <span className="font-mono-meta mt-0.5 block text-[9px] font-semibold text-brand">METRO PULSE · YANGON</span>
         </span>
       </Link>
-      <p className="ui-eyebrow mb-2 px-3">{t('navigation')}</p>
+      <p className="hud-section-label mb-2 px-3">{t('navigation')}</p>
       <div className="flex w-full flex-1 flex-col gap-1">
         {destinations.map(({ id, href, icon: Icon }) => {
           const isActive = id === active;
@@ -89,11 +110,11 @@ function TransitNavigation({ active }: { active: AppDestination }) {
               key={id}
               href={href}
               aria-current={isActive ? 'page' : undefined}
-              className={`ui-button group relative flex min-h-12 items-center gap-3 border px-3.5 text-xs font-semibold ${
+              className={`hud-nav-link ui-button group relative flex min-h-12 items-center gap-3 border px-3.5 text-xs font-semibold ${
                 isActive ? 'border-line bg-elevated text-ink shadow-card' : 'border-transparent text-muted hover:border-line hover:bg-elevated hover:text-ink'
               }`}
             >
-              {isActive && <span className="transit-ribbon absolute left-0 top-2.5 h-7 w-1 rounded-r-full" />}
+              {isActive && <span className="hud-nav-lock absolute inset-y-2 left-0 w-1" aria-hidden="true" />}
               <Icon className={`h-[18px] w-[18px] shrink-0 ${isActive ? 'text-brand' : ''}`} />
               <span className="truncate">{t(id)}</span>
             </Link>
@@ -101,8 +122,9 @@ function TransitNavigation({ active }: { active: AppDestination }) {
         })}
       </div>
       <div className="flex w-full flex-col gap-2 border-t border-line/60 pt-3">
-        <p className="ui-eyebrow px-3">{t('appearance')}</p>
+        <p className="hud-section-label px-3">{t('appearance')}</p>
         <LanguageToggle />
+        <SoundToggle />
         <ThemeSelector />
       </div>
     </nav>
@@ -112,18 +134,18 @@ function TransitNavigation({ active }: { active: AppDestination }) {
 function MobileTopBar({ active }: { active: AppDestination }) {
   const { t } = useLanguage();
   return (
-    <header className="ui-material fixed inset-x-0 top-0 z-[950] grid h-16 grid-cols-[44px_minmax(0,1fr)_44px_44px] items-center gap-1 border-b px-2 shadow-card lg:hidden">
-      <Link href="/?view=map" className="shrink-0 rounded-[12px]" aria-label={t('appTitle')}>
-        <AppMark className="h-11 w-11" />
+    <header className="hud-command-bar ui-material fixed inset-x-0 top-0 z-[950] flex h-16 items-center gap-1 border-b px-2 shadow-card lg:hidden">
+      <Link href="/?view=map" className="shrink-0" aria-label={t('appTitle')}>
+        <AppMark className="h-10 w-10 sm:h-11 sm:w-11" />
       </Link>
-      <nav aria-label={t('navigation')} className="flex items-center justify-self-center gap-0.5">
+      <nav aria-label={t('navigation')} className="flex min-w-0 flex-1 items-center justify-center gap-0.5">
         {destinations.map(({ id, href, icon: Icon }) => (
           <Link
             key={id}
             href={href}
             aria-label={t(id)}
             aria-current={active === id ? 'page' : undefined}
-            className={`ui-button inline-flex h-11 w-11 items-center justify-center border ${
+            className={`ui-button inline-flex h-10 w-10 items-center justify-center border sm:h-11 sm:w-11 ${
               active === id ? 'border-brand/35 bg-brand-soft text-brand shadow-card' : 'border-transparent text-muted hover:border-line hover:bg-elevated hover:text-ink'
             }`}
           >
@@ -132,6 +154,7 @@ function MobileTopBar({ active }: { active: AppDestination }) {
         ))}
       </nav>
       <LanguageToggle compact />
+      <SoundToggle compact />
       <ThemeSelector compact />
     </header>
   );
@@ -191,7 +214,7 @@ export default function AppShell({ active, children, explorer, mobileSnap = 'pee
       {explorer && (
         <aside
           aria-label={t('openExplorer')}
-          className="ui-material fixed inset-x-0 bottom-0 z-[900] flex min-h-0 flex-col overflow-hidden rounded-t-[20px] border shadow-soft transition-[height] duration-300 lg:static lg:z-auto lg:!h-[100dvh] lg:rounded-none lg:border-y-0 lg:border-l-0 lg:bg-surface lg:shadow-none lg:backdrop-blur-none"
+          className="hud-explorer-shell ui-material fixed inset-x-0 bottom-0 z-[900] flex min-h-0 flex-col overflow-hidden border shadow-soft transition-[height] duration-300 lg:static lg:z-auto lg:!h-[100dvh] lg:border-y-0 lg:border-l-0 lg:bg-surface lg:shadow-none lg:backdrop-blur-none"
           style={{ height: sheetHeight }}
         >
           <button
@@ -230,7 +253,7 @@ export default function AppShell({ active, children, explorer, mobileSnap = 'pee
               }
             }}
           >
-            <span className="h-1.5 w-9 rounded-full bg-muted/55" />
+            <span className="hud-sheet-handle h-1.5 w-10 bg-muted/55" />
           </button>
           <div className="min-h-0 flex-1">{explorer}</div>
         </aside>

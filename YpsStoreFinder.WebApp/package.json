@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:routing": "node --no-warnings --experimental-strip-types --test tests/routing-regression.test.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.101.4",

@@ -2,11 +2,12 @@
 
 import { RefreshCw } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { Suspense, useCallback, useEffect, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import AppShell, { type SheetSnap } from '../components/AppShell';
 import GpsPermissionDialog from '../components/GpsPermissionDialog';
 import MapView from '../components/MapView';
 import StoreDrawer from '../components/StoreDrawer';
+import TacticalStatusStrip from '../components/TacticalStatusStrip';
 import { useLanguage } from '../context/LanguageContext';
 import { useDebounce } from '../hooks/useDebounce';
 import {
@@ -17,6 +18,7 @@ import {
 } from '../hooks/useStoreQueries';
 import { useUserLocation } from '../hooks/useUserLocation';
 import { fetchNearbyStores, searchStores } from '../services/api';
+import { distanceBetweenKm } from '../services/routing';
 import { PaginationDto, StoreDto } from '../types/store';
 
 function HomeExplorer() {
@@ -41,6 +43,7 @@ function HomeExplorer() {
   const [pageSize] = useState(10);
   const [pagination, setPagination] = useState<PaginationDto | null>(null);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const autoNearestKeyRef = useRef<string | null>(null);
 
   const radiusKm = 2;
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
@@ -68,10 +71,41 @@ function HomeExplorer() {
   const activeListQuery = isSearchActive ? listSearchQuery : isNearbyActive ? listNearbyQuery : listAllStoresQuery;
   const activeMapQuery = isSearchActive ? mapSearchQuery : isNearbyActive ? mapNearbyQuery : mapAllStoresQuery;
   const isLoading = activeListQuery.isLoading;
+  const isSystemLoading = isLoading || activeMapQuery.isLoading;
 
-  const allMapStores = activeMapQuery.data?.isSuccess && activeMapQuery.data.data
-    ? activeMapQuery.data.data
-    : [];
+  const allMapStores = useMemo(
+    () => activeMapQuery.data?.isSuccess && activeMapQuery.data.data ? activeMapQuery.data.data : [],
+    [activeMapQuery.data]
+  );
+  const fullStoreCatalog = useMemo(
+    () => mapAllStoresQuery.data?.isSuccess && mapAllStoresQuery.data.data ? mapAllStoresQuery.data.data : [],
+    [mapAllStoresQuery.data]
+  );
+  const nearestStore = useMemo(() => {
+    if (!hasRealLocation || fullStoreCatalog.length === 0) return null;
+    return fullStoreCatalog.reduce<StoreDto | null>((nearest, store) => {
+      if (!Number.isFinite(store.latitude) || !Number.isFinite(store.longitude)) return nearest;
+      if (!nearest) return store;
+      return distanceBetweenKm(activeLocation, store) < distanceBetweenKm(activeLocation, nearest) ? store : nearest;
+    }, null);
+  }, [activeLocation, fullStoreCatalog, hasRealLocation]);
+  const displayedMapStores = useMemo(() => {
+    if (!nearestStore || allMapStores.some((store) => store.id === nearestStore.id)) return allMapStores;
+    return [...allMapStores, nearestStore];
+  }, [allMapStores, nearestStore]);
+
+  /* eslint-disable react-hooks/set-state-in-effect -- A fresh GPS fix intentionally selects and opens the closest-store route comparison. */
+  useEffect(() => {
+    if (!hasRealLocation || !isNearbyActive || !nearestStore) return;
+    const key = `${latitude.toFixed(4)}:${longitude.toFixed(4)}:${selectedCategory ?? 'all'}`;
+    if (autoNearestKeyRef.current === key) return;
+    autoNearestKeyRef.current = key;
+    if (selectedStoreId !== null || activeDirectionStoreId !== null) return;
+    setSelectedStoreId(nearestStore.id);
+    setActiveDirectionStoreId(nearestStore.id);
+    setSheetSnap('peek');
+  }, [activeDirectionStoreId, hasRealLocation, isNearbyActive, latitude, longitude, nearestStore, selectedCategory, selectedStoreId]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   /* eslint-disable react-hooks/set-state-in-effect -- Query results synchronize the accumulated infinite-scroll list. */
   useEffect(() => {
@@ -122,9 +156,11 @@ function HomeExplorer() {
     setPageNumber(1);
     if (locationState.isTracking) {
       stopTracking();
+      autoNearestKeyRef.current = null;
       setIsNearbyMode(false);
       setIsShowAllStoresMode(true);
     } else {
+      autoNearestKeyRef.current = null;
       setSelectedStoreId(null);
       setActiveDirectionStoreId(null);
       startTracking();
@@ -199,9 +235,9 @@ function HomeExplorer() {
           if (!selectedStoreId && nextView !== view) router.replace(`/?view=${nextView}`, { scroll: false });
         }}
       >
-        <section aria-label={t('map')} className="relative h-full min-h-0 overflow-hidden">
+        <section aria-label={t('map')} className="hud-map-stage relative h-full min-h-0 overflow-hidden" data-scanning={isSystemLoading ? 'true' : 'false'}>
           <MapView
-            stores={allMapStores}
+            stores={displayedMapStores}
             userLocation={activeLocation}
             radiusKm={radiusKm}
             selectedStoreId={selectedStoreId}
@@ -210,12 +246,22 @@ function HomeExplorer() {
             onCloseDirection={() => { setActiveDirectionStoreId(null); setSelectedStoreId(null); }}
             onRequestEnableGps={() => setShowGpsModal(true)}
             activeDirectionStoreId={activeDirectionStoreId}
+            nearestStoreId={nearestStore?.id ?? null}
           />
-          {isLoading && (
-            <div className="glass-panel ui-badge absolute right-3 top-3 z-[500] flex min-h-11 items-center gap-2 border-line px-4 text-xs font-semibold text-ink shadow-card" role="status" aria-live="polite">
-              <RefreshCw className="h-4 w-4 animate-spin text-store" /> {t('updatingStores')}
-            </div>
-          )}
+          <div className="hud-map-chrome" aria-hidden="true">
+            <span className="hud-corner hud-corner-tl" />
+            <span className="hud-corner hud-corner-tr" />
+            <span className="hud-corner hud-corner-bl" />
+            <span className="hud-corner hud-corner-br" />
+          </div>
+          <TacticalStatusStrip
+            isLoading={isSystemLoading}
+            hasError={Boolean(apiError)}
+            gpsActive={locationState.isTracking && hasRealLocation}
+            visibleStoreCount={displayedMapStores.length}
+            hasSelection={selectedStoreId !== null}
+            hasActiveRoute={activeDirectionStoreId !== null}
+          />
         </section>
       </AppShell>
       <GpsPermissionDialog
@@ -229,7 +275,7 @@ function HomeExplorer() {
 
 export default function HomePage() {
   return (
-    <Suspense fallback={<div className="flex h-[100dvh] items-center justify-center bg-canvas text-store"><RefreshCw className="h-7 w-7 animate-spin" /></div>}>
+    <Suspense fallback={<div className="hud-boot-screen flex h-[100dvh] items-center justify-center bg-canvas text-brand"><RefreshCw className="h-7 w-7 animate-spin" /></div>}>
       <HomeExplorer />
     </Suspense>
   );

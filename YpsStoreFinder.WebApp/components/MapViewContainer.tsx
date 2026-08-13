@@ -3,10 +3,22 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import Link from 'next/link';
-import { Clock, MapPin, Navigation, Route, Store, X } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { Bus, Car, ExternalLink, Footprints, Gauge, MapPin, Navigation, Route, Store, X, Zap } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import { useSound } from '../context/SoundContext';
 import { useTheme } from '../context/ThemeContext';
+import { useNearbyBusStopsForStore } from '../hooks/useStoreQueries';
+import {
+  fetchDrivingRoute,
+  googleMapsDirectionsUrl,
+  requestDirectBusJourney,
+  requestPedestrianRoute,
+  type BusJourney,
+  type DrivingRoute,
+  type PedestrianRoute,
+  type TravelMode,
+} from '../services/routing';
 import { StoreDto } from '../types/store';
 
 interface MapViewContainerProps {
@@ -19,6 +31,7 @@ interface MapViewContainerProps {
   onCloseDirection?: () => void;
   onRequestEnableGps?: () => void;
   activeDirectionStoreId?: number | null;
+  nearestStoreId?: number | null;
   mobileTab?: 'map' | 'list';
 }
 
@@ -39,14 +52,11 @@ const categoryIcon = (category: string) => {
 };
 
 const storeMarkerIcon = (category: string, selected: boolean) => {
-  const background = 'rgb(var(--store))';
-  const foreground = 'rgb(var(--surface))';
-  const border = selected ? 'rgb(var(--route))' : 'rgb(var(--surface))';
   return L.divIcon({
     className: 'custom-store-pin',
-    html: `<div aria-hidden="true" style="background:${background};color:${foreground};width:40px;height:40px;border-radius:14px 14px 14px 5px;border:${selected ? 4 : 2}px solid ${border};box-shadow:${selected ? '0 0 0 7px rgb(var(--route) / .2),0 6px 20px rgba(0,0,0,.28)' : '0 5px 14px rgba(0,0,0,.22)'};display:flex;align-items:center;justify-content:center;transform:rotate(-45deg) ${selected ? 'scale(1.1)' : ''};transition:transform .2s ease"><span style="display:flex;transform:rotate(45deg)">${categoryIcon(category)}</span></div>`,
+    html: `<div aria-hidden="true" class="hud-store-marker${selected ? ' is-selected' : ''}"><span class="hud-store-marker-glyph">${categoryIcon(category)}</span></div>`,
     iconSize: [44, 44],
-    iconAnchor: [20, 36],
+    iconAnchor: [22, 22],
     popupAnchor: [0, -32],
   });
 };
@@ -66,9 +76,12 @@ export default function MapViewContainer({
   onSelectStore,
   onShowDirection,
   onCloseDirection,
+  onRequestEnableGps,
   activeDirectionStoreId,
+  nearestStoreId,
 }: MapViewContainerProps) {
   const { t, tAddress, tCategory, tStoreName, toMmNum } = useLanguage();
+  const { playComplete, setProcessing } = useSound();
   const { resolvedTheme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
@@ -78,12 +91,50 @@ export default function MapViewContainer({
   const routeLayerRef = useRef<L.LayerGroup | null>(null);
   const previousStoreId = useRef<number | null>(null);
   const previousGpsState = useRef(false);
+  const playCompleteRef = useRef(playComplete);
   const [routeCoordinates, setRouteCoordinates] = useState<[number, number][]>([]);
-  const [routeInfo, setRouteInfo] = useState<{ distanceKm: number; durationMin: number } | null>(null);
+  const [routeInfo, setRouteInfo] = useState<DrivingRoute | null>(null);
+  const [walkingRoute, setWalkingRoute] = useState<PedestrianRoute | null>(null);
+  const [busJourney, setBusJourney] = useState<BusJourney | null>(null);
   const [isLoadingRoute, setIsLoadingRoute] = useState(false);
+  const [isLoadingWalking, setIsLoadingWalking] = useState(false);
+  const [isLoadingBus, setIsLoadingBus] = useState(false);
+  const [travelModeSelection, setTravelModeSelection] = useState<{ storeId: number; mode: TravelMode } | null>(null);
 
   const previewStore = selectedStoreId ? stores.find((store) => store.id === selectedStoreId) ?? null : null;
   const routeStore = activeDirectionStoreId ? stores.find((store) => store.id === activeDirectionStoreId) ?? null : null;
+  const nearbyBusStopsQuery = useNearbyBusStopsForStore(routeStore?.id ?? null);
+  const busLines = useMemo(() => {
+    const response = nearbyBusStopsQuery.data;
+    if (!response?.isSuccess || !response.data) return [];
+    return Array.from(new Set(response.data.nearbyBusStops.flatMap((stop) =>
+      stop.servicingBusNumbers.length ? stop.servicingBusNumbers : stop.ypsSupportedBusNumbers
+    ))).sort((first, second) => first.localeCompare(second, undefined, { numeric: true }));
+  }, [nearbyBusStopsQuery.data]);
+  const destinationStopNames = useMemo(() => {
+    const response = nearbyBusStopsQuery.data;
+    if (!response?.isSuccess || !response.data) return [];
+    return response.data.nearbyBusStops.flatMap((stop) => [stop.stopName, stop.roadTownship ?? '']).filter(Boolean);
+  }, [nearbyBusStopsQuery.data]);
+  const fastestMode: Exclude<TravelMode, 'bus'> | null = useMemo(() => {
+    if (!walkingRoute && !routeInfo) return null;
+    if (!walkingRoute) return 'taxi';
+    if (!routeInfo) return 'walking';
+    return walkingRoute.durationMin <= routeInfo.durationMin ? 'walking' : 'taxi';
+  }, [routeInfo, walkingRoute]);
+  const selectedTravelMode: TravelMode = routeStore && travelModeSelection?.storeId === routeStore.id
+    ? travelModeSelection.mode
+    : fastestMode ?? 'taxi';
+
+  /* eslint-disable react-hooks/set-state-in-effect -- Route identity changes intentionally clear stale async routing results before the next request. */
+  useEffect(() => {
+    playCompleteRef.current = playComplete;
+  }, [playComplete]);
+
+  useEffect(() => {
+    setProcessing(isLoadingRoute || isLoadingWalking || isLoadingBus);
+    return () => setProcessing(false);
+  }, [isLoadingBus, isLoadingRoute, isLoadingWalking, setProcessing]);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -155,23 +206,25 @@ export default function MapViewContainer({
   }, [previewStore, userLocation.hasRealLocation, userLocation.latitude, userLocation.longitude]);
 
   useEffect(() => {
-    if (!routeStore) return;
+    if (!routeStore || !userLocation.hasRealLocation) return;
     const controller = new AbortController();
     const loadRoute = async () => {
       setIsLoadingRoute(true);
+      setRouteCoordinates([]);
+      setRouteInfo(null);
       try {
-        const url = `https://router.project-osrm.org/route/v1/driving/${userLocation.longitude},${userLocation.latitude};${routeStore.longitude},${routeStore.latitude}?overview=full&geometries=geojson`;
-        const response = await fetch(url, { signal: controller.signal });
-        if (!response.ok) throw new Error('OSRM route service unavailable');
-        const data = await response.json();
-        const route = data.routes?.[0];
-        if (!route) throw new Error('No route returned');
-        setRouteCoordinates(route.geometry.coordinates.map(([longitude, latitude]: [number, number]) => [latitude, longitude]));
-        setRouteInfo({ distanceKm: Number((route.distance / 1000).toFixed(2)), durationMin: Math.max(1, Math.round(route.duration / 60)) });
+        const route = await fetchDrivingRoute(
+          { latitude: userLocation.latitude, longitude: userLocation.longitude },
+          routeStore,
+          controller.signal
+        );
+        setRouteCoordinates(route.coordinates);
+        setRouteInfo(route);
+        playCompleteRef.current();
       } catch (error) {
         if (controller.signal.aborted) return;
         console.warn('Routing service fallback:', error);
-        setRouteCoordinates([[userLocation.latitude, userLocation.longitude], [routeStore.latitude, routeStore.longitude]]);
+        setRouteCoordinates([]);
         setRouteInfo(null);
       } finally {
         if (!controller.signal.aborted) setIsLoadingRoute(false);
@@ -179,23 +232,120 @@ export default function MapViewContainer({
     };
     loadRoute();
     return () => controller.abort();
-  }, [routeStore, userLocation.latitude, userLocation.longitude]);
+  }, [routeStore, userLocation.hasRealLocation, userLocation.latitude, userLocation.longitude]);
+
+  useEffect(() => {
+    if (!routeStore || !userLocation.hasRealLocation) {
+      setWalkingRoute(null);
+      return;
+    }
+    const controller = new AbortController();
+    const loadWalkingRoute = async () => {
+      setIsLoadingWalking(true);
+      setWalkingRoute(null);
+      try {
+        const route = await requestPedestrianRoute(
+          { latitude: userLocation.latitude, longitude: userLocation.longitude },
+          routeStore,
+          controller.signal
+        );
+        setWalkingRoute(route);
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          console.warn('Pedestrian routing unavailable:', error);
+          setWalkingRoute(null);
+        }
+      } finally {
+        if (!controller.signal.aborted) setIsLoadingWalking(false);
+      }
+    };
+    loadWalkingRoute();
+    return () => controller.abort();
+  }, [routeStore, userLocation.hasRealLocation, userLocation.latitude, userLocation.longitude]);
+
+  useEffect(() => {
+    if (!routeStore || !userLocation.hasRealLocation || nearbyBusStopsQuery.isLoading) return;
+    if (busLines.length === 0) {
+      setBusJourney(null);
+      setIsLoadingBus(false);
+      return;
+    }
+    const controller = new AbortController();
+    const loadBusJourney = async () => {
+      setIsLoadingBus(true);
+      setBusJourney(null);
+      try {
+        const journey = await requestDirectBusJourney(
+          { latitude: userLocation.latitude, longitude: userLocation.longitude },
+          routeStore,
+          busLines,
+          destinationStopNames,
+          controller.signal
+        );
+        setBusJourney(journey);
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          console.warn('Direct YBS route unavailable:', error);
+          setBusJourney(null);
+        }
+      } finally {
+        if (!controller.signal.aborted) setIsLoadingBus(false);
+      }
+    };
+    loadBusJourney();
+    return () => controller.abort();
+  }, [busLines, destinationStopNames, nearbyBusStopsQuery.isLoading, routeStore, userLocation.hasRealLocation, userLocation.latitude, userLocation.longitude]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   useEffect(() => {
     const layer = routeLayerRef.current;
     if (!layer) return;
     layer.clearLayers();
-    if (!routeStore) return;
-    const positions: L.LatLngTuple[] = routeCoordinates.length
-      ? routeCoordinates as L.LatLngTuple[]
-      : [[userLocation.latitude, userLocation.longitude], [routeStore.latitude, routeStore.longitude]];
-    layer.addLayer(L.polyline(positions, {
-      color: resolvedTheme === 'dark' ? '#A9A7FF' : '#4F46C7',
-      weight: 6,
-      opacity: 0.92,
-      dashArray: routeCoordinates.length ? undefined : '10, 10',
-    }));
-  }, [resolvedTheme, routeCoordinates, routeStore, userLocation.latitude, userLocation.longitude]);
+    if (!routeStore || !userLocation.hasRealLocation) return;
+    if (selectedTravelMode === 'taxi' && routeCoordinates.length > 1) {
+      layer.addLayer(L.polyline(routeCoordinates as L.LatLngTuple[], {
+        color: resolvedTheme === 'dark' ? '#A9A7FF' : '#4F46C7',
+        weight: 6,
+        opacity: 0.94,
+      }));
+      return;
+    }
+    if (selectedTravelMode === 'walking' && walkingRoute?.coordinates.length) {
+      layer.addLayer(L.polyline(walkingRoute.coordinates as L.LatLngTuple[], {
+        color: resolvedTheme === 'dark' ? '#30D158' : '#18733B',
+        weight: 6,
+        opacity: 0.96,
+        lineCap: 'round',
+        lineJoin: 'round',
+      }));
+      return;
+    }
+    if (selectedTravelMode === 'bus' && busJourney) {
+      const walkingColor = resolvedTheme === 'dark' ? '#30D158' : '#18733B';
+      const busColor = resolvedTheme === 'dark' ? '#4ECDE4' : '#005B7E';
+      for (const coordinates of [busJourney.accessRoute.coordinates, busJourney.egressRoute.coordinates]) {
+        layer.addLayer(L.polyline(coordinates as L.LatLngTuple[], {
+          color: walkingColor,
+          weight: 5,
+          opacity: 0.94,
+          dashArray: '7, 7',
+          lineCap: 'round',
+        }));
+      }
+      layer.addLayer(L.polyline(busJourney.busCoordinates as L.LatLngTuple[], {
+        color: busColor,
+        weight: 7,
+        opacity: 0.96,
+        lineCap: 'round',
+        lineJoin: 'round',
+      }));
+      const markerStyle = { radius: 8, color: busColor, fillColor: resolvedTheme === 'dark' ? '#051114' : '#F6F9F8', fillOpacity: 1, weight: 3 };
+      layer.addLayer(L.circleMarker([busJourney.boardingStop.latitude, busJourney.boardingStop.longitude], markerStyle)
+        .bindTooltip(`${t('boardAt')}: ${busJourney.boardingStop.name}`));
+      layer.addLayer(L.circleMarker([busJourney.alightingStop.latitude, busJourney.alightingStop.longitude], markerStyle)
+        .bindTooltip(`${t('getOffAt')}: ${busJourney.alightingStop.name}`));
+    }
+  }, [busJourney, resolvedTheme, routeCoordinates, routeStore, selectedTravelMode, t, userLocation.hasRealLocation, walkingRoute]);
 
   useEffect(() => {
     const layer = userLayerRef.current;
@@ -265,22 +415,150 @@ export default function MapViewContainer({
     });
   }, [onSelectStore, onShowDirection, resolvedTheme, selectedStoreId, stores, t, tAddress, tCategory, tStoreName]);
 
+  const travelOptions = [
+    {
+      mode: 'walking' as const,
+      icon: <Footprints className="h-4 w-4" />,
+      label: t('walking'),
+      value: isLoadingWalking
+        ? t('syncing')
+        : walkingRoute
+          ? `~${toMmNum(walkingRoute.durationMin)} ${t('minutes')}`
+          : t('notAvailable'),
+      detail: walkingRoute ? `${toMmNum(walkingRoute.distanceKm)} ${t('km')}` : t('pedestrianRoute'),
+    },
+    {
+      mode: 'bus' as const,
+      icon: <Bus className="h-4 w-4" />,
+      label: t('bus'),
+      value: isLoadingBus || nearbyBusStopsQuery.isLoading
+        ? t('findingBusRoute')
+        : busJourney
+          ? `YBS ${toMmNum(busJourney.line)}`
+          : t('noDirectBusRoute'),
+      detail: busJourney
+        ? `${busJourney.boardingStop.name} → ${busJourney.alightingStop.name}`
+        : t('nearbyStopsChecked'),
+    },
+    {
+      mode: 'taxi' as const,
+      icon: <Car className="h-4 w-4" />,
+      label: t('taxi'),
+      value: isLoadingRoute
+        ? t('syncing')
+        : routeInfo
+          ? `~${toMmNum(routeInfo.durationMin)} ${t('minutes')}`
+          : t('notAvailable'),
+      detail: routeInfo ? `${toMmNum(routeInfo.distanceKm)} ${t('km')}` : t('roadRoute'),
+    },
+  ];
+  const selectedDirectionsLabel = selectedTravelMode === 'walking'
+    ? t('openWalkingDirections')
+    : selectedTravelMode === 'bus'
+      ? t('openBusDirections')
+      : t('openTaxiDirections');
+  const selectedModeNote = selectedTravelMode === 'walking'
+    ? t('walkingEstimateNote')
+    : selectedTravelMode === 'bus'
+      ? busJourney ? t('busRouteNote') : t('busEstimateNote')
+      : t('taxiEstimateNote');
+
   return (
     <div className="relative flex h-full min-h-0 w-full flex-col">
       {previewStore && (
-        <div className={`glass-panel ui-card absolute left-3 right-3 top-3 z-[600] max-w-sm p-3 shadow-soft sm:left-5 sm:right-auto ${routeStore ? 'border-route/60' : 'border-store/55'}`}>
+        <div className={`hud-selected-dossier hud-panel glass-panel ui-card absolute left-3 right-3 top-3 z-[600] max-h-[calc(100%-1.5rem)] max-w-[440px] overflow-y-auto p-3 shadow-soft sm:left-5 sm:right-auto ${routeStore ? 'border-route/60' : 'border-store/55'}`} data-route-active={routeStore ? 'true' : 'false'}>
           <div className="flex items-start gap-3">
-            <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] ${routeStore ? 'bg-route-soft text-route' : 'bg-store-soft text-store'}`}>
+            <div className={`hud-node-icon flex h-11 w-11 shrink-0 items-center justify-center ${routeStore ? 'bg-route-soft text-route' : 'bg-store-soft text-store'}`}>
               {routeStore ? <Route className="h-5 w-5" /> : <MapPin className="h-5 w-5" />}
             </div>
             <div className="min-w-0 flex-1">
-              <h2 className="truncate text-sm font-bold text-ink">{tStoreName(previewStore.name)}</h2>
+              <div className="flex min-w-0 items-center gap-2">
+                <h2 className="truncate text-sm font-bold text-ink">{tStoreName(previewStore.name)}</h2>
+                {previewStore.id === nearestStoreId && <span className="ui-badge shrink-0 border-gps/30 bg-gps-soft text-[9px] text-gps">{t('nearestTarget')}</span>}
+              </div>
               <div className="font-mono-meta mt-1 flex items-center gap-2 text-[10px] font-semibold text-muted" role={isLoadingRoute ? 'status' : undefined}>
-                {isLoadingRoute ? <span className="text-route">{t('calculatingRoute')}</span> : routeInfo ? <><span className="font-bold text-route">{toMmNum(routeInfo.distanceKm)} {t('km')}</span><span aria-hidden="true">•</span><span className="flex items-center gap-1"><Clock className="h-3 w-3" />~{toMmNum(routeInfo.durationMin)} {t('minutes')}</span></> : <span>{tCategory(previewStore.category)}</span>}
+                {routeStore && isLoadingRoute
+                  ? <span className="hud-streaming-text text-route">{t('comparingTravelModes')}</span>
+                  : routeStore && fastestMode && (walkingRoute || routeInfo)
+                    ? <><Zap className="h-3 w-3 text-brand" /><span className="font-bold text-ink">{t('fastestEstimate')}</span><span>{fastestMode === 'walking' ? t('walking') : t('taxi')}</span></>
+                    : <span>{tCategory(previewStore.category)}</span>}
               </div>
             </div>
             <button type="button" onClick={() => onCloseDirection?.()} className="ui-button flex h-11 w-11 shrink-0 items-center justify-center border border-transparent bg-elevated text-muted hover:text-ink" aria-label={t('close')}><X className="h-4 w-4" /></button>
           </div>
+          {routeStore && !userLocation.hasRealLocation && (
+            <div className="mt-3 border border-brand/40 bg-brand-soft p-3 text-xs text-ink" role="status">
+              <p className="font-semibold">{t('gpsNeededForRoutes')}</p>
+              <button type="button" onClick={onRequestEnableGps} className="ui-button mt-3 flex min-h-11 w-full items-center justify-center gap-2 bg-gps-action font-bold text-white">
+                <Navigation className="h-4 w-4" />{t('enableLocation')}
+              </button>
+            </div>
+          )}
+          {routeStore && userLocation.hasRealLocation && (
+            <div className="mt-3">
+              <div className="mb-2 flex items-center justify-between gap-3">
+                <span className="font-mono-meta flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-muted"><Gauge className="h-3.5 w-3.5" />{t('travelMode')}</span>
+                <span className="text-[10px] font-semibold text-muted">{t('estimateLabel')}</span>
+              </div>
+              <div className="grid grid-cols-3 gap-2" role="group" aria-label={t('travelMode')}>
+                {travelOptions.map((option) => {
+                  const isSelected = selectedTravelMode === option.mode;
+                  const isFastest = fastestMode === option.mode;
+                  return (
+                    <button
+                      key={option.mode}
+                      type="button"
+                      className="hud-travel-mode ui-button relative min-h-[92px] border border-line bg-surface p-2 text-left"
+                      data-selected={isSelected ? 'true' : 'false'}
+                      onClick={() => setTravelModeSelection({ storeId: routeStore.id, mode: option.mode })}
+                      aria-pressed={isSelected}
+                    >
+                      <span className="flex items-center gap-1.5 text-[11px] font-bold text-ink">{option.icon}{option.label}</span>
+                      <strong className="mt-2 block text-[12px] text-ink">{option.value}</strong>
+                      <span className="mt-0.5 block truncate text-[9px] text-muted">{option.detail}</span>
+                      {isFastest && <span className="hud-fastest-tag">{t('fastest')}</span>}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {selectedTravelMode === 'bus' && isLoadingBus && (
+                <div className="hud-streaming-text mt-3 border-l-2 border-bus bg-bus-soft/70 p-3 text-xs font-semibold text-bus" role="status">
+                  {t('findingRelatedStops')}
+                </div>
+              )}
+
+              {selectedTravelMode === 'bus' && !isLoadingBus && busJourney && (
+                <div className="mt-3 border-l-2 border-bus pl-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-[10px] font-semibold text-muted">{t('directYbsRoute')}</p>
+                    <Link href={`/buses/${encodeURIComponent(busJourney.line)}`} className="ui-badge border-bus/30 bg-bus-soft text-bus">YBS {toMmNum(busJourney.line)}</Link>
+                  </div>
+                  <ol className="mt-3 space-y-2 text-[11px] text-ink">
+                    <li className="flex items-start gap-2"><Footprints className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gps" /><span>{t('walkToStop')} <strong>{busJourney.boardingStop.name}</strong> · ~{toMmNum(busJourney.accessRoute.durationMin)} {t('minutes')}</span></li>
+                    <li className="flex items-start gap-2"><Bus className="mt-0.5 h-3.5 w-3.5 shrink-0 text-bus" /><span>{t('rideYbs')} <strong>{toMmNum(busJourney.line)}</strong> · {toMmNum(busJourney.busDistanceKm)} {t('km')}</span></li>
+                    <li className="flex items-start gap-2"><Footprints className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gps" /><span>{t('getOffAt')} <strong>{busJourney.alightingStop.name}</strong>, {t('thenWalkToStore')} · ~{toMmNum(busJourney.egressRoute.durationMin)} {t('minutes')}</span></li>
+                  </ol>
+                </div>
+              )}
+
+              {selectedTravelMode === 'bus' && !isLoadingBus && !busJourney && (
+                <div className="mt-3 border-l-2 border-line bg-elevated/70 p-3 text-[11px] leading-relaxed text-muted" role="status">
+                  {t('noVerifiedDirectBus')}
+                </div>
+              )}
+
+              <p className="mt-3 text-[10px] leading-relaxed text-muted">{selectedModeNote}</p>
+              <a
+                href={googleMapsDirectionsUrl(selectedTravelMode, userLocation, routeStore)}
+                target="_blank"
+                rel="noreferrer"
+                className="ui-button mt-3 flex min-h-11 w-full items-center justify-center gap-2 bg-route-action px-3 text-xs font-bold text-white"
+              >
+                {selectedDirectionsLabel}<span className="sr-only"> ({t('opensInNewTab')})</span><ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            </div>
+          )}
           {!routeStore && (
             <div className="mt-3 grid grid-cols-2 gap-2">
               <button type="button" onClick={() => onShowDirection?.(previewStore)} className="ui-button flex min-h-11 items-center justify-center gap-2 bg-route-action text-xs font-bold text-white"><Navigation className="h-4 w-4" />{t('showDirection')}</button>
@@ -289,7 +567,7 @@ export default function MapViewContainer({
           )}
         </div>
       )}
-      <div ref={containerRef} className="min-h-0 w-full flex-1 overflow-hidden" />
+      <div ref={containerRef} className="tactical-map min-h-0 w-full flex-1 overflow-hidden" />
     </div>
   );
 }

@@ -5,8 +5,8 @@
   "start_url": "/?view=map",
   "id": "/",
   "display": "standalone",
-  "background_color": "#F7F8FF",
-  "theme_color": "#FFF1A8",
+  "background_color": "#02080A",
+  "theme_color": "#FFD534",
   "orientation": "portrait-primary",
   "icons": [
     {

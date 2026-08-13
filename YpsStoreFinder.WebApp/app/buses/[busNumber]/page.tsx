@@ -40,7 +40,7 @@ export default function BusDetailPage({ params }: { params: Promise<{ busNumber:
 
   return (
     <AppShell active="buses">
-      <div className="ui-dot-grid min-h-full p-4 pb-16 sm:p-8">
+      <div className="hud-grid min-h-full p-4 pb-16 sm:p-8">
         <div className="mx-auto max-w-4xl">
           <Link href="/buses" className={buttonStyles({ size: 'sm' })}><ArrowLeft className="h-4 w-4" />{t('backToBuses')}</Link>
           {isLoading ? (
@@ -48,10 +48,10 @@ export default function BusDetailPage({ params }: { params: Promise<{ busNumber:
           ) : routeDetail ? (
             <div className="mt-5 grid gap-5 lg:grid-cols-[320px_minmax(0,1fr)]">
               <aside className="ui-card h-fit overflow-hidden lg:sticky lg:top-6">
-                <div className="transit-ribbon h-1" />
+                <div className="hud-signal-line h-1" />
                 <div className="p-5">
                   <div className="flex items-center justify-between gap-3">
-                    <span className="font-mono-meta flex h-16 min-w-16 items-center justify-center rounded-[18px] bg-bus-soft px-3 text-2xl font-bold text-bus">{toMmNum(routeDetail.busNumber)}</span>
+                    <span className="hud-node-icon font-mono-meta flex h-16 min-w-16 items-center justify-center bg-bus-soft px-3 text-2xl font-bold text-bus">{toMmNum(routeDetail.busNumber)}</span>
                     <StatusBadge tone={routeDetail.isYpsSupported ? 'brand' : 'neutral'}>{routeDetail.isYpsSupported ? <CreditCard className="h-3.5 w-3.5" /> : <X className="h-3.5 w-3.5" />}{routeDetail.isYpsSupported ? t('ypsCardAccepted') : t('ypsCardUnavailable')}</StatusBadge>
                   </div>
                   <h1 className="ui-page-title mt-4 text-ink">YBS {toMmNum(routeDetail.busNumber)}</h1>
@@ -62,7 +62,7 @@ export default function BusDetailPage({ params }: { params: Promise<{ busNumber:
                 </div>
               </aside>
               <section className="ui-card p-5 sm:p-7" aria-labelledby="route-title">
-                <div className="mb-6 flex items-start gap-3"><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-route-soft text-route"><ArrowLeftRight className="h-5 w-5" /></span><div><p className="ui-eyebrow text-route">{t(activeRouteTab)}</p><h2 id="route-title" className="mt-1 text-lg font-bold text-ink">{title}</h2></div></div>
+                <div className="mb-6 flex items-start gap-3"><span className="hud-node-icon flex h-11 w-11 shrink-0 items-center justify-center bg-route-soft text-route"><ArrowLeftRight className="h-5 w-5" /></span><div><p className="hud-section-label text-route">{t(activeRouteTab)}</p><h2 id="route-title" className="mt-1 text-lg font-bold text-ink">{title}</h2></div></div>
                 <ol className="relative ml-2 space-y-5 border-l-2 border-route/25 pl-7">
                   {stops.map((stop, index) => {
                     const order = stop.stopOrder || stop.sequenceOrder || index + 1;

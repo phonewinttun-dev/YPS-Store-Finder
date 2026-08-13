@@ -62,13 +62,13 @@ export default function BusesPage() {
 
   return (
     <AppShell active="buses">
-      <div className="ui-dot-grid min-h-full">
-        <header className="ui-material sticky top-0 z-20 border-b shadow-card">
-          <div className="transit-ribbon h-1" />
+      <div className="hud-grid min-h-full">
+        <header className="hud-command-deck ui-material sticky top-0 z-20 border-b shadow-card">
+          <div className="hud-signal-line h-1" />
           <div className="mx-auto max-w-6xl px-4 py-5 sm:px-8 sm:py-7">
             <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="ui-eyebrow text-bus">YANGON BUS EXPLORER</p>
+                <p className="hud-section-label text-bus">YANGON BUS NETWORK</p>
                 <h1 className="ui-page-title mt-1 text-ink">{t('ybsBusLines')}</h1>
               </div>
               <StatusBadge tone="bus" mono className="min-h-9 text-xs" aria-live="polite">{toMmNum(filteredBusLines.length)} {t('resultCount')}</StatusBadge>
@@ -90,7 +90,7 @@ export default function BusesPage() {
           ) : displayed.length === 0 ? (
             <div className="surface-card col-span-full flex min-h-64 flex-col items-center justify-center text-center"><span className="mb-4 flex h-14 w-14 items-center justify-center rounded-[16px] bg-bus-soft text-bus"><Bus className="h-6 w-6" /></span><p className="text-sm font-bold text-ink">{t('noBuses')}</p></div>
           ) : displayed.map((bus, index) => (
-            <Link href={`/buses/${encodeURIComponent(bus.busNumber)}`} key={bus.routeId ? `${bus.busNumber}-${bus.routeId}-${index}` : `${bus.busNumber}-${index}`} className="ui-card ui-interactive-card group flex min-h-56 flex-col p-5 hover:border-bus">
+            <Link href={`/buses/${encodeURIComponent(bus.busNumber)}`} key={bus.routeId ? `${bus.busNumber}-${bus.routeId}-${index}` : `${bus.busNumber}-${index}`} className="hud-node-card ui-card ui-interactive-card group flex min-h-56 flex-col p-5 hover:border-bus">
               <div className="flex items-start justify-between gap-3">
                 <span className="font-mono-meta flex h-14 min-w-14 items-center justify-center rounded-[16px] bg-bus-soft px-3 text-xl font-bold text-bus">{toMmNum(bus.busNumber)}</span>
                 <ChevronRight className="h-5 w-5 text-muted transition group-hover:translate-x-1 group-hover:text-bus" />

@@ -1,6 +1,7 @@
 'use client';
 
 import dynamic from 'next/dynamic';
+import { useLanguage } from '../context/LanguageContext';
 import { StoreDto } from '../types/store';
 
 interface MapViewProps {
@@ -13,19 +14,25 @@ interface MapViewProps {
   onCloseDirection?: () => void;
   onRequestEnableGps?: () => void;
   activeDirectionStoreId?: number | null;
+  nearestStoreId?: number | null;
   mobileTab?: 'map' | 'list';
+}
+
+function MapLoading() {
+  const { t } = useLanguage();
+  return (
+    <div className="hud-grid flex h-full min-h-0 w-full flex-col items-center justify-center gap-4 bg-canvas text-muted" role="status">
+      <div className="hud-radar-loader" aria-hidden="true"><span /></div>
+      <p className="hud-streaming-text text-sm font-semibold text-brand">{t('loadingMap')}</p>
+    </div>
+  );
 }
 
 const DynamicMapViewContainer = dynamic(
   () => import('./MapViewContainer'),
   {
     ssr: false,
-    loading: () => (
-      <div className="flex h-full min-h-0 w-full flex-col items-center justify-center gap-3 bg-canvas text-muted" role="status">
-        <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-bus border-t-transparent" />
-        <p className="text-sm font-medium">Loading map…</p>
-      </div>
-    ),
+    loading: () => <MapLoading />,
   }
 );
 
