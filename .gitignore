@@ -382,6 +382,10 @@ out/
 
 AGENTS.md
 .rules
+.agents/
+.agents/skills/
+
+
 
 # Local agent adapters and runtime state
 CLAUDE.md

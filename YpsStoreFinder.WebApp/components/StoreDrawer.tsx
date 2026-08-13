@@ -63,7 +63,7 @@ export default function StoreDrawer({
   isShowAllStoresMode,
   onToggleShowAllStores,
 }: StoreDrawerProps) {
-  const { t, tCategory, tAddress, tStoreName, toMmNum } = useLanguage();
+  const { t, tCategory, tAddress, tStoreName, toMmNum, tStoreCount } = useLanguage();
   const [expandedStops, setExpandedStops] = useState<Record<number, boolean>>({});
   const [busInfo, setBusInfo] = useState<Record<number, StoreNearbyBusStopsDto | null>>({});
   const [loadingBusInfo, setLoadingBusInfo] = useState<Record<number, boolean>>({});
@@ -106,8 +106,8 @@ export default function StoreDrawer({
             <p className="ui-eyebrow text-store">YPS TRANSIT EXPLORER</p>
             <h1 className="ui-page-title mt-1 text-ink">{t('stores')}</h1>
           </div>
-          <StatusBadge tone="store" mono className="min-h-9 max-w-28 justify-center whitespace-normal text-center text-xs leading-relaxed" aria-live="polite">
-            {toMmNum(pagination?.totalCount ?? stores.length)} {t('resultCount')}
+          <StatusBadge tone="store" mono className="min-h-9 max-w-32 justify-center text-center text-xs font-bold leading-relaxed" aria-live="polite">
+            {tStoreCount(pagination?.totalCount ?? stores.length)}
           </StatusBadge>
         </div>
 

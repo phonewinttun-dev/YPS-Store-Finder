@@ -154,7 +154,13 @@ function HomeExplorer() {
     setSelectedStoreId(store.id);
     setActiveDirectionStoreId(store.id);
     setSheetSnap('peek');
-    if (!hasRealLocation) setShowGpsModal(true);
+    if (!hasRealLocation) {
+      if (locationState.permissionState === 'denied') {
+        setShowGpsModal(true);
+      } else {
+        startTracking();
+      }
+    }
   };
 
   const effectiveSheetSnap: SheetSnap = selectedStoreId

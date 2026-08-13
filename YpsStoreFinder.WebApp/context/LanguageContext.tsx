@@ -15,6 +15,7 @@ interface LanguageContextType {
   tAddress: (address: string | null | undefined) => string;
   tStoreName: (name: string) => string;
   toMmNum: (value: number | string | null | undefined) => string;
+  tStoreCount: (count: number | string | null | undefined) => string;
 }
 
 const uiStrings: Record<Language, Record<string, string>> = {
@@ -25,7 +26,7 @@ const uiStrings: Record<Language, Record<string, string>> = {
     stores: 'ဆိုင်များ',
     buses: 'ဘတ်စ်ကား',
     appearance: 'အပြင်အဆင်',
-    systemTheme: 'စနစ်အလိုက်',
+    systemTheme: 'System',
     lightTheme: 'အလင်း',
     darkTheme: 'အမှောင်',
     openExplorer: 'ရှာဖွေရေးကို ဖွင့်ရန်',
@@ -55,7 +56,7 @@ const uiStrings: Record<Language, Record<string, string>> = {
     languageToggle: 'ဘာသာစကား ပြောင်းရန်',
     themeSelector: 'Theme ရွေးရန်',
     skipToContent: 'အဓိကအကြောင်းအရာသို့ ကျော်ရန်',
-    resultCount: 'ရှာဖွေတွေ့ရှိမှု',
+    resultCount: 'ဆိုင်ပေါင်း',
     allBusLines: 'ယာဉ်လိုင်းအားလုံး',
     ypsOnlyLines: 'YPS ကတ် အသုံးပြုနိုင်သော ယာဉ်လိုင်းများ',
     showBusStops: 'အနီးရှိ မှတ်တိုင်များ',
@@ -98,7 +99,7 @@ const uiStrings: Record<Language, Record<string, string>> = {
     languageToggle: 'Change language',
     themeSelector: 'Choose theme',
     skipToContent: 'Skip to main content',
-    resultCount: 'results',
+    resultCount: 'stores',
     allBusLines: 'All bus lines',
     ypsOnlyLines: 'YPS-supported only',
     showBusStops: 'Nearby bus stops',
@@ -197,6 +198,12 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     return language === 'my' ? text.replace(/[0-9]/g, (digit) => digitMap[digit]) : text;
   };
 
+  const tStoreCount = (count: number | string | null | undefined) => {
+    if (count === null || count === undefined) return '';
+    const numText = toMmNum(count);
+    return language === 'my' ? `ဆိုင်ပေါင်း ${numText}` : `${numText} stores`;
+  };
+
   const toggleLanguage = useCallback(
     () => setLanguage(language === 'my' ? 'en' : 'my'),
     [language, setLanguage]
@@ -211,6 +218,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     tAddress,
     tStoreName,
     toMmNum,
+    tStoreCount,
   };
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
