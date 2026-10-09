@@ -91,16 +91,14 @@ export default function MapViewContainer({
       center: [userLocation.latitude, userLocation.longitude],
       zoom: 14,
       minZoom: 10,
-      maxZoom: 20,
+      maxZoom: 19,
       maxBounds: YANGON_BOUNDS,
       maxBoundsViscosity: 1,
       scrollWheelZoom: true,
     });
-    const tileName = resolvedTheme === 'dark' ? 'dark_all' : 'light_all';
-    tileLayerRef.current = L.tileLayer(`https://{s}.basemaps.cartocdn.com/${tileName}/{z}/{x}/{y}{r}.png`, {
-      attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
-      subdomains: 'abcd',
-      maxZoom: 20,
+    tileLayerRef.current = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors',
+      maxZoom: 19,
     }).addTo(map);
     userLayerRef.current = L.layerGroup().addTo(map);
     storesLayerRef.current = L.layerGroup().addTo(map);
@@ -118,11 +116,6 @@ export default function MapViewContainer({
     // The map engine is intentionally initialized once; later effects update its layers.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    const tileName = resolvedTheme === 'dark' ? 'dark_all' : 'light_all';
-    tileLayerRef.current?.setUrl(`https://{s}.basemaps.cartocdn.com/${tileName}/{z}/{x}/{y}{r}.png`);
-  }, [resolvedTheme]);
 
   useEffect(() => {
     if (!mapRef.current || !containerRef.current) return;
