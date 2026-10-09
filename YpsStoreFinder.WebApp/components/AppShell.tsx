@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { Bus, Languages, Map, MapPin, Moon, Sun, Monitor, type LucideIcon } from 'lucide-react';
+import { Bus, Languages, Map, MapPin, Moon, Sun, type LucideIcon } from 'lucide-react';
 import React, { useRef, useState, useSyncExternalStore } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { useTheme, type ThemePreference } from '../context/ThemeContext';
+import { useTheme } from '../context/ThemeContext';
 import AppMark from './AppMark';
 import UiButton from './ui/Button';
 
@@ -25,32 +25,29 @@ const destinations: Array<{ id: AppDestination; href: string; icon: LucideIcon }
   { id: 'buses', href: '/buses', icon: Bus },
 ];
 
-function ThemeSelector({ compact = false }: { compact?: boolean }) {
-  const { preference, setPreference } = useTheme();
+function ThemeToggle({ compact = false }: { compact?: boolean }) {
+  const { resolvedTheme, setPreference } = useTheme();
   const { t } = useLanguage();
-  const Icon = preference === 'dark' ? Moon : preference === 'light' ? Sun : Monitor;
-  const preferenceLabel = preference === 'dark'
-    ? t('darkTheme')
-    : preference === 'light'
-      ? t('lightTheme')
-      : t('systemTheme');
+  const isDark = resolvedTheme === 'dark';
+  const Icon = isDark ? Moon : Sun;
+  const label = isDark ? 'Dark' : 'Light';
+  const nextTheme = isDark ? 'light' : 'dark';
 
   return (
-    <label className={`relative inline-flex ${compact ? 'h-11 w-11' : 'h-12 w-full'}`}>
-      <span className="sr-only">{t('themeSelector')}</span>
-      <Icon className={`pointer-events-none absolute top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-ink ${compact ? 'left-1/2 -translate-x-1/2' : 'left-3.5'}`} />
-      {!compact && <span className="pointer-events-none absolute left-11 top-1/2 z-10 -translate-y-1/2 text-xs font-semibold text-ink">{preferenceLabel}</span>}
-      <select
-        value={preference}
-        onChange={(event) => setPreference(event.target.value as ThemePreference)}
-        className="theme-select ui-button h-full w-full cursor-pointer appearance-none border border-line bg-surface text-transparent shadow-card hover:bg-elevated"
-        aria-label={t('themeSelector')}
-      >
-        <option value="system">{t('systemTheme')}</option>
-        <option value="light">{t('lightTheme')}</option>
-        <option value="dark">{t('darkTheme')}</option>
-      </select>
-    </label>
+    <UiButton
+      onClick={() => setPreference(nextTheme)}
+      size={compact ? 'icon' : 'lg'}
+      className={`${compact ? 'h-11 w-11 p-0' : 'w-full justify-start px-3.5 gap-2'} text-xs shadow-card`}
+      aria-label={`${t('themeSelector')}: ${label}`}
+      title={`${label} mode (click to switch to ${nextTheme})`}
+    >
+      <Icon className="h-3.5 w-3.5 shrink-0 text-ink" />
+      {!compact && (
+        <span aria-hidden="true" className="font-semibold text-ink">
+          {label}
+        </span>
+      )}
+    </UiButton>
   );
 }
 
@@ -105,7 +102,7 @@ function TransitNavigation({ active }: { active: AppDestination }) {
       <div className="flex w-full flex-col gap-2 border-t border-line/60 pt-3">
         <p className="ui-eyebrow px-3">{t('appearance')}</p>
         <LanguageToggle />
-        <ThemeSelector />
+        <ThemeToggle />
       </div>
     </nav>
   );
@@ -134,7 +131,7 @@ function MobileTopBar({ active }: { active: AppDestination }) {
         ))}
       </nav>
       <LanguageToggle compact />
-      <ThemeSelector compact />
+      <ThemeToggle compact />
     </header>
   );
 }
