@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 
 export default function PwaRegister() {
   useEffect(() => {
-    if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
+    if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+      const registerServiceWorker = () => {
         navigator.serviceWorker
           .register('/sw.js')
           .then((registration) => {
@@ -14,7 +14,9 @@ export default function PwaRegister() {
           .catch((error) => {
             console.error('[PWA] ServiceWorker registration failed:', error);
           });
-      });
+      };
+      window.addEventListener('load', registerServiceWorker);
+      return () => window.removeEventListener('load', registerServiceWorker);
     }
   }, []);
 

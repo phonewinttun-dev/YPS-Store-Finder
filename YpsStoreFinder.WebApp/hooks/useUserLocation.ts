@@ -81,19 +81,47 @@ export function useUserLocation() {
       }));
     };
 
-    // Get immediate position first
-    navigator.geolocation.getCurrentPosition(handleSuccess, handleError, {
+    // Attempt position retrieval with high accuracy first, falling back to low accuracy
+    navigator.geolocation.getCurrentPosition(handleSuccess, (err) => {
+      if (err.code === err.TIMEOUT || err.code === err.POSITION_UNAVAILABLE) {
+        navigator.geolocation.getCurrentPosition(handleSuccess, handleError, {
+          enableHighAccuracy: false,
+          timeout: 10000,
+          maximumAge: 5000,
+        });
+      } else {
+        handleError(err);
+      }
+    }, {
       enableHighAccuracy: true,
       timeout: 10000,
       maximumAge: 0,
     });
 
     // Start watch for movement updates
-    watchIdRef.current = navigator.geolocation.watchPosition(handleSuccess, handleError, {
-      enableHighAccuracy: true,
+    watchIdRef.current = navigator.geolocation.watchPosition(handleSuccess, () => {}, {
+      enableHighAccuracy: false,
       timeout: 15000,
-      maximumAge: 2000,
+      maximumAge: 5000,
     });
+  }, []);
+
+  // Sync initial permission state if Permissions API is available
+  useEffect(() => {
+    if (typeof navigator !== 'undefined' && 'permissions' in navigator) {
+      navigator.permissions.query({ name: 'geolocation' }).then((result) => {
+        setLocationState((prev) => ({
+          ...prev,
+          permissionState: result.state as UserLocationState['permissionState'],
+        }));
+        result.onchange = () => {
+          setLocationState((prev) => ({
+            ...prev,
+            permissionState: result.state as UserLocationState['permissionState'],
+          }));
+        };
+      }).catch(() => {});
+    }
   }, []);
 
   // Cleanup on unmount

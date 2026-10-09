@@ -1,132 +1,44 @@
----
-name: YPS Store Finder Design System
-colors:
-  surface: "#f9f9fc"
-  surface-container-lowest: "#ffffff"
-  surface-container-low: "#f3f3f6"
-  surface-container: "#eeeef0"
-  surface-container-high: "#e8e8ea"
-  surface-container-highest: "#e2e2e5"
-  on-surface: "#1a1c1e"
-  on-surface-variant: "#4d4632"
-  outline: "#7f765f"
-  outline-variant: "#d1c6ab"
+# YPS Store Finder Design System
 
-  /* Primary YBS Warm Gold / Yellow Tokens */
-  primary: "#725c00"
-  primary-dark: "#564500"
-  primary-light: "#ffd200"
-  primary-container: "#fff9e6"
-  primary-border: "#ffe07c"
-  on-primary: "#ffffff"
+The application uses a map-first transit console layout with a restrained soft-pastel palette. YPS yellow is the brand anchor; feature meaning is communicated with both color and iconography.
 
-  /* Secondary Transit Blue Tokens */
-  secondary: "#1d5fa8"
-  secondary-dark: "#00417e"
-  secondary-light: "#7ab0ff"
-  secondary-container: "#ebf2f8"
-  on-secondary: "#ffffff"
+## Semantic color roles
 
-  /* Neutral & Utility */
-  cloud-blue: "#ebf2f8"
-  error: "#ba1a1a"
-  error-container: "#ffdad6"
-  on-error: "#ffffff"
+All component colors use RGB CSS variables so Tailwind opacity modifiers remain available.
 
-typography:
-  font-family-sans: "Work Sans, sans-serif"
-  font-family-mono: "JetBrains Mono, monospace"
+| Role | Light | Dark | Meaning |
+| --- | --- | --- | --- |
+| Canvas | `#F7F8FF` | `#121521` | Page and map shell |
+| Surface | `#FFFFFF` | `#1B2030` | Cards and panels |
+| Brand | `#FFF1A8 / #6B5600` | `#F6D867 / #2D2600` | YPS identity |
+| Store | `#FFE3DA / #A23F2B` | `#FF9C85 / #231B19` | Stores and pins |
+| Bus | `#DCEEFF / #0B5F9B` | `#75B9F7 / #10212F` | Buses and stops |
+| GPS | `#DFF7EC / #137455` | `#72D4B3 / #10251D` | Location and distance |
+| Route | `#EEE7FF / #6546AD` | `#B59AFF / #211A32` | Directions and focus |
+| Danger | `#FFE3EF / #A83D69` | `#F58CB3 / #2B111C` | Errors |
 
-  headline-lg:
-    fontFamily: Work Sans
-    fontSize: 24px
-    fontWeight: "700"
-    lineHeight: 32px
-    letterSpacing: -0.01em
-  headline-md:
-    fontFamily: Work Sans
-    fontSize: 18px
-    fontWeight: "600"
-    lineHeight: 24px
-  body-md:
-    fontFamily: Work Sans
-    fontSize: 14px
-    fontWeight: "400"
-    lineHeight: 20px
-  meta-mono:
-    fontFamily: JetBrains Mono
-    fontSize: 11px
-    fontWeight: "600"
-    lineHeight: 16px
----
+## Typography
 
-# YPS Store Finder Design System & Color Specs
+- Sora: English UI and display text.
+- Noto Sans Myanmar: Myanmar UI and content.
+- JetBrains Mono: route numbers, distances, counts, and other numeric metadata.
 
-This document defines the authoritative color scheme, typography, depth system, and UI component specifications used in the YPS Store Finder Web Application.
+Fonts are loaded with `next/font`; no render-blocking font stylesheet is used.
 
----
+## Layout
 
-## 1. Color Palette & Utility System
+- Desktop: 80px navigation rail, 400–420px store explorer, remaining space for the live map.
+- Mobile: 64px utility bar, full map, and a draggable explorer with 112px, 55dvh, and 88dvh snap points.
+- Bus and detail routes reuse the same rail and mobile utility bar.
 
-### Primary Identity: YBS Warm Gold & Yellow
-The primary color scheme captures the iconic Yangon Payment Service (YPS) / Yangon Bus Service (YBS) visual identity, offering high contrast and legibility across mobile and web viewports.
+## Interaction and accessibility
 
-- **Primary Action Accent (`#725c00`)**: Deep warm gold used for primary CTA buttons ("Show Direction", "View Map"), active badges, and key icons.
-- **Primary Hover (`#564500`)**: Darker shade for interactive button hover states.
-- **Soft Yellow Container (`#fff9e6`)**: Light warm cream background for badges, active chips, and store bus stop pills.
-- **Yellow Border Highlight (`#ffe07c`)**: Subtle 1px borders paired with `#fff9e6` containers.
+- Minimum interactive target: 44px.
+- Keyboard-visible violet focus ring.
+- Explorer handle: pointer drag plus Arrow Up/Down, Home, and End.
+- Dialogs trap focus, close with Escape, and restore focus.
+- Motion is disabled under `prefers-reduced-motion`.
+- Language, theme, and state labels are never communicated by color alone.
+- Browser zoom remains unrestricted.
 
-### Secondary Identity: Transit Blue
-The secondary color scheme represents transit navigation, route tracking, and bus stop indicators.
-
-- **Transit Blue (`#1d5fa8`)**: Used for user location pulse markers, bus route numbers, and transit links.
-- **Transit Blue Dark (`#00417e`)**: Text color for high-contrast transit metadata.
-- **Transit Blue Container (`#ebf2f8`)**: Soft blue background used for bus stop pills and badges.
-- **Transit Blue Light Border (`#7ab0ff`)**: Border accent for bus stop badges.
-
-### Surface & Background Tokens
-- **Base Background (`#f9f9fc`)**: Very light cool gray surface for card containers and drawer scroll panes.
-- **Card Surface (`#ffffff`)**: Pure white background for elevated store cards and popup windows.
-- **Borders (`#e2e2e5` / `#f3f3f6`)**: Soft dividers providing visual structure without clutter.
-
----
-
-## 2. Glassmorphism & Depth Layers
-
-- **Glass Panels (`.glass-panel`)**:
-  - `background: rgba(255, 255, 255, 0.88)`
-  - `backdrop-filter: blur(20px)`
-  - Used for floating headers, search inputs, and mobile navigation tabs to preserve map context.
-- **Card Depth**:
-  - Standard Cards: 1px border (`#e2e2e5`), soft shadow (`shadow-slate-200/50`).
-  - Active/Selected Store Card: White surface with 1px `#725c00` or `#3b82f6` border highlight.
-
----
-
-## 3. Component Specs
-
-### Nearest Bus Stop Badges
-- **Container**: `#fff9e6` (Soft Warm Cream)
-- **Text**: `#725c00` (Bold 11px Work Sans)
-- **Border**: `#ffe07c` (1px solid)
-- **Border Radius**: `8px` (`rounded-lg`)
-
-### Primary Buttons ("Show Direction")
-- **Background**: `#725c00` (Solid Warm Gold)
-- **Text**: `#ffffff` (White, Bold 12px)
-- **Shadow**: `shadow-md shadow-[#725c00]/20`
-- **Border Radius**: `12px` (`rounded-xl`)
-
-### Secondary Buttons ("Show Bus Lines")
-- **Background**: `#ffffff` (White) / `#fff9e6` (Active)
-- **Text**: `#374151` / `#725c00`
-- **Border**: `1px solid #e5e7eb` / `#ffe07c`
-- **Border Radius**: `12px` (`rounded-xl`)
-
----
-
-## 4. Typography Rules
-
-- **Work Sans**: Used for all UI headings, body text, store names, and button labels.
-- **JetBrains Mono**: Used for numerical metadata (distances e.g. `0.3km`, bus line numbers e.g. `YBS 3`, store IDs).
-
+The transit ribbon is the signature accent: coral for stores, sky for buses, mint for GPS, and violet for routes. It is limited to shell and route hierarchy so map data remains visually dominant.
